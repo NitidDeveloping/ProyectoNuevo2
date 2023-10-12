@@ -28,7 +28,7 @@ namespace CapaEntidades
 
         public override string ToString()
         {
-            return " "+Nid.ToString() + "-" + Turno.ToString(); 
+            return " "+Nid.ToString() + "-" + Turno.ToString();
         }
     }
 }

@@ -42,10 +42,10 @@ namespace CapaEntidades
 
             foreach (Hora hora in horas)
             {
-                str += hora.ToString()+",";
+                str += hora.ToString()+", ";
             }
-            str.Remove(str.Length - 1);
-            return str; 
+            str.Remove(str.Length - 2);
+            return str;
         }
     }
 }

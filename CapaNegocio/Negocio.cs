@@ -11,54 +11,10 @@ namespace CapaNegocio
     {
         //Metodos y propiedades para operaciones basicas del menu de gestiones
         #region
-
-        public RetornoValidacion Agregar(TipoReferencia referencia, object item, string id)
+        public DataTable Listar(TipoReferencia referencia, string columna, object valor, Type tipo)
         {
             Datos datos = new Datos();
-            if (datos.Consultar(referencia, id) != null)
-            {
-                return RetornoValidacion.YaExiste;
-            }
-            else
-            {
-                return datos.Agregar(referencia, item);
-
-            }
-        }
-
-        public RetornoValidacion Editar(TipoReferencia referencia, object item, string idObjetivo)
-        {
-            Datos datos = new Datos();
-            if (datos.Consultar(referencia, idObjetivo) != null)
-            {
-                return datos.Editar(referencia, item, idObjetivo);
-
-            }
-            else
-            {
-                return RetornoValidacion.NoExiste;
-            }
-        }
-
-        public RetornoValidacion Eliminar(TipoReferencia referencia, string idObjetivo)
-        {
-            Datos datos = new Datos();
-            if (datos.Consultar(referencia, idObjetivo) != null)
-            {
-                return datos.Eliminar(referencia, idObjetivo);
-
-            }
-            else
-            {
-                return RetornoValidacion.NoExiste;
-            }
-        }
-
-
-        public DataTable Listar(TipoReferencia referencia, string columna, object valor)
-        {
-            Datos datos = new Datos();
-            List<object> lista = datos.Listar(referencia, columna, valor);
+            List<object> lista = datos.Listar(referencia, columna, valor, tipo);
             DataTable dt = new DataTable();
 
             //Segun la referencia arma los datatable y los rellena
@@ -74,11 +30,7 @@ namespace CapaNegocio
                     {
                         if (objeto is Alumno alumno)
                         {
-                            List<Grupo> grupos = datos.ConsultarGruposAlumno(alumno.CI);
-
-                            // Concatena los nombres de los grupos en una cadena
-                            string grupoStr = string.Join(", ", grupos.Select(grupo => grupo.Nombre));
-                            dt.Rows.Add(alumno.CI, alumno.Nombre, alumno.Apellido, grupoStr);
+                            dt.Rows.Add(alumno.CI, alumno.Nombre, alumno.Apellido, alumno.Strgrupos);
                         }
 
                     }
@@ -301,6 +253,50 @@ namespace CapaNegocio
             return dt;
         }
 
+        public RetornoValidacion Agregar(TipoReferencia referencia, object item, string id)
+        {
+            Datos datos = new Datos();
+            if (datos.Consultar(referencia, id) != null)
+            {
+                return RetornoValidacion.YaExiste;
+            }
+            else
+            {
+                return datos.Agregar(referencia, item);
+
+            }
+        }
+
+        public RetornoValidacion Editar(TipoReferencia referencia, object item, string idObjetivo)
+        {
+            Datos datos = new Datos();
+            if (datos.Consultar(referencia, idObjetivo) != null)
+            {
+                return datos.Editar(referencia, item, idObjetivo);
+
+            }
+            else
+            {
+                return RetornoValidacion.NoExiste;
+            }
+        }
+
+        public RetornoValidacion Eliminar(TipoReferencia referencia, string idObjetivo)
+        {
+            Datos datos = new Datos();
+            if (datos.Consultar(referencia, idObjetivo) != null)
+            {
+                return datos.Eliminar(referencia, idObjetivo);
+
+            }
+            else
+            {
+                return RetornoValidacion.NoExiste;
+            }
+        }
+
+
+       
 
         #endregion
 

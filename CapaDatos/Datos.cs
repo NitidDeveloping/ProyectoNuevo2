@@ -3,6 +3,7 @@ using CapaEntidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.CodeDom;
 
 namespace CapaDatos
 {
@@ -10,7 +11,7 @@ namespace CapaDatos
     {
         //Metodos para operaciones en el menu de gestiones (listar, agregar, eliminar, consultar)
         #region
-        public List<object> Listar(TipoReferencia referencia, string columna, object valor) //Devuelve una lista de objetos segun la referencia que se le mande (searchtext no del todo implementado)
+        public List<object> Listar(TipoReferencia referencia, string columna, object valor, Type tipo) //Devuelve una lista de objetos segun la referencia que se le mande (searchtext no del todo implementado)
         {
             //Variables
             MySqlCommand cmd;
@@ -25,7 +26,7 @@ namespace CapaDatos
             switch (referencia)
             {
                 case TipoReferencia.Alumno:
-                    cmdstr = "SELECT Nombre, Apellido, CI_Alumno FROM Usuario_Alumno;";
+                    cmdstr = "SELECT Nombre, Apellido, CI_Alumno, Grupos FROM Usuario_Alumno;";
                     break;
 
                 case TipoReferencia.Turno:
@@ -96,13 +97,14 @@ namespace CapaDatos
                         "    AND GMHC.ID_Materia = GMH.ID_Materia " +
                         "    AND GMHC.ID_Horario = GMH.ID_Horario " +
                         "LEFT JOIN Horario ON GMH.ID_Horario = Horario.ID_Horario " +
-                        "GROUP BY " +
+                        "\r /*Where*/ \r" +
+                        " GROUP BY " +
                         "    Lugar.ID, " +
                         "    Lugar.Nombre, " +
                         "    Lugar.Tipo, " +
                         "    Lugar.Piso, " +
                         "    Lugar.Coordenada_X, " +
-                        "    Lugar.Coordenada_Y; ";
+                        "    Lugar.Coordenada_Y;";
                     break;
 
                 case TipoReferencia.Funcionario:
@@ -121,10 +123,30 @@ namespace CapaDatos
             //Si el metodo se invoca con algo en la columna se agregan parametros para hacer los filtros
             if (columna != null)
             {
-                cmdstr = cmdstr.Replace(";", "WHERE @Columna LIKE @Valor;");
+                //Si la referencia es el lugar entonces reemplazamos comentaria --Where porque sino la consulta da problemas por el where
+                cmdstr = referencia == TipoReferencia.Lugar
+                    ? cmdstr.Replace("/*Where*/", " WHERE " + columna + "  LIKE @Valor ")
+                    : cmdstr.Replace(";", " WHERE " + columna + "  LIKE @Valor ;");
+
                 cmd = new MySqlCommand(cmdstr, conn); //Asigno el cmdstring al mysqlcommand
-                cmd.Parameters.AddWithValue("@Columna", columna);
+                valor = "%" + valor.ToString() + "%";
                 cmd.Parameters.AddWithValue("@Valor", valor);
+                /*if (valor is int)
+                {
+                    cmd.Parameters.Add("@Valor", MySqlDbType.Int32).Value = valor;
+                }*/
+
+                /* switch (tipo.Name)
+                 {
+                     case "Int32":
+                         if (valor is int num)
+                         {
+                             cmd.Parameters.Add("@Valor", MySqlDbType.Int32).Value = num;
+                         }
+                         break;
+
+                 }*/
+
             }
             else
             {
@@ -145,7 +167,7 @@ namespace CapaDatos
                     switch (referencia)//Segun la referencia inicializa aux de una forma u otra
                     {
                         case TipoReferencia.Alumno:
-                            aux = new Alumno(dr.GetString(0), dr.GetString(1), dr.GetInt32(2));
+                            aux = new Alumno(dr.GetString(0), dr.GetString(1), dr.GetInt32(2), dr.GetString(3));
                             break;
 
                         case TipoReferencia.Turno:
@@ -221,7 +243,7 @@ namespace CapaDatos
         {
             RetornoValidacion respuesta;
             string cmdstr = "DELETE from @TablaReferencia where @ClavePrimaria=@ID";
-            MySqlConnection conn = Conector.crearInstancia().crearConexion(); 
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
             MySqlCommand cmd;
 
             switch (referencia)
@@ -277,6 +299,10 @@ namespace CapaDatos
             {
                 case TipoReferencia.Usuario:
                     cmdstr = "INSERT INTO Usuario (CI, PIN, Nombre, Apellido) VALUES (@CI, @PIN, @Nombre, @Apellido);";
+                    break;
+
+                case TipoReferencia.Grupo:
+                    cmdstr = "INSERT INTO Grupo (Anio, Turno, ID_Grupo, Orientacion) VALUES (@Anio, @Turno, @ID_Grupo, @Orientacion);";
                     break;
 
                 default:
@@ -420,7 +446,7 @@ namespace CapaDatos
                 switch (referencia)//Segun la referencia inicializa aux de una forma u otra
                 {
                     case TipoReferencia.Alumno:
-                        respuesta = new Alumno(dr.GetString(1), dr.GetString(2), dr.GetInt32(0));
+                        respuesta = new Alumno(dr.GetString(1), dr.GetString(2), dr.GetInt32(0), dr.GetString(3));
                         break;
                     default: throw new ArgumentException("Argumento de consulta imposible de transformar, contacte a un administrador si el problema persiste");
                 }

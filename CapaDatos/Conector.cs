@@ -12,6 +12,7 @@ namespace CapaDatos
         private string pwd;
         private string database;
         private Sesion sesion;
+        private string userVariables;
         
         private static Conector conn = null;
 
@@ -35,7 +36,7 @@ namespace CapaDatos
             {
                 //Crear cadena de conexión
 
-                conn.ConnectionString = "server=" + this.server + ";uid=" + this.uid + ";pwd=" + this.pwd + ";database=" + this.database;
+                conn.ConnectionString = "server=" + this.server + ";uid=" + this.uid + ";pwd=" + this.pwd + ";database=" + this.database + ";Allow User Variables = true";
             }
             catch(Exception ex)
             {
