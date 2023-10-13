@@ -60,7 +60,7 @@ namespace Proyecto
 
                         //Asignamos valores al combobox
                         lblCbx1.Text = "Grupos"; // Seteamos nombre del label
-                        cbx1.DataSource = negocio.Listar(TipoReferencia.Grupo, null, null, null); //Seteamos datasource en una lista con todos los grupos existentes en la base de datos
+                        cbx1.DataSource = negocio.Listar(TipoReferencia.Grupo, null, null); //Seteamos datasource en una lista con todos los grupos existentes en la base de datos
                         cbx1.DisplayMember = "Nombre"; //Seteamos la columna que se le mostrara al usuario en la columna del nombre del grupo para que le resulte amigable al usuario
                         cbx1.ValueMember = "Nombre"; // Seteamos el valor con el que trabajara el sistema en la id del grupo (en este caso ambos son lo mismo)
 

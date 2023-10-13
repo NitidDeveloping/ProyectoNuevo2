@@ -22,7 +22,7 @@ namespace CapaEntidades
         private bool isUsoComun;
         private bool ocupado;
 
-        public Lugar(ushort id, string nombre, int coordenada_x, int coordenada_y, byte piso, bool isClase, bool isUsoComun, TipoLugar tipo)
+        public Lugar(ushort id, string nombre, int coordenada_x, int coordenada_y, byte piso, bool isClase, bool isUsoComun, TipoLugar tipo, bool ocupado)
         {
             this.id = id;
             this.nombre = nombre;
@@ -32,6 +32,7 @@ namespace CapaEntidades
             this.tipo = tipo;
             this.isClase = isClase;
             this.isUsoComun = isUsoComun;
+            this.ocupado = ocupado;
         }
 
        /* public Lugar(string nombre, string tipo, string piso, int coordenada_x, int coordenada_y, bool isClase, bool isUsoComun, string estado)

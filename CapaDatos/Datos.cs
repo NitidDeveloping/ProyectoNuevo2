@@ -11,7 +11,7 @@ namespace CapaDatos
     {
         //Metodos para operaciones en el menu de gestiones (listar, agregar, eliminar, consultar)
         #region
-        public List<object> Listar(TipoReferencia referencia, string columna, object valor, Type tipo) //Devuelve una lista de objetos segun la referencia que se le mande (searchtext no del todo implementado)
+        public List<object> Listar(TipoReferencia referencia, string columna, object valor) //Devuelve una lista de objetos segun la referencia que se le mande (searchtext no del todo implementado)
         {
             //Variables
             MySqlCommand cmd;
@@ -72,11 +72,11 @@ namespace CapaDatos
                     break;
 
                 case TipoReferencia.Lugar:
-                    cmdstr = "SELECT ID, Nombre, Tipo, Nombre_Tipo, Coordenada_X, Coordenada_Y, AptoParaClase, UsoComun, EstadoOcupacion FROM Lugares;";
+                    cmdstr = "SELECT ID, Nombre, Tipo, Nombre_Tipo, Coordenada_X, Coordenada_Y, Piso, AptoParaClase, UsoComun, EstadoOcupacion FROM Lugares;";
                     break;
 
                 case TipoReferencia.Funcionario:
-                    cmdstr = "SELECT Nombre, Apellido, CI_Funcionario, Cargo, Nombre_Cargo, Tipo, Fecha_Ingreso FROM Usuario_Funcionario /*Where*/ ;";
+                    cmdstr = "SELECT Nombre, Apellido, CI_Funcionario, Cargo, Nombre_Cargo, Tipo, Fecha_Ingreso FROM Usuario_Funcionario;";
                     break;
 
                 case TipoReferencia.TipoDeLugar:
@@ -92,9 +92,7 @@ namespace CapaDatos
             if (columna != null)
             {
                 //Si la referencia es el lugar entonces reemplazamos comentaria --Where porque sino la consulta da problemas por el where
-                cmdstr = referencia == TipoReferencia.Lugar
-                    ? cmdstr.Replace("/*Where*/", " WHERE " + columna + "  LIKE @Valor ")
-                    : cmdstr.Replace(";", " WHERE " + columna + "  LIKE @Valor ;");
+                cmdstr = cmdstr.Replace(";", " WHERE " + columna + "  LIKE @Valor ;");
 
                 cmd = new MySqlCommand(cmdstr, conn); //Asigno el cmdstring al mysqlcommand
                 valor = "%" + valor.ToString() + "%";
@@ -175,7 +173,7 @@ namespace CapaDatos
 
                         case TipoReferencia.Lugar:
                             TipoLugar auxtipolugar = new TipoLugar(dr.GetByte(2), dr.GetString(3));
-                            aux = new Lugar(dr.GetUInt16(0), dr.GetString(1), dr.GetInt32(5), dr.GetInt32(6), dr.GetByte(4), dr.GetBoolean(7), dr.GetBoolean(8), auxtipolugar);
+                            aux = new Lugar(dr.GetUInt16(0), dr.GetString(1), dr.GetInt32(4), dr.GetInt32(5), dr.GetByte(6), dr.GetBoolean(7), dr.GetBoolean(8), auxtipolugar, dr.GetBoolean(9));
                             break;
 
                         case TipoReferencia.Funcionario:

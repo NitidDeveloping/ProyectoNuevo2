@@ -157,7 +157,6 @@ namespace Proyecto
 
                 Negocio negocio = new Negocio(); //Instancia para ejecutar metodo Listar en la clase negocio
                 string columna = null; //String para almacenar por que columna queremos buscar en la base de datos
-                Type tipo = null; //Typo para decidir que tipo le pasamos al parametro del select en la consulta en la base de datos (Metodo Datos.Listar(referencia, columna, valor, tipo))
                 object valor = null; //Valor seleccionado en searchField actual para buscar en la consulta de bd
 
 
@@ -171,12 +170,6 @@ namespace Proyecto
 
                         //Variabla auxiliar para recuperar el roy seleccionado actualmente en el comboColum
                         DataRowView selectedRow = (DataRowView)comboColumn.SelectedItem;
-
-                        //Transforma el cuarto elemento de la row selecciona en un type y lo asigna al tipo
-                        if (selectedRow.Row.ItemArray[3] is Type type)
-                        {
-                            tipo = type;
-                        }
                     }
                 }));
 
@@ -193,12 +186,13 @@ namespace Proyecto
                 {
                     comboSearch.Invoke((MethodInvoker)(() =>
                     {
-                        DataRowView selectedRow = (DataRowView)comboSearch.SelectedItem;
+                        valor = comboSearch.SelectedValue;
+                        /*DataRowView selectedRow = (DataRowView)comboSearch.SelectedItem;
 
                         if (selectedRow.Row.ItemArray[1] is object obj)
                         {
                             valor = obj;
-                        }
+                        }*/
                     }));
                 }
                 //Si es el textbox de busqueda pasa su texto
@@ -217,13 +211,13 @@ namespace Proyecto
                     valor = timePickerSearch.Value;
                 }
 
-                e.Result = negocio.Listar(Sesion.ReferenciaActual, columna, valor, tipo);
+                e.Result = negocio.Listar(Sesion.ReferenciaActual, columna, valor);
 
              }
              catch (Exception ex)
              {
-                 MsgBox msg = new MsgBox("error", ex.ToString());
-                 msg.ShowDialog();
+                MsgBox msg = new MsgBox("error", ex.ToString());
+                msg.ShowDialog();
              }
         }
 
@@ -295,6 +289,21 @@ namespace Proyecto
                 if (selectedRow.Row.ItemArray[2] is Control control)
                 {
                     SetActiveSearchField(control);
+
+                    if (control == comboSearch)
+                    {
+                        Negocio negocio = new Negocio();
+                        TipoReferencia referencia = (TipoReferencia)selectedRow.Row.ItemArray[3];
+                        DataTable dt = negocio.Listar(referencia, null, null);
+
+                        string nombre = dt.Columns[1].ColumnName;
+                        string id = dt.Columns[0].ColumnName;
+
+                        comboSearch.DataSource = dt;
+                        comboSearch.DisplayMember = nombre;
+                        comboSearch.ValueMember = id;
+
+                    }
                 }
                 btnSearch.Enabled = true;
             }
@@ -315,7 +324,6 @@ namespace Proyecto
             dt.Columns.Add("Columna", typeof(string)); //Nombre que vera el usuario
             dt.Columns.Add("ColumnaBD", typeof(string)); //Nombre de la columna que recibira la bd
             dt.Columns.Add("TipoControl", typeof(Control)); //Tipo de campo de busqueda que se usara para seleccionar el valor
-            dt.Columns.Add("TipoValor", typeof(Type)); //Tipo del valor que debe enviar, se ingresa con un add de una forma u otra en la capa de Datos dependiendo de este
             dt.Columns.Add("ReferenciaLista", typeof(TipoReferencia)); //Con que se llenara el combosearch si este esta en uso
             return dt;
         }
@@ -326,10 +334,10 @@ namespace Proyecto
         {
             DataTable dt = FormatodDataTablePropsColumns();
 
-            dt.Rows.Add("CI", "CI_Alumno", txtSearch, typeof(int));
-            dt.Rows.Add("Nombre", "Nombre", txtSearch, typeof(string));
-            dt.Rows.Add("Apellido", "Apellido", txtSearch, typeof(string));
-            dt.Rows.Add("Grupo(s)", "Grupos", txtSearch, typeof(string));
+            dt.Rows.Add("CI", "CI_Alumno", txtSearch, null);
+            dt.Rows.Add("Nombre", "Nombre", txtSearch, null);
+            dt.Rows.Add("Apellido", "Apellido", txtSearch, null);
+            dt.Rows.Add("Grupo(s)", "Grupos", txtSearch, null);
 
             return dt;
         }
@@ -338,7 +346,7 @@ namespace Proyecto
         {
             DataTable dt = FormatodDataTablePropsColumns();
 
-            dt.Rows.Add("Año", "Anio", txtSearch, typeof(int));
+            dt.Rows.Add("Año", "Anio", txtSearch, null);
 
             return dt;
         }
@@ -347,9 +355,9 @@ namespace Proyecto
         {
             DataTable dt = FormatodDataTablePropsColumns();
 
-            dt.Rows.Add("CI", "CI_Docente", txtSearch, typeof(int));
-            dt.Rows.Add("Nombre", "Nombre", txtSearch, typeof(string));
-            dt.Rows.Add("Apellido", "Apellido", txtSearch, typeof(string));
+            dt.Rows.Add("CI", "CI_Docente", txtSearch, null);
+            dt.Rows.Add("Nombre", "Nombre", txtSearch, null);
+            dt.Rows.Add("Apellido", "Apellido", txtSearch, null);
 
             return dt;
         }
@@ -359,12 +367,12 @@ namespace Proyecto
             //"SELECT Nombre, Apellido, CI_Funcionario, Cargo, Nombre_Cargo, Tipo, Fecha_Ingreso FROM Usuario_Funcionario;";
             DataTable dt = FormatodDataTablePropsColumns();
 
-            dt.Rows.Add("CI", "CI_Funcionario", txtSearch, typeof(int));
-            dt.Rows.Add("Nombre", "Nombre", txtSearch, typeof(string));
-            dt.Rows.Add("Apellido", "Apellido", txtSearch, typeof(string));
-            dt.Rows.Add("Cargo", "Cargo", comboSearch, typeof(byte));
-            dt.Rows.Add("Administradores", "Tipo", chkSearch, typeof(bool));
-            dt.Rows.Add("Fecha", "Fecha_Ingreso", datePickerSearch, typeof(DateTime));
+            dt.Rows.Add("CI", "CI_Funcionario", txtSearch, null);
+            dt.Rows.Add("Nombre", "Nombre", txtSearch, null);
+            dt.Rows.Add("Apellido", "Apellido", txtSearch, null);
+            dt.Rows.Add("Cargo", "Cargo", comboSearch, TipoReferencia.CargosFuncionarios);
+            dt.Rows.Add("Administradores", "Tipo", chkSearch, null);
+            dt.Rows.Add("Fecha", "Fecha_Ingreso", datePickerSearch, null);
 
             return dt;
         }
@@ -382,11 +390,11 @@ namespace Proyecto
 
             DataTable dt = FormatodDataTablePropsColumns();
 
-            dt.Rows.Add("Nombre", "ID_Grupo", txtSearch, typeof(string));
-            dt.Rows.Add("Año", "Anio", txtSearch, typeof(int));
-            dt.Rows.Add("Orientacion", "Orientacion", comboSearch, typeof(byte));
-            dt.Rows.Add("Turno", "Turno", comboSearch, typeof(byte));
-            dt.Rows.Add("Cantidad de alumnos", "Lista", txtSearch, typeof(byte));
+            dt.Rows.Add("Nombre", "ID_Grupo", txtSearch, null);
+            dt.Rows.Add("Año", "Anio", txtSearch, null);
+            dt.Rows.Add("Orientacion", "Orientacion", comboSearch, TipoReferencia.Orientacion);
+            dt.Rows.Add("Turno", "Turno", comboSearch, TipoReferencia.Turno);
+            dt.Rows.Add("Cantidad de alumnos", "Lista", txtSearch, null);
 
             return dt;
         }
@@ -399,10 +407,10 @@ namespace Proyecto
 
             DataTable dt = FormatodDataTablePropsColumns();
 
-            dt.Rows.Add("Numero de Hora", "ID_Horario", txtSearch, typeof(byte));
-            dt.Rows.Add("Turno", "Turno", comboSearch, typeof(byte));
-            dt.Rows.Add("Inicio", "Hora_Inicio", timePickerSearch, typeof(TimeSpan));
-            dt.Rows.Add("Fin", "Hora_Fin", timePickerSearch, typeof(TimeSpan));
+            dt.Rows.Add("Numero de Hora", "ID_Horario", txtSearch, null);
+            dt.Rows.Add("Turno", "Turno", comboSearch, TipoReferencia.Turno);
+            dt.Rows.Add("Inicio", "Hora_Inicio", timePickerSearch, null);
+            dt.Rows.Add("Fin", "Hora_Fin", timePickerSearch, null);
 
             return dt;
         }
@@ -417,45 +425,14 @@ namespace Proyecto
 
         private DataTable CargarPropsLugares()
         {
-            /*SELECT 
-    Lugar.ID, Lugar.Nombre, Lugar.Tipo, Tipo_lugar.Nombre_Tipo, Lugar.Piso, Lugar.Coordenada_X, Lugar.Coordenada_Y, 
-    CASE WHEN Clase.ID_Clase IS NOT NULL THEN true ELSE false END AS AptoParaClase, 
-    CASE WHEN UC.ID_UsoComun IS NOT NULL THEN true ELSE false END AS UsoComun, 
-    CASE 
-        WHEN GMHC.ID_Grupo IS NOT NULL 
-            AND (DATE_FORMAT(NOW(), '%H:%i') >= DATE_FORMAT(Horario.Hora_Inicio, '%H:%i') 
-                AND DATE_FORMAT(NOW(), '%H:%i') < DATE_FORMAT(Horario.Hora_Fin, '%H:%i')) 
-        THEN false 
-        ELSE true 
-    END AS EstadoOcupacion 
-FROM lugar 
-JOIN Tipo_Lugar ON Lugar.Tipo = Tipo_Lugar.Tipo 
-LEFT JOIN Clase ON Lugar.ID = Clase.ID_Clase
-LEFT JOIN Grupo_Materia_Horario_Clase GMHC ON Clase.ID_Clase = GMHC.ID_Clase 
-LEFT JOIN Uso_Comun UC ON Lugar.ID = UC.ID_UsoComun 
-LEFT JOIN Grupo_Materia_Horario GMH ON GMHC.ID_Grupo = GMH.ID_Grupo 
-    AND GMHC.ID_Materia = GMH.ID_Materia 
-    AND GMHC.Turno= GMH.Turno
-    AND GMHC.ID_Horario = GMH.ID_Horario 
-    AND GMHC.Dia_Semana= GMH.Dia_Semana
-LEFT JOIN Horario ON GMH.ID_Horario = Horario.ID_Horario
-	 AND GMH.Turno = Horario.Turno
-GROUP BY 
-    Lugar.ID,
-    Lugar.Nombre, 
-    Lugar.Tipo, 
-    Lugar.Piso, 
-    Lugar.Coordenada_X, 
-    Lugar.Coordenada_Y; */
-
             DataTable dt = FormatodDataTablePropsColumns();
 
-            dt.Rows.Add("Nombre", "Lugar.Nombre", txtSearch, typeof(string));
-            dt.Rows.Add("Tipo", "Lugar.Tipo", comboSearch, typeof(byte));
-            dt.Rows.Add("Piso", "Lugar.Piso", txtSearch, typeof(byte));
-            dt.Rows.Add("Clases", "AptoParaClase", chkSearch, typeof(bool));
-            dt.Rows.Add("De uso comun", "UsoComun", chkSearch, typeof(bool));
-            dt.Rows.Add("Ocupado", "EstadoOcupacion", chkSearch, typeof(bool));
+            dt.Rows.Add("Nombre", "Nombre", txtSearch, null);
+            dt.Rows.Add("Tipo", "Tipo", comboSearch, TipoReferencia.TipoDeLugar);
+            dt.Rows.Add("Piso", "Piso", txtSearch, null);
+            dt.Rows.Add("Clases", "AptoParaClase", chkSearch, null);
+            dt.Rows.Add("De uso comun", "UsoComun", chkSearch, null);
+            dt.Rows.Add("Ocupado", "EstadoOcupacion", chkSearch, null);
 
             return dt;
         }
@@ -466,7 +443,7 @@ GROUP BY
 
             DataTable dt = FormatodDataTablePropsColumns();
 
-            dt.Rows.Add("Nombre", "Nombre", txtSearch, typeof(string));
+            dt.Rows.Add("Nombre", "Nombre", txtSearch, null);
 
             return dt;
         }
@@ -477,7 +454,7 @@ GROUP BY
 
             DataTable dt = FormatodDataTablePropsColumns();
 
-            dt.Rows.Add("Nombre", "Nombre_Orientacion", txtSearch, typeof(string));
+            dt.Rows.Add("Nombre", "Nombre_Orientacion", txtSearch, null);
 
             return dt;
         }
@@ -488,7 +465,7 @@ GROUP BY
 
             DataTable dt = FormatodDataTablePropsColumns();
 
-            dt.Rows.Add("Nombre", "Nombre_Turno", txtSearch, typeof(string));
+            dt.Rows.Add("Nombre", "Nombre_Turno", txtSearch, null);
 
             return dt;
         }

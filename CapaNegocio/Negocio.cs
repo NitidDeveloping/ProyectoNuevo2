@@ -11,10 +11,10 @@ namespace CapaNegocio
     {
         //Metodos y propiedades para operaciones basicas del menu de gestiones
         #region
-        public DataTable Listar(TipoReferencia referencia, string columna, object valor, Type tipo)
+        public DataTable Listar(TipoReferencia referencia, string columna, object valor)
         {
             Datos datos = new Datos();
-            List<object> lista = datos.Listar(referencia, columna, valor, tipo);
+            List<object> lista = datos.Listar(referencia, columna, valor);
             DataTable dt = new DataTable();
 
             //Segun la referencia arma los datatable y los rellena
