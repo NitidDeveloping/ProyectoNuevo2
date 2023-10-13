@@ -295,9 +295,6 @@ namespace CapaNegocio
             }
         }
 
-
-       
-
         #endregion
 
 

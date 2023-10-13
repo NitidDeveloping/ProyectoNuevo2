@@ -3,6 +3,7 @@ using CapaNegocio;
 using System;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -80,10 +81,58 @@ namespace Proyecto
 
         private void BtnEditar_Click(object sender, EventArgs e)
         {
+            //Variables que enviaremos al formulario agregarEditar
+            string idDestino; //idDestino del objeto sobre el que trabajaremos en la bd
+            object objetoDestino; //Objeto que contiene la informacion sobre el objeto que vamos a editar en la base de datos
+            string nombreDestino; // Nombre que mostraremos en el lblDestino para que el usuario lo vea, no debe ser id si el id es un numero que el usuario no tiene porque saber (ej:Id_materia)
+
+            //Evaluamos si el usuario selecciono una linea del DGV
+            //Si lo hizo abrimos el AgregarEditar con los valores correspondientes a lo que haya seleccionado
+            //Sino mostramos un mensaje diciendo que debe seleccionar una linea de la lista
+            if (DGV.SelectedRows.Count > 0)
+            {
+                //Instanciamos la linea que selecciono el usuario para trabajar con ella
+                DataGridViewRow row = DGV.SelectedRows[0];
+
+                //Segun la referencia actual en la seseion armamos los objetos con unos campos u otros de el dgv
+                switch (Sesion.ReferenciaActual)
+                {
+                    case TipoReferencia.Alumno:
+
+                        //Variables que usaremos para crear el objetoDestino (en este caso de la clase Alumno)
+                        string nombreAlumno = row.Cells["Nombre"].Value.ToString(); ;
+                        string apellidoAlumno = row.Cells["Apellido"].Value.ToString(); ;
+                        int ciAlumno = (int)row.Cells["CI"].Value; ;
+
+                        //idDestino con el que trabajara la bd (en este caso el CI del alumno)
+                        idDestino = row.Cells["CI"].Value.ToString();
+
+                        //Nombre que vera el usuario
+                        nombreDestino = row.Cells["CI"].Value.ToString();
+
+                        //Objeto del cual se cargaran los datos en el formulario a la hora de editar
+                        objetoDestino = new Alumno(nombreAlumno, apellidoAlumno, ciAlumno);
+
+                        /* ------- Para saber a que nombres de las columnas referirse ir a Negocios Listar(), ahi es donde se arman los datatable ------------ */
+                        break;
+
+                    default: throw new Exception("No implementado, switch btnEditar_Click en Lista capa Presentacion");
+                }
+                //Abrimos el formulario agregar editar con los argumentos que hemos fabricado arriba
+                AbrirAgregarEditar(objetoDestino, idDestino, nombreDestino);
+            }
+            else
+            {
+                //Mensaje de error
+                MsgBox msg = new MsgBox("error", "Debe seleccionar una fila de la lista para editar. Para ello haga click en el cuadrado al principio de cada fila de la lista");
+                msg.ShowDialog();
+            }
+
         }
 
         private void BtnAgregar_Click(object sender, EventArgs e)
         {
+            AbrirAgregarEditar();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -218,6 +267,23 @@ namespace Proyecto
             {
                 activeSearchField = null;
             }
+        }
+
+        private void AbrirAgregarEditar()
+        {
+            AgregarEditar agregarEditar = new AgregarEditar();
+            Metodos.openChildForm(agregarEditar, Metodos.menuForm.plForms);
+        }
+
+        private void AbrirAgregarEditar(object ObjetoDestino, string IdDestino, string NombreDestino)
+        {
+            AgregarEditar agregarEditar = new AgregarEditar
+            {
+                IdDestino = IdDestino,
+                ObjetoDestino = ObjetoDestino,
+                NombreDestino = NombreDestino
+            };
+            Metodos.openChildForm(agregarEditar, Metodos.menuForm.plForms);
         }
 
         private void comboColumn_SelectedIndexChanged(object sender, EventArgs e)

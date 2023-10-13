@@ -66,7 +66,7 @@
             this.chck2 = new System.Windows.Forms.CheckBox();
             this.lblSubChck2 = new System.Windows.Forms.Label();
             this.lblTituloDestino = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.plEditar = new System.Windows.Forms.Panel();
             this.lblDestino = new System.Windows.Forms.Label();
             this.layout = new System.Windows.Forms.FlowLayoutPanel();
             this.plInicio = new System.Windows.Forms.Panel();
@@ -84,7 +84,7 @@
             this.plCombobox3.SuspendLayout();
             this.plCheckBox1.SuspendLayout();
             this.plCheckBox2.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.plEditar.SuspendLayout();
             this.layout.SuspendLayout();
             this.plInicio.SuspendLayout();
             this.plFin.SuspendLayout();
@@ -109,6 +109,7 @@
             this.btnCancelar.TabIndex = 34;
             this.btnCancelar.Text = "CANCELAR";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // txtNombre
             // 
@@ -120,7 +121,7 @@
             this.txtNombre.Size = new System.Drawing.Size(339, 59);
             this.txtNombre.TabIndex = 59;
             this.txtNombre.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtNombre.Visible = false;
+            this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress);
             // 
             // lblSubNombre
             // 
@@ -129,18 +130,16 @@
             this.lblSubNombre.Name = "lblSubNombre";
             this.lblSubNombre.Size = new System.Drawing.Size(342, 5);
             this.lblSubNombre.TabIndex = 58;
-            this.lblSubNombre.Visible = false;
             // 
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Font = new System.Drawing.Font("MADE INFINITY PERSONAL USE", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombre.Location = new System.Drawing.Point(21, 8);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(221, 68);
+            this.lblNombre.Size = new System.Drawing.Size(209, 55);
             this.lblNombre.TabIndex = 55;
             this.lblNombre.Text = "Nombre:";
-            this.lblNombre.Visible = false;
             // 
             // plNombre
             // 
@@ -176,7 +175,7 @@
             this.txtApellido.Size = new System.Drawing.Size(339, 59);
             this.txtApellido.TabIndex = 59;
             this.txtApellido.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtApellido.Visible = false;
+            this.txtApellido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtApellido_KeyPress);
             // 
             // lblSubApellido
             // 
@@ -185,18 +184,16 @@
             this.lblSubApellido.Name = "lblSubApellido";
             this.lblSubApellido.Size = new System.Drawing.Size(342, 5);
             this.lblSubApellido.TabIndex = 58;
-            this.lblSubApellido.Visible = false;
             // 
             // lblApellido
             // 
             this.lblApellido.AutoSize = true;
-            this.lblApellido.Font = new System.Drawing.Font("MADE INFINITY PERSONAL USE", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApellido.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblApellido.Location = new System.Drawing.Point(21, 8);
             this.lblApellido.Name = "lblApellido";
-            this.lblApellido.Size = new System.Drawing.Size(220, 68);
+            this.lblApellido.Size = new System.Drawing.Size(207, 55);
             this.lblApellido.TabIndex = 55;
             this.lblApellido.Text = "Apellido:";
-            this.lblApellido.Visible = false;
             // 
             // btnSiguiente
             // 
@@ -231,7 +228,7 @@
             this.txtCI.Size = new System.Drawing.Size(339, 59);
             this.txtCI.TabIndex = 59;
             this.txtCI.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtCI.Visible = false;
+            this.txtCI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCI_KeyPress);
             // 
             // lblSubCI
             // 
@@ -240,18 +237,16 @@
             this.lblSubCI.Name = "lblSubCI";
             this.lblSubCI.Size = new System.Drawing.Size(342, 5);
             this.lblSubCI.TabIndex = 58;
-            this.lblSubCI.Visible = false;
             // 
             // lblCI
             // 
             this.lblCI.AutoSize = true;
-            this.lblCI.Font = new System.Drawing.Font("MADE INFINITY PERSONAL USE", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCI.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCI.Location = new System.Drawing.Point(21, 8);
             this.lblCI.Name = "lblCI";
-            this.lblCI.Size = new System.Drawing.Size(92, 68);
+            this.lblCI.Size = new System.Drawing.Size(85, 55);
             this.lblCI.TabIndex = 55;
             this.lblCI.Text = "CI:";
-            this.lblCI.Visible = false;
             // 
             // plPIN
             // 
@@ -275,7 +270,7 @@
             this.txtPIN.Size = new System.Drawing.Size(339, 59);
             this.txtPIN.TabIndex = 59;
             this.txtPIN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtPIN.Visible = false;
+            this.txtPIN.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPIN_KeyPress);
             // 
             // lblSubPIN
             // 
@@ -284,18 +279,16 @@
             this.lblSubPIN.Name = "lblSubPIN";
             this.lblSubPIN.Size = new System.Drawing.Size(342, 5);
             this.lblSubPIN.TabIndex = 58;
-            this.lblSubPIN.Visible = false;
             // 
             // lblPIN
             // 
             this.lblPIN.AutoSize = true;
-            this.lblPIN.Font = new System.Drawing.Font("MADE INFINITY PERSONAL USE", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPIN.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPIN.Location = new System.Drawing.Point(21, 8);
             this.lblPIN.Name = "lblPIN";
-            this.lblPIN.Size = new System.Drawing.Size(123, 68);
+            this.lblPIN.Size = new System.Drawing.Size(117, 55);
             this.lblPIN.TabIndex = 55;
             this.lblPIN.Text = "PIN:";
-            this.lblPIN.Visible = false;
             // 
             // plComboBox1
             // 
@@ -312,20 +305,20 @@
             // cbx1
             // 
             this.cbx1.DropDownHeight = 750;
-            this.cbx1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbx1.Font = new System.Drawing.Font("Verdana", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbx1.FormattingEnabled = true;
+            this.cbx1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.cbx1.IntegralHeight = false;
             this.cbx1.Items.AddRange(new object[] {
             "Matutino",
-            "Vespertino",
-            "Nocturno"});
+            "Nocturno",
+            "Vespertino"});
             this.cbx1.Location = new System.Drawing.Point(22, 79);
             this.cbx1.MaxDropDownItems = 25;
             this.cbx1.Name = "cbx1";
             this.cbx1.Size = new System.Drawing.Size(339, 67);
+            this.cbx1.Sorted = true;
             this.cbx1.TabIndex = 74;
-            this.cbx1.Visible = false;
             // 
             // lblSubCbx1
             // 
@@ -334,18 +327,16 @@
             this.lblSubCbx1.Name = "lblSubCbx1";
             this.lblSubCbx1.Size = new System.Drawing.Size(342, 5);
             this.lblSubCbx1.TabIndex = 58;
-            this.lblSubCbx1.Visible = false;
             // 
             // lblCbx1
             // 
             this.lblCbx1.AutoSize = true;
-            this.lblCbx1.Font = new System.Drawing.Font("MADE INFINITY PERSONAL USE", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCbx1.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCbx1.Location = new System.Drawing.Point(21, 8);
             this.lblCbx1.Name = "lblCbx1";
-            this.lblCbx1.Size = new System.Drawing.Size(285, 68);
+            this.lblCbx1.Size = new System.Drawing.Size(290, 55);
             this.lblCbx1.TabIndex = 55;
             this.lblCbx1.Text = "ComboBox1";
-            this.lblCbx1.Visible = false;
             // 
             // plCombobox2
             // 
@@ -362,20 +353,19 @@
             // cbx2
             // 
             this.cbx2.DropDownHeight = 750;
-            this.cbx2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbx2.Font = new System.Drawing.Font("Verdana", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbx2.FormattingEnabled = true;
             this.cbx2.IntegralHeight = false;
             this.cbx2.Items.AddRange(new object[] {
             "Matutino",
-            "Vespertino",
-            "Nocturno"});
+            "Nocturno",
+            "Vespertino"});
             this.cbx2.Location = new System.Drawing.Point(22, 79);
             this.cbx2.MaxDropDownItems = 25;
             this.cbx2.Name = "cbx2";
             this.cbx2.Size = new System.Drawing.Size(339, 67);
+            this.cbx2.Sorted = true;
             this.cbx2.TabIndex = 74;
-            this.cbx2.Visible = false;
             // 
             // lblSubCbx2
             // 
@@ -384,18 +374,16 @@
             this.lblSubCbx2.Name = "lblSubCbx2";
             this.lblSubCbx2.Size = new System.Drawing.Size(342, 5);
             this.lblSubCbx2.TabIndex = 58;
-            this.lblSubCbx2.Visible = false;
             // 
             // lblCbx2
             // 
             this.lblCbx2.AutoSize = true;
-            this.lblCbx2.Font = new System.Drawing.Font("MADE INFINITY PERSONAL USE", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCbx2.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCbx2.Location = new System.Drawing.Point(21, 8);
             this.lblCbx2.Name = "lblCbx2";
-            this.lblCbx2.Size = new System.Drawing.Size(294, 68);
+            this.lblCbx2.Size = new System.Drawing.Size(290, 55);
             this.lblCbx2.TabIndex = 55;
             this.lblCbx2.Text = "ComboBox2";
-            this.lblCbx2.Visible = false;
             // 
             // plCombobox3
             // 
@@ -412,20 +400,19 @@
             // cbx3
             // 
             this.cbx3.DropDownHeight = 750;
-            this.cbx3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbx3.Font = new System.Drawing.Font("Verdana", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbx3.FormattingEnabled = true;
             this.cbx3.IntegralHeight = false;
             this.cbx3.Items.AddRange(new object[] {
             "Matutino",
-            "Vespertino",
-            "Nocturno"});
+            "Nocturno",
+            "Vespertino"});
             this.cbx3.Location = new System.Drawing.Point(22, 79);
             this.cbx3.MaxDropDownItems = 25;
             this.cbx3.Name = "cbx3";
             this.cbx3.Size = new System.Drawing.Size(339, 67);
+            this.cbx3.Sorted = true;
             this.cbx3.TabIndex = 74;
-            this.cbx3.Visible = false;
             // 
             // lblSubCbx3
             // 
@@ -434,18 +421,16 @@
             this.lblSubCbx3.Name = "lblSubCbx3";
             this.lblSubCbx3.Size = new System.Drawing.Size(342, 5);
             this.lblSubCbx3.TabIndex = 58;
-            this.lblSubCbx3.Visible = false;
             // 
             // lblCbx3
             // 
             this.lblCbx3.AutoSize = true;
-            this.lblCbx3.Font = new System.Drawing.Font("MADE INFINITY PERSONAL USE", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCbx3.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCbx3.Location = new System.Drawing.Point(21, 8);
             this.lblCbx3.Name = "lblCbx3";
-            this.lblCbx3.Size = new System.Drawing.Size(297, 68);
+            this.lblCbx3.Size = new System.Drawing.Size(290, 55);
             this.lblCbx3.TabIndex = 55;
             this.lblCbx3.Text = "ComboBox3";
-            this.lblCbx3.Visible = false;
             // 
             // plCheckBox1
             // 
@@ -460,14 +445,13 @@
             // 
             // chck1
             // 
-            this.chck1.Font = new System.Drawing.Font("MADE INFINITY PERSONAL USE", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chck1.Location = new System.Drawing.Point(113, 45);
+            this.chck1.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chck1.Location = new System.Drawing.Point(31, 44);
             this.chck1.Name = "chck1";
-            this.chck1.Size = new System.Drawing.Size(159, 80);
+            this.chck1.Size = new System.Drawing.Size(337, 80);
             this.chck1.TabIndex = 79;
-            this.chck1.Text = "Apto";
+            this.chck1.Text = "Apto Para Clase";
             this.chck1.UseVisualStyleBackColor = true;
-            this.chck1.Visible = false;
             // 
             // lblSubChck1
             // 
@@ -476,7 +460,6 @@
             this.lblSubChck1.Name = "lblSubChck1";
             this.lblSubChck1.Size = new System.Drawing.Size(159, 5);
             this.lblSubChck1.TabIndex = 58;
-            this.lblSubChck1.Visible = false;
             // 
             // plCheckBox2
             // 
@@ -491,7 +474,7 @@
             // 
             // chck2
             // 
-            this.chck2.Font = new System.Drawing.Font("MADE INFINITY PERSONAL USE", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chck2.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chck2.Location = new System.Drawing.Point(45, 45);
             this.chck2.Margin = new System.Windows.Forms.Padding(10);
             this.chck2.Name = "chck2";
@@ -499,7 +482,6 @@
             this.chck2.TabIndex = 79;
             this.chck2.Text = "Uso común";
             this.chck2.UseVisualStyleBackColor = true;
-            this.chck2.Visible = false;
             // 
             // lblSubChck2
             // 
@@ -508,45 +490,42 @@
             this.lblSubChck2.Name = "lblSubChck2";
             this.lblSubChck2.Size = new System.Drawing.Size(296, 5);
             this.lblSubChck2.TabIndex = 58;
-            this.lblSubChck2.Visible = false;
             // 
             // lblTituloDestino
             // 
             this.lblTituloDestino.AutoSize = true;
-            this.lblTituloDestino.Font = new System.Drawing.Font("MADE INFINITY PERSONAL USE", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTituloDestino.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTituloDestino.Location = new System.Drawing.Point(21, 8);
             this.lblTituloDestino.Name = "lblTituloDestino";
-            this.lblTituloDestino.Size = new System.Drawing.Size(208, 68);
+            this.lblTituloDestino.Size = new System.Drawing.Size(200, 55);
             this.lblTituloDestino.TabIndex = 55;
             this.lblTituloDestino.Text = "Destino:";
-            this.lblTituloDestino.Visible = false;
             // 
-            // panel1
+            // plEditar
             // 
-            this.panel1.Controls.Add(this.lblDestino);
-            this.panel1.Controls.Add(this.lblTituloDestino);
-            this.panel1.Location = new System.Drawing.Point(7, 7);
-            this.panel1.Margin = new System.Windows.Forms.Padding(7);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(384, 186);
-            this.panel1.TabIndex = 71;
-            this.panel1.Visible = false;
+            this.plEditar.Controls.Add(this.lblDestino);
+            this.plEditar.Controls.Add(this.lblTituloDestino);
+            this.plEditar.Location = new System.Drawing.Point(7, 7);
+            this.plEditar.Margin = new System.Windows.Forms.Padding(7);
+            this.plEditar.Name = "plEditar";
+            this.plEditar.Size = new System.Drawing.Size(384, 186);
+            this.plEditar.TabIndex = 71;
+            this.plEditar.Visible = false;
             // 
             // lblDestino
             // 
             this.lblDestino.AutoSize = true;
-            this.lblDestino.Font = new System.Drawing.Font("MADE INFINITY PERSONAL USE", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDestino.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDestino.Location = new System.Drawing.Point(161, 83);
             this.lblDestino.Name = "lblDestino";
-            this.lblDestino.Size = new System.Drawing.Size(68, 68);
+            this.lblDestino.Size = new System.Drawing.Size(63, 55);
             this.lblDestino.TabIndex = 56;
             this.lblDestino.Text = "...";
-            this.lblDestino.Visible = false;
             // 
             // layout
             // 
             this.layout.AutoScroll = true;
-            this.layout.Controls.Add(this.panel1);
+            this.layout.Controls.Add(this.plEditar);
             this.layout.Controls.Add(this.plNombre);
             this.layout.Controls.Add(this.plApellido);
             this.layout.Controls.Add(this.plCI);
@@ -583,18 +562,16 @@
             this.dtpInicio.Name = "dtpInicio";
             this.dtpInicio.Size = new System.Drawing.Size(337, 50);
             this.dtpInicio.TabIndex = 56;
-            this.dtpInicio.Visible = false;
             // 
             // lblInicio
             // 
             this.lblInicio.AutoSize = true;
-            this.lblInicio.Font = new System.Drawing.Font("MADE INFINITY PERSONAL USE", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInicio.Location = new System.Drawing.Point(21, 8);
             this.lblInicio.Name = "lblInicio";
-            this.lblInicio.Size = new System.Drawing.Size(276, 68);
+            this.lblInicio.Size = new System.Drawing.Size(263, 55);
             this.lblInicio.TabIndex = 55;
             this.lblInicio.Text = "Hora inicio:";
-            this.lblInicio.Visible = false;
             // 
             // plFin
             // 
@@ -616,18 +593,16 @@
             this.dtpFin.Name = "dtpFin";
             this.dtpFin.Size = new System.Drawing.Size(337, 50);
             this.dtpFin.TabIndex = 56;
-            this.dtpFin.Visible = false;
             // 
             // lblFin
             // 
             this.lblFin.AutoSize = true;
-            this.lblFin.Font = new System.Drawing.Font("MADE INFINITY PERSONAL USE", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFin.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFin.Location = new System.Drawing.Point(21, 8);
             this.lblFin.Name = "lblFin";
-            this.lblFin.Size = new System.Drawing.Size(254, 68);
+            this.lblFin.Size = new System.Drawing.Size(242, 55);
             this.lblFin.TabIndex = 55;
             this.lblFin.Text = "Hora final:";
-            this.lblFin.Visible = false;
             // 
             // AgregarEditar
             // 
@@ -658,8 +633,8 @@
             this.plCombobox3.PerformLayout();
             this.plCheckBox1.ResumeLayout(false);
             this.plCheckBox2.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.plEditar.ResumeLayout(false);
+            this.plEditar.PerformLayout();
             this.layout.ResumeLayout(false);
             this.plInicio.ResumeLayout(false);
             this.plInicio.PerformLayout();
@@ -703,7 +678,7 @@
         private System.Windows.Forms.CheckBox chck2;
         private System.Windows.Forms.Label lblSubChck2;
         private System.Windows.Forms.Label lblTituloDestino;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel plEditar;
         private System.Windows.Forms.Label lblDestino;
         private System.Windows.Forms.TextBox txtNombre;
         public System.Windows.Forms.Panel plNombre;

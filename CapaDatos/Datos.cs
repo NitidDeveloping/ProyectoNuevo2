@@ -34,7 +34,7 @@ namespace CapaDatos
                     break;
 
                 case TipoReferencia.Materia:
-                    cmdstr ="SELECT ID_Materia, Nombre FROM Materia;";
+                    cmdstr = "SELECT ID_Materia, Nombre FROM Materia;";
                     break;
 
                 case TipoReferencia.Grupo:
@@ -72,43 +72,11 @@ namespace CapaDatos
                     break;
 
                 case TipoReferencia.Lugar:
-                    cmdstr = "SELECT " +
-                        "Lugar.ID, " +
-                        "Lugar.Nombre, " +
-                        "Lugar.Tipo, " +
-                        "Tipo_Lugar.Nombre_Tipo, " +
-                        "Lugar.Piso, " +
-                        "Lugar.Coordenada_X, " +
-                        "Lugar.Coordenada_Y, " +
-                        "    CASE WHEN Clase.ID_Clase IS NOT NULL THEN true ELSE false END AS AptoParaClase, " +
-                        "    CASE WHEN UC.ID_UsoComun IS NOT NULL THEN true ELSE false END AS UsoComun," +
-                        "    CASE " +
-                        "        WHEN CASE WHEN GMHC.ID_Grupo IS NOT NULL THEN true ELSE false END = 1 " +
-                        "            AND (DATE_FORMAT(NOW(), '%H:%i') >= DATE_FORMAT(Horario.Hora_Inicio, '%H:%i') " +
-                        "                AND DATE_FORMAT(NOW(), '%H:%i') < DATE_FORMAT(Horario.Hora_Fin, '%H:%i')) " +
-                        "        THEN false " +
-                        "        ELSE true " +
-                        "    END AS EstadoOcupacion " +
-                        "FROM Lugar JOIN Tipo_Lugar ON Lugar.Tipo = Tipo_Lugar.Tipo " +
-                        "LEFT JOIN Grupo_Materia_Horario_Clase GMHC ON Lugar.ID = GMHC.ID_Clase " +
-                        "LEFT JOIN Clase ON Lugar.ID = Clase.ID_Clase " +
-                        "LEFT JOIN Uso_Comun UC ON Lugar.ID = UC.ID_UsoComun " +
-                        "LEFT JOIN Grupo_Materia_Horario GMH ON GMHC.ID_Grupo = GMH.ID_Grupo " +
-                        "    AND GMHC.ID_Materia = GMH.ID_Materia " +
-                        "    AND GMHC.ID_Horario = GMH.ID_Horario " +
-                        "LEFT JOIN Horario ON GMH.ID_Horario = Horario.ID_Horario " +
-                        "\r /*Where*/ \r" +
-                        " GROUP BY " +
-                        "    Lugar.ID, " +
-                        "    Lugar.Nombre, " +
-                        "    Lugar.Tipo, " +
-                        "    Lugar.Piso, " +
-                        "    Lugar.Coordenada_X, " +
-                        "    Lugar.Coordenada_Y;";
+                    cmdstr = "SELECT ID, Nombre, Tipo, Nombre_Tipo, Coordenada_X, Coordenada_Y, AptoParaClase, UsoComun, EstadoOcupacion FROM Lugares;";
                     break;
 
                 case TipoReferencia.Funcionario:
-                    cmdstr = "SELECT Nombre, Apellido, CI_Funcionario, Cargo, Nombre_Cargo, Tipo, Fecha_Ingreso FROM Usuario_Funcionario;";
+                    cmdstr = "SELECT Nombre, Apellido, CI_Funcionario, Cargo, Nombre_Cargo, Tipo, Fecha_Ingreso FROM Usuario_Funcionario /*Where*/ ;";
                     break;
 
                 case TipoReferencia.TipoDeLugar:
@@ -242,7 +210,7 @@ namespace CapaDatos
         public RetornoValidacion Eliminar(TipoReferencia referencia, string idObjetivo)
         {
             RetornoValidacion respuesta;
-            string cmdstr = "DELETE from @TablaReferencia where @ClavePrimaria=@ID";
+            string cmdstr;
             MySqlConnection conn = Conector.crearInstancia().crearConexion();
             MySqlCommand cmd;
 
@@ -316,25 +284,25 @@ namespace CapaDatos
                 case TipoReferencia.Usuario:
                 cmd.Parameters.Add("@CI", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
                     break;
-                
+
                 case TipoReferencia.Alumno:
-                        cmd.Parameters.Add("@CI_Alumno", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
+                    cmd.Parameters.Add("@CI_Alumno", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
                     break;
 
                 case TipoReferencia.Turno:
-                        cmd.Parameters.Add("@Turno", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
+                    cmd.Parameters.Add("@Turno", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
                     break;
 
                 case TipoReferencia.Materia:
-                        cmd.Parameters.Add("@ID_Materia", MySqlDbType.Int16).Value = Convert.ToInt16(idObjetivo);
+                    cmd.Parameters.Add("@ID_Materia", MySqlDbType.Int16).Value = Convert.ToInt16(idObjetivo);
                     break;
 
                 case TipoReferencia.Grupo:
-                        cmd.Parameters.Add("@ID_Grupo", MySqlDbType.VarChar).Value = Convert.ToString(idObjetivo);
+                    cmd.Parameters.Add("@ID_Grupo", MySqlDbType.VarChar).Value = Convert.ToString(idObjetivo);
                     break;
 
-                case TipoReferencia.Docente:    
-                        cmd.Parameters.Add("@CI_Docente", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
+                case TipoReferencia.Docente:
+                    cmd.Parameters.Add("@CI_Docente", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
                     break;
 
                 case TipoReferencia.Orientacion:
@@ -345,32 +313,32 @@ namespace CapaDatos
                     cmd.Parameters.Add("@ID_Horario", MySqlDbType.Int16).Value = Convert.ToInt16(idObjetivo);
                     break;
 
-                case TipoReferencia.Horario: //esto esta mal creo, creo q habia q hacer un metodo especial para horario (grupo_materia_horario_clase)
+                /*case TipoReferencia.Horario: //esto esta mal creo, creo q habia q hacer un metodo especial para horario (grupo_materia_horario_clase)
                     cmd.Parameters.Add("@ID_Grupo", MySqlDbType.VarChar).Value = Convert.ToString(idObjetivo);
                     cmd.Parameters.Add("@ID_Materia", MySqlDbType.Int16).Value = Convert.ToInt16(idObjetivo);
                     cmd.Parameters.Add("@ID_Horario", MySqlDbType.Int16).Value = Convert.ToInt16(idObjetivo);
                     cmd.Parameters.Add("@Dia_Semana", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
                     cmd.Parameters.Add("@Turno", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
-                    break;
+                    break;*/
 
                 case TipoReferencia.Anio:
-                        cmd.Parameters.Add("@Anio", MySqlDbType.Year).Value = Convert.ToInt32(idObjetivo);
+                    cmd.Parameters.Add("@Anio", MySqlDbType.Year).Value = Convert.ToInt32(idObjetivo);
                     break;
 
                 case TipoReferencia.CargosFuncionarios:
-                        cmd.Parameters.Add("@Cargo", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
+                    cmd.Parameters.Add("@Cargo", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
                     break;
 
                 case TipoReferencia.Lugar:
-                        cmd.Parameters.Add("@ID", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
+                    cmd.Parameters.Add("@ID", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
                     break;
 
                 case TipoReferencia.Funcionario:
-                        cmd.Parameters.Add("@CI_Funcionario", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
+                    cmd.Parameters.Add("@CI_Funcionario", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
                     break;
 
                 case TipoReferencia.TipoDeLugar:
-                        cmd.Parameters.Add("@Tipo", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
+                    cmd.Parameters.Add("@Tipo", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
                     break;
             }
             try
@@ -503,7 +471,7 @@ namespace CapaDatos
                         cmd.Parameters.Add("@Nombre", MySqlDbType.VarChar).Value = materia.Nombre;
                     }
                     break;
-                    
+
                 case TipoReferencia.Grupo:
                     if (item is Grupo grupo)
                     {
@@ -528,7 +496,7 @@ namespace CapaDatos
                         cmd.Parameters.Add("@Nombre_Orientacion", MySqlDbType.VarChar).Value = orientacion.Nombre;
                     }
                     break;
-                    
+
                 case TipoReferencia.Hora:
                     if (item is Hora hora)
                     {
@@ -538,7 +506,7 @@ namespace CapaDatos
                         cmd.Parameters.Add("@Turno", MySqlDbType.Byte).Value = hora.Turno;
                     }
                     break;
-                    
+
                 case TipoReferencia.Horario: //esto esta mal creo, creo q habia q hacer un metodo especial para horario (grupo_materia_horario_clase)
                     if (item is Horario horario)
                     {
@@ -566,7 +534,7 @@ namespace CapaDatos
                         cmd.Parameters.Add("@Nombre_Cargo", MySqlDbType.VarChar).Value = cargo.Nombre;
                     }
                     break;
-                    
+
                 case TipoReferencia.Lugar:
                     if (item is Lugar lugar)
                     {
@@ -578,7 +546,7 @@ namespace CapaDatos
                         cmd.Parameters.Add("@Piso", MySqlDbType.Byte).Value = lugar.Piso;
                     }
                     break;
-                   
+
                 case TipoReferencia.Funcionario: 
                     if (item is Funcionario funcionario)
                     {
@@ -623,10 +591,7 @@ namespace CapaDatos
         {
             //Variables
             RetornoValidacion respuesta;
-            string cmdstr = "UPDATE @TablaReferencia SET @ValoresReferencia WHERE @ClavePrimaria=@ID;";
-            string tabla;
-            string valores; //Seteara los parametros por donde pasaremos los valores para editar
-            string clave;
+            string cmdstr;
             MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
             MySqlCommand cmd;
 
@@ -775,9 +740,6 @@ namespace CapaDatos
         {
             RetornoValidacion respuesta;
             string cmdstr = "DELETE from @TablaReferencia where @ClavePrimaria=@ID AND @ClavePadre=@IDPadre";
-            string tabla; //Recibe el valor de la tabla de la bd segun la referencia seleccionada
-            string claveprimaria; //Recibe el valor de la clave de la tabla segun la referencia
-            string clavepadre;
             MySqlConnection conn = Conector.crearInstancia().crearConexion();
             MySqlCommand cmd;
 

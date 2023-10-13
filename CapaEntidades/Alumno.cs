@@ -22,5 +22,9 @@ namespace CapaEntidades
             this.strgrupos = strgrupos;
         }
 
+        public Alumno(string nombre, string apellido, int ci) : base(nombre, apellido, ci)
+        {
+        }
+
     }
 }
