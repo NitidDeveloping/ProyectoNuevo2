@@ -35,6 +35,7 @@ namespace CapaEntidades
         public Dia_Semana Dia { get { return dia; } }
         public Lugar SalonTemporal { get {  return salonTemporal; } }
         public List<Hora> Hora { get {  return horas; } }
+        public Turno Turno { get { return turno; } } 
 
         public string StrListaHoras()
         {

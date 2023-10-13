@@ -249,7 +249,59 @@ namespace CapaDatos
             switch (referencia)
             {
                 case TipoReferencia.Usuario:
-                    cmdstr = "DELETE from Usuario where CI=@ID";
+                    cmdstr = "DELETE from Usuario where CI=@CI";
+                    break;
+
+                case TipoReferencia.Alumno:
+                    cmdstr = "DELETE from Alumno where CI_Alumno=@CI_Alumno";
+                    break;
+
+                case TipoReferencia.Turno:
+                    cmdstr = "DELETE from Turno where Turno=@Turno";
+                    break;
+
+                case TipoReferencia.Materia:
+                    cmdstr = "DELETE from Materia where ID_Materia=@ID_Materia";
+                    break;
+
+                case TipoReferencia.Grupo:
+                    cmdstr = "DELETE from Grupo where ID_Grupo=@ID_Grupo";
+                    break;
+
+                case TipoReferencia.Docente:
+                    cmdstr = "DELETE from Docente where CI_Docente=@CI_Docente";
+                    break;
+
+                case TipoReferencia.Orientacion:
+                    cmdstr = "DELETE from Orientacion where Orientacion=@Orientacion";
+                    break;
+
+                case TipoReferencia.Hora:
+                    cmdstr = "DELETE from Horario where ID_Horario=@ID_Horario";
+                    break;
+
+                case TipoReferencia.Horario: //esto esta mal creo, creo q habia q hacer un metodo especial para horario (grupo_materia_horario_clase)
+                    cmdstr = "DELETE from Grupo_Materia_Horario_Clase where ID_Grupo=@ID_Grupo AND ID_Materia=@ID_Materia AND ID_Horario=@ID_Horario AND Turno=@Turno AND Dia_Semana=@Dia_Semana";
+                    break;
+
+                case TipoReferencia.Anio:
+                    cmdstr = "DELETE from Anio where Anio=@Anio";
+                    break;
+
+                case TipoReferencia.CargosFuncionarios:
+                    cmdstr = "DELETE from Cargo where Cargo=@Cargo";
+                    break;
+
+                case TipoReferencia.Lugar:
+                    cmdstr = "DELETE from Lugar where ID=@ID";
+                    break;
+
+                case TipoReferencia.Funcionario:
+                    cmdstr = "DELETE from Funcionario where CI_Funcionario=@CI_Funcionario";
+                    break;
+
+                case TipoReferencia.TipoDeLugar:
+                    cmdstr = "DELETE from Tipo_Lugar where Tipo=@Tipo";
                     break;
 
                 default:
@@ -262,10 +314,65 @@ namespace CapaDatos
             switch (referencia)
             {
                 case TipoReferencia.Usuario:
-                cmd.Parameters.Add("@ID", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
+                cmd.Parameters.Add("@CI", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
+                    break;
+                
+                case TipoReferencia.Alumno:
+                        cmd.Parameters.Add("@CI_Alumno", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
                     break;
 
-        }
+                case TipoReferencia.Turno:
+                        cmd.Parameters.Add("@Turno", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
+                    break;
+
+                case TipoReferencia.Materia:
+                        cmd.Parameters.Add("@ID_Materia", MySqlDbType.Int16).Value = Convert.ToInt16(idObjetivo);
+                    break;
+
+                case TipoReferencia.Grupo:
+                        cmd.Parameters.Add("@ID_Grupo", MySqlDbType.VarChar).Value = Convert.ToString(idObjetivo);
+                    break;
+
+                case TipoReferencia.Docente:    
+                        cmd.Parameters.Add("@CI_Docente", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
+                    break;
+
+                case TipoReferencia.Orientacion:
+                    cmd.Parameters.Add("@Orientacion", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
+                    break;
+
+                case TipoReferencia.Hora:
+                    cmd.Parameters.Add("@ID_Horario", MySqlDbType.Int16).Value = Convert.ToInt16(idObjetivo);
+                    break;
+
+                case TipoReferencia.Horario: //esto esta mal creo, creo q habia q hacer un metodo especial para horario (grupo_materia_horario_clase)
+                    cmd.Parameters.Add("@ID_Grupo", MySqlDbType.VarChar).Value = Convert.ToString(idObjetivo);
+                    cmd.Parameters.Add("@ID_Materia", MySqlDbType.Int16).Value = Convert.ToInt16(idObjetivo);
+                    cmd.Parameters.Add("@ID_Horario", MySqlDbType.Int16).Value = Convert.ToInt16(idObjetivo);
+                    cmd.Parameters.Add("@Dia_Semana", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
+                    cmd.Parameters.Add("@Turno", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
+                    break;
+
+                case TipoReferencia.Anio:
+                        cmd.Parameters.Add("@Anio", MySqlDbType.Year).Value = Convert.ToInt32(idObjetivo);
+                    break;
+
+                case TipoReferencia.CargosFuncionarios:
+                        cmd.Parameters.Add("@Cargo", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
+                    break;
+
+                case TipoReferencia.Lugar:
+                        cmd.Parameters.Add("@ID", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
+                    break;
+
+                case TipoReferencia.Funcionario:
+                        cmd.Parameters.Add("@CI_Funcionario", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
+                    break;
+
+                case TipoReferencia.TipoDeLugar:
+                        cmd.Parameters.Add("@Tipo", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
+                    break;
+            }
             try
             {
                 conn.Open();
@@ -301,8 +408,56 @@ namespace CapaDatos
                     cmdstr = "INSERT INTO Usuario (CI, PIN, Nombre, Apellido) VALUES (@CI, @PIN, @Nombre, @Apellido);";
                     break;
 
+                case TipoReferencia.Alumno:
+                    cmdstr = "INSERT INTO Alumno (CI_Alumno) VALUES (@CI_Alumno);";
+                    break;
+
+                case TipoReferencia.Turno:
+                    cmdstr = "INSERT INTO Turno (Turno, Nombre_Turno) VALUES (@Turno, @Nombre_Turno);";
+                    break;
+
+                case TipoReferencia.Materia:
+                    cmdstr = "INSERT INTO Materia (ID_Materia, Nombre) VALUES (@ID_Materia, @Nombre);";
+                    break;
+
                 case TipoReferencia.Grupo:
                     cmdstr = "INSERT INTO Grupo (Anio, Turno, ID_Grupo, Orientacion) VALUES (@Anio, @Turno, @ID_Grupo, @Orientacion);";
+                    break;
+
+                case TipoReferencia.Docente:
+                    cmdstr = "INSERT INTO Docente (CI_Docente) VALUES (@CI_Docente);";
+                    break;
+
+                case TipoReferencia.Orientacion:
+                    cmdstr = "INSERT INTO Orientacion (Orientacion, Nombre_Orientacion) VALUES (@Orientacion, @Nombre_Orientacion);";
+                    break;
+
+                case TipoReferencia.Hora:
+                    cmdstr = "INSERT INTO Horario (ID_Horario, Hora_Inicio, Hora_Fin, Turno) VALUES (@ID_Horario, @Hora_Inicio, @Hora_Fin, @Turno);";
+                    break;
+
+                case TipoReferencia.Horario:
+                    cmdstr = "INSERT INTO Grupo_Materia_Horario_Clase (ID_Grupo, ID_Materia, ID_Horario, ID_Clase, Asignado_Temporal, Dia_Semana, Turno) VALUES (@ID_Grupo, @ID_Materia, @ID_Horario, @ID_Clase, @Asignado_Temporal, @Dia_Semana, @Turno);";
+                    break;
+
+                case TipoReferencia.Anio:
+                    cmdstr = "INSERT INTO Anio (Anio) VALUES (@Anio);";
+                    break;
+
+                case TipoReferencia.CargosFuncionarios:
+                    cmdstr = "INSERT INTO Cargo (Cargo, Nombre_Cargo) VALUES (@Cargo, @Nombre_Cargo);";
+                    break;
+
+                case TipoReferencia.Lugar:
+                    cmdstr = "INSERT INTO Lugar (ID, Nombre, Coordenada_X, Coordenada_Y, Tipo, Piso) VALUES (@ID, @Nombre, @Coordenada_X, @Coordenada_Y, @Tipo, @Piso);";
+                    break;
+
+                case TipoReferencia.Funcionario:
+                    cmdstr = "INSERT INTO Funcionario (CI_Funcionario, Cargo, Tipo, Fecha_Ingreso) VALUES (@CI_Funcionario, @Cargo, @Tipo, @Fecha_Ingreso);";
+                    break;
+
+                case TipoReferencia.TipoDeLugar:
+                    cmdstr = "INSERT INTO Tipo_Lugar (Tipo, Nombre_Tipo) VALUES (@Tipo, @Nombre_Tipo);";
                     break;
 
                 default:
@@ -323,6 +478,122 @@ namespace CapaDatos
                         cmd.Parameters.Add("@PIN", MySqlDbType.Int32).Value = usuario.PIN;
                         cmd.Parameters.Add("@Nombre", MySqlDbType.VarChar).Value = usuario.Nombre;
                         cmd.Parameters.Add("@Apellido", MySqlDbType.VarChar).Value = usuario.Apellido;
+                    }
+                    break;
+
+                case TipoReferencia.Alumno:
+                    if (item is Alumno alumno)
+                    {
+                        cmd.Parameters.Add("@CI_Alumno", MySqlDbType.Int32).Value = alumno.CI;
+                    }
+                    break;
+
+                case TipoReferencia.Turno:
+                    if (item is Turno turno)
+                    {
+                        cmd.Parameters.Add("@Turno", MySqlDbType.Byte).Value = turno.Id;
+                        cmd.Parameters.Add("@Nombre_Turno", MySqlDbType.VarChar).Value = turno.Nombre;
+                    }
+                    break;
+
+                case TipoReferencia.Materia:
+                    if (item is Materia materia)
+                    {
+                        cmd.Parameters.Add("@ID_Materia", MySqlDbType.Int16).Value = materia.Id;
+                        cmd.Parameters.Add("@Nombre", MySqlDbType.VarChar).Value = materia.Nombre;
+                    }
+                    break;
+                    
+                case TipoReferencia.Grupo:
+                    if (item is Grupo grupo)
+                    {
+                        cmd.Parameters.Add("@Anio", MySqlDbType.Year).Value = grupo.Anio;
+                        cmd.Parameters.Add("@Turno", MySqlDbType.Byte).Value = grupo.Turno;
+                        cmd.Parameters.Add("@ID_Grupo", MySqlDbType.VarChar).Value = grupo.Nombre;
+                        cmd.Parameters.Add("@Orientacion", MySqlDbType.Byte).Value = grupo.Orientacion;
+                    }
+                    break;
+
+                case TipoReferencia.Docente:
+                    if (item is Docente docente)
+                    {
+                        cmd.Parameters.Add("@CI_Docente", MySqlDbType.Int32).Value = docente.CI;
+                    }
+                    break;
+
+                case TipoReferencia.Orientacion:
+                    if (item is Orientacion orientacion)
+                    {
+                        cmd.Parameters.Add("@Orientacion", MySqlDbType.Byte).Value = orientacion.Id;
+                        cmd.Parameters.Add("@Nombre_Orientacion", MySqlDbType.VarChar).Value = orientacion.Nombre;
+                    }
+                    break;
+                    
+                case TipoReferencia.Hora:
+                    if (item is Hora hora)
+                    {
+                        cmd.Parameters.Add("@ID_Horario", MySqlDbType.Int16).Value = hora.Nid;
+                        cmd.Parameters.Add("@Hora_Inicio", MySqlDbType.Time).Value = hora.Inicio;
+                        cmd.Parameters.Add("@Hora_Fin", MySqlDbType.Time).Value = hora.Fin;
+                        cmd.Parameters.Add("@Turno", MySqlDbType.Byte).Value = hora.Turno;
+                    }
+                    break;
+                    
+                case TipoReferencia.Horario: //esto esta mal creo, creo q habia q hacer un metodo especial para horario (grupo_materia_horario_clase)
+                    if (item is Horario horario)
+                    {
+                        cmd.Parameters.Add("@ID_Grupo", MySqlDbType.VarChar).Value = horario.Grupo;
+                        cmd.Parameters.Add("@ID_Materia", MySqlDbType.Int16).Value = horario.Materia;
+                        cmd.Parameters.Add("@ID_Horario", MySqlDbType.Int16).Value = horario.Hora;
+                        cmd.Parameters.Add("@ID_Clase", MySqlDbType.Int32).Value = horario.Salon;
+                        cmd.Parameters.Add("@Asignado_Temporal", MySqlDbType.VarChar).Value = horario.SalonTemporal;
+                        cmd.Parameters.Add("@Dia_Semana", MySqlDbType.Byte).Value = horario.Dia;
+                        cmd.Parameters.Add("@Turno", MySqlDbType.Byte).Value = horario.Turno;
+                    }
+                    break;
+
+                case TipoReferencia.Anio:
+                    if (item is int Anio)
+                    {
+                        cmd.Parameters.Add("@Anio", MySqlDbType.Year).Value = Anio;
+                    }
+                    break;
+
+                case TipoReferencia.CargosFuncionarios:
+                    if (item is Cargo cargo)
+                    {
+                        cmd.Parameters.Add("@Cargo", MySqlDbType.Byte).Value = cargo.Id;
+                        cmd.Parameters.Add("@Nombre_Cargo", MySqlDbType.VarChar).Value = cargo.Nombre;
+                    }
+                    break;
+                    
+                case TipoReferencia.Lugar:
+                    if (item is Lugar lugar)
+                    {
+                        cmd.Parameters.Add("@ID", MySqlDbType.Int32).Value = lugar.ID;
+                        cmd.Parameters.Add("@Nombre", MySqlDbType.VarChar).Value = lugar.Nombre;
+                        cmd.Parameters.Add("@Coordenada_X", MySqlDbType.Int32).Value = lugar.Coordenada_x;
+                        cmd.Parameters.Add("@Coordenada_Y", MySqlDbType.Int32).Value = lugar.Coordenada_y;
+                        cmd.Parameters.Add("@Tipo", MySqlDbType.Byte).Value = lugar.Tipo;
+                        cmd.Parameters.Add("@Piso", MySqlDbType.Byte).Value = lugar.Piso;
+                    }
+                    break;
+                   
+                case TipoReferencia.Funcionario: 
+                    if (item is Funcionario funcionario)
+                    {
+                        cmd.Parameters.Add("@CI_Funcionario", MySqlDbType.Int32).Value = funcionario.CI;
+                        cmd.Parameters.Add("@Tipo", MySqlDbType.Byte).Value = funcionario.IsAdmn;
+                        cmd.Parameters.Add("@Cargo", MySqlDbType.Byte).Value = funcionario.Cargo;
+                        cmd.Parameters.Add("@Fecha_Ingreso", MySqlDbType.Date).Value = funcionario.FechaIngreso;
+                    }
+                    break;
+
+                case TipoReferencia.TipoDeLugar:
+                    if (item is TipoLugar tipoLugar)
+                    {
+                        cmd.Parameters.Add("@Tipo", MySqlDbType.Byte).Value = tipoLugar.Id;
+                        cmd.Parameters.Add("@Nombre_Tipo", MySqlDbType.VarChar).Value = tipoLugar.Nombre;
                     }
                     break;
             }
@@ -363,7 +634,35 @@ namespace CapaDatos
             switch (referencia)
             {
                 case TipoReferencia.Usuario:
-                    cmdstr = "UPDATE Usuario SET Nombre=@Nombre, Apellido=@Apellido WHERE CI=@ID;";
+                    cmdstr = "UPDATE Usuario SET Nombre=@Nombre, Apellido=@Apellido WHERE CI=@CI;";
+                    break;
+
+                case TipoReferencia.Turno:
+                    cmdstr = "UPDATE Turno SET Nombre_Turno=@Turno WHERE Turno=@Turno;";
+                    break;
+
+                case TipoReferencia.Materia:
+                    cmdstr = "UPDATE Materia SET Nombre=@Nombre WHERE ID_Materia=@ID_Materia;";
+                    break;
+
+                case TipoReferencia.Grupo:
+                    cmdstr = "UPDATE Grupo SET Anio=@Anio, Turno=@Turno, Orientacion=@Orientacion WHERE ID_Grupo=@ID_Grupo;";
+                    break;  
+
+                case TipoReferencia.Orientacion:
+                    cmdstr = "UPDATE Orientacion SET Nombre_Orientacion=@Nombre_Orientacion WHERE Orientacion=@Orientacion;";
+                    break;
+
+                case TipoReferencia.Horario: //esto esta mal creo, creo q habia q hacer un metodo especial para horario (grupo_materia_horario_clase)
+                    cmdstr = "UPDATE Grupo_Materia_Horario_Clase SET Asignado_Temporal=@Asignado_Temporal WHERE ID_Grupo=@ID_Grupo AND ID_Materia=@ID_Materia AND ID_Horario=@ID_Horario AND Turno=@Turno AND Dia_Semana=@Dia_Semana;";
+                    break;
+
+                case TipoReferencia.Lugar:
+                    cmdstr = "UPDATE Lugar SET Nombre=@Nombre, Tipo=@Tipo, Piso=@Piso WHERE ID=@ID;";
+                    break;
+
+                case TipoReferencia.Funcionario:
+                    cmdstr = "UPDATE Funcionario SET Cargo=@Cargo, Tipo=@Tipo WHERE CI_Funcionario=@CI_Funcionario;";
                     break;
 
                 default:
