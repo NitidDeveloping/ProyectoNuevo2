@@ -38,15 +38,7 @@ namespace CapaDatos
                     break;
 
                 case TipoReferencia.Grupo:
-                    cmdstr =
-                        "SELECT Grupo.ID_Grupo, Grupo.Anio, Grupo.Orientacion, Orientacion.Nombre_Orientacion, Grupo.Turno, Turno.Nombre_Turno, COALESCE(Lista, 0) AS Lista " +
-                        "FROM grupo " +
-                        "INNER JOIN Turno ON Grupo.Turno = Turno.Turno " +
-                        "INNER JOIN Orientacion ON Grupo.Orientacion=Orientacion.Orientacion " +
-                        "LEFT JOIN (" +
-                        "SELECT ID_Grupo, " +
-                        "COUNT(CI_Alumno) AS Lista " +
-                        "FROM grupo_alumno GROUP BY ID_Grupo) AS Subconsulta ON grupo.ID_Grupo = Subconsulta.ID_Grupo;";
+                    cmdstr = "SELECT ID_Grupo, Anio, Orientacion, Nombre_Orientacion, Turno, Nombre_Turno, Lista FROM Lista_Grupos;";
                     break;
 
                 case TipoReferencia.Docente:
@@ -58,9 +50,7 @@ namespace CapaDatos
                     break;
 
                 case TipoReferencia.Hora:
-                    cmdstr = "SELECT Horario.ID_Horario, Horario.Turno, Turno.Nombre_Turno, Horario.Hora_Inicio, Horario.Hora_Fin " +
-                        "FROM Horario " +
-                        "JOIN Turno ON Horario.Turno = Turno.Turno;";
+                    cmdstr = "SELECT ID_Horario, Turno, Nombre_Turno, Hora_Inicio, Hora_Fin FROM Lista_Horas;";
                     break;
 
                 case TipoReferencia.Anio:
