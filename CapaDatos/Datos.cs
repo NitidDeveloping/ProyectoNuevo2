@@ -81,28 +81,19 @@ namespace CapaDatos
             //Si el metodo se invoca con algo en la columna se agregan parametros para hacer los filtros
             if (columna != null)
             {
-                //Si la referencia es el lugar entonces reemplazamos comentaria --Where porque sino la consulta da problemas por el where
-                cmdstr = cmdstr.Replace(";", " WHERE " + columna + "  LIKE @Valor ;");
+                //Si consulta por una hora o por una fecha, como son valores especiales la consulta se tiene que hacer con =
+                bool esformatotemporal = columna == "Hora_Inicio" || columna == "Hora_Fin" || columna == "Fecha_Ingreso"; //Verifica si consulta por una de esas columnas
+                string comparador = esformatotemporal ? "=" : "LIKE"; //Si da true setea el comparador en igual, sino en LIKE
+
+                cmdstr = cmdstr.Replace(";", " WHERE " + columna + "  " + comparador + " @Valor ;");
 
                 cmd = new MySqlCommand(cmdstr, conn); //Asigno el cmdstring al mysqlcommand
-                valor = "%" + valor.ToString() + "%";
-                cmd.Parameters.AddWithValue("@Valor", valor);
-                /*if (valor is int)
+                if (!esformatotemporal)
                 {
-                    cmd.Parameters.Add("@Valor", MySqlDbType.Int32).Value = valor;
-                }*/
+                    valor = "%" + valor.ToString() + "%";
+                }
 
-                /* switch (tipo.Name)
-                 {
-                     case "Int32":
-                         if (valor is int num)
-                         {
-                             cmd.Parameters.Add("@Valor", MySqlDbType.Int32).Value = num;
-                         }
-                         break;
-
-                 }*/
-
+                cmd.Parameters.AddWithValue("@Valor", valor);
             }
             else
             {

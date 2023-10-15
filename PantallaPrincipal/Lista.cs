@@ -67,6 +67,12 @@ namespace Proyecto
             comboColumn.DisplayMember = "Columna";
             comboColumn.ValueMember = "ColumnaBD";
             comboColumn.SelectedIndex = -1;
+
+            //Seteamos los formatos personalizados del datepicker y el timepicker
+
+            datePickerSearch.CustomFormat = "yyyy-MM-dd"; //Anio de 4 digitos - Mes de dos digitos (01/12), dia de dos digitos (01/31)
+            timePickerSearch.CustomFormat = "HH:mm"; //Hora en formato 24 horas de dos digitos (00/23), minutos de dos digitos (01/59)
+
             if (backgroundWorker1.IsBusy != true)
             {
                 backgroundWorker1.RunWorkerAsync(); //Si el background worker no esta ocupado entonces empieza la operacion, esto sirve para no sobrecargarlo
@@ -203,12 +209,12 @@ namespace Proyecto
                 //Si es el datePicker pasa su fecha
                 else if (activeSearchField == datePickerSearch)
                 {
-                    valor = datePickerSearch.Value;
+                    valor = datePickerSearch.Text;
                 }
                 //Si es el datePicker pasa su fecha
                 else if (activeSearchField == timePickerSearch)
                 {
-                    valor = timePickerSearch.Value;
+                    valor = timePickerSearch.Text;
                 }
 
                 e.Result = negocio.Listar(Sesion.ReferenciaActual, columna, valor);
