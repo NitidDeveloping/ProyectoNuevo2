@@ -204,19 +204,126 @@ namespace Proyecto
 
                     case TipoReferencia.Turno:
 
-                        //Variables que usaremos para crear el objetoDestino (en este caso de la clase Alumno)
                         string nombreTurno = row.Cells["Nombre"].Value.ToString();
 
-                        //idDestino con el que trabajara la bd (en este caso el CI del alumno)
                         idDestino = row.Cells["Id"].Value.ToString();
 
-                        //Nombre que vera el usuario
                         nombreDestino = row.Cells["Nombre"].Value.ToString();
 
-                        //Objeto del cual se cargaran los datos en el formulario a la hora de editar
                         objetoDestino = new Turno (nombreTurno);
 
-                        /* ------- Para saber a que nombres de las columnas referirse ir a Negocios Listar(), ahi es donde se arman los datatable ------------ */
+                        break;
+
+                    case TipoReferencia.Materia:
+
+                        string nombreMateria = row.Cells["Nombre"].Value.ToString();
+
+                        idDestino = row.Cells["Id"].Value.ToString();
+
+                        nombreDestino = row.Cells["Nombre"].Value.ToString();
+
+                        objetoDestino = new Materia(nombreMateria);
+
+                        break;
+
+                    case TipoReferencia.Grupo:
+
+                       string nombre = row.Cells["Nombre"].Value.ToString();
+
+                        byte idTurno = (byte)row.Cells["ID_Turno"].Value;
+                        byte idOrientacion = (byte)row.Cells["ID_Orientacion"].Value;
+                        int anio = (int)row.Cells["Anio"].Value;
+
+                        Turno turno = new Turno(idTurno);
+                        Orientacion orientacion = new Orientacion (idOrientacion);
+
+                        idDestino = nombre;
+
+                        nombreDestino = nombre;
+
+                        objetoDestino = new Grupo(nombre, turno, orientacion, anio);
+
+                        break;
+
+                    case TipoReferencia.Docente:
+
+                        string nombreDocente = row.Cells["Nombre"].Value.ToString();
+                        string apellidoDocente = row.Cells["Apellido"].Value.ToString();
+                        int ciDocente = (int)row.Cells["CI"].Value;
+
+                        idDestino = row.Cells["CI"].Value.ToString();
+
+                        nombreDestino = row.Cells["CI"].Value.ToString();
+
+                        objetoDestino = new Docente(nombreDocente, apellidoDocente, ciDocente);
+
+                        break;
+
+                    case TipoReferencia.Orientacion:
+
+                        string nombreOrientacion = row.Cells["Nombre"].Value.ToString();
+
+                        idDestino = row.Cells["Id"].Value.ToString();
+
+                        nombreDestino = row.Cells["Nombre"].Value.ToString();
+
+                        objetoDestino = new Orientacion(nombreOrientacion);
+
+                        break;
+
+                  /*  case TipoReferencia.Hora:
+
+                        TimeSpan inicio = (TimeSpan)row.Cells["Inicio"].Value;
+                        TimeSpan fin = (TimeSpan)row.Cells["Fin"].Value;
+                        string turnoHora = row.Cells["Id"].Value.ToString();
+
+                        idDestino = row.Cells["Id"].Value.ToString();
+
+                        nombreDestino = row.Cells["Nombre"].Value.ToString();
+
+                        objetoDestino = new Materia(nombreMateria);
+
+                        break;*/
+
+                    case TipoReferencia.Lugar:
+
+                        string nombreLugar = row.Cells["Nombre"].Value.ToString();
+
+                        byte tipo = (byte)row.Cells["ID_Tipo"].Value;
+                        TipoLugar tipolugar = new TipoLugar(tipo);
+
+                        byte piso = (byte)row.Cells["Piso"].Value;
+                        bool clase = (bool)row.Cells["Clase"].Value;
+                        bool usocomun = (bool)row.Cells["Uso común"].Value;
+                        int coordenada_x = (int)row.Cells["Coordenada_X"].Value;
+                        int coordenada_y = (int)row.Cells["Coordenada_Y"].Value;
+
+                        idDestino = row.Cells["ID_Lugar"].Value.ToString();
+
+                        nombreDestino = row.Cells["Nombre"].Value.ToString();
+
+                        objetoDestino = new Lugar(nombreLugar, tipolugar, piso, coordenada_x, coordenada_y, clase, usocomun);
+
+                        break;
+
+                    case TipoReferencia.Funcionario:
+
+                        string nombreFuncionario = row.Cells["Nombre"].Value.ToString();
+                        string apellidoFuncionario = row.Cells["Apellido"].Value.ToString();
+                        int ciFuncionario = (int)row.Cells["CI"].Value;
+
+                        byte cargoFuncionario = (byte)row.Cells["ID_Cargo"].Value;
+                        Cargo cargo = new Cargo(cargoFuncionario);
+
+                        bool isadmFuncionario = (bool)row.Cells["Administrador"].Value;
+                        DateTime inicioFuncionario = (DateTime)row.Cells["Fecha de ingreso"].Value;
+
+                        idDestino = row.Cells["CI"].Value.ToString();
+
+                        nombreDestino = row.Cells["CI"].Value.ToString();
+
+                        objetoDestino = new Funcionario(nombreFuncionario, apellidoFuncionario, ciFuncionario, cargo, isadmFuncionario, inicioFuncionario);
+
                         break;
 
                     default: throw new Exception("No implementado, switch btnEditar_Click en Lista capa Presentacion");
