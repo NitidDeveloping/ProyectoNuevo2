@@ -10,6 +10,7 @@ namespace Proyecto
         public object ObjetoDestino;
         public string IdDestino;
         public string NombreDestino;
+        public string IdPadre;
 
         public AgregarEditar()
         {

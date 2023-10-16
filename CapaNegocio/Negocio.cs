@@ -461,7 +461,7 @@ namespace CapaNegocio
             }
             else
             {
-                return datos.Editar(referencia, item);
+                return datos.Editar(referencia, item, idObjetivo, idPadre);
 
             }
         }

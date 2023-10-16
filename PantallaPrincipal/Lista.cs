@@ -84,35 +84,85 @@ namespace Proyecto
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
            /* RetornoValidacion respuesta;
-            string tipo id;
+            string id;
+            string idPadre = null;
+            string tipoId = string.Empty;
+            string tipoIdPadre = null;
+            Negocio negocio = new Negocio();
+            MsgBox confirm;
 
             switch (Sesion.ReferenciaActual)
             {
                 case TipoReferencia.Alumno:
                 case TipoReferencia.Docente:
                 case TipoReferencia.Funcionario:
-                    
+                    tipoId = "CI";
+                    break;
+
+                case TipoReferencia.Anio:
+                    tipoId = "Anio";
+                    break;
+
+                case TipoReferencia.Grupo:
+                    tipoId = "Nombre";
+                    break;
+
+                case TipoReferencia.Hora:
+                    tipoId = "Numero";
+                    tipodIdPadre = "ID_Turno";
+                    break;
+
+                case TipoReferencia.Lugar:
+                    tipoId = "ID_Lugar";
+                    break;
+
+                case TipoReferencia.Materia:
+                case TipoReferencia.Orientacion:
+                case TipoReferencia.TipoDeLugar:
+                case TipoReferencia.Turno:
+                    tipoId = "Id";
                     break;
             }
 
-            string id = DGV.SelectedRows[0].Cells["CI"].Value.ToString();
-            MsgBox confirm = new MsgBox("pregunta", "Se eliminará al alumno ¿Está seguro que desea continuar?.");
+            if (tipoIdPadre != null)
+            {
+                id = DGV.SelectedRows[0].Cells[tipoId].Value.ToString();
+                confirm = new MsgBox("pregunta", "Se eliminará el elemento ¿Está seguro que desea continuar?.");
+
+                if (confirm.ShowDialog() == DialogResult.Yes)
+                {
+                    respuesta = negocio.Eliminar(Sesion.ReferenciaActual, id);
+                    if (respuesta == RetornoValidacion.OK)
+                    {
+                        MsgBox msg = new MsgBox("exito", "Elemento eliminado correctamente.");
+                        msg.ShowDialog();
+                        backgroundWorker1.RunWorkerAsync();
+                    }
+                    else
+                    {
+                        MsgBox msg = new MsgBox("error", "No se ha podido eliminar.");
+                        msg.ShowDialog();
+                    }
+                }
+            }
+            id = DGV.SelectedRows[0].Cells[tipoId].Value.ToString();
+            confirm = new MsgBox("pregunta", "Se eliminará el elemento ¿Está seguro que desea continuar?.");
 
             if (confirm.ShowDialog() == DialogResult.Yes)
             {
-                respuesta = Negocio_alumno.Borrar(int.Parse(ci));
-                if (respuesta.Equals("OK"))
+                respuesta = negocio.Eliminar(Sesion.ReferenciaActual, id);
+                if (respuesta == RetornoValidacion.OK)
                 {
-                    MsgBox msg = new MsgBox("exito", "Alumno eliminado correctamente.");
+                    MsgBox msg = new MsgBox("exito", "Elemento eliminado correctamente.");
                     msg.ShowDialog();
-                    this.Listar();
+                    backgroundWorker1.RunWorkerAsync();
                 }
-                else if (respuesta.Equals("Error"))
+                else
                 {
                     MsgBox msg = new MsgBox("error", "No se ha podido eliminar.");
                     msg.ShowDialog();
                 }
-            }*/
+            } */
         }
 
         private void BtnEditar_Click(object sender, EventArgs e)
@@ -334,7 +384,7 @@ namespace Proyecto
                 IdDestino = IdDestino,
                 ObjetoDestino = ObjetoDestino,
                 NombreDestino = NombreDestino,
-                IdPadre = IdPadre;
+                IdPadre = IdPadre
             };
             Metodos.openChildForm(agregarEditar, Metodos.menuForm.plForms);
         }
