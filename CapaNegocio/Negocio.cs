@@ -253,23 +253,163 @@ namespace CapaNegocio
             return dt;
         }
 
-        public RetornoValidacion Agregar(TipoReferencia referencia, object item, string id)
+        public RetornoValidacion Agregar(TipoReferencia referencia, object item, string idnombre)
         {
             Datos datos = new Datos();
-            if (datos.Consultar(referencia, id) != null)
+
+            if (referencia == TipoReferencia.Lugar ||
+                referencia == TipoReferencia.Materia ||
+                referencia == TipoReferencia.Orientacion ||
+                referencia == TipoReferencia.Turno)
+            {
+                if (datos.VerificarNombreNuevo(referencia, idnombre)) //Verifica que no sea un nombre repetido
+                {
+                    //Agrega el id al item segun la referencia
+                    switch (referencia)
+                    {
+                        case TipoReferencia.Lugar:
+                            if(item is Lugar lugar)
+                            {
+                                ushort id = (ushort)datos.GenerarIdAutomatico(referencia);
+                                item = new Lugar(
+                                    id,
+                                    lugar.Nombre,
+                                    lugar.Tipo,
+                                    lugar.Piso,
+                                    lugar.Coordenada_x,
+                                    lugar.Coordenada_y,
+                                    lugar.IsClase,
+                                    lugar.IsUsoComun);
+                            }
+                            break;
+
+                        case TipoReferencia.Materia:
+                            if (item is Materia materia)
+                            {
+                                ushort id = (ushort)datos.GenerarIdAutomatico(referencia);
+                                item = new Materia(
+                                    id,
+                                    materia.Nombre
+                                   );
+                            }
+                            break;
+
+                        case TipoReferencia.Orientacion:
+                            if (item is Orientacion orientacion)
+                            {
+                                byte id = (byte)datos.GenerarIdAutomatico(referencia);
+                                item = new Orientacion(
+                                    id,
+                                    orientacion.Nombre
+                                   );
+                            }
+                            break;
+
+                        case TipoReferencia.Turno:
+                            if (item is Turno turno)
+                            {
+                                byte id = (byte)datos.GenerarIdAutomatico(referencia);
+                                item = new Turno(
+                                    id,
+                                    turno.Nombre
+                                   );
+                            }
+                            break;
+
+                    }
+
+                    return datos.Agregar(referencia, item);
+
+                }
+                else
+                {
+                    return RetornoValidacion.YaExisteNombre;
+                }
+            }
+
+          /*  if (datos.Consultar(referencia, idnombre) != null)
             {
                 return RetornoValidacion.YaExiste;
             }
             else
-            {
+            { */
                 return datos.Agregar(referencia, item);
 
-            }
+           // }
         }
 
-        public RetornoValidacion Editar(TipoReferencia referencia, object item, string idObjetivo)
+        public RetornoValidacion Editar(TipoReferencia referencia, object item, string idObjetivo, string nombre)
         {
             Datos datos = new Datos();
+            if (referencia == TipoReferencia.Lugar ||
+               referencia == TipoReferencia.Materia ||
+               referencia == TipoReferencia.Orientacion ||
+               referencia == TipoReferencia.Turno)
+            {
+                if (datos.VerificarNombreNuevo(referencia, nombre)) //Verifica que no sea un nombre repetido
+                {
+                    //Agrega el id al item segun la referencia
+                    switch (referencia)
+                    {
+                        case TipoReferencia.Lugar:
+                            if (item is Lugar lugar)
+                            {
+                                ushort id = (ushort)datos.GenerarIdAutomatico(referencia);
+                                item = new Lugar(
+                                    id,
+                                    lugar.Nombre,
+                                    lugar.Tipo,
+                                    lugar.Piso,
+                                    lugar.Coordenada_x,
+                                    lugar.Coordenada_y,
+                                    lugar.IsClase,
+                                    lugar.IsUsoComun);
+                            }
+                            break;
+
+                        case TipoReferencia.Materia:
+                            if (item is Materia materia)
+                            {
+                                ushort id = (ushort)datos.GenerarIdAutomatico(referencia);
+                                item = new Materia(
+                                    id,
+                                    materia.Nombre
+                                   );
+                            }
+                            break;
+
+                        case TipoReferencia.Orientacion:
+                            if (item is Orientacion orientacion)
+                            {
+                                byte id = (byte)datos.GenerarIdAutomatico(referencia);
+                                item = new Orientacion(
+                                    id,
+                                    orientacion.Nombre
+                                   );
+                            }
+                            break;
+
+                        case TipoReferencia.Turno:
+                            if (item is Turno turno)
+                            {
+                                byte id = (byte)datos.GenerarIdAutomatico(referencia);
+                                item = new Turno(
+                                    id,
+                                    turno.Nombre
+                                   );
+                            }
+                            break;
+
+                    }
+                    return datos.Editar(referencia, item, idObjetivo);
+
+                }
+                else
+                {
+                    return RetornoValidacion.YaExisteNombre;
+                }
+            }
+
             if (datos.Consultar(referencia, idObjetivo) != null)
             {
                 return datos.Editar(referencia, item, idObjetivo);
@@ -292,6 +432,22 @@ namespace CapaNegocio
             else
             {
                 return RetornoValidacion.NoExiste;
+            }
+        }
+
+        //Sobrecargas para horas
+        public RetornoValidacion Agregar(TipoReferencia referencia, object item, byte idObjetivo, byte idPadre)
+        {
+            Datos datos = new Datos();
+
+            if (datos.Consultar(referencia, idObjetivo, idPadre) != null)
+            {
+                return RetornoValidacion.YaExiste;
+            }
+            else
+            {
+                return datos.Agregar(referencia, item);
+
             }
         }
 

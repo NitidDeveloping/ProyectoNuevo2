@@ -8,9 +8,11 @@ namespace CapaEntidades
 {
     public enum RetornoValidacion
     {
+        ErrorDeFormato,
+        ErrorInesperadoBD,
+        NoExiste,
         OK,
         YaExiste,
-        ErrorInesperadoBD,
-        NoExiste
+        YaExisteNombre
     }
 }

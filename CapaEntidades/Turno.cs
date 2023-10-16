@@ -19,10 +19,15 @@ namespace CapaEntidades
             this.id = id;
             this.nombre = nombre;
         }
-        
+
         public Turno(byte id)
         {
-            this.id = id; 
+            this.id = id;
+        }
+
+        public Turno(string nombre)
+        {
+            this.nombre = nombre;
         }
     }
 

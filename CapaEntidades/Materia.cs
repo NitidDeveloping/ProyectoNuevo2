@@ -14,10 +14,15 @@ namespace CapaEntidades
         public string Nombre { get { return nombre; } }
         public ushort Id { get { return id; } }
 
-        public Materia(string nombre, ushort id)
+        public Materia(ushort id, string nombre)
         {
             this.nombre = nombre;
             this.id = id;
+        }
+
+        public Materia(string nombre)
+        {
+            this.nombre = nombre;
         }
     }
 }

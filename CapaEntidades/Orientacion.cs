@@ -25,5 +25,10 @@ namespace CapaEntidades
             this.id = id;
         }
 
+        public Orientacion(string nombre)
+        {
+            this.nombre = nombre;
+        }
+
     }
 }

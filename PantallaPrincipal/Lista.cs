@@ -193,12 +193,6 @@ namespace Proyecto
                     comboSearch.Invoke((MethodInvoker)(() =>
                     {
                         valor = comboSearch.SelectedValue;
-                        /*DataRowView selectedRow = (DataRowView)comboSearch.SelectedItem;
-
-                        if (selectedRow.Row.ItemArray[1] is object obj)
-                        {
-                            valor = obj;
-                        }*/
                     }));
                 }
                 //Si es el textbox de busqueda pasa su texto
