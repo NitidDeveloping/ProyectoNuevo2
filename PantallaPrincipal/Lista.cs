@@ -83,6 +83,36 @@ namespace Proyecto
         #region
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
+           /* RetornoValidacion respuesta;
+            string tipo id;
+
+            switch (Sesion.ReferenciaActual)
+            {
+                case TipoReferencia.Alumno:
+                case TipoReferencia.Docente:
+                case TipoReferencia.Funcionario:
+                    
+                    break;
+            }
+
+            string id = DGV.SelectedRows[0].Cells["CI"].Value.ToString();
+            MsgBox confirm = new MsgBox("pregunta", "Se eliminará al alumno ¿Está seguro que desea continuar?.");
+
+            if (confirm.ShowDialog() == DialogResult.Yes)
+            {
+                respuesta = Negocio_alumno.Borrar(int.Parse(ci));
+                if (respuesta.Equals("OK"))
+                {
+                    MsgBox msg = new MsgBox("exito", "Alumno eliminado correctamente.");
+                    msg.ShowDialog();
+                    this.Listar();
+                }
+                else if (respuesta.Equals("Error"))
+                {
+                    MsgBox msg = new MsgBox("error", "No se ha podido eliminar.");
+                    msg.ShowDialog();
+                }
+            }*/
         }
 
         private void BtnEditar_Click(object sender, EventArgs e)
@@ -293,6 +323,18 @@ namespace Proyecto
                 IdDestino = IdDestino,
                 ObjetoDestino = ObjetoDestino,
                 NombreDestino = NombreDestino
+            };
+            Metodos.openChildForm(agregarEditar, Metodos.menuForm.plForms);
+        }
+
+        private void AbrirAgregarEditar(object ObjetoDestino, string IdDestino, string NombreDestino, string IdPadre)
+        {
+            AgregarEditar agregarEditar = new AgregarEditar
+            {
+                IdDestino = IdDestino,
+                ObjetoDestino = ObjetoDestino,
+                NombreDestino = NombreDestino,
+                IdPadre = IdPadre;
             };
             Metodos.openChildForm(agregarEditar, Metodos.menuForm.plForms);
         }

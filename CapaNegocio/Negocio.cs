@@ -424,15 +424,15 @@ namespace CapaNegocio
         public RetornoValidacion Eliminar(TipoReferencia referencia, string idObjetivo)
         {
             Datos datos = new Datos();
-            if (datos.Consultar(referencia, idObjetivo) != null)
-            {
+           // if (datos.Consultar(referencia, idObjetivo) != null)
+           // {
                 return datos.Eliminar(referencia, idObjetivo);
 
-            }
-            else
-            {
-                return RetornoValidacion.NoExiste;
-            }
+           // }
+          //  else
+           // {
+           //     return RetornoValidacion.NoExiste;
+           // }
         }
 
         //Sobrecargas para horas
