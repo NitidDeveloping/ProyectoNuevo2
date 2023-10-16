@@ -35,7 +35,6 @@ namespace Proyecto
                     txtNombre.MaxLength = 30; //Seteamos la longitud maxima en el campo de nombre para que pueda poner como maximo 30 caracteres
                     txtApellido.MaxLength = 30; //Seteamos la longitud maxima en el campo de apellido para que pueda poner como maximo 30 caracteres
                     //Estos valores se han tomado en cuenta viendo las restricciones en la creacion de la bd
-
                     //Si el id destino es distinto de null mostramos las cosas de acuerdo a lo que se necesita para editar
                     if (IdDestino != null)
                     {
