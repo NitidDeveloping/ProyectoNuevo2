@@ -637,9 +637,9 @@
             this.lblFechaIngreso.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFechaIngreso.Location = new System.Drawing.Point(21, 8);
             this.lblFechaIngreso.Name = "lblFechaIngreso";
-            this.lblFechaIngreso.Size = new System.Drawing.Size(263, 55);
+            this.lblFechaIngreso.Size = new System.Drawing.Size(329, 55);
             this.lblFechaIngreso.TabIndex = 55;
-            this.lblFechaIngreso.Text = "Hora inicio:";
+            this.lblFechaIngreso.Text = "Fecha ingreso";
             // 
             // AgregarEditar
             // 

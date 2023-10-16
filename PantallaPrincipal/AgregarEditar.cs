@@ -97,6 +97,11 @@ namespace Proyecto
                     plComboBox1.Visible = true;
                     plCombobox2.Visible = true;
                     plCombobox3.Visible = true;
+                    
+                    lblCbx1.Text = "Turno";
+                    cbx1.DataSource = negocio.Listar(TipoReferencia.Turno, null, null);
+                    cbx1.DisplayMember = "Nombre";
+                    cbx1.ValueMember = "Id";
 
                     //COSAS PARA EDITAR
                     if (IdDestino != null)
@@ -943,5 +948,6 @@ namespace Proyecto
 
         #endregion
 
+       
     }
 }

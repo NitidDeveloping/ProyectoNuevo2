@@ -424,15 +424,15 @@ namespace CapaNegocio
         public RetornoValidacion Eliminar(TipoReferencia referencia, string idObjetivo)
         {
             Datos datos = new Datos();
-            if (datos.Consultar(referencia, idObjetivo) != null)
-            {
+           // if (datos.Consultar(referencia, idObjetivo) != null)
+           // {
                 return datos.Eliminar(referencia, idObjetivo);
 
-            }
-            else
-            {
-                return RetornoValidacion.NoExiste;
-            }
+           // }
+          //  else
+           // {
+           //     return RetornoValidacion.NoExiste;
+           // }
         }
 
         //Sobrecargas para horas
@@ -450,6 +450,36 @@ namespace CapaNegocio
 
             }
         }
+
+        public RetornoValidacion Editar(TipoReferencia referencia, object item, byte idObjetivo, byte idPadre)
+        {
+            Datos datos = new Datos();
+
+            if (datos.Consultar(referencia, idObjetivo, idPadre) == null)
+            {
+                return RetornoValidacion.NoExiste;
+            }
+            else
+            {
+                return datos.Editar(referencia, item);
+
+            }
+        }
+
+        public RetornoValidacion Eliminar(TipoReferencia referencia, byte idObjetivo, byte idPadre)
+        {
+            Datos datos = new Datos();
+            // if (datos.Consultar(referencia, idObjetivo) != null)
+            // {
+            return datos.Eliminar(referencia, idObjetivo, idPadre);
+
+            // }
+            //  else
+            // {
+            //     return RetornoValidacion.NoExiste;
+            // }
+        }
+
 
         #endregion
 
