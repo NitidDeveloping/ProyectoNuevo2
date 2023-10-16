@@ -35,6 +35,9 @@ namespace Proyecto
                     txtNombre.MaxLength = 30; //Seteamos la longitud maxima en el campo de nombre para que pueda poner como maximo 30 caracteres
                     txtApellido.MaxLength = 30; //Seteamos la longitud maxima en el campo de apellido para que pueda poner como maximo 30 caracteres
                     //Estos valores se han tomado en cuenta viendo las restricciones en la creacion de la bd
+
+
+                    //COSAS PARA EDITAR
                     //Si el id destino es distinto de null mostramos las cosas de acuerdo a lo que se necesita para editar
                     if (IdDestino != null)
                     {
@@ -45,7 +48,7 @@ namespace Proyecto
                             txtNombre.Text = alumno.Nombre;
                         }
                     }
-                    else
+                    else //NO TENGO NADA EN EL IDDESTINO, COSAS PARA AGREGAR
                     {
                         //Mostramos paneles
                         plCI.Visible = true;
@@ -56,6 +59,246 @@ namespace Proyecto
                     }
 
                     break;
+
+                case TipoReferencia.Turno:
+
+                    plNombre.Visible = true;
+
+                    txtNombre.MaxLength = 20;
+
+                    //COSAS PARA EDITAR
+                    if (IdDestino != null)
+                    {
+                        if (ObjetoDestino is Turno turno)
+                        {
+                            txtNombre.Text = turno.Nombre;
+                        }
+                    }
+                    break;
+
+                case TipoReferencia.Materia:
+
+                    plNombre.Visible = true;
+
+                    txtNombre.MaxLength = 45;
+
+                    //COSAS PARA EDITAR
+                    if (IdDestino != null)
+                    {
+                        if (ObjetoDestino is Materia materia)
+                        {
+                            txtNombre.Text = materia.Nombre;
+                        }
+                    }
+                    break;
+
+                case TipoReferencia.Grupo:
+
+                    plComboBox1.Visible = true;
+                    plCombobox2.Visible = true;
+                    plCombobox3.Visible = true;
+
+                    //COSAS PARA EDITAR
+                    if (IdDestino != null)
+                    {
+                        if (ObjetoDestino is Grupo grupo)
+                        {
+                            //COMPLETAR
+                            //COMPLETAR
+                            //COMPLETAR
+
+                            lblCbx1.Text = "Turno";
+                            cbx1.DataSource = negocio.Listar(TipoReferencia.Turno, null, null);
+                            cbx1.DisplayMember = "Nombre";
+                            cbx1.ValueMember = "Id";
+
+                            lblCbx2.Text = "Orientacion";
+                            cbx2.DataSource = negocio.Listar(TipoReferencia.Orientacion, null, null);
+                            cbx2.DisplayMember = "Nombre";
+                            cbx2.ValueMember = "Id";
+
+                            lblCbx2.Text = "Anio";
+                            cbx2.DataSource = negocio.Listar(TipoReferencia.Anio, null, null);
+                            cbx2.DisplayMember = "Anio";
+                            cbx2.ValueMember = "Anio";
+
+
+                        }
+                    }
+                    else //NO TENGO NADA EN EL IDDESTINO, COSAS PARA AGREGAR
+                    {
+                        //Mostramos paneles
+                        plNombre.Visible = true;
+
+                        txtNombre.MaxLength = 5;
+                    }
+                    break;
+
+                case TipoReferencia.Docente:
+
+                    plNombre.Visible = true;
+                    plApellido.Visible = true;
+
+                    txtNombre.MaxLength = 30;
+                    txtApellido.MaxLength = 30;
+
+                    //COSAS PARA EDITAR
+                    if (IdDestino != null)
+                    {
+                        if (ObjetoDestino is Docente docente)
+                        {
+                            txtApellido.Text = docente.Apellido;
+                            txtNombre.Text = docente.Nombre;
+                        }
+
+                    }
+                    else //NO TENGO NADA EN EL IDDESTINO, COSAS PARA AGREGAR
+                    {
+                        plCI.Visible = true;
+                        plPIN.Visible = true;
+
+                        txtCI.MaxLength = 8;
+                        txtPIN.MaxLength = 4;
+
+                    }
+                    break;
+
+                case TipoReferencia.Orientacion:
+
+                    plNombre.Visible = true;
+
+                    txtNombre.MaxLength = 45;
+
+                    //COSAS PARA EDITAR
+                    if (IdDestino != null)
+                    {
+                        if (ObjetoDestino is Orientacion orientacion)
+                        {
+                            txtNombre.Text = orientacion.Nombre;
+                        }
+                    }
+                    break;
+
+                case TipoReferencia.Hora:
+
+                    plComboBox1.Visible = true;
+                    plInicio.Visible = true;
+                    plFin.Visible = true;
+
+                    //COSAS PARA EDITAR
+                    if (IdDestino != null)
+                    {
+                        if (ObjetoDestino is Hora hora)
+                        {
+                            DateTime fechainicio = new DateTime(2000, 01, 01, hora.Inicio.Hours, hora.Inicio.Minutes, hora.Inicio.Seconds);
+                            dtpInicio.Value = fechainicio;
+
+                            DateTime fechafin = new DateTime(2000, 01, 01, hora.Fin.Hours, hora.Fin.Minutes, hora.Fin.Seconds);
+                            dtpFin.Value = fechafin;
+
+                            lblCbx1.Text = "Turno";
+                            cbx1.DataSource = negocio.Listar(TipoReferencia.Turno, null, null);
+                            cbx1.DisplayMember = "Nombre";
+                            cbx1.ValueMember = "Id";
+                        }
+                    }
+                    else //NO TENGO NADA EN EL IDDESTINO, COSAS PARA AGREGAR
+                    {
+                        plNombre.Visible = true;
+
+                        txtNombre.MaxLength = 2;
+
+                    }
+                    break;
+
+                case TipoReferencia.Anio:
+
+                    plPIN.Visible = true;
+
+                    txtPIN.MaxLength = 4;
+
+                    break;
+
+                case TipoReferencia.Lugar:
+
+                    plNombre.Visible = true;
+                    plComboBox1.Visible= true;
+                    plCombobox2.Visible = true;
+                    plCheckBox1.Visible = true;
+                    plCheckBox2.Visible = true;
+                    
+                    txtNombre.MaxLength = 45;
+
+                    //COSAS PARA EDITAR
+                    if (IdDestino != null)
+                    {
+                        if (ObjetoDestino is Lugar lugar)
+                        {
+                            txtNombre.Text = lugar.Nombre;
+
+                            lblCbx1.Text = "Tipo";
+                            cbx1.DataSource = negocio.Listar(TipoReferencia.TipoDeLugar, null, null);
+                            cbx1.DisplayMember = "Nombre";
+                            cbx1.ValueMember = "Id";
+
+                            lblCbx2.Text = "Piso";
+                            cbx2.Items.Add(0);
+                            cbx2.Items.Add(1);
+                            cbx2.Items.Add(2);
+
+                            chck1.Checked = lugar.IsClase;
+                            chck2.Checked = lugar.IsUsoComun;
+
+                        }
+                    }
+                    break;
+
+
+                case TipoReferencia.Funcionario:
+
+                    plNombre.Visible = true;
+                    plApellido.Visible = true;
+                    plComboBox1.Visible = true;
+                    plCombobox2.Visible = true;
+
+                    txtNombre.MaxLength = 30;
+                    txtApellido.MaxLength = 30;
+
+                    //COSAS PARA EDITAR
+                    if (IdDestino != null)
+                    {
+                        if (ObjetoDestino is Funcionario funcionario)
+                        {
+                            txtApellido.Text = funcionario.Apellido;
+                            txtNombre.Text = funcionario.Nombre;
+
+                            lblCbx1.Text = "Cargo";
+                            cbx1.DataSource = negocio.Listar(TipoReferencia.CargosFuncionarios, null, null);
+                            cbx1.DisplayMember = "Cargo";
+                            cbx1.ValueMember = "Id_Cargo";
+
+                            lblCbx2.Text = "Tipo";
+                            cbx2.DataSource = negocio.Listar(TipoReferencia.Funcionario, null, null);
+                            cbx2.Items.Add(1);
+                            cbx2.Items.Add(2);
+
+                        }
+                    }
+                    else //NO TENGO NADA EN EL IDDESTINO, COSAS PARA AGREGAR
+                    {
+                        plCI.Visible = true;
+                        plPIN.Visible = true;
+                        plCheckBox1.Visible = true;
+
+                        txtCI.MaxLength = 8;
+                        txtPIN.MaxLength = 4;
+
+                        chck1.Text = "Administrador";
+
+                    }
+                    
+                    break;
+
 
                 default:
                     throw new Exception("Referencia no implementada en el formulario AgregarEditar");

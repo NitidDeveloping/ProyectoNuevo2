@@ -106,9 +106,9 @@ namespace Proyecto
                     case TipoReferencia.Alumno:
 
                         //Variables que usaremos para crear el objetoDestino (en este caso de la clase Alumno)
-                        string nombreAlumno = row.Cells["Nombre"].Value.ToString(); ;
-                        string apellidoAlumno = row.Cells["Apellido"].Value.ToString(); ;
-                        int ciAlumno = (int)row.Cells["CI"].Value; ;
+                        string nombreAlumno = row.Cells["Nombre"].Value.ToString();
+                        string apellidoAlumno = row.Cells["Apellido"].Value.ToString();
+                        int ciAlumno = (int)row.Cells["CI"].Value;
 
                         //idDestino con el que trabajara la bd (en este caso el CI del alumno)
                         idDestino = row.Cells["CI"].Value.ToString();
@@ -118,6 +118,23 @@ namespace Proyecto
 
                         //Objeto del cual se cargaran los datos en el formulario a la hora de editar
                         objetoDestino = new Alumno(nombreAlumno, apellidoAlumno, ciAlumno);
+
+                        /* ------- Para saber a que nombres de las columnas referirse ir a Negocios Listar(), ahi es donde se arman los datatable ------------ */
+                        break;
+
+                    case TipoReferencia.Turno:
+
+                        //Variables que usaremos para crear el objetoDestino (en este caso de la clase Alumno)
+                        string nombreTurno = row.Cells["Nombre"].Value.ToString();
+
+                        //idDestino con el que trabajara la bd (en este caso el CI del alumno)
+                        idDestino = row.Cells["Id"].Value.ToString();
+
+                        //Nombre que vera el usuario
+                        nombreDestino = row.Cells["Nombre"].Value.ToString();
+
+                        //Objeto del cual se cargaran los datos en el formulario a la hora de editar
+                        objetoDestino = new Turno (nombreTurno);
 
                         /* ------- Para saber a que nombres de las columnas referirse ir a Negocios Listar(), ahi es donde se arman los datatable ------------ */
                         break;
