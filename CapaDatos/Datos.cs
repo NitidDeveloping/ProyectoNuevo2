@@ -114,7 +114,14 @@ namespace CapaDatos
                     switch (referencia)//Segun la referencia inicializa aux de una forma u otra
                     {
                         case TipoReferencia.Alumno:
-                            aux = new Alumno(dr.GetString(0), dr.GetString(1), dr.GetInt32(2), dr.GetString(3));
+                            if (dr.IsDBNull(3))
+                            {
+                                aux = new Alumno(dr.GetString(0), dr.GetString(1), dr.GetInt32(2));
+                            }
+                            else
+                            {
+                                aux = new Alumno(dr.GetString(0), dr.GetString(1), dr.GetInt32(2), dr.GetString(3));
+                            }
                             break;
 
                         case TipoReferencia.Turno:
@@ -122,7 +129,7 @@ namespace CapaDatos
                             break;
 
                         case TipoReferencia.Materia:
-                            aux = new Materia(dr.GetString(1), dr.GetUInt16(0));
+                            aux = new Materia(dr.GetUInt16(0), dr.GetString(1));
                             break;
 
                         case TipoReferencia.Grupo:
@@ -348,7 +355,7 @@ namespace CapaDatos
             MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
             MySqlCommand cmd;
 
-            //Decide valores de tabla, parametros y valores para el string del comando
+            //Decide el string del comando segun la referencia
             switch (referencia)
             {
                 case TipoReferencia.Usuario:
@@ -710,6 +717,97 @@ namespace CapaDatos
 
 
 
+        }
+
+        public int GenerarIdAutomatico(TipoReferencia referencia) //Metodo para generar un id automatico para las tablas a las que el usuario no les asigna uno
+                                                                  //Segun la referencia devuelve el id mas alto de una tabla mas uno
+        {
+            int respuesta;
+            string cmdstr;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
+            MySqlCommand cmd;
+
+            switch (referencia)
+            {
+                case TipoReferencia.Lugar:
+                    cmdstr = "SELECT MAX(ID) FROM Lugar;";
+                    break;
+                case TipoReferencia.Materia:
+                    cmdstr = "SELECT MAX(ID_Materia) FROM Materia;";
+                    break;
+                case TipoReferencia.Orientacion:
+                    cmdstr = "SELECT MAX(Orientacion) FROM Orientacion;";
+                    break;
+                case TipoReferencia.Turno:
+                    cmdstr = "SELECT MAX(Turno) FROM Turno;";
+                    break;
+
+                default : throw new ArgumentException("No se pudo conseguir id, referencia no reconocida");
+            }
+            cmd = new MySqlCommand(cmdstr, conn);
+            try
+            {
+                conn.Open();
+                respuesta = (int)cmd.ExecuteScalar();
+                respuesta++;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return respuesta;
+        }
+
+        public bool VerificarNombreNuevo(TipoReferencia referencia, string nombre)
+        {
+            bool respuesta;
+            string cmdstr;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
+            MySqlCommand cmd;
+
+            switch (referencia)
+            {
+                case TipoReferencia.Lugar:
+                    cmdstr = "SELECT COUNT(Lugar.ID) FROM Lugar WHERE Lugar.Nombre = @Nombre;";
+                    break;
+                case TipoReferencia.Materia:
+                    cmdstr = "SELECT COUNT(ID_Materia) FROM Materia WHERE Materia.Nombre = @Nombre;";
+                    break;
+                case TipoReferencia.Orientacion:
+                    cmdstr = "SELECT COUNT(Orientacion) FROM Orientacion WHERE Orientacion.Nombre_Orientacion = @Nombre;";
+                    break;
+                case TipoReferencia.Turno:
+                    cmdstr = "SELECT COUNT(Turno) FROM Turno WHERE Turno.Nombre_Turno = @Nombre;";
+                    break;
+
+                default: throw new ArgumentException("No se pudo conseguir id, referencia no reconocida");
+            }
+            cmd = new MySqlCommand(cmdstr, conn);
+            cmd.Parameters.AddWithValue("@Nombre", nombre);
+            try
+            {
+                conn.Open();
+                respuesta = (int)cmd.ExecuteScalar() == 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return respuesta;
         }
 
 

@@ -75,6 +75,9 @@
             this.plFin = new System.Windows.Forms.Panel();
             this.dtpFin = new System.Windows.Forms.DateTimePicker();
             this.lblFin = new System.Windows.Forms.Label();
+            this.plFechaIngreso = new System.Windows.Forms.Panel();
+            this.dtpFechaIngreso = new System.Windows.Forms.DateTimePicker();
+            this.lblFechaIngreso = new System.Windows.Forms.Label();
             this.plNombre.SuspendLayout();
             this.plApellido.SuspendLayout();
             this.plCI.SuspendLayout();
@@ -88,6 +91,7 @@
             this.layout.SuspendLayout();
             this.plInicio.SuspendLayout();
             this.plFin.SuspendLayout();
+            this.plFechaIngreso.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAceptar
@@ -99,6 +103,7 @@
             this.btnAceptar.TabIndex = 33;
             this.btnAceptar.Text = "ACEPTAR";
             this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // btnCancelar
             // 
@@ -537,6 +542,7 @@
             this.layout.Controls.Add(this.plCheckBox2);
             this.layout.Controls.Add(this.plInicio);
             this.layout.Controls.Add(this.plFin);
+            this.layout.Controls.Add(this.plFechaIngreso);
             this.layout.Location = new System.Drawing.Point(21, 21);
             this.layout.Name = "layout";
             this.layout.Size = new System.Drawing.Size(1202, 814);
@@ -604,6 +610,37 @@
             this.lblFin.TabIndex = 55;
             this.lblFin.Text = "Hora final:";
             // 
+            // plFechaIngreso
+            // 
+            this.plFechaIngreso.Controls.Add(this.dtpFechaIngreso);
+            this.plFechaIngreso.Controls.Add(this.lblFechaIngreso);
+            this.plFechaIngreso.Location = new System.Drawing.Point(7, 807);
+            this.plFechaIngreso.Margin = new System.Windows.Forms.Padding(7);
+            this.plFechaIngreso.Name = "plFechaIngreso";
+            this.plFechaIngreso.Size = new System.Drawing.Size(384, 186);
+            this.plFechaIngreso.TabIndex = 83;
+            this.plFechaIngreso.Visible = false;
+            // 
+            // dtpFechaIngreso
+            // 
+            this.dtpFechaIngreso.CustomFormat = "yyyy/MM/dd";
+            this.dtpFechaIngreso.Font = new System.Drawing.Font("Verdana", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFechaIngreso.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFechaIngreso.Location = new System.Drawing.Point(24, 83);
+            this.dtpFechaIngreso.Name = "dtpFechaIngreso";
+            this.dtpFechaIngreso.Size = new System.Drawing.Size(337, 50);
+            this.dtpFechaIngreso.TabIndex = 56;
+            // 
+            // lblFechaIngreso
+            // 
+            this.lblFechaIngreso.AutoSize = true;
+            this.lblFechaIngreso.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFechaIngreso.Location = new System.Drawing.Point(21, 8);
+            this.lblFechaIngreso.Name = "lblFechaIngreso";
+            this.lblFechaIngreso.Size = new System.Drawing.Size(263, 55);
+            this.lblFechaIngreso.TabIndex = 55;
+            this.lblFechaIngreso.Text = "Hora inicio:";
+            // 
             // AgregarEditar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -640,6 +677,8 @@
             this.plInicio.PerformLayout();
             this.plFin.ResumeLayout(false);
             this.plFin.PerformLayout();
+            this.plFechaIngreso.ResumeLayout(false);
+            this.plFechaIngreso.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -692,5 +731,8 @@
         private System.Windows.Forms.Panel plFin;
         private System.Windows.Forms.DateTimePicker dtpFin;
         private System.Windows.Forms.Label lblFin;
+        private System.Windows.Forms.Panel plFechaIngreso;
+        private System.Windows.Forms.DateTimePicker dtpFechaIngreso;
+        private System.Windows.Forms.Label lblFechaIngreso;
     }
 }

@@ -35,8 +35,8 @@ namespace CapaEntidades
             this.ocupado = ocupado;
         }
 
-       /* public Lugar(string nombre, string tipo, string piso, int coordenada_x, int coordenada_y, bool isClase, bool isUsoComun, string estado)
-        {            
+        public Lugar(string nombre, TipoLugar tipo, byte piso, int coordenada_x, int coordenada_y, bool isClase, bool isUsoComun)
+        {
             this.nombre = nombre;
             this.coordenada_x = coordenada_x;
             this.coordenada_y = coordenada_y;
@@ -44,9 +44,20 @@ namespace CapaEntidades
             this.piso = piso;
             this.isClase = isClase;
             this.isUsoComun = isUsoComun;
-            this.estado = estado;
         }
-       */
+
+        public Lugar(ushort id, string nombre, TipoLugar tipo, byte piso, int coordenada_x, int coordenada_y, bool isClase, bool isUsoComun)
+        {
+            this.id = id;
+            this.nombre = nombre;
+            this.coordenada_x = coordenada_x;
+            this.coordenada_y = coordenada_y;
+            this.tipo = tipo;
+            this.piso = piso;
+            this.isClase = isClase;
+            this.isUsoComun = isUsoComun;
+        }
+
         public ushort ID { get { return id; } }
         public string Nombre { get { return nombre; } }
         public int Coordenada_x { get {  return coordenada_x; } }

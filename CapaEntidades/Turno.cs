@@ -24,6 +24,7 @@ namespace CapaEntidades
         {
             this.id = id;
         }
+
         public Turno(string nombre)
         {
             this.nombre = nombre;
