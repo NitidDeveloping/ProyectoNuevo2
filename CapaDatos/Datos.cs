@@ -114,7 +114,14 @@ namespace CapaDatos
                     switch (referencia)//Segun la referencia inicializa aux de una forma u otra
                     {
                         case TipoReferencia.Alumno:
-                            aux = new Alumno(dr.GetString(0), dr.GetString(1), dr.GetInt32(2), dr.GetString(3));
+                            if (dr.IsDBNull(3))
+                            {
+                                aux = new Alumno(dr.GetString(0), dr.GetString(1), dr.GetInt32(2));
+                            }
+                            else
+                            {
+                                aux = new Alumno(dr.GetString(0), dr.GetString(1), dr.GetInt32(2), dr.GetString(3));
+                            }
                             break;
 
                         case TipoReferencia.Turno:

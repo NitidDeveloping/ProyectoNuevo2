@@ -110,8 +110,10 @@
             this.DGV.Location = new System.Drawing.Point(75, 223);
             this.DGV.MultiSelect = false;
             this.DGV.Name = "DGV";
+            this.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGV.Size = new System.Drawing.Size(1112, 618);
             this.DGV.TabIndex = 50;
+            this.DGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellDoubleClick);
             // 
             // lblSearch
             // 
@@ -160,7 +162,6 @@
             // comboSearch
             // 
             this.comboSearch.DropDownHeight = 750;
-            this.comboSearch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboSearch.Font = new System.Drawing.Font("Verdana", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboSearch.FormattingEnabled = true;
             this.comboSearch.IntegralHeight = false;

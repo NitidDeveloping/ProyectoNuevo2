@@ -92,6 +92,21 @@ namespace Proyecto
         {
             Metodos.SoloNumeros(e);
         }
+
+        private void Limpiar()
+        {
+            // Limpiar los campos después de un registro exitoso
+            txtCI.Text = "";
+            txtPIN.Text = "";
+            txtNombre.Text = "";
+            txtApellido.Text = "";
+            cbx1.SelectedIndex = -1;
+            cbx2.SelectedIndex = -1;
+            cbx3.SelectedIndex = -1;
+            chck1.Checked = false;
+            chck2.Checked = false;
+        }
+
         #endregion
 
 
@@ -129,6 +144,7 @@ namespace Proyecto
                                     {
                                         case RetornoValidacion.OK:
                                             msg = new MsgBox("exito", "Alumno cargado exitosamente");
+                                            Limpiar();
                                             break;
 
                                         case RetornoValidacion.YaExiste:
@@ -155,13 +171,14 @@ namespace Proyecto
                     case TipoReferencia.Anio:
                         if (ValidarAnio() == RetornoValidacion.OK)
                         {
-                            string anio = txtCI.Text;
+                            string anio = txtPIN.Text;
                             RetornoValidacion resultadoAgregar = negocio.Agregar(TipoReferencia.Anio, anio, anio);
 
                             switch (resultadoAgregar)
                             {
                                 case RetornoValidacion.OK:
                                     msg = new MsgBox("exito", "Año cargado exitosamente");
+                                    Limpiar();
                                     break;
 
                                 case RetornoValidacion.YaExiste:
@@ -190,6 +207,7 @@ namespace Proyecto
                                     {
                                         case RetornoValidacion.OK:
                                             msg = new MsgBox("exito", "Docente cargado exitosamente");
+                                            Limpiar();
                                             break;
 
                                         case RetornoValidacion.YaExiste:
@@ -229,6 +247,7 @@ namespace Proyecto
                                     {
                                         case RetornoValidacion.OK:
                                             msg = new MsgBox("exito", "Funcionario cargado exitosamente");
+                                            Limpiar();
                                             break;
 
                                         case RetornoValidacion.YaExiste:
@@ -266,6 +285,7 @@ namespace Proyecto
                             {
                                 case RetornoValidacion.OK:
                                     msg = new MsgBox("exito", "Grupo cargado exitosamente");
+                                    Limpiar();
                                     break;
 
                                 case RetornoValidacion.YaExiste:
@@ -301,6 +321,7 @@ namespace Proyecto
                             {
                                 case RetornoValidacion.OK:
                                     msg = new MsgBox("exito", "Hora cargada exitosamente");
+                                    Limpiar();
                                     break;
 
                                 case RetornoValidacion.YaExiste:
@@ -331,6 +352,7 @@ namespace Proyecto
                             {
                                 case RetornoValidacion.OK:
                                     msg = new MsgBox("exito", "Lugar cargado exitosamente");
+                                    Limpiar();
                                     break;
 
                                 case RetornoValidacion.YaExiste:
@@ -355,6 +377,7 @@ namespace Proyecto
                             {
                                 case RetornoValidacion.OK:
                                     msg = new MsgBox("exito", "Materia cargada exitosamente");
+                                    Limpiar();
                                     break;
 
                                 case RetornoValidacion.YaExisteNombre:
@@ -379,6 +402,7 @@ namespace Proyecto
                             {
                                 case RetornoValidacion.OK:
                                     msg = new MsgBox("exito", "Orientacion cargada exitosamente");
+                                    Limpiar();
                                     break;
 
                                 case RetornoValidacion.YaExisteNombre:
@@ -403,6 +427,7 @@ namespace Proyecto
                             {
                                 case RetornoValidacion.OK:
                                     msg = new MsgBox("exito", "Turno cargado exitosamente");
+                                    Limpiar();
                                     break;
 
                                 case RetornoValidacion.YaExisteNombre:
@@ -421,7 +446,6 @@ namespace Proyecto
 
             if (msg != null)
             {
-
                 msg.ShowDialog();
             }
         }
@@ -502,18 +526,18 @@ namespace Proyecto
             Validaciones validaciones = new Validaciones();
 
             //Validar vacio
-            if (validaciones.ValidarVacio(txtCI.Text))
+            if (validaciones.ValidarVacio(txtPIN.Text))
             {
                 MsgBox msg = new MsgBox("error", "Debe completar el campo de Año antes de continuar");
                 msg.ShowDialog();
-                txtCI.Focus();
+                txtPIN.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
             }
-            else if (validaciones.ValidarAnio(short.Parse(txtCI.Text)))
+            else if (validaciones.ValidarAnio(short.Parse(txtPIN.Text)))
             {
                 MsgBox msg = new MsgBox("error", "El año no puede ser mayor que el año actual + dos ni anterior a este");
                 msg.ShowDialog();
-                txtCI.Focus();
+                txtPIN.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
             }
 

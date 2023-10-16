@@ -470,7 +470,14 @@ namespace Proyecto
             return dt;
         }
         #endregion
+
         #endregion
 
+        private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow selectedRow = DGV.Rows[e.RowIndex];
+            MsgBox msg = new MsgBox("exito", selectedRow.Cells["CI"].Value.ToString());
+            msg.ShowDialog();
+        }
     }
 }
