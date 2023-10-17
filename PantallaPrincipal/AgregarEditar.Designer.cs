@@ -530,6 +530,7 @@
             this.dtpInicio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpInicio.Location = new System.Drawing.Point(24, 83);
             this.dtpInicio.Name = "dtpInicio";
+            this.dtpInicio.ShowUpDown = true;
             this.dtpInicio.Size = new System.Drawing.Size(337, 50);
             this.dtpInicio.TabIndex = 56;
             // 
@@ -561,6 +562,7 @@
             this.dtpFin.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpFin.Location = new System.Drawing.Point(24, 83);
             this.dtpFin.Name = "dtpFin";
+            this.dtpFin.ShowUpDown = true;
             this.dtpFin.Size = new System.Drawing.Size(337, 50);
             this.dtpFin.TabIndex = 56;
             // 
@@ -626,7 +628,6 @@
             this.btnAceptar.TabIndex = 33;
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
-            this.btnAceptar.Paint += new System.Windows.Forms.PaintEventHandler(this.btnAceptar_Paint);
             // 
             // btnCancelar
             // 

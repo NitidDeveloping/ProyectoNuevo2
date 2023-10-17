@@ -178,6 +178,7 @@ namespace Proyecto
             string idDestino; //idDestino del objeto sobre el que trabajaremos en la bd
             object objetoDestino; //Objeto que contiene la informacion sobre el objeto que vamos a editar en la base de datos
             string nombreDestino; // Nombre que mostraremos en el lblDestino para que el usuario lo vea, no debe ser id si el id es un numero que el usuario no tiene porque saber (ej:Id_materia)
+            string idPadre = null;
 
             //Evaluamos si el usuario selecciono una linea del DGV
             //Si lo hizo abrimos el AgregarEditar con los valores correspondientes a lo que haya seleccionado
@@ -278,19 +279,21 @@ namespace Proyecto
 
                         break;
 
-                  /*  case TipoReferencia.Hora:
+                    case TipoReferencia.Hora:
 
                         TimeSpan inicio = (TimeSpan)row.Cells["Inicio"].Value;
                         TimeSpan fin = (TimeSpan)row.Cells["Fin"].Value;
-                        string turnoHora = row.Cells["Id"].Value.ToString();
+                        byte numeroHora = (byte)row.Cells["Numero"].Value;
+                        Turno turnoHora = new Turno((byte)row.Cells["ID_Turno"].Value);
 
-                        idDestino = row.Cells["Id"].Value.ToString();
+                        idDestino = numeroHora.ToString();
+                        idPadre = row.Cells["ID_Turno"].Value.ToString();
 
-                        nombreDestino = row.Cells["Nombre"].Value.ToString();
+                        nombreDestino = row.Cells["Numero"].Value.ToString() +" "+ row.Cells["Turno"].Value.ToString();
 
-                        objetoDestino = new Materia(nombreMateria);
+                        objetoDestino = new Hora((numeroHora, turnoHora), inicio, fin);
 
-                        break;*/
+                        break;
 
                     case TipoReferencia.Lugar:
 
@@ -335,8 +338,17 @@ namespace Proyecto
 
                     default: throw new Exception("No implementado, switch btnEditar_Click en Lista capa Presentacion");
                 }
+
                 //Abrimos el formulario agregar editar con los argumentos que hemos fabricado arriba
-                AbrirAgregarEditar(objetoDestino, idDestino, nombreDestino);
+                if (idPadre != null)
+                {
+                    AbrirAgregarEditar(objetoDestino, idDestino, nombreDestino, idPadre);
+                }
+                else
+                {
+                    AbrirAgregarEditar(objetoDestino, idDestino, nombreDestino);
+                }
+               
             }
             else
             {

@@ -489,7 +489,7 @@ namespace CapaDatos
                         cmd.Parameters.Add("@ID_Horario", MySqlDbType.Int16).Value = hora.Nid;
                         cmd.Parameters.Add("@Hora_Inicio", MySqlDbType.Time).Value = hora.Inicio;
                         cmd.Parameters.Add("@Hora_Fin", MySqlDbType.Time).Value = hora.Fin;
-                        cmd.Parameters.Add("@Turno", MySqlDbType.Byte).Value = hora.Turno;
+                        cmd.Parameters.Add("@Turno", MySqlDbType.Byte).Value = hora.Turno.Id;
                     }
                     break;
 
@@ -528,7 +528,7 @@ namespace CapaDatos
                         cmd.Parameters.Add("@Nombre", MySqlDbType.VarChar).Value = lugar.Nombre;
                         cmd.Parameters.Add("@Coordenada_X", MySqlDbType.Int32).Value = lugar.Coordenada_x;
                         cmd.Parameters.Add("@Coordenada_Y", MySqlDbType.Int32).Value = lugar.Coordenada_y;
-                        cmd.Parameters.Add("@Tipo", MySqlDbType.Byte).Value = lugar.Tipo;
+                        cmd.Parameters.Add("@Tipo", MySqlDbType.Byte).Value = lugar.Tipo.Id;
                         cmd.Parameters.Add("@Piso", MySqlDbType.Byte).Value = lugar.Piso;
                     }
                     break;
@@ -590,7 +590,7 @@ namespace CapaDatos
                     break;
 
                 case TipoReferencia.Turno:
-                    cmdstr = "UPDATE Turno SET Nombre_Turno=@Turno WHERE Turno=@Turno;";
+                    cmdstr = "UPDATE Turno SET Nombre_Turno=@Nombre_Turno WHERE Turno=@Turno;";
                     break;
 
                 case TipoReferencia.Materia:
@@ -599,7 +599,7 @@ namespace CapaDatos
 
                 case TipoReferencia.Grupo:
                     cmdstr = "UPDATE Grupo SET Anio=@Anio, Turno=@Turno, Orientacion=@Orientacion WHERE ID_Grupo=@ID_Grupo;";
-                    break;  
+                    break;
 
                 case TipoReferencia.Orientacion:
                     cmdstr = "UPDATE Orientacion SET Nombre_Orientacion=@Nombre_Orientacion WHERE Orientacion=@Orientacion;";
@@ -691,7 +691,7 @@ namespace CapaDatos
                     {
                         cmd.Parameters.Add("@CI_Funcionario", DbType.Int32).Value = Convert.ToInt32(idObjetivo);
                         cmd.Parameters.Add("@Tipo", MySqlDbType.Byte).Value = funcionario.IsAdmn;
-                        cmd.Parameters.Add("@Cargo", MySqlDbType.Byte).Value = funcionario.Cargo;
+                        cmd.Parameters.Add("@Cargo", MySqlDbType.Byte).Value = funcionario.Cargo.Id;
                     }
                     break;
             }
@@ -720,61 +720,65 @@ namespace CapaDatos
         public object Consultar(TipoReferencia referencia, string idObjetivo)
         {
             //Variables
-            object respuesta;
+            object respuesta = null;
             string cmdstr;
             MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
             MySqlCommand cmd;
             MySqlDataReader dr;
 
             switch (referencia){
+                case TipoReferencia.Usuario:
+                    cmdstr = "SELECT CI, Nombre, Apellido FROM Usuario WHERE CI = @CI;";
+                    break;
+
                 case TipoReferencia.Alumno:
-                    cmdstr = "SELECT (CI, Nombre, Apellido) FROM Usuario_Alumno WHERE CI_Alumno=@CI_Alumno;";
+                    cmdstr = "SELECT CI_Alumno, Nombre, Apellido FROM Usuario_Alumno WHERE CI_Alumno = @CI_Alumno;";
                     break;
 
                 case TipoReferencia.Turno:
-                    cmdstr = "SELECT (Turno, Nombre_Turno) FROM Turno WHERE Turno=@Turno;";
+                    cmdstr = "SELECT Turno, Nombre_Turno FROM Turno WHERE Turno=@Turno;";
                     break;
 
                 case TipoReferencia.Materia:
-                    cmdstr = "SELECT (ID_Materia, Nombre) FROM Materia WHERE ID_Materia=@ID_Materia;";
+                    cmdstr = "SELECT ID_Materia, Nombre FROM Materia WHERE ID_Materia=@ID_Materia;";
                     break;
 
                 case TipoReferencia.Grupo:
-                    cmdstr = "SELECT (ID_Grupo, Anio, Orientacion, Nombre_Orientacion, Turno, Nombre_Turno, Lista) FROM Lista_Grupos WHERE ID_Grupo=@ID_Grupo;";
+                    cmdstr = "SELECT ID_Grupo, Anio, Orientacion, Nombre_Orientacion, Turno, Nombre_Turno, Lista FROM Lista_Grupos WHERE ID_Grupo = @ID_Grupo;";
                     break;
 
                 case TipoReferencia.Docente:
-                    cmdstr = "SELECT (Nombre, Apellido, CI_Docente) FROM Usuario_Docente WHERE ID_Grupo=@ID_Grupo;";
+                    cmdstr = "SELECT Nombre, Apellido, CI_Docente FROM Usuario_Docente WHERE CI_Docente=@CI_Docente;";
                     break;
 
                 case TipoReferencia.Orientacion:
-                    cmdstr = "SELECT (Orientacion, Nombre_Orientacion) FROM Orientacion WHERE Orientacion=@Orientacion;";
+                    cmdstr = "SELECT Orientacion, Nombre_Orientacion FROM Orientacion WHERE Orientacion=@Orientacion;";
                     break;
 
                     //HORARIO (grupo materia horario clase)
 
                 case TipoReferencia.Hora:
-                    cmdstr = "SELECT (ID_Horario, Turno, Nombre_Turno, Hora_Inicio, Hora_Fin) FROM Lista_Horas WHERE ID_Horario=@ID_Horario;";
+                    cmdstr = "SELECT ID_Horario, Turno, Nombre_Turno, Hora_Inicio, Hora_Fin FROM Lista_Horas WHERE ID_Horario=@ID_Horario;";
                     break;
 
                 case TipoReferencia.Anio:
-                    cmdstr = "SELECT (Anio) FROM Anio WHERE Anio=@Anio;";
+                    cmdstr = "SELECT Anio FROM Anio WHERE Anio=@Anio;";
                     break;
 
                 case TipoReferencia.CargosFuncionarios:
-                    cmdstr = "SELECT (Cargo, Nombre_Cargo) FROM Cargo WHERE Cargo=@Cargo;";
+                    cmdstr = "SELECT Cargo, Nombre_Cargo FROM Cargo WHERE Cargo=@Cargo;";
                     break;
 
                 case TipoReferencia.Lugar:
-                    cmdstr = "SELECT (ID, Nombre, Tipo, Nombre_Tipo, Coordenada_X, Coordenada_Y, Piso, AptoParaClase, UsoComun, EstadoOcupacion) FROM Lugares WHERE ID=@ID;";
+                    cmdstr = "SELECT ID, Nombre, Tipo, Nombre_Tipo, Coordenada_X, Coordenada_Y, Piso, AptoParaClase, UsoComun, EstadoOcupacion FROM Lugares WHERE ID=@ID;";
                     break;
 
                 case TipoReferencia.Funcionario:
-                    cmdstr = "SELECT (Nombre, Apellido, CI_Funcionario, Cargo, Nombre_Cargo, Tipo, Fecha_Ingreso) FROM Usuario_Funcionario WHERE CI_Funcionario=@CI_Funcionario;";
+                    cmdstr = "SELECT Nombre, Apellido, CI_Funcionario, Cargo, Nombre_Cargo, Tipo, Fecha_Ingreso FROM Usuario_Funcionario WHERE CI_Funcionario=@CI_Funcionario;";
                     break;
 
                 case TipoReferencia.TipoDeLugar:
-                    cmdstr = "SELECT (Tipo, Nombre_Tipo) FROM Tipo_Lugar WHERE Tipo=@Tipo;";
+                    cmdstr = "SELECT Tipo, Nombre_Tipo FROM Tipo_Lugar WHERE Tipo=@Tipo;";
                     break;
                 default:
                     throw new ArgumentException("Argumento de consulta invalido, contacte a un administrador si el problema persiste");
@@ -786,8 +790,12 @@ namespace CapaDatos
             //Segun la referencia pasa la id como un valor de base de datos u otro
             switch (referencia)
             {
-                case TipoReferencia.Alumno:
+                case TipoReferencia.Usuario:
                     cmd.Parameters.Add("@CI", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
+                    break;
+
+                case TipoReferencia.Alumno:
+                    cmd.Parameters.Add("@CI_Alumno", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
                     break;
 
                 case TipoReferencia.Turno:
@@ -843,66 +851,73 @@ namespace CapaDatos
                 conn.Open(); //Abro la conexión
 
                 dr = cmd.ExecuteReader(); //Inicio el comando
-
-                switch (referencia)//Segun la referencia inicializa aux de una forma u otra
+                if (dr.HasRows)
                 {
-                    case TipoReferencia.Alumno:
-                        respuesta = new Alumno(dr.GetString(1), dr.GetString(2), dr.GetInt32(0), dr.GetString(3));
-                        break;
+                    dr.Read();
 
-                    case TipoReferencia.Turno:
-                        respuesta = new Turno(dr.GetByte(0), dr.GetString(1));
-                        break;
+                    switch (referencia)//Segun la referencia inicializa aux de una forma u otra
+                    {
+                        case TipoReferencia.Usuario:
+                            respuesta = new Usuario(dr.GetString(1), dr.GetString(2), dr.GetInt32(0));
+                            break;
 
-                    case TipoReferencia.Materia:
-                        respuesta = new Materia(dr.GetUInt16(0), dr.GetString(1));
-                        break;
+                        case TipoReferencia.Alumno:
+                            respuesta = new Alumno(dr.GetString(1), dr.GetString(2), dr.GetInt32(0));
+                            break;
 
-                    case TipoReferencia.Grupo:
-                        Turno auxturnogrupo = new Turno(dr.GetByte(4), dr.GetString(5));
-                        Orientacion auxorientacion = new Orientacion(dr.GetByte(2), dr.GetString(3));
-                        respuesta = new Grupo(dr.GetString(0), auxturnogrupo, auxorientacion, dr.GetInt32(1), dr.GetByte(6));
-                        break;
+                        case TipoReferencia.Turno:
+                            respuesta = new Turno(dr.GetByte(0), dr.GetString(1));
+                            break;
 
-                    case TipoReferencia.Docente:
-                        respuesta = new Docente(dr.GetString(0), dr.GetString(1), dr.GetInt32(2));
-                        break;
+                        case TipoReferencia.Materia:
+                            respuesta = new Materia(dr.GetUInt16(0), dr.GetString(1));
+                            break;
 
-                    case TipoReferencia.Orientacion:
-                        respuesta = new Orientacion(dr.GetByte(0), dr.GetString(1));
-                        break;
+                        case TipoReferencia.Grupo:
+                            Turno auxturnogrupo = new Turno(dr.GetByte(4), dr.GetString(5));
+                            Orientacion auxorientacion = new Orientacion(dr.GetByte(2), dr.GetString(3));
+                            respuesta = new Grupo(dr.GetString(0), auxturnogrupo, auxorientacion, dr.GetInt32(1), dr.GetByte(6));
+                            break;
 
-                    case TipoReferencia.Hora:
-                        Turno auxturnohora = new Turno(dr.GetByte(1), dr.GetString(2));
-                        respuesta = new Hora((dr.GetByte(0), auxturnohora), dr.GetTimeSpan(3), dr.GetTimeSpan(4));
-                        break;
+                        case TipoReferencia.Docente:
+                            respuesta = new Docente(dr.GetString(0), dr.GetString(1), dr.GetInt32(2));
+                            break;
 
-                    case TipoReferencia.Anio:
-                        respuesta = dr.GetInt32(0);
-                        break;
+                        case TipoReferencia.Orientacion:
+                            respuesta = new Orientacion(dr.GetByte(0), dr.GetString(1));
+                            break;
 
-                    case TipoReferencia.CargosFuncionarios:
-                        respuesta = new Cargo(dr.GetByte(0), dr.GetString(1));
-                        break;
+                        case TipoReferencia.Hora:
+                            Turno auxturnohora = new Turno(dr.GetByte(1), dr.GetString(2));
+                            respuesta = new Hora((dr.GetByte(0), auxturnohora), dr.GetTimeSpan(3), dr.GetTimeSpan(4));
+                            break;
 
-                    case TipoReferencia.Lugar:
-                        TipoLugar auxtipolugar = new TipoLugar(dr.GetByte(2), dr.GetString(3));
-                        respuesta = new Lugar(dr.GetUInt16(0), dr.GetString(1), dr.GetInt32(4), dr.GetInt32(5), dr.GetByte(6), dr.GetBoolean(7), dr.GetBoolean(8), auxtipolugar, dr.GetBoolean(9));
-                        break;
+                        case TipoReferencia.Anio:
+                            respuesta = dr.GetInt32(0);
+                            break;
 
-                    case TipoReferencia.Funcionario:
-                        Cargo auxcargofuncionario = new Cargo(dr.GetByte(3), dr.GetString(4));
-                        respuesta = new Funcionario(dr.GetString(0), dr.GetString(1), dr.GetInt32(2), auxcargofuncionario, dr.GetBoolean(5), dr.GetDateTime(6));
-                        break;
+                        case TipoReferencia.CargosFuncionarios:
+                            respuesta = new Cargo(dr.GetByte(0), dr.GetString(1));
+                            break;
 
-                    case TipoReferencia.TipoDeLugar:
-                        respuesta = new TipoLugar(dr.GetByte(0), dr.GetString(1));
-                        break;
+                        case TipoReferencia.Lugar:
+                            TipoLugar auxtipolugar = new TipoLugar(dr.GetByte(2), dr.GetString(3));
+                            respuesta = new Lugar(dr.GetUInt16(0), dr.GetString(1), dr.GetInt32(4), dr.GetInt32(5), dr.GetByte(6), dr.GetBoolean(7), dr.GetBoolean(8), auxtipolugar, dr.GetBoolean(9));
+                            break;
 
-                    default: throw new ArgumentException("Argumento de consulta imposible de transformar, contacte a un administrador si el problema persiste");
+                        case TipoReferencia.Funcionario:
+                            Cargo auxcargofuncionario = new Cargo(dr.GetByte(3), dr.GetString(4));
+                            respuesta = new Funcionario(dr.GetString(0), dr.GetString(1), dr.GetInt32(2), auxcargofuncionario, dr.GetBoolean(5), dr.GetDateTime(6));
+                            break;
+
+                        case TipoReferencia.TipoDeLugar:
+                            respuesta = new TipoLugar(dr.GetByte(0), dr.GetString(1));
+                            break;
+
+                        default: throw new ArgumentException("Argumento de consulta imposible de transformar, contacte a un administrador si el problema persiste");
+                    }
                 }
-
-                return respuesta;//Retorna la lista
+                return respuesta;//Retorna lo que encuentre
             }
             catch (Exception ex)// En caso de excepcion throwea esta
             {
@@ -987,6 +1002,7 @@ namespace CapaDatos
 
                 default: throw new ArgumentException("No se pudo conseguir id, referencia no reconocida");
             }
+
             cmd = new MySqlCommand(cmdstr, conn);
             cmd.Parameters.AddWithValue("@Nombre", nombre);
             try
@@ -998,6 +1014,52 @@ namespace CapaDatos
             {
                 throw ex;
             } 
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return respuesta;
+        }
+        public bool VerificarNombreNuevo(TipoReferencia referencia, string nombre, string id) //Este es para usarse en ediciones para verificar que no haya un mismo nombre en otro id
+        {
+            bool respuesta;
+            string cmdstr;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
+            MySqlCommand cmd;
+
+            switch (referencia)
+            {
+                case TipoReferencia.Lugar:
+                    cmdstr = "SELECT COUNT(Lugar.ID) FROM Lugar WHERE Lugar.Nombre = @Nombre AND Lugar.ID != @ID;";
+                    break;
+                case TipoReferencia.Materia:
+                    cmdstr = "SELECT COUNT(ID_Materia) FROM Materia WHERE Materia.Nombre = @Nombre AND ID_Materia != @ID;";
+                    break;
+                case TipoReferencia.Orientacion:
+                    cmdstr = "SELECT COUNT(Orientacion) FROM Orientacion WHERE Orientacion.Nombre_Orientacion = @Nombre AND Orientacion.Orientacion != @ID;";
+                    break;
+                case TipoReferencia.Turno:
+                    cmdstr = "SELECT COUNT(Turno) FROM Turno WHERE Turno.Nombre_Turno = @Nombre AND Turno.Turno != @ID;";
+                    break;
+
+                default: throw new ArgumentException("No se pudo conseguir id, referencia no reconocida");
+            }
+
+            cmd = new MySqlCommand(cmdstr, conn);
+            cmd.Parameters.AddWithValue("@Nombre", nombre);
+            cmd.Parameters.AddWithValue("@ID", id);
+            try
+            {
+                conn.Open();
+                respuesta = Convert.ToInt32(cmd.ExecuteScalar()) == 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             finally
             {
                 if (conn.State == ConnectionState.Open)
@@ -1067,23 +1129,19 @@ namespace CapaDatos
         {
             //Variables
             RetornoValidacion respuesta;
-            string cmdstr = "UPDATE @TablaReferencia SET @ValoresReferencia WHERE @ClavePrimaria=@ID AND @ClavePadre=@IDPadre;";
-            string tabla;
-            string valores; //Seteara los parametros por donde pasaremos los valores para editar
-            string clave;
-            string clavepadre;
-            MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
+            string cmdstr;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
             MySqlCommand cmd;
 
             //Decide valores de tabla valores y clave para el string del comando
             switch (referencia)
             {
                 case TipoReferencia.Hora:
-                    cmdstr = "UPDATE Horario SET Hora_Inicio=@Hora_Inicio, Hora_Fin=@Hora_Fin WHERE ID_Horario=@ID AND @Turno=@IDPadre;";
+                    cmdstr = "UPDATE Horario SET Hora_Inicio = @Hora_Inicio, Hora_Fin = @Hora_Fin WHERE ID_Horario = @ID AND Horario.Turno = @IDPadre;";
                     break;
 
                 default:
-                    throw new ArgumentException("Agrumento de editado invalido, contacte a un administrador si el problema persiste");
+                    throw new ArgumentException("Argumento de editado invalido, contacte a un administrador si el problema persiste");
 
             }
 
@@ -1093,7 +1151,7 @@ namespace CapaDatos
             //Asigna los valores para agregar en el comando
             switch (referencia)
             {
-                case TipoReferencia.Usuario:
+                case TipoReferencia.Hora:
                     if (item is Hora hora)
                     {
                         cmd.Parameters.Add("@ID", MySqlDbType.Int16).Value = idObjetivo;
@@ -1128,7 +1186,7 @@ namespace CapaDatos
         public object Consultar(TipoReferencia referencia, byte idObjetivo, byte idPadre)
         {
             //Variables
-            object respuesta;
+            object respuesta = null;
             string cmdstr;
             MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
             MySqlCommand cmd;
@@ -1137,7 +1195,7 @@ namespace CapaDatos
             switch (referencia)
             {
                 case TipoReferencia.Hora:
-                    cmdstr = "SELECT (Horario.ID_Horario, Horario.Turno, Turno.Nombre_Turno, Horario.Hora_Inicio, Horario.Hora_Fin) FROM Horario JOIN Turno ON Horario.Turno = Turno.Turno WHERE ID_Horario=@ID AND Turno=@IDPadre;";
+                    cmdstr = "SELECT Horario.ID_Horario, Horario.Turno, Turno.Nombre_Turno, Horario.Hora_Inicio, Horario.Hora_Fin FROM Horario JOIN Turno ON Horario.Turno = Turno.Turno WHERE ID_Horario=@ID AND Horario.Turno=@IDPadre;";
                     break;
                 default:
                     throw new ArgumentException("Argumento de consulta invalido, contacte a un administrador si el problema persiste");
@@ -1149,7 +1207,7 @@ namespace CapaDatos
             //Segun la referencia pasa la id como un valor de base de datos u otro
             switch (referencia)
             {
-                case TipoReferencia.Alumno:
+                case TipoReferencia.Hora:
                     cmd.Parameters.Add("@ID", MySqlDbType.Int16).Value = idObjetivo;
                     cmd.Parameters.Add("@IDPadre", MySqlDbType.Byte).Value = idPadre;
                     break;
@@ -1162,16 +1220,19 @@ namespace CapaDatos
 
                 dr = cmd.ExecuteReader(); //Inicio el comando
 
-
-                switch (referencia)//Segun la referencia inicializa aux de una forma u otra
+                if (dr.HasRows)
                 {
-                    case TipoReferencia.Hora:
-                        Turno auxturno = new Turno(dr.GetByte(1), dr.GetString(2));
-                       respuesta = new Hora((dr.GetByte(0), auxturno), dr.GetTimeSpan(3), dr.GetTimeSpan(4));
-                        break;
-                    default: throw new ArgumentException("Argumento de consulta imposible de transformar, contacte a un administrador si el problema persiste");
+                    dr.Read();
+                    switch (referencia)//Segun la referencia inicializa aux de una forma u otra
+                    {
+                        case TipoReferencia.Hora:
+                            Turno auxturno = new Turno(dr.GetByte(1), dr.GetString(2));
+                            respuesta = new Hora((dr.GetByte(0), auxturno), dr.GetTimeSpan(3), dr.GetTimeSpan(4));
+                            break;
+                        default: throw new ArgumentException("Argumento de consulta imposible de transformar, contacte a un administrador si el problema persiste");
+                    }
                 }
-
+               
                 return respuesta;//Retorna la lista
             }
             catch (Exception ex)// En caso de excepcion throwea esta

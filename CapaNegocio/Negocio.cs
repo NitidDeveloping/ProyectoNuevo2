@@ -346,7 +346,7 @@ namespace CapaNegocio
                referencia == TipoReferencia.Orientacion ||
                referencia == TipoReferencia.Turno)
             {
-                if (datos.VerificarNombreNuevo(referencia, nombre)) //Verifica que no sea un nombre repetido
+                if (datos.VerificarNombreNuevo(referencia, nombre, idObjetivo)) //Verifica que no sea un nombre repetido
                 {
                     //Agrega el id al item segun la referencia
                     switch (referencia)
@@ -412,6 +412,10 @@ namespace CapaNegocio
 
             if (datos.Consultar(referencia, idObjetivo) != null)
             {
+                if (referencia == TipoReferencia.Docente || referencia == TipoReferencia.Alumno)
+                {
+                    referencia = TipoReferencia.Usuario;
+                }
                 return datos.Editar(referencia, item, idObjetivo);
 
             }

@@ -1,8 +1,10 @@
 ﻿using CapaEntidades;
 using CapaNegocio;
 using System;
+using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Proyecto
 {
@@ -11,7 +13,7 @@ namespace Proyecto
         public object ObjetoDestino;
         public string IdDestino;
         public string NombreDestino;
-        public string IdPadre;
+        public string IdPadre = null;
 
         public AgregarEditar()
         {
@@ -101,17 +103,20 @@ namespace Proyecto
                     plCombobox3.Visible = true;
 
                     lblCbx1.Text = "Turno";
-                    cbx1.DataSource = negocio.Listar(TipoReferencia.Turno, null, null);
+                    DataTable dtTurno = negocio.Listar(TipoReferencia.Turno, null, null);
+                    cbx1.DataSource = dtTurno;
                     cbx1.DisplayMember = "Nombre";
                     cbx1.ValueMember = "Id";
 
                     lblCbx2.Text = "Orientacion";
-                    cbx2.DataSource = negocio.Listar(TipoReferencia.Orientacion, null, null);
+                    DataTable dtOrientacion = negocio.Listar(TipoReferencia.Orientacion, null, null);
+                    cbx2.DataSource = dtOrientacion;
                     cbx2.DisplayMember = "Nombre";
                     cbx2.ValueMember = "Id";
 
                     lblCbx3.Text = "Año";
-                    cbx3.DataSource = negocio.Listar(TipoReferencia.Anio, null, null);
+                    DataTable dtAnio = negocio.Listar(TipoReferencia.Anio, null, null);
+                    cbx3.DataSource = dtAnio;
                     cbx3.DisplayMember = "Anio";
                     cbx3.ValueMember = "Anio";
 
@@ -120,24 +125,36 @@ namespace Proyecto
                     {
                         if (ObjetoDestino is Grupo grupo)
                         {
-                            //COMPLETAR
-                            //COMPLETAR
-                            //COMPLETAR
+                            //Id de los objetos que se van a setear en el combobox
+                            byte idTurnoEditar = grupo.Turno.Id;
+                            byte idOrientacionEditar = grupo.Orientacion.Id;
+                            int idAnioEditar = grupo.Anio;
 
-                            lblCbx1.Text = "Turno";
-                            cbx1.DataSource = negocio.Listar(TipoReferencia.Turno, null, null);
-                            cbx1.DisplayMember = "Nombre";
-                            cbx1.ValueMember = "Id";
+                            //ROWS FILTRADAS POR LA ID 
+                            DataRow[] rowTurno = dtTurno.Select("ID = " + idTurnoEditar);
+                            DataRow[] rowOrientacion = dtOrientacion.Select("ID = " + idOrientacionEditar);
+                            DataRow[] rowAnio = dtAnio.Select("Anio = " + idAnioEditar);
 
-                            lblCbx2.Text = "Orientacion";
-                            cbx2.DataSource = negocio.Listar(TipoReferencia.Orientacion, null, null);
-                            cbx2.DisplayMember = "Nombre";
-                            cbx2.ValueMember = "Id";
 
-                            lblCbx3.Text = "Anio";
-                            cbx3.DataSource = negocio.Listar(TipoReferencia.Anio, null, null);
-                            cbx3.DisplayMember = "Anio";
-                            cbx3.ValueMember = "Anio";
+                            //TURNO
+                            // Busca en el DataTable el objeto que coincida con el ID deseado
+                            if (rowTurno.Length > 0)
+                            {
+                                // Si se encontró una fila que coincide con el ID deseado, establece el elemento seleccionado en el ComboBox
+                                cbx1.SelectedValue = rowTurno[0]["ID"];
+                            }
+
+                            //ORIENTACION
+                            if (rowOrientacion.Length > 0)
+                            {
+                                cbx2.SelectedValue = rowOrientacion[0]["ID"];
+                            }
+
+                            //Anio
+                            if (rowAnio.Length > 0)
+                            {
+                                cbx3.SelectedValue = rowAnio[0]["Anio"];
+                            }
 
 
                         }
@@ -197,8 +214,6 @@ namespace Proyecto
                     break;
 
                 case TipoReferencia.Hora:
-
-                    plComboBox1.Visible = true;
                     plInicio.Visible = true;
                     plFin.Visible = true;
 
@@ -207,24 +222,27 @@ namespace Proyecto
                     {
                         if (ObjetoDestino is Hora hora)
                         {
-                            DateTime fechainicio = new DateTime(2000, 01, 01, hora.Inicio.Hours, hora.Inicio.Minutes, hora.Inicio.Seconds);
-                            dtpInicio.Value = fechainicio;
-
+                            //DATETIMES para los DateTimePickers
                             DateTime fechafin = new DateTime(2000, 01, 01, hora.Fin.Hours, hora.Fin.Minutes, hora.Fin.Seconds);
-                            dtpFin.Value = fechafin;
+                            DateTime fechainicio = new DateTime(2000, 01, 01, hora.Inicio.Hours, hora.Inicio.Minutes, hora.Inicio.Seconds);
 
-                            lblCbx1.Text = "Turno";
-                            cbx1.DataSource = negocio.Listar(TipoReferencia.Turno, null, null);
-                            cbx1.DisplayMember = "Nombre";
-                            cbx1.ValueMember = "Id";
+                            //Asignamos los valores a loss DateTimePicker
+                            dtpInicio.Value = fechainicio;
+                            dtpFin.Value = fechafin;
                         }
                     }
-                    else //NO TENGO NADA EN EL IDDESTINO, COSAS PARA AGREGAR
+                    else
                     {
-                        plNombre.Visible = true;
+                        plComboBox1.Visible = true;
+                        lblCbx1.Text = "Turno";
+                        DataTable dtTurnoHora = negocio.Listar(TipoReferencia.Turno, null, null);
+                        cbx1.DataSource = dtTurnoHora;
+                        cbx1.DisplayMember = "Nombre";
+                        cbx1.ValueMember = "Id";
 
-                        txtNombre.MaxLength = 2;
-
+                        plCI.Visible = true;
+                        txtCI.MaxLength = 2;
+                        lblCI.Text = "Numero de hora";
                     }
                     break;
 
@@ -239,10 +257,22 @@ namespace Proyecto
                 case TipoReferencia.Lugar:
 
                     plNombre.Visible = true;
-                    plComboBox1.Visible= true;
+                    plComboBox1.Visible = true;
                     plCombobox2.Visible = true;
                     plCheckBox1.Visible = true;
                     plCheckBox2.Visible = true;
+
+                    lblCbx1.Text = "Tipo";
+                    DataTable dtTipoLugar = negocio.Listar(TipoReferencia.TipoDeLugar, null, null);
+                    cbx1.DataSource = dtTipoLugar;
+                    cbx1.DisplayMember = "Nombre";
+                    cbx1.ValueMember = "Id";
+
+                    lblCbx2.Text = "Piso";
+                    cbx2.Items.Clear();
+                    cbx2.Items.Add(0);
+                    cbx2.Items.Add(1);
+                    cbx2.Items.Add(2);
 
                     txtNombre.MaxLength = 45;
 
@@ -253,18 +283,18 @@ namespace Proyecto
                         {
                             txtNombre.Text = lugar.Nombre;
 
-                            lblCbx1.Text = "Tipo";
-                            cbx1.DataSource = negocio.Listar(TipoReferencia.TipoDeLugar, null, null);
-                            cbx1.DisplayMember = "Nombre";
-                            cbx1.ValueMember = "Id";
-
-                            lblCbx2.Text = "Piso";
-                            cbx2.Items.Add(0);
-                            cbx2.Items.Add(1);
-                            cbx2.Items.Add(2);
-
                             chck1.Checked = lugar.IsClase;
                             chck2.Checked = lugar.IsUsoComun;
+
+                            byte idTipoLugar = lugar.Tipo.Id;
+                            DataRow[] rowTipoLugar = dtTipoLugar.Select("Id = " + idTipoLugar);
+
+                            if (rowTipoLugar.Length > 0)
+                            {
+                                cbx1.SelectedValue = rowTipoLugar[0]["Id"];
+                            }
+
+                            cbx2.SelectedIndex = lugar.Piso;
 
                         }
                     }
@@ -277,14 +307,14 @@ namespace Proyecto
                     plApellido.Visible = true;
                     plComboBox1.Visible = true;
                     plCheckBox1.Visible = true;
-
                     txtNombre.MaxLength = 30;
                     txtApellido.MaxLength = 30;
 
                     chck1.Text = "Administrador";
 
                     lblCbx1.Text = "Cargo";
-                    cbx1.DataSource = negocio.Listar(TipoReferencia.CargosFuncionarios, null, null);
+                    DataTable dtCargo = negocio.Listar(TipoReferencia.CargosFuncionarios, null, null);
+                    cbx1.DataSource = dtCargo;
                     cbx1.DisplayMember = "Cargo";
                     cbx1.ValueMember = "Id_Cargo";
 
@@ -295,6 +325,15 @@ namespace Proyecto
                         {
                             txtApellido.Text = funcionario.Apellido;
                             txtNombre.Text = funcionario.Nombre;
+                            chck1.Checked = funcionario.IsAdmn;
+
+                            byte idCargo = funcionario.Cargo.Id;
+                            DataRow[] rowCargo = dtCargo.Select("Id_Cargo = " + idCargo);
+                            if (rowCargo.Length > 0)
+                            {
+                                cbx1.SelectedValue = rowCargo[0]["Id_Cargo"];
+                            }
+
 
 
                         }
@@ -305,7 +344,7 @@ namespace Proyecto
                         plPIN.Visible = true;
                         txtCI.MaxLength = 8;
                         txtPIN.MaxLength = 4;
-
+                        plFechaIngreso.Visible = true;
 
                     }
 
@@ -333,13 +372,14 @@ namespace Proyecto
         #region
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(Sesion.ReferenciaActual != TipoReferencia.Grupo)
+            //Si la referencia actual es grupo o lugar permite ingresar letras y numeros, sino solo permite ingresar letras
+            if (Sesion.ReferenciaActual == TipoReferencia.Grupo || Sesion.ReferenciaActual == TipoReferencia.Lugar)
             {
-                Metodos.SoloLetras(e);
+                Metodos.SoloLetrasYNumeros(e);
             }
             else
             {
-                Metodos.SoloLetrasYNumeros(e);
+                Metodos.SoloLetras(e);
             }
         }
 
@@ -388,324 +428,529 @@ namespace Proyecto
         {
             MsgBox msg = null;
             Negocio negocio = new Negocio();
-            if(IdDestino == null)
+
+            //Segun la referencia aplicamos unas validaciones u otras
+            switch (Sesion.ReferenciaActual)
             {
-                //Segun la referencia aplicamos unas validaciones u otras
-                switch (Sesion.ReferenciaActual)
-                {
-                    case TipoReferencia.Alumno:
-                        if (ValidarAgregarAlumnos() == RetornoValidacion.OK)
+                case TipoReferencia.Alumno:
+                    if (ValidarAgregarAlumnos() == RetornoValidacion.OK)
+                    {
+                        string ci = IdDestino != null ? IdDestino : txtCI.Text;
+                        Alumno alumno = IdDestino != null ? new Alumno(txtNombre.Text, txtApellido.Text, int.Parse(ci)) : new Alumno(txtNombre.Text, txtApellido.Text, int.Parse(ci), short.Parse(txtPIN.Text));
+                        RetornoValidacion resultadoAgregarUsuario;
+
+                        if (IdDestino != null)
                         {
-                            string ci = txtCI.Text;
-                            Alumno alumno = new Alumno(txtNombre.Text, txtApellido.Text, int.Parse(ci), short.Parse(txtPIN.Text));
-                            RetornoValidacion resultadoAgregarUsuario = negocio.Agregar(TipoReferencia.Usuario, alumno, ci);
-
-                            switch (resultadoAgregarUsuario)
-                            {
-                                case RetornoValidacion.OK:
-                                    RetornoValidacion resultadoAgregarAlumno = negocio.Agregar(TipoReferencia.Alumno, alumno, txtCI.Text);
-                                    switch (resultadoAgregarAlumno)
-                                    {
-                                        case RetornoValidacion.OK:
-                                            msg = new MsgBox("exito", "Alumno cargado exitosamente");
-                                            Limpiar();
-                                            break;
-
-                                        case RetornoValidacion.YaExiste:
-                                            msg = new MsgBox("error", "Ya hay un alumno en el sistema registrado con esa cedula");
-                                            break;
-
-                                        case RetornoValidacion.ErrorInesperadoBD:
-                                            msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
-                                            break;
-                                    }
-                                    break;
-
-                                case RetornoValidacion.YaExiste:
-                                    msg = new MsgBox("error", "Ya hay un usuario en el sistema registrado con esa cedula");
-                                    break;
-
-                                case RetornoValidacion.ErrorInesperadoBD:
-                                    msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
-                                    break;
-                            }
+                            resultadoAgregarUsuario = negocio.Editar(TipoReferencia.Usuario, alumno, IdDestino, null);
                         }
-                        break;
-
-                    case TipoReferencia.Anio:
-                        if (ValidarAnio() == RetornoValidacion.OK)
+                        else
                         {
-                            string anio = txtPIN.Text;
-                            RetornoValidacion resultadoAgregar = negocio.Agregar(TipoReferencia.Anio, int.Parse(anio), anio);
-
-                            switch (resultadoAgregar)
-                            {
-                                case RetornoValidacion.OK:
-                                    msg = new MsgBox("exito", "Año cargado exitosamente");
-                                    Limpiar();
-                                    break;
-
-                                case RetornoValidacion.YaExiste:
-                                    msg = new MsgBox("error", "El año que intenta ingresar ya esta registrado en el sistema.");
-                                    break;
-
-                                case RetornoValidacion.ErrorInesperadoBD:
-                                    msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
-                                    break;
-                            }
+                            resultadoAgregarUsuario = negocio.Agregar(TipoReferencia.Usuario, alumno, ci);
                         }
-                        break;
 
-                    case TipoReferencia.Docente:
-                        if (ValidarAgregarDocentes() == RetornoValidacion.OK)
+                        switch (resultadoAgregarUsuario)
                         {
-                            string ci = txtCI.Text;
-                            Docente docente = new Docente(txtNombre.Text, txtApellido.Text, int.Parse(ci), short.Parse(txtPIN.Text));
-                            RetornoValidacion resultadoAgregarUsuario = negocio.Agregar(TipoReferencia.Usuario, docente, ci);
+                            case RetornoValidacion.OK:
+                                RetornoValidacion resultadoAgregarAlumno;
 
-                            switch (resultadoAgregarUsuario)
-                            {
-                                case RetornoValidacion.OK:
-                                    RetornoValidacion resultadoAgregarDocente = negocio.Agregar(TipoReferencia.Docente, docente, txtCI.Text);
-                                    switch (resultadoAgregarDocente)
-                                    {
-                                        case RetornoValidacion.OK:
-                                            msg = new MsgBox("exito", "Docente cargado exitosamente");
-                                            Limpiar();
-                                            break;
+                                if (IdDestino != null)
+                                {
+                                    resultadoAgregarAlumno = negocio.Editar(TipoReferencia.Alumno, alumno, IdDestino, null);
+                                }
+                                else
+                                {
+                                    resultadoAgregarAlumno = negocio.Agregar(TipoReferencia.Alumno, alumno, txtCI.Text);
+                                }
+                                switch (resultadoAgregarAlumno)
+                                {
+                                    case RetornoValidacion.OK:
+                                        msg = new MsgBox("exito", "Alumno cargado exitosamente");
+                                        Limpiar();
+                                        break;
 
-                                        case RetornoValidacion.YaExiste:
-                                            msg = new MsgBox("error", "Ya hay un docente en el sistema registrado con esa cedula");
-                                            break;
+                                    case RetornoValidacion.YaExiste:
+                                        msg = new MsgBox("error", "Ya hay un alumno en el sistema registrado con esa cedula");
+                                        break;
 
-                                        case RetornoValidacion.ErrorInesperadoBD:
-                                            msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
-                                            break;
-                                    }
-                                    break;
+                                    case RetornoValidacion.NoExiste:
+                                        msg = new MsgBox("error", "No se pudo encontrar el alumno que intento editar, intente de nuevo o contacte con un tecnico del sistema.");
+                                        break;
 
-                                case RetornoValidacion.YaExiste:
-                                    msg = new MsgBox("error", "Ya hay un usuario en el sistema registrado con esa cedula");
-                                    break;
+                                    case RetornoValidacion.ErrorInesperadoBD:
+                                        msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
+                                        break;
+                                }
+                                break;
 
-                                case RetornoValidacion.ErrorInesperadoBD:
-                                    msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
-                                    break;
-                            }
+                            case RetornoValidacion.YaExiste:
+                                msg = new MsgBox("error", "Ya hay un usuario en el sistema registrado con esa cedula");
+                                break;
+
+                            case RetornoValidacion.NoExiste:
+                                msg = new MsgBox("error", "No se pudo encontrar el usuario que intento editar, intente de nuevo o contacte con un tecnico del sistema.");
+                                break;
+
+                            case RetornoValidacion.ErrorInesperadoBD:
+                                msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
+                                break;
                         }
-                        break;
+                        cerrarFormSiSeEdito();
+                    }
+                    break;
 
-                    case TipoReferencia.Funcionario:
-                        if (ValidarAgregarFuncionarios() == RetornoValidacion.OK)
+                case TipoReferencia.Anio:
+                    if (ValidarAnio() == RetornoValidacion.OK)
+                    {
+                        string anio = txtPIN.Text;
+                        RetornoValidacion resultadoAgregar = negocio.Agregar(TipoReferencia.Anio, int.Parse(anio), anio);
+
+                        switch (resultadoAgregar)
                         {
-                            string ci = txtCI.Text;
-                            Cargo auxcargo = new Cargo((byte)cbx1.SelectedValue);
-                            Funcionario funcionario = new Funcionario(txtNombre.Text, txtApellido.Text, int.Parse(ci), short.Parse(txtPIN.Text), auxcargo, chck1.Checked, dtpFechaIngreso.Value);
-                            RetornoValidacion resultadoAgregarUsuario = negocio.Agregar(TipoReferencia.Usuario, funcionario, ci);
+                            case RetornoValidacion.OK:
+                                msg = new MsgBox("exito", "Año cargado exitosamente");
+                                Limpiar();
+                                break;
 
-                            switch (resultadoAgregarUsuario)
-                            {
-                                case RetornoValidacion.OK:
-                                    RetornoValidacion resultadoAgregarFuncionario = negocio.Agregar(TipoReferencia.Funcionario, funcionario, txtCI.Text);
-                                    switch (resultadoAgregarFuncionario)
-                                    {
-                                        case RetornoValidacion.OK:
-                                            msg = new MsgBox("exito", "Funcionario cargado exitosamente");
-                                            Limpiar();
-                                            break;
+                            case RetornoValidacion.YaExiste:
+                                msg = new MsgBox("error", "El año que intenta ingresar ya esta registrado en el sistema.");
+                                break;
 
-                                        case RetornoValidacion.YaExiste:
-                                            msg = new MsgBox("error", "Ya hay un funcionario en el sistema registrado con esa cedula");
-                                            break;
-
-                                        case RetornoValidacion.ErrorInesperadoBD:
-                                            msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
-                                            break;
-                                    }
-                                    break;
-
-                                case RetornoValidacion.YaExiste:
-                                    msg = new MsgBox("error", "Ya hay un usuario en el sistema registrado con esa cedula");
-                                    break;
-
-                                case RetornoValidacion.ErrorInesperadoBD:
-                                    msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
-                                    break;
-                            }
+                            case RetornoValidacion.ErrorInesperadoBD:
+                                msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
+                                break;
                         }
-                        break;
+                        cerrarFormSiSeEdito();
+                    }
+                    break;
 
-                    case TipoReferencia.Grupo:
-                        if (ValidarAgregarGrupo() == RetornoValidacion.OK)
+                case TipoReferencia.Docente:
+                    if (ValidarAgregarDocentes() == RetornoValidacion.OK)
+                    {
+                        string ci = IdDestino != null ? IdDestino : txtCI.Text;
+                        Docente docente = IdDestino != null ? new Docente(txtNombre.Text, txtApellido.Text, int.Parse(ci)) : new Docente(txtNombre.Text, txtApellido.Text, int.Parse(ci), short.Parse(txtPIN.Text));
+                        RetornoValidacion resultadoAgregarUsuario;
+
+                        if (IdDestino != null)
                         {
-                            string nombre = txtNombre.Text;
-                            Turno turno = new Turno((byte)cbx1.SelectedValue);
-                            Orientacion orientacion = new Orientacion((byte)cbx2.SelectedValue);
-                            int anio = (int)cbx3.SelectedValue;
-                            Grupo grupo = new Grupo(nombre, turno, orientacion, anio);
-                            RetornoValidacion resultadoAgregar = negocio.Agregar(TipoReferencia.Grupo, grupo, nombre);
-
-                            switch (resultadoAgregar)
-                            {
-                                case RetornoValidacion.OK:
-                                    msg = new MsgBox("exito", "Grupo cargado exitosamente");
-                                    Limpiar();
-                                    break;
-
-                                case RetornoValidacion.YaExiste:
-                                    msg = new MsgBox("error", "El nombre de grupo que intenta ingresar ya esta registrado en el sistema.");
-                                    break;
-
-                                case RetornoValidacion.ErrorInesperadoBD:
-                                    msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
-                                    break;
-                            }
+                            resultadoAgregarUsuario = negocio.Editar(TipoReferencia.Usuario, docente, IdDestino, null);
                         }
-                        break;
-
-                    case TipoReferencia.Hora:
-                        if (ValidarAgregarHora() == RetornoValidacion.OK)
+                        else
                         {
-                            Turno turno = new Turno((byte)cbx1.SelectedValue);
-                            (byte nid, Turno turno) id = (byte.Parse(txtCI.Text), turno);
-
-                            DateTime fechaseleccionadainicio = dtpInicio.Value;
-                            DateTime medianocheinicio = new DateTime(fechaseleccionadainicio.Year, fechaseleccionadainicio.Month, fechaseleccionadainicio.Day, 0, 0, 0);
-                            TimeSpan horaInicio = fechaseleccionadainicio - medianocheinicio;
-
-                            DateTime fechaseleccionadafin= dtpFin.Value;
-                            DateTime medianochefin = new DateTime(fechaseleccionadafin.Year, fechaseleccionadafin.Month, fechaseleccionadafin.Day, 0, 0, 0);
-                            TimeSpan horaFin = fechaseleccionadafin - medianochefin;
-
-
-                            Hora hora = new Hora(id, horaInicio, horaFin);
-                            RetornoValidacion resultadoAgregar = negocio.Agregar(TipoReferencia.Hora, hora, id.nid, id.turno.Id);
-
-                            switch (resultadoAgregar)
-                            {
-                                case RetornoValidacion.OK:
-                                    msg = new MsgBox("exito", "Hora cargada exitosamente");
-                                    Limpiar();
-                                    break;
-
-                                case RetornoValidacion.YaExiste:
-                                    msg = new MsgBox("error", "Ya existe una hora con ese numero asignada a ese turno en el sistema.");
-                                    break;
-
-                                case RetornoValidacion.ErrorInesperadoBD:
-                                    msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
-                                    break;
-                            }
+                            resultadoAgregarUsuario = negocio.Agregar(TipoReferencia.Usuario, docente, ci);
                         }
-                        break;
 
-                    case TipoReferencia.Lugar:
-                        if (ValidarAgregarLugar() == RetornoValidacion.OK)
+                        switch (resultadoAgregarUsuario)
                         {
-                          /*  string nombre = txtNombre.Text;
-                            TipoLugar tipo = new TipoLugar((byte)cbx1.SelectedValue);
-                            byte piso = (byte)cbx2.SelectedValue;
-                            //int coordenada_x = ;
-                            //int coordenada_y = ;
-                            bool isClase = chck1.Checked;
-                            bool isUsoComun = chck2.Checked;
-                           // Lugar lugar = new Lugar(nombre, tipo, piso, coordenada_x, coordenada_y, isClase, isUsoComun);
-                           // RetornoValidacion resultadoAgregar = negocio.Agregar(TipoReferencia.Lugar, lugar, nombre);
+                            case RetornoValidacion.OK:
+                                RetornoValidacion resultadoAgregarDocente;
 
-                            switch (resultadoAgregar)
-                            {
-                                case RetornoValidacion.OK:
-                                    msg = new MsgBox("exito", "Lugar cargado exitosamente");
-                                    Limpiar();
-                                    break;
+                                if (IdDestino != null)
+                                {
+                                    resultadoAgregarDocente = negocio.Editar(TipoReferencia.Docente, docente, IdDestino, null);
+                                }
+                                else
+                                {
+                                    resultadoAgregarDocente = negocio.Agregar(TipoReferencia.Alumno, docente, txtCI.Text);
+                                }
+                                switch (resultadoAgregarDocente)
+                                {
+                                    case RetornoValidacion.OK:
+                                        msg = new MsgBox("exito", "Docente cargado exitosamente");
+                                        Limpiar();
+                                        break;
 
-                                case RetornoValidacion.YaExiste:
-                                    msg = new MsgBox("error", "Ya existe un lugar con ese nombre en el sistema. Por favor seleccione uno nuevo.");
-                                    break;
+                                    case RetornoValidacion.YaExiste:
+                                        msg = new MsgBox("error", "Ya hay un docente en el sistema registrado con esa cedula");
+                                        break;
 
-                                case RetornoValidacion.ErrorInesperadoBD:
-                                    msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
-                                    break;
-                            }*/
+                                    case RetornoValidacion.NoExiste:
+                                        msg = new MsgBox("error", "No se pudo encontrar el docente que intento editar, intente de nuevo o contacte con un tecnico del sistema.");
+                                        break;
+
+                                    case RetornoValidacion.ErrorInesperadoBD:
+                                        msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
+                                        break;
+                                }
+                                break;
+
+                            case RetornoValidacion.YaExiste:
+                                msg = new MsgBox("error", "Ya hay un usuario en el sistema registrado con esa cedula");
+                                break;
+
+                            case RetornoValidacion.NoExiste:
+                                msg = new MsgBox("error", "No se pudo encontrar el usuario que intento editar, intente de nuevo o contacte con un tecnico del sistema.");
+                                break;
+
+                            case RetornoValidacion.ErrorInesperadoBD:
+                                msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
+                                break;
                         }
-                        break;
+                        cerrarFormSiSeEdito();
+                    }
+                    break;
 
-                    case TipoReferencia.Materia:
-                        if (ValidarMateriaTurnoOrientacion() == RetornoValidacion.OK)
+                case TipoReferencia.Funcionario:
+                    if (ValidarAgregarFuncionarios() == RetornoValidacion.OK)
+                    {
+                        string ci = IdDestino != null ? IdDestino : txtCI.Text;
+                        Cargo auxcargo = new Cargo((byte)cbx1.SelectedValue);
+
+                        Funcionario funcionario =
+                            IdDestino != null ?
+                            new Funcionario(txtNombre.Text, txtApellido.Text, int.Parse(ci), auxcargo, chck1.Checked, dtpFechaIngreso.Value) :
+                            new Funcionario(txtNombre.Text, txtApellido.Text, int.Parse(ci), short.Parse(txtPIN.Text), auxcargo, chck1.Checked, dtpFechaIngreso.Value);
+
+                        RetornoValidacion resultadoAgregarUsuario;
+
+                        if (IdDestino != null)
                         {
-                            string nombre = txtNombre.Text;
-                            Materia materia = new Materia(nombre);
-                            RetornoValidacion resultadoAgregar = negocio.Agregar(TipoReferencia.Materia, materia, nombre);
-
-                            switch (resultadoAgregar)
-                            {
-                                case RetornoValidacion.OK:
-                                    msg = new MsgBox("exito", "Materia cargada exitosamente");
-                                    Limpiar();
-                                    break;
-
-                                case RetornoValidacion.YaExisteNombre:
-                                    msg = new MsgBox("error", "La materai que intenta ingresar ya esta registrada en el sistema.");
-                                    break;
-
-                                case RetornoValidacion.ErrorInesperadoBD:
-                                    msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
-                                    break;
-                            }
+                            resultadoAgregarUsuario = negocio.Editar(TipoReferencia.Usuario, funcionario, IdDestino, null);
                         }
-                        break;
-
-                    case TipoReferencia.Orientacion:
-                        if (ValidarMateriaTurnoOrientacion() == RetornoValidacion.OK)
+                        else
                         {
-                            string nombre = txtNombre.Text;
-                            Orientacion orientacion = new Orientacion(nombre);
-                            RetornoValidacion resultadoAgregar = negocio.Agregar(TipoReferencia.Orientacion, orientacion, nombre);
-
-                            switch (resultadoAgregar)
-                            {
-                                case RetornoValidacion.OK:
-                                    msg = new MsgBox("exito", "Orientacion cargada exitosamente");
-                                    Limpiar();
-                                    break;
-
-                                case RetornoValidacion.YaExisteNombre:
-                                    msg = new MsgBox("error", "La orientacion que intenta ingresar ya esta registrada en el sistema.");
-                                    break;
-
-                                case RetornoValidacion.ErrorInesperadoBD:
-                                    msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
-                                    break;
-                            }
+                            resultadoAgregarUsuario = negocio.Agregar(TipoReferencia.Usuario, funcionario, ci);
                         }
-                        break;
 
-                    case TipoReferencia.Turno:
-                        if (ValidarMateriaTurnoOrientacion() == RetornoValidacion.OK)
+                        switch (resultadoAgregarUsuario)
                         {
-                            string nombre = txtNombre.Text;
-                            Turno turno = new Turno(nombre);
-                            RetornoValidacion resultadoAgregar = negocio.Agregar(TipoReferencia.Turno, turno, nombre);
+                            case RetornoValidacion.OK:
+                                RetornoValidacion resultadoAgregarFuncionario;
+                                if (IdDestino != null)
+                                {
+                                    resultadoAgregarFuncionario = negocio.Editar(TipoReferencia.Funcionario, funcionario, IdDestino, null);
+                                }
+                                else
+                                {
+                                    resultadoAgregarFuncionario = negocio.Agregar(TipoReferencia.Funcionario, funcionario, ci);
+                                }
 
-                            switch (resultadoAgregar)
-                            {
-                                case RetornoValidacion.OK:
-                                    msg = new MsgBox("exito", "Turno cargado exitosamente");
-                                    Limpiar();
-                                    break;
+                                switch (resultadoAgregarFuncionario)
+                                {
+                                    case RetornoValidacion.OK:
+                                        msg = new MsgBox("exito", "Funcionario cargado exitosamente");
+                                        Limpiar();
+                                        break;
 
-                                case RetornoValidacion.YaExisteNombre:
-                                    msg = new MsgBox("error", "El turno que intenta ingresar ya esta registrado en el sistema.");
-                                    break;
+                                    case RetornoValidacion.YaExiste:
+                                        msg = new MsgBox("error", "Ya hay un funcionario en el sistema registrado con esa cedula");
+                                        break;
 
-                                case RetornoValidacion.ErrorInesperadoBD:
-                                    msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
-                                    break;
-                            }
+                                    case RetornoValidacion.NoExiste:
+                                        msg = new MsgBox("error", "No se pudo encontrar el funcionario que intento editar, intente de nuevo o contacte con un tecnico del sistema.");
+                                        break;
+
+                                    case RetornoValidacion.ErrorInesperadoBD:
+                                        msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
+                                        break;
+                                }
+                                break;
+
+                            case RetornoValidacion.YaExiste:
+                                msg = new MsgBox("error", "Ya hay un usuario en el sistema registrado con esa cedula");
+                                break;
+
+                            case RetornoValidacion.NoExiste:
+                                msg = new MsgBox("error", "No se pudo encontrar el usuario que intento editar, intente de nuevo o contacte con un tecnico del sistema.");
+                                break;
+
+                            case RetornoValidacion.ErrorInesperadoBD:
+                                msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
+                                break;
                         }
-                        break;
-                }
+                        cerrarFormSiSeEdito();
+                    }
+                    break;
 
+                case TipoReferencia.Grupo:
+                    if (ValidarAgregarGrupo() == RetornoValidacion.OK)
+                    {
+                        string nombre = IdDestino != null ? IdDestino : txtNombre.Text;
+                        Turno turno = new Turno((byte)cbx1.SelectedValue);
+                        Orientacion orientacion = new Orientacion((byte)cbx2.SelectedValue);
+                        int anio = (int)cbx3.SelectedValue;
+                        Grupo grupo = new Grupo(nombre, turno, orientacion, anio);
+                        RetornoValidacion resultadoAgregar;
+                        if (IdDestino != null)
+                        {
+                            resultadoAgregar = negocio.Editar(TipoReferencia.Grupo, grupo, IdDestino, null);
+                        }
+                        else
+                        {
+                            resultadoAgregar = negocio.Agregar(TipoReferencia.Grupo, grupo, nombre);
+                        }
+
+                        switch (resultadoAgregar)
+                        {
+                            case RetornoValidacion.OK:
+                                msg = new MsgBox("exito", "Grupo cargado exitosamente");
+                                Limpiar();
+                                break;
+
+                            case RetornoValidacion.YaExiste:
+                                msg = new MsgBox("error", "El nombre de grupo que intenta ingresar ya esta registrado en el sistema.");
+                                break;
+
+                            case RetornoValidacion.NoExiste:
+                                msg = new MsgBox("error", "No se pudo encontrar el grupo que intento editar, intente de nuevo o contacte con un tecnico del sistema.");
+                                break;
+
+                            case RetornoValidacion.ErrorInesperadoBD:
+                                msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
+                                break;
+                        }
+                        cerrarFormSiSeEdito();
+                    }
+                    break;
+
+                case TipoReferencia.Hora:
+                    if (ValidarAgregarHora() == RetornoValidacion.OK)
+                    {
+                        Turno turno;
+                        (byte nid, Turno turno) id;
+
+                        //Si hay algo en IdDestino setea el turno y el id en lo que haya ahi
+                        if (IdPadre != null)
+                        {
+                            turno = new Turno(byte.Parse(IdPadre));
+                            id = (byte.Parse(IdDestino), turno);
+                        }
+                        //Sino en lo que ingrese el usuario
+                        else
+                        {
+                            turno = new Turno((byte)cbx1.SelectedValue);
+                            id = (byte.Parse(txtCI.Text), turno);
+                        }
+
+                        DateTime fechaseleccionadainicio = dtpInicio.Value;
+                        DateTime medianocheinicio = new DateTime(fechaseleccionadainicio.Year, fechaseleccionadainicio.Month, fechaseleccionadainicio.Day, 0, 0, 0);
+                        TimeSpan horaInicio = fechaseleccionadainicio - medianocheinicio;
+
+                        DateTime fechaseleccionadafin = dtpFin.Value;
+                        DateTime medianochefin = new DateTime(fechaseleccionadafin.Year, fechaseleccionadafin.Month, fechaseleccionadafin.Day, 0, 0, 0);
+                        TimeSpan horaFin = fechaseleccionadafin - medianochefin;
+
+                        Hora hora = new Hora(id, horaInicio, horaFin);
+
+                        RetornoValidacion resultadoAgregar;
+
+                        if (IdDestino != null)
+                        {
+                            resultadoAgregar = negocio.Editar(TipoReferencia.Hora, hora, byte.Parse(IdDestino), byte.Parse(IdPadre));
+                        }
+                        else
+                        {
+                            resultadoAgregar = negocio.Agregar(TipoReferencia.Hora, hora, id.nid, id.turno.Id);
+                        }
+
+                        switch (resultadoAgregar)
+                        {
+                            case RetornoValidacion.OK:
+                                msg = new MsgBox("exito", "Hora cargada exitosamente");
+                                Limpiar();
+                                break;
+
+                            case RetornoValidacion.YaExiste:
+                                msg = new MsgBox("error", "Ya existe una hora con ese numero asignada a ese turno en el sistema.");
+                                break;
+
+                            case RetornoValidacion.NoExiste:
+                                msg = new MsgBox("error", "No se encontro una hora con ese numero asignada a ese turno en el sistema.");
+                                break;
+
+                            case RetornoValidacion.ErrorInesperadoBD:
+                                msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
+                                break;
+                        }
+                        cerrarFormSiSeEdito();
+
+                    }
+                    break;
+
+                case TipoReferencia.Lugar:
+                    if (ValidarAgregarLugar() == RetornoValidacion.OK)
+                    {
+                        //Variables usadas para armar el lugar
+                        string nombre;
+                        TipoLugar tipo;
+                        byte piso;
+                        bool isClase;
+                        bool isUsoComun;
+                        ushort id; // El id solo se usara si se quiere editar y se conseguira desde el idDestino
+                        Lugar lugar; //Lugar que se enviara a los metodos de la capa de negocio y datos
+
+                        //Variable que se utilizara para conocer el resultado de la operacion en la capa de negocio y datos
+                        RetornoValidacion resultadoAgregar;
+
+                        //ASIGNACION DE VALORES
+                        nombre = txtNombre.Text;
+                        tipo = new TipoLugar((byte)cbx1.SelectedValue); //Obtiene el id del tipolugar seleccionado en el combobox
+                        piso = (byte)(int)cbx2.SelectedItem; //Obtiene el piso seleccionado en el combobox
+                        isClase = chck1.Checked; //Asigna true si la casilla esta marcada o false si no lo esta
+                        isUsoComun = chck2.Checked;
+
+                        //Esto hay que completarlo con lo del mapa
+                        //int coordenada_x = ;
+                        //int coordenada_y = ;
+
+                        lugar = new Lugar(nombre, tipo, piso, 0, 0, isClase, isUsoComun);
+                        //Cambiar el constructor cuando tenga el mapa para conseguir las coordenadas
+                        // Lugar lugar = new Lugar(nombre, tipo, piso, coordenada_x, coordenada_y, isClase, isUsoComun);
+
+                        //En caso de edicion Asigna el valor al id y ejecuta la operacion como editar
+                        if (IdDestino != null)
+                        {
+                            id = ushort.Parse(IdDestino);
+                            resultadoAgregar = negocio.Editar(TipoReferencia.Lugar, lugar, id.ToString(), nombre);
+                        }
+                        //En caso contrario ejecuta la operacion como agregar
+                        else
+                        {
+                            resultadoAgregar = negocio.Agregar(TipoReferencia.Lugar, lugar, nombre);
+                        }
+
+                        switch (resultadoAgregar)
+                        {
+                            case RetornoValidacion.OK:
+                                msg = new MsgBox("exito", "Lugar cargado exitosamente");
+                                Limpiar();
+                                break;
+
+                            case RetornoValidacion.YaExisteNombre:
+                                msg = new MsgBox("error", "Ya existe un lugar con ese nombre en el sistema. Por favor seleccione uno nuevo.");
+                                break;
+
+                            case RetornoValidacion.NoExiste:
+                                msg = new MsgBox("error", "No se pudo encontrar el lugar que busco en el sistema.");
+                                break;
+
+                            case RetornoValidacion.ErrorInesperadoBD:
+                                msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
+                                break;
+                        }
+                        cerrarFormSiSeEdito();
+                    }
+                    break;
+
+                case TipoReferencia.Materia:
+                    if (ValidarMateriaTurnoOrientacion() == RetornoValidacion.OK)
+                    {
+                        string nombre = txtNombre.Text;
+                        Materia materia = new Materia(nombre);
+                        string id;
+                        RetornoValidacion resultadoAgregar;
+
+                        if (IdDestino!=null)
+                        {
+                            id = IdDestino;
+                            resultadoAgregar = negocio.Editar(TipoReferencia.Materia, materia, id, nombre);
+                        }
+                        else
+                        {
+                            resultadoAgregar = negocio.Agregar(TipoReferencia.Materia, materia, nombre);
+                        }
+
+                        switch (resultadoAgregar)
+                        {
+                            case RetornoValidacion.OK:
+                                msg = new MsgBox("exito", "Materia cargada exitosamente");
+                                Limpiar();
+                                break;
+
+                            case RetornoValidacion.YaExisteNombre:
+                                msg = new MsgBox("error", "La materai que intenta ingresar ya esta registrada en el sistema.");
+                                break;
+
+                            case RetornoValidacion.NoExiste:
+                                msg = new MsgBox("error", "No se pudo encontrar la materia en el sistema.");
+                                break;
+
+                            case RetornoValidacion.ErrorInesperadoBD:
+                                msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
+                                break;
+                        }
+                        cerrarFormSiSeEdito();
+                    }
+                    break;
+
+                case TipoReferencia.Orientacion:
+                    if (ValidarMateriaTurnoOrientacion() == RetornoValidacion.OK)
+                    {
+                        string nombre = txtNombre.Text;
+                        Orientacion orientacion = new Orientacion(nombre);
+                        string id;
+                        RetornoValidacion resultadoAgregar;
+
+                        if (IdDestino != null)
+                        {
+                            id = IdDestino;
+                            resultadoAgregar = negocio.Editar(TipoReferencia.Orientacion, orientacion, id, nombre);
+                        }
+                        else
+                        {
+                            resultadoAgregar = negocio.Agregar(TipoReferencia.Orientacion, orientacion, nombre);
+                        }
+
+                        switch (resultadoAgregar)
+                        {
+                            case RetornoValidacion.OK:
+                                msg = new MsgBox("exito", "Orientacion cargada exitosamente");
+                                Limpiar();
+                                break;
+
+                            case RetornoValidacion.YaExisteNombre:
+                                msg = new MsgBox("error", "La orientacion que intenta ingresar ya esta registrada en el sistema.");
+                                break;
+
+                            case RetornoValidacion.NoExiste:
+                                msg = new MsgBox("error", "No se pudo encontrar la orientacion en el sistema.");
+                                break;
+
+                            case RetornoValidacion.ErrorInesperadoBD:
+                                msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
+                                break;
+                        }
+                        cerrarFormSiSeEdito();
+                    }
+                    break;
+
+                case TipoReferencia.Turno:
+                    if (ValidarMateriaTurnoOrientacion() == RetornoValidacion.OK)
+                    {
+                        string nombre = txtNombre.Text;
+                        Turno turno =  new Turno(nombre);
+                        RetornoValidacion resultadoAgregar;
+
+                        if (IdDestino != null)
+                        {
+                            resultadoAgregar = negocio.Editar(TipoReferencia.Turno, turno, IdDestino, nombre);
+                        }
+                        else
+                        {
+                            resultadoAgregar = negocio.Agregar(TipoReferencia.Turno, turno, nombre);
+                        }
+
+                        switch (resultadoAgregar)
+                        {
+                            case RetornoValidacion.OK:
+                                msg = new MsgBox("exito", "Turno cargado exitosamente");
+                                Limpiar();
+                                break;
+
+                            case RetornoValidacion.YaExisteNombre:
+                                msg = new MsgBox("error", "El turno que intenta ingresar ya esta registrado en el sistema.");
+                                break;
+
+                            case RetornoValidacion.NoExiste:
+                                msg = new MsgBox("error", "No se pudo encontrar el turno en el sistema.");
+                                break;
+
+                            case RetornoValidacion.ErrorInesperadoBD:
+                                msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
+                                break;
+                        }
+                        cerrarFormSiSeEdito();
+                    }
+                    break;
             }
 
             if (msg != null)
@@ -725,20 +970,38 @@ namespace Proyecto
             Validaciones validaciones = new Validaciones();
 
             //Validar vacio
-            if (validaciones.ValidarVacio(txtCI.Text))
+            if (IdDestino == null)
             {
-                MsgBox msg = new MsgBox("error", "Debe completar el campo de CI");
-                msg.ShowDialog();
-                txtCI.Focus();
-                respuesta = RetornoValidacion.ErrorDeFormato;
+                if (validaciones.ValidarVacio(txtCI.Text))
+                {
+                    MsgBox msg = new MsgBox("error", "Debe completar el campo de CI");
+                    msg.ShowDialog();
+                    txtCI.Focus();
+                    respuesta = RetornoValidacion.ErrorDeFormato;
+                }
+                else if (validaciones.ValidarVacio(txtPIN.Text))
+                {
+                    MsgBox msg = new MsgBox("error", "Debe completar el campo de PIN");
+                    msg.ShowDialog();
+                    txtPIN.Focus();
+                    respuesta = RetornoValidacion.ErrorDeFormato;
+                }
+                else if (!validaciones.ValidarCI(txtCI.Text))// Validar la cédula
+                {
+                    txtCI.Focus();
+                    MsgBox msg = new MsgBox("error", "Cédula no válida.");
+                    msg.ShowDialog();
+                    respuesta = RetornoValidacion.ErrorDeFormato;
+                }
+                else if (!validaciones.ValidarPIN(txtPIN.Text))// Validar el PIN
+                {
+                    txtPIN.Focus();
+                    MsgBox msg = new MsgBox("error", "PIN no válido.");
+                    msg.ShowDialog();
+                    respuesta = RetornoValidacion.ErrorDeFormato;
+                }
             }
-            else if (validaciones.ValidarVacio(txtPIN.Text))
-            {
-                MsgBox msg = new MsgBox("error", "Debe completar el campo de PIN");
-                msg.ShowDialog();
-                txtPIN.Focus();
-                respuesta = RetornoValidacion.ErrorDeFormato;
-            }
+
             else if (validaciones.ValidarVacio(txtNombre.Text))
             {
                 MsgBox msg = new MsgBox("error", "Debe completar el campo de Nombre");
@@ -753,20 +1016,7 @@ namespace Proyecto
                 txtApellido.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
             }
-            else if (!validaciones.ValidarCI(txtCI.Text))// Validar la cédula
-            {
-                txtCI.Focus();
-                MsgBox msg = new MsgBox("error", "Cédula no válida.");
-                msg.ShowDialog();
-                respuesta = RetornoValidacion.ErrorDeFormato;
-            }
-            else if (!validaciones.ValidarPIN(txtPIN.Text))// Validar el PIN
-            {
-                txtPIN.Focus();
-                MsgBox msg = new MsgBox("error", "PIN no válido.");
-                msg.ShowDialog();
-                respuesta = RetornoValidacion.ErrorDeFormato;
-            }
+
 
 
             return respuesta;
@@ -848,13 +1098,15 @@ namespace Proyecto
             RetornoValidacion respuesta = RetornoValidacion.OK;
             Validaciones validaciones = new Validaciones();
 
-            //Validar vacio
-            if (validaciones.ValidarVacio(txtNombre.Text))
+            if (IdDestino == null)
             {
-                MsgBox msg = new MsgBox("error", "Debe completar el campo de Nombre");
-                msg.ShowDialog();
-                txtNombre.Focus();
-                respuesta = RetornoValidacion.ErrorDeFormato;
+                if (validaciones.ValidarVacio(txtNombre.Text))
+                {
+                    MsgBox msg = new MsgBox("error", "Debe completar el campo de Nombre");
+                    msg.ShowDialog();
+                    txtNombre.Focus();
+                    respuesta = RetornoValidacion.ErrorDeFormato;
+                }
             }
             else if (cbx1.SelectedIndex == -1)
             {
@@ -888,21 +1140,25 @@ namespace Proyecto
             Validaciones validaciones = new Validaciones();
 
             //Validar vacio
-            if (validaciones.ValidarVacio(txtCI.Text))
+            if (IdDestino == null)
             {
-                MsgBox msg = new MsgBox("error", "Debe ingresar un numero de hora");
-                msg.ShowDialog();
-                txtCI.Focus();
-                respuesta = RetornoValidacion.ErrorDeFormato;
+                if (validaciones.ValidarVacio(txtCI.Text))
+                {
+                    MsgBox msg = new MsgBox("error", "Debe ingresar un numero de hora");
+                    msg.ShowDialog();
+                    txtCI.Focus();
+                    respuesta = RetornoValidacion.ErrorDeFormato;
+                }
+                else if (cbx1.SelectedIndex == -1)
+                {
+                    MsgBox msg = new MsgBox("error", "Debe seleccionar un turno");
+                    msg.ShowDialog();
+                    cbx1.Focus();
+                    respuesta = RetornoValidacion.ErrorDeFormato;
+                }
             }
-            else if (cbx1.SelectedIndex == -1)
-            {
-                MsgBox msg = new MsgBox("error", "Debe seleccionar un turno");
-                msg.ShowDialog();
-                cbx1.Focus();
-                respuesta = RetornoValidacion.ErrorDeFormato;
-            }
-            else if (dtpInicio.Value > dtpFin.Value)
+
+            if (dtpInicio.Value > dtpFin.Value)
             {
                 MsgBox msg = new MsgBox("error", "La hora inicial no puede ser mayor a la hora final");
                 msg.ShowDialog();
@@ -966,8 +1222,17 @@ namespace Proyecto
 
         #endregion
 
-        private void btnAceptar_Paint(object sender, PaintEventArgs e)
+        private void cerrarFormSiSeEdito()
         {
+            //Si se edito algo cierra el form y abre la lista
+            if (IdDestino != null)
+            {
+                Lista lista = new Lista();
+                this.Close();
+                Metodos.openChildForm(lista, Metodos.menuForm.plForms);
+            }
         }
+
+
     }
 }
