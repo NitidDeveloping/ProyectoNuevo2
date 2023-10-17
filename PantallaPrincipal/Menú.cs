@@ -1,4 +1,5 @@
 ﻿using CapaEntidades;
+using CapaNegocio;
 using Proyecto;
 using System;
 using System.Drawing;
@@ -20,6 +21,12 @@ namespace Proyecto
         private void Menú_Load(object sender, EventArgs e)
         {
             timer1.Start();
+            Mapa mapa = new Mapa();
+            Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
+            Metodos.openChildForm(mapa, plMapa);
+            Negocio negocio = new Negocio();
+            negocio.CargarLugaresComboBox(cbxLugares);
+
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -256,6 +263,13 @@ namespace Proyecto
         private void btnHoras_Click(object sender, EventArgs e)
         {
             AbrirLista(TipoReferencia.Hora);
+        }
+
+        private void pbMapa_Click(object sender, EventArgs e)
+        {
+            Mapa mapa = new Mapa();
+            Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
+            Metodos.openChildForm(mapa, plMapa);
         }
     }
 }

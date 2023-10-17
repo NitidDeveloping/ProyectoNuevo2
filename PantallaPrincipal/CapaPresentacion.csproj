@@ -82,6 +82,12 @@
     <Compile Include="AgregarEditar.Designer.cs">
       <DependentUpon>AgregarEditar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mapa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mapa.Designer.cs">
+      <DependentUpon>Mapa.cs</DependentUpon>
+    </Compile>
     <Compile Include="PIN.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AgregarEditar.resx">
       <DependentUpon>AgregarEditar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapa.resx">
+      <DependentUpon>Mapa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PIN.resx">
       <DependentUpon>PIN.cs</DependentUpon>
@@ -277,6 +286,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\menu fondo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clock Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Provisional.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

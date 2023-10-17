@@ -1,9 +1,10 @@
-﻿using MySqlConnector;
+﻿    using MySqlConnector;
 using CapaEntidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.CodeDom;
+using System.Windows.Forms;
 
 namespace CapaDatos
 {
@@ -1258,6 +1259,48 @@ namespace CapaDatos
 
         //Metodos para operaciones propias de los alumnos
         #region
+
+        public void CargarLugaresComboBox(TipoRol rol, ComboBox comboBox)
+        {
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
+            MySqlCommand cmd;
+            string cmdstr;
+
+            switch (rol)
+            {
+                case TipoRol.Alumno:
+                case TipoRol.Docente:
+                    cmdstr = "SELECT Nombre FROM Lugares;";
+                    break;
+                default:
+                    cmdstr = "SELECT * FROM Lugar WHERE Nombre IN ('Bedelía', 'Adscripción 1er piso', 'Adscripción 2do piso', 'Baños planta baja', 'Baños primer piso', 'Gimnasio', 'Patio', 'Auditorio', 'Hall');";
+                    break;
+            }
+
+            try
+            {
+                conn.Open();
+                cmd = new MySqlCommand(cmdstr, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                {
+                    while (reader.Read())
+                    {
+                        comboBox.Items.Add(reader["Nombre"].ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
         public List<Grupo> ConsultarGruposAlumno(int ciAlumno) //Devuelve los grupos en los que se encuentra el alumno solicitado
         {
             MySqlDataReader dr;

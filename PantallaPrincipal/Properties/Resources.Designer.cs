@@ -113,9 +113,9 @@ namespace Proyecto.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Clock {
+        internal static System.Drawing.Bitmap Clock_Add {
             get {
-                object obj = ResourceManager.GetObject("Clock", resourceCulture);
+                object obj = ResourceManager.GetObject("Clock_Add", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -296,6 +296,16 @@ namespace Proyecto.Properties {
         internal static System.Drawing.Bitmap Plus_1_Year1 {
             get {
                 object obj = ResourceManager.GetObject("Plus 1 Year1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Provisional {
+            get {
+                object obj = ResourceManager.GetObject("Provisional", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
