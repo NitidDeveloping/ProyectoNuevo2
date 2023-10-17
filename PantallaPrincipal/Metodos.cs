@@ -53,6 +53,17 @@ namespace Proyecto
             else
                 e.Handled = true;
         }
+
+        public static void SoloLetrasYNumeros(KeyPressEventArgs e)
+        {
+            if (char.IsLetter(e.KeyChar) || char.IsControl(e.KeyChar) || char.IsDigit(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+                e.Handled = true;
+        }
+
         public static void SoloLetrasYEspacio(KeyPressEventArgs e)
         {
             if (char.IsLetter(e.KeyChar) || char.IsControl(e.KeyChar) || char.IsWhiteSpace(e.KeyChar))

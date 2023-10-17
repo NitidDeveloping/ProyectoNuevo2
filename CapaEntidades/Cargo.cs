@@ -20,7 +20,8 @@ namespace CapaEntidades
             this.nombre = nombre;
         }
 
-        public Cargo(byte id) {
+        public Cargo(byte id)
+        {
             this.id = id;
         }
     }

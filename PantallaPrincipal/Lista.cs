@@ -27,6 +27,7 @@ namespace Proyecto
 
                 case TipoReferencia.Anio:
                     comboColumn.DataSource = CargarPropsAnios();
+                    btnEditar.Visible = false; //Si la referencia actual es anio se pone en no visible
                     break;
 
                 case TipoReferencia.Docente:
@@ -68,11 +69,6 @@ namespace Proyecto
             comboColumn.ValueMember = "ColumnaBD";
             comboColumn.SelectedIndex = -1;
 
-            //Seteamos los formatos personalizados del datepicker y el timepicker
-
-            datePickerSearch.CustomFormat = "yyyy-MM-dd"; //Anio de 4 digitos - Mes de dos digitos (01/12), dia de dos digitos (01/31)
-            timePickerSearch.CustomFormat = "HH:mm"; //Hora en formato 24 horas de dos digitos (00/23), minutos de dos digitos (01/59)
-
             if (backgroundWorker1.IsBusy != true)
             {
                 backgroundWorker1.RunWorkerAsync(); //Si el background worker no esta ocupado entonces empieza la operacion, esto sirve para no sobrecargarlo
@@ -83,14 +79,18 @@ namespace Proyecto
         #region
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
-           /* RetornoValidacion respuesta;
-            string id;
-            string idPadre = null;
-            string tipoId = string.Empty;
-            string tipoIdPadre = null;
-            Negocio negocio = new Negocio();
-            MsgBox confirm;
+            RetornoValidacion respuesta; //Resultado de la operacion
+            string id; // Id del objeto que se va a pasar al metodo eliminar
+            string idPadre = null; // Id padre en caso de que sea una entidad con debilidad  (hora)
+            string tipoId = string.Empty; // Nombre de la columna por el que se va a buscar el id en el datatable
+            string tipoIdPadre = null; // Nombre de la columna para el id padre
 
+            Negocio negocio = new Negocio();
+            MsgBox confirm; //Solicita confirmacion antes de eliminar
+
+            MsgBox msg; //Muestra un mensaje de exito o error
+
+            //Asignacion de nombre de tipoId segun la referencia actual
             switch (Sesion.ReferenciaActual)
             {
                 case TipoReferencia.Alumno:
@@ -109,7 +109,7 @@ namespace Proyecto
 
                 case TipoReferencia.Hora:
                     tipoId = "Numero";
-                    tipodIdPadre = "ID_Turno";
+                    tipoIdPadre = "ID_Turno";
                     break;
 
                 case TipoReferencia.Lugar:
@@ -124,46 +124,53 @@ namespace Proyecto
                     break;
             }
 
+            //En caso de que se haya asginado algo al tipo id padre se hacen operaciones para entidades con debilidad
             if (tipoIdPadre != null)
             {
-                id = DGV.SelectedRows[0].Cells[tipoId].Value.ToString();
-                confirm = new MsgBox("pregunta", "Se eliminará el elemento ¿Está seguro que desea continuar?.");
-
-                if (confirm.ShowDialog() == DialogResult.Yes)
-                {
-                    respuesta = negocio.Eliminar(Sesion.ReferenciaActual, id);
-                    if (respuesta == RetornoValidacion.OK)
-                    {
-                        MsgBox msg = new MsgBox("exito", "Elemento eliminado correctamente.");
-                        msg.ShowDialog();
-                        backgroundWorker1.RunWorkerAsync();
-                    }
-                    else
-                    {
-                        MsgBox msg = new MsgBox("error", "No se ha podido eliminar.");
-                        msg.ShowDialog();
-                    }
-                }
+                idPadre = DGV.SelectedRows[0].Cells[tipoIdPadre].Value.ToString();
             }
             id = DGV.SelectedRows[0].Cells[tipoId].Value.ToString();
+
             confirm = new MsgBox("pregunta", "Se eliminará el elemento ¿Está seguro que desea continuar?.");
 
             if (confirm.ShowDialog() == DialogResult.Yes)
             {
-                respuesta = negocio.Eliminar(Sesion.ReferenciaActual, id);
-                if (respuesta == RetornoValidacion.OK)
+                try
                 {
-                    MsgBox msg = new MsgBox("exito", "Elemento eliminado correctamente.");
-                    msg.ShowDialog();
-                    backgroundWorker1.RunWorkerAsync();
+                    if (tipoIdPadre != null)
+                    {
+                        respuesta = negocio.Eliminar(Sesion.ReferenciaActual, byte.Parse(id), byte.Parse(idPadre));
+                    }
+                    else
+                    {
+                        respuesta = negocio.Eliminar(Sesion.ReferenciaActual, id);
+                    }
+
+                    if (respuesta == RetornoValidacion.OK)
+                    {
+                        msg = new MsgBox("exito", "Elemento eliminado correctamente.");
+                        msg.ShowDialog();
+                        backgroundWorker1.RunWorkerAsync();
+                    }
+                    else if (respuesta == RetornoValidacion.NoExiste)
+                    {
+                        msg = new MsgBox("error", "No se ha podido encontrar el elemento en la base de datos.");
+                        msg.ShowDialog();
+                    }
+                    else if (respuesta == RetornoValidacion.ErrorInesperadoBD)
+                    {
+                        msg = new MsgBox("error", "Ha surgido un error inesperado, intente de nuevo, en caso de que el problema persista contacte con un tecnico.");
+                        msg.ShowDialog();
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MsgBox msg = new MsgBox("error", "No se ha podido eliminar.");
+                    msg = new MsgBox("error", ex.Message);
                     msg.ShowDialog();
                 }
-            } */
+            }
         }
+
 
         private void BtnEditar_Click(object sender, EventArgs e)
         {
@@ -232,7 +239,7 @@ namespace Proyecto
 
                         byte idTurno = (byte)row.Cells["ID_Turno"].Value;
                         byte idOrientacion = (byte)row.Cells["ID_Orientacion"].Value;
-                        int anio = (int)row.Cells["Anio"].Value;
+                        int anio = (int)row.Cells["Año"].Value;
 
                         Turno turno = new Turno(idTurno);
                         Orientacion orientacion = new Orientacion (idOrientacion);

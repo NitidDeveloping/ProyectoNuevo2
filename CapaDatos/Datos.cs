@@ -462,9 +462,9 @@ namespace CapaDatos
                     if (item is Grupo grupo)
                     {
                         cmd.Parameters.Add("@Anio", MySqlDbType.Year).Value = grupo.Anio;
-                        cmd.Parameters.Add("@Turno", MySqlDbType.Byte).Value = grupo.Turno;
+                        cmd.Parameters.Add("@Turno", MySqlDbType.Byte).Value = grupo.Turno.Id;
                         cmd.Parameters.Add("@ID_Grupo", MySqlDbType.VarChar).Value = grupo.Nombre;
-                        cmd.Parameters.Add("@Orientacion", MySqlDbType.Byte).Value = grupo.Orientacion;
+                        cmd.Parameters.Add("@Orientacion", MySqlDbType.Byte).Value = grupo.Orientacion.Id;
                     }
                     break;
 
@@ -509,7 +509,7 @@ namespace CapaDatos
                 case TipoReferencia.Anio:
                     if (item is int Anio)
                     {
-                        cmd.Parameters.Add("@Anio", MySqlDbType.Year).Value = Anio;
+                        cmd.Parameters.Add("@Anio", MySqlDbType.Int32).Value = Anio;
                     }
                     break;
 
@@ -536,9 +536,10 @@ namespace CapaDatos
                 case TipoReferencia.Funcionario: 
                     if (item is Funcionario funcionario)
                     {
+                        byte admn = (byte)(funcionario.IsAdmn ? 1 : 0);
                         cmd.Parameters.Add("@CI_Funcionario", MySqlDbType.Int32).Value = funcionario.CI;
-                        cmd.Parameters.Add("@Tipo", MySqlDbType.Byte).Value = funcionario.IsAdmn;
-                        cmd.Parameters.Add("@Cargo", MySqlDbType.Byte).Value = funcionario.Cargo;
+                        cmd.Parameters.Add("@Tipo", MySqlDbType.Byte).Value = admn;
+                        cmd.Parameters.Add("@Cargo", MySqlDbType.Byte).Value = funcionario.Cargo.Id;
                         cmd.Parameters.Add("@Fecha_Ingreso", MySqlDbType.Date).Value = funcionario.FechaIngreso;
                     }
                     break;
@@ -748,7 +749,7 @@ namespace CapaDatos
             try
             {
                 conn.Open();
-                respuesta = (int)cmd.ExecuteScalar();
+                respuesta =  Convert.ToInt32(cmd.ExecuteScalar());
                 respuesta++;
             }
             catch (Exception ex)
@@ -794,12 +795,12 @@ namespace CapaDatos
             try
             {
                 conn.Open();
-                respuesta = (int)cmd.ExecuteScalar() == 0;
+                respuesta = Convert.ToInt32(cmd.ExecuteScalar()) == 0;
             }
             catch (Exception ex)
             {
                 throw ex;
-            }
+            } 
             finally
             {
                 if (conn.State == ConnectionState.Open)

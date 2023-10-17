@@ -35,19 +35,9 @@
             this.plLateral = new System.Windows.Forms.Panel();
             this.plPersona = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.plDatosSubMenu = new System.Windows.Forms.Panel();
-            this.btnDatos = new System.Windows.Forms.Button();
-            this.plABMSubMenu = new System.Windows.Forms.Panel();
-            this.btnUsuarios = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.lblHora = new System.Windows.Forms.Label();
-            this.lblFecha = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.lblTitulo = new System.Windows.Forms.Label();
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnModPIN = new System.Windows.Forms.Button();
+            this.plDatosSubMenu = new System.Windows.Forms.Panel();
             this.btnHoras = new System.Windows.Forms.Button();
             this.btnOrientacion = new System.Windows.Forms.Button();
             this.btnAnios = new System.Windows.Forms.Button();
@@ -56,19 +46,29 @@
             this.btnGrupos = new System.Windows.Forms.Button();
             this.btnLugares = new System.Windows.Forms.Button();
             this.btnHorarios = new System.Windows.Forms.Button();
+            this.btnDatos = new System.Windows.Forms.Button();
+            this.plABMSubMenu = new System.Windows.Forms.Panel();
             this.btnABMOp = new System.Windows.Forms.Button();
             this.btnABMDocentes = new System.Windows.Forms.Button();
             this.btnABMAlumnos = new System.Windows.Forms.Button();
+            this.btnUsuarios = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblHora = new System.Windows.Forms.Label();
+            this.lblFecha = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.plLateral.SuspendLayout();
             this.plPersona.SuspendLayout();
             this.panel5.SuspendLayout();
             this.plDatosSubMenu.SuspendLayout();
             this.plABMSubMenu.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // plForms
@@ -134,138 +134,6 @@
             this.panel5.Size = new System.Drawing.Size(270, 198);
             this.panel5.TabIndex = 12;
             // 
-            // plDatosSubMenu
-            // 
-            this.plDatosSubMenu.AutoScroll = true;
-            this.plDatosSubMenu.BackColor = System.Drawing.Color.LightGray;
-            this.plDatosSubMenu.Controls.Add(this.btnHoras);
-            this.plDatosSubMenu.Controls.Add(this.btnOrientacion);
-            this.plDatosSubMenu.Controls.Add(this.btnAnios);
-            this.plDatosSubMenu.Controls.Add(this.btnTurnos);
-            this.plDatosSubMenu.Controls.Add(this.btnMaterias);
-            this.plDatosSubMenu.Controls.Add(this.btnGrupos);
-            this.plDatosSubMenu.Controls.Add(this.btnLugares);
-            this.plDatosSubMenu.Controls.Add(this.btnHorarios);
-            this.plDatosSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.plDatosSubMenu.Location = new System.Drawing.Point(0, 527);
-            this.plDatosSubMenu.Name = "plDatosSubMenu";
-            this.plDatosSubMenu.Size = new System.Drawing.Size(319, 251);
-            this.plDatosSubMenu.TabIndex = 11;
-            this.plDatosSubMenu.Visible = false;
-            // 
-            // btnDatos
-            // 
-            this.btnDatos.BackColor = System.Drawing.Color.Gainsboro;
-            this.btnDatos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnDatos.FlatAppearance.BorderSize = 0;
-            this.btnDatos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDatos.ForeColor = System.Drawing.Color.Black;
-            this.btnDatos.Location = new System.Drawing.Point(0, 452);
-            this.btnDatos.Name = "btnDatos";
-            this.btnDatos.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnDatos.Size = new System.Drawing.Size(319, 75);
-            this.btnDatos.TabIndex = 10;
-            this.btnDatos.Text = "DATOS";
-            this.btnDatos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDatos.UseVisualStyleBackColor = false;
-            this.btnDatos.Click += new System.EventHandler(this.btnDatos_Click);
-            // 
-            // plABMSubMenu
-            // 
-            this.plABMSubMenu.BackColor = System.Drawing.Color.LightGray;
-            this.plABMSubMenu.Controls.Add(this.btnABMOp);
-            this.plABMSubMenu.Controls.Add(this.btnABMDocentes);
-            this.plABMSubMenu.Controls.Add(this.btnABMAlumnos);
-            this.plABMSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.plABMSubMenu.Location = new System.Drawing.Point(0, 265);
-            this.plABMSubMenu.Name = "plABMSubMenu";
-            this.plABMSubMenu.Size = new System.Drawing.Size(319, 187);
-            this.plABMSubMenu.TabIndex = 9;
-            this.plABMSubMenu.Visible = false;
-            // 
-            // btnUsuarios
-            // 
-            this.btnUsuarios.BackColor = System.Drawing.Color.Gainsboro;
-            this.btnUsuarios.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnUsuarios.FlatAppearance.BorderSize = 0;
-            this.btnUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUsuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUsuarios.ForeColor = System.Drawing.Color.Black;
-            this.btnUsuarios.Location = new System.Drawing.Point(0, 190);
-            this.btnUsuarios.Name = "btnUsuarios";
-            this.btnUsuarios.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnUsuarios.Size = new System.Drawing.Size(319, 75);
-            this.btnUsuarios.TabIndex = 8;
-            this.btnUsuarios.Text = "USUARIOS";
-            this.btnUsuarios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUsuarios.UseVisualStyleBackColor = false;
-            this.btnUsuarios.Click += new System.EventHandler(this.btnAbm_Click);
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.pictureBox1);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(319, 190);
-            this.panel3.TabIndex = 7;
-            // 
-            // lblHora
-            // 
-            this.lblHora.AutoSize = true;
-            this.lblHora.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHora.Location = new System.Drawing.Point(16, 15);
-            this.lblHora.Name = "lblHora";
-            this.lblHora.Size = new System.Drawing.Size(151, 39);
-            this.lblHora.TabIndex = 5;
-            this.lblHora.Text = "00:00:00";
-            // 
-            // lblFecha
-            // 
-            this.lblFecha.AutoSize = true;
-            this.lblFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFecha.Location = new System.Drawing.Point(19, 65);
-            this.lblFecha.Name = "lblFecha";
-            this.lblFecha.Size = new System.Drawing.Size(80, 29);
-            this.lblFecha.TabIndex = 7;
-            this.lblFecha.Text = "Fecha";
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.lblHora);
-            this.panel2.Controls.Add(this.lblFecha);
-            this.panel2.Location = new System.Drawing.Point(1100, 24);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(473, 111);
-            this.panel2.TabIndex = 8;
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
-            // panel4
-            // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.lblTitulo);
-            this.panel4.Controls.Add(this.panel2);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(319, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1301, 161);
-            this.panel4.TabIndex = 9;
-            // 
-            // lblTitulo
-            // 
-            this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.Location = new System.Drawing.Point(31, 45);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(341, 55);
-            this.lblTitulo.TabIndex = 9;
-            this.lblTitulo.Text = "Menú Principal";
-            // 
             // btnLogout
             // 
             this.btnLogout.BackColor = System.Drawing.Color.Transparent;
@@ -297,6 +165,25 @@
             this.btnModPIN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnModPIN.UseVisualStyleBackColor = true;
             this.btnModPIN.Click += new System.EventHandler(this.btnModPIN_Click);
+            // 
+            // plDatosSubMenu
+            // 
+            this.plDatosSubMenu.AutoScroll = true;
+            this.plDatosSubMenu.BackColor = System.Drawing.Color.LightGray;
+            this.plDatosSubMenu.Controls.Add(this.btnHoras);
+            this.plDatosSubMenu.Controls.Add(this.btnOrientacion);
+            this.plDatosSubMenu.Controls.Add(this.btnAnios);
+            this.plDatosSubMenu.Controls.Add(this.btnTurnos);
+            this.plDatosSubMenu.Controls.Add(this.btnMaterias);
+            this.plDatosSubMenu.Controls.Add(this.btnGrupos);
+            this.plDatosSubMenu.Controls.Add(this.btnLugares);
+            this.plDatosSubMenu.Controls.Add(this.btnHorarios);
+            this.plDatosSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.plDatosSubMenu.Location = new System.Drawing.Point(0, 527);
+            this.plDatosSubMenu.Name = "plDatosSubMenu";
+            this.plDatosSubMenu.Size = new System.Drawing.Size(319, 251);
+            this.plDatosSubMenu.TabIndex = 11;
+            this.plDatosSubMenu.Visible = false;
             // 
             // btnHoras
             // 
@@ -466,6 +353,37 @@
             this.btnHorarios.UseVisualStyleBackColor = false;
             this.btnHorarios.Click += new System.EventHandler(this.btnHorarios_Click);
             // 
+            // btnDatos
+            // 
+            this.btnDatos.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnDatos.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnDatos.FlatAppearance.BorderSize = 0;
+            this.btnDatos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDatos.ForeColor = System.Drawing.Color.Black;
+            this.btnDatos.Location = new System.Drawing.Point(0, 452);
+            this.btnDatos.Name = "btnDatos";
+            this.btnDatos.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnDatos.Size = new System.Drawing.Size(319, 75);
+            this.btnDatos.TabIndex = 10;
+            this.btnDatos.Text = "DATOS";
+            this.btnDatos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDatos.UseVisualStyleBackColor = false;
+            this.btnDatos.Click += new System.EventHandler(this.btnDatos_Click);
+            // 
+            // plABMSubMenu
+            // 
+            this.plABMSubMenu.BackColor = System.Drawing.Color.LightGray;
+            this.plABMSubMenu.Controls.Add(this.btnABMOp);
+            this.plABMSubMenu.Controls.Add(this.btnABMDocentes);
+            this.plABMSubMenu.Controls.Add(this.btnABMAlumnos);
+            this.plABMSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.plABMSubMenu.Location = new System.Drawing.Point(0, 265);
+            this.plABMSubMenu.Name = "plABMSubMenu";
+            this.plABMSubMenu.Size = new System.Drawing.Size(319, 187);
+            this.plABMSubMenu.TabIndex = 9;
+            this.plABMSubMenu.Visible = false;
+            // 
             // btnABMOp
             // 
             this.btnABMOp.BackColor = System.Drawing.Color.Silver;
@@ -529,6 +447,33 @@
             this.btnABMAlumnos.UseVisualStyleBackColor = false;
             this.btnABMAlumnos.Click += new System.EventHandler(this.btnABMAlumnos_Click);
             // 
+            // btnUsuarios
+            // 
+            this.btnUsuarios.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnUsuarios.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnUsuarios.FlatAppearance.BorderSize = 0;
+            this.btnUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUsuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUsuarios.ForeColor = System.Drawing.Color.Black;
+            this.btnUsuarios.Location = new System.Drawing.Point(0, 190);
+            this.btnUsuarios.Name = "btnUsuarios";
+            this.btnUsuarios.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnUsuarios.Size = new System.Drawing.Size(319, 75);
+            this.btnUsuarios.TabIndex = 8;
+            this.btnUsuarios.Text = "USUARIOS";
+            this.btnUsuarios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUsuarios.UseVisualStyleBackColor = false;
+            this.btnUsuarios.Click += new System.EventHandler(this.btnAbm_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.pictureBox1);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(319, 190);
+            this.panel3.TabIndex = 7;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Proyecto.Properties.Resources.ITS_500_322;
@@ -538,6 +483,61 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // lblHora
+            // 
+            this.lblHora.AutoSize = true;
+            this.lblHora.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHora.Location = new System.Drawing.Point(16, 15);
+            this.lblHora.Name = "lblHora";
+            this.lblHora.Size = new System.Drawing.Size(151, 39);
+            this.lblHora.TabIndex = 5;
+            this.lblHora.Text = "00:00:00";
+            // 
+            // lblFecha
+            // 
+            this.lblFecha.AutoSize = true;
+            this.lblFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFecha.Location = new System.Drawing.Point(19, 65);
+            this.lblFecha.Name = "lblFecha";
+            this.lblFecha.Size = new System.Drawing.Size(80, 29);
+            this.lblFecha.TabIndex = 7;
+            this.lblFecha.Text = "Fecha";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.lblHora);
+            this.panel2.Controls.Add(this.lblFecha);
+            this.panel2.Location = new System.Drawing.Point(1100, 24);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(473, 111);
+            this.panel2.TabIndex = 8;
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            // 
+            // panel4
+            // 
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.lblTitulo);
+            this.panel4.Controls.Add(this.panel2);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(319, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(1301, 161);
+            this.panel4.TabIndex = 9;
+            // 
+            // lblTitulo
+            // 
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.Location = new System.Drawing.Point(31, 45);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(341, 55);
+            this.lblTitulo.TabIndex = 9;
+            this.lblTitulo.Text = "Menú Principal";
             // 
             // Menú
             // 
@@ -561,11 +561,11 @@
             this.plDatosSubMenu.ResumeLayout(false);
             this.plABMSubMenu.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

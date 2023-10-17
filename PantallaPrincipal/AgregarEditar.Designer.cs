@@ -322,7 +322,6 @@
             this.cbx1.MaxDropDownItems = 25;
             this.cbx1.Name = "cbx1";
             this.cbx1.Size = new System.Drawing.Size(339, 67);
-            this.cbx1.Sorted = true;
             this.cbx1.TabIndex = 74;
             // 
             // lblSubCbx1
@@ -369,7 +368,6 @@
             this.cbx2.MaxDropDownItems = 25;
             this.cbx2.Name = "cbx2";
             this.cbx2.Size = new System.Drawing.Size(339, 67);
-            this.cbx2.Sorted = true;
             this.cbx2.TabIndex = 74;
             // 
             // lblSubCbx2
@@ -416,7 +414,6 @@
             this.cbx3.MaxDropDownItems = 25;
             this.cbx3.Name = "cbx3";
             this.cbx3.Size = new System.Drawing.Size(339, 67);
-            this.cbx3.Sorted = true;
             this.cbx3.TabIndex = 74;
             // 
             // lblSubCbx3

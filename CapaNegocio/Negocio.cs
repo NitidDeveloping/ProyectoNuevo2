@@ -327,15 +327,15 @@ namespace CapaNegocio
                 }
             }
 
-          /*  if (datos.Consultar(referencia, idnombre) != null)
+            if (datos.Consultar(referencia, idnombre) != null)
             {
                 return RetornoValidacion.YaExiste;
             }
             else
-            { */
+            {
                 return datos.Agregar(referencia, item);
 
-           // }
+            }
         }
 
         public RetornoValidacion Editar(TipoReferencia referencia, object item, string idObjetivo, string nombre)

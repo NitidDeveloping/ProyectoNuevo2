@@ -98,11 +98,21 @@ namespace Proyecto
                     plComboBox1.Visible = true;
                     plCombobox2.Visible = true;
                     plCombobox3.Visible = true;
-                    
+
                     lblCbx1.Text = "Turno";
                     cbx1.DataSource = negocio.Listar(TipoReferencia.Turno, null, null);
                     cbx1.DisplayMember = "Nombre";
                     cbx1.ValueMember = "Id";
+
+                    lblCbx2.Text = "Orientacion";
+                    cbx2.DataSource = negocio.Listar(TipoReferencia.Orientacion, null, null);
+                    cbx2.DisplayMember = "Nombre";
+                    cbx2.ValueMember = "Id";
+
+                    lblCbx3.Text = "Año";
+                    cbx3.DataSource = negocio.Listar(TipoReferencia.Anio, null, null);
+                    cbx3.DisplayMember = "Anio";
+                    cbx3.ValueMember = "Anio";
 
                     //COSAS PARA EDITAR
                     if (IdDestino != null)
@@ -123,10 +133,10 @@ namespace Proyecto
                             cbx2.DisplayMember = "Nombre";
                             cbx2.ValueMember = "Id";
 
-                            lblCbx2.Text = "Anio";
-                            cbx2.DataSource = negocio.Listar(TipoReferencia.Anio, null, null);
-                            cbx2.DisplayMember = "Anio";
-                            cbx2.ValueMember = "Anio";
+                            lblCbx3.Text = "Anio";
+                            cbx3.DataSource = negocio.Listar(TipoReferencia.Anio, null, null);
+                            cbx3.DisplayMember = "Anio";
+                            cbx3.ValueMember = "Anio";
 
 
                         }
@@ -232,7 +242,7 @@ namespace Proyecto
                     plCombobox2.Visible = true;
                     plCheckBox1.Visible = true;
                     plCheckBox2.Visible = true;
-                    
+
                     txtNombre.MaxLength = 45;
 
                     //COSAS PARA EDITAR
@@ -265,10 +275,17 @@ namespace Proyecto
                     plNombre.Visible = true;
                     plApellido.Visible = true;
                     plComboBox1.Visible = true;
-                    plCombobox2.Visible = true;
+                    plCheckBox1.Visible = true;
 
                     txtNombre.MaxLength = 30;
                     txtApellido.MaxLength = 30;
+
+                    chck1.Text = "Administrador";
+
+                    lblCbx1.Text = "Cargo";
+                    cbx1.DataSource = negocio.Listar(TipoReferencia.CargosFuncionarios, null, null);
+                    cbx1.DisplayMember = "Cargo";
+                    cbx1.ValueMember = "Id_Cargo";
 
                     //COSAS PARA EDITAR
                     if (IdDestino != null)
@@ -278,15 +295,6 @@ namespace Proyecto
                             txtApellido.Text = funcionario.Apellido;
                             txtNombre.Text = funcionario.Nombre;
 
-                            lblCbx1.Text = "Cargo";
-                            cbx1.DataSource = negocio.Listar(TipoReferencia.CargosFuncionarios, null, null);
-                            cbx1.DisplayMember = "Cargo";
-                            cbx1.ValueMember = "Id_Cargo";
-
-                            lblCbx2.Text = "Tipo";
-                            cbx2.DataSource = negocio.Listar(TipoReferencia.Funcionario, null, null);
-                            cbx2.Items.Add(1);
-                            cbx2.Items.Add(2);
 
                         }
                     }
@@ -294,15 +302,12 @@ namespace Proyecto
                     {
                         plCI.Visible = true;
                         plPIN.Visible = true;
-                        plCheckBox1.Visible = true;
-
                         txtCI.MaxLength = 8;
                         txtPIN.MaxLength = 4;
 
-                        chck1.Text = "Administrador";
 
                     }
-                    
+
                     break;
 
 
@@ -317,6 +322,9 @@ namespace Proyecto
             {
                 btnSiguiente.Visible = true;
             }
+
+
+
         }
 
 
@@ -324,7 +332,14 @@ namespace Proyecto
         #region
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Metodos.SoloLetras(e);
+            if(Sesion.ReferenciaActual != TipoReferencia.Grupo)
+            {
+                Metodos.SoloLetras(e);
+            }
+            else
+            {
+                Metodos.SoloLetrasYNumeros(e);
+            }
         }
 
         private void txtApellido_KeyPress(object sender, KeyPressEventArgs e)
@@ -420,7 +435,7 @@ namespace Proyecto
                         if (ValidarAnio() == RetornoValidacion.OK)
                         {
                             string anio = txtPIN.Text;
-                            RetornoValidacion resultadoAgregar = negocio.Agregar(TipoReferencia.Anio, anio, anio);
+                            RetornoValidacion resultadoAgregar = negocio.Agregar(TipoReferencia.Anio, int.Parse(anio), anio);
 
                             switch (resultadoAgregar)
                             {
@@ -490,7 +505,7 @@ namespace Proyecto
                             switch (resultadoAgregarUsuario)
                             {
                                 case RetornoValidacion.OK:
-                                    RetornoValidacion resultadoAgregarFuncionario = negocio.Agregar(TipoReferencia.Docente, funcionario, txtCI.Text);
+                                    RetornoValidacion resultadoAgregarFuncionario = negocio.Agregar(TipoReferencia.Funcionario, funcionario, txtCI.Text);
                                     switch (resultadoAgregarFuncionario)
                                     {
                                         case RetornoValidacion.OK:
@@ -523,9 +538,9 @@ namespace Proyecto
                         if (ValidarAgregarGrupo() == RetornoValidacion.OK)
                         {
                             string nombre = txtNombre.Text;
-                            Turno turno = new Turno((byte)cbx3.SelectedValue);
-                            Orientacion orientacion = new Orientacion((byte)cbx1.SelectedValue);
-                            int anio = (int)cbx2.SelectedValue;
+                            Turno turno = new Turno((byte)cbx1.SelectedValue);
+                            Orientacion orientacion = new Orientacion((byte)cbx2.SelectedValue);
+                            int anio = (int)cbx3.SelectedValue;
                             Grupo grupo = new Grupo(nombre, turno, orientacion, anio);
                             RetornoValidacion resultadoAgregar = negocio.Agregar(TipoReferencia.Grupo, grupo, nombre);
 
@@ -781,7 +796,7 @@ namespace Proyecto
                 txtPIN.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
             }
-            else if (validaciones.ValidarAnio(short.Parse(txtPIN.Text)))
+            else if (!validaciones.ValidarAnio(short.Parse(txtPIN.Text)))
             {
                 MsgBox msg = new MsgBox("error", "El año no puede ser mayor que el año actual + dos ni anterior a este");
                 msg.ShowDialog();
