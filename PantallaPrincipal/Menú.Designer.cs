@@ -73,6 +73,7 @@
             // 
             // plForms
             // 
+            this.plForms.BackgroundImage = global::Proyecto.Properties.Resources.menu_fondo;
             this.plForms.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.plForms.Location = new System.Drawing.Point(319, 161);
             this.plForms.Name = "plForms";

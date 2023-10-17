@@ -254,5 +254,29 @@
   <ItemGroup>
     <None Include="Resources\Clock1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ACEOPTAR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancelar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\siguiente.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AGREGAR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EDITAR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ELIMINAR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ASIGNAR SALON TEMPORAL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu fondo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
