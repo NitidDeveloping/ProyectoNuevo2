@@ -33,6 +33,8 @@
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DGV = new System.Windows.Forms.DataGridView();
             this.lblSearch = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -44,41 +46,11 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.datePickerSearch = new System.Windows.Forms.DateTimePicker();
             this.timePickerSearch = new System.Windows.Forms.DateTimePicker();
+            this.btnAgregar = new System.Windows.Forms.Button();
+            this.btnEliminar = new System.Windows.Forms.Button();
+            this.btnEditar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminar.Location = new System.Drawing.Point(1252, 438);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(227, 90);
-            this.btnEliminar.TabIndex = 48;
-            this.btnEliminar.Text = "ELIMINAR";
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.BtnEliminar_Click);
-            // 
-            // btnEditar
-            // 
-            this.btnEditar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditar.Location = new System.Drawing.Point(1252, 329);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(227, 90);
-            this.btnEditar.TabIndex = 47;
-            this.btnEditar.Text = "EDITAR";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.BtnEditar_Click);
-            // 
-            // btnAgregar
-            // 
-            this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregar.Location = new System.Drawing.Point(1252, 223);
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(227, 90);
-            this.btnAgregar.TabIndex = 49;
-            this.btnAgregar.Text = "AGREGAR";
-            this.btnAgregar.UseVisualStyleBackColor = true;
-            this.btnAgregar.Click += new System.EventHandler(this.BtnAgregar_Click);
             // 
             // DGV
             // 
@@ -151,11 +123,11 @@
             // btnAsignarSalonTemporal
             // 
             this.btnAsignarSalonTemporal.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAsignarSalonTemporal.Image = global::Proyecto.Properties.Resources.ASIGNAR_SALON_TEMPORAL;
             this.btnAsignarSalonTemporal.Location = new System.Drawing.Point(1252, 548);
             this.btnAsignarSalonTemporal.Name = "btnAsignarSalonTemporal";
             this.btnAsignarSalonTemporal.Size = new System.Drawing.Size(227, 135);
             this.btnAsignarSalonTemporal.TabIndex = 76;
-            this.btnAsignarSalonTemporal.Text = "ASIGNAR SALÓN TEMPORAL";
             this.btnAsignarSalonTemporal.UseVisualStyleBackColor = true;
             this.btnAsignarSalonTemporal.Visible = false;
             // 
@@ -233,6 +205,39 @@
             this.timePickerSearch.Size = new System.Drawing.Size(200, 46);
             this.timePickerSearch.TabIndex = 83;
             this.timePickerSearch.Visible = false;
+            // 
+            // btnAgregar
+            // 
+            this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregar.Image = global::Proyecto.Properties.Resources.AGREGAR;
+            this.btnAgregar.Location = new System.Drawing.Point(1252, 223);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(227, 90);
+            this.btnAgregar.TabIndex = 49;
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.BtnAgregar_Click);
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminar.Image = global::Proyecto.Properties.Resources.ELIMINAR;
+            this.btnEliminar.Location = new System.Drawing.Point(1252, 438);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(227, 90);
+            this.btnEliminar.TabIndex = 48;
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.BtnEliminar_Click);
+            // 
+            // btnEditar
+            // 
+            this.btnEditar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditar.Image = global::Proyecto.Properties.Resources.EDITAR;
+            this.btnEditar.Location = new System.Drawing.Point(1252, 329);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(227, 90);
+            this.btnEditar.TabIndex = 47;
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.BtnEditar_Click);
             // 
             // Lista
             // 

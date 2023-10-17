@@ -1,6 +1,7 @@
 ﻿using CapaEntidades;
 using CapaNegocio;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Proyecto
@@ -962,8 +963,11 @@ namespace Proyecto
             return respuesta;
         }
 
+
         #endregion
 
-       
+        private void btnAceptar_Paint(object sender, PaintEventArgs e)
+        {
+        }
     }
 }

@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnAceptar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblSubNombre = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
@@ -38,7 +36,6 @@
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.lblSubApellido = new System.Windows.Forms.Label();
             this.lblApellido = new System.Windows.Forms.Label();
-            this.btnSiguiente = new System.Windows.Forms.Button();
             this.plCI = new System.Windows.Forms.Panel();
             this.txtCI = new System.Windows.Forms.TextBox();
             this.lblSubCI = new System.Windows.Forms.Label();
@@ -78,6 +75,9 @@
             this.plFechaIngreso = new System.Windows.Forms.Panel();
             this.dtpFechaIngreso = new System.Windows.Forms.DateTimePicker();
             this.lblFechaIngreso = new System.Windows.Forms.Label();
+            this.btnSiguiente = new System.Windows.Forms.Button();
+            this.btnAceptar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.plNombre.SuspendLayout();
             this.plApellido.SuspendLayout();
             this.plCI.SuspendLayout();
@@ -93,28 +93,6 @@
             this.plFin.SuspendLayout();
             this.plFechaIngreso.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnAceptar
-            // 
-            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAceptar.Location = new System.Drawing.Point(1252, 361);
-            this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(227, 90);
-            this.btnAceptar.TabIndex = 33;
-            this.btnAceptar.Text = "ACEPTAR";
-            this.btnAceptar.UseVisualStyleBackColor = true;
-            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
-            // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(1252, 467);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(227, 90);
-            this.btnCancelar.TabIndex = 34;
-            this.btnCancelar.Text = "CANCELAR";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // txtNombre
             // 
@@ -199,17 +177,6 @@
             this.lblApellido.Size = new System.Drawing.Size(207, 55);
             this.lblApellido.TabIndex = 55;
             this.lblApellido.Text = "Apellido:";
-            // 
-            // btnSiguiente
-            // 
-            this.btnSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSiguiente.Location = new System.Drawing.Point(1252, 574);
-            this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(227, 90);
-            this.btnSiguiente.TabIndex = 72;
-            this.btnSiguiente.Text = "SIGUIENTE";
-            this.btnSiguiente.UseVisualStyleBackColor = true;
-            this.btnSiguiente.Visible = false;
             // 
             // plCI
             // 
@@ -637,6 +604,40 @@
             this.lblFechaIngreso.Size = new System.Drawing.Size(329, 55);
             this.lblFechaIngreso.TabIndex = 55;
             this.lblFechaIngreso.Text = "Fecha ingreso";
+            // 
+            // btnSiguiente
+            // 
+            this.btnSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSiguiente.Image = global::Proyecto.Properties.Resources.siguiente;
+            this.btnSiguiente.Location = new System.Drawing.Point(1252, 574);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(227, 90);
+            this.btnSiguiente.TabIndex = 72;
+            this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Visible = false;
+            // 
+            // btnAceptar
+            // 
+            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAceptar.Image = global::Proyecto.Properties.Resources.ACEOPTAR;
+            this.btnAceptar.Location = new System.Drawing.Point(1252, 361);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(227, 90);
+            this.btnAceptar.TabIndex = 33;
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            this.btnAceptar.Paint += new System.Windows.Forms.PaintEventHandler(this.btnAceptar_Paint);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Image = global::Proyecto.Properties.Resources.cancelar;
+            this.btnCancelar.Location = new System.Drawing.Point(1252, 467);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(227, 90);
+            this.btnCancelar.TabIndex = 34;
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // AgregarEditar
             // 
