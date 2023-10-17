@@ -7,7 +7,7 @@ namespace Proyecto
 {
     public class Metodos
     {
-        static string query="";
+        static string query = "";
 
         private static Form activeForm = null; //Declaramos una variable activeForm para que no se acumulen forms en el panel
         public static Menú menuForm = null;
@@ -46,58 +46,16 @@ namespace Proyecto
 
         public static void SoloLetras(KeyPressEventArgs e)
         {
-            if (char.IsLetter(e.KeyChar) || char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else
-                e.Handled = true;
+            e.Handled = !char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
         public static void SoloLetrasYEspacio(KeyPressEventArgs e)
         {
-            if (char.IsLetter(e.KeyChar) || char.IsControl(e.KeyChar) || char.IsWhiteSpace(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else
-                e.Handled = true;
+            e.Handled = !char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar);
         }
 
         public static void SoloNumeros(KeyPressEventArgs e)
         {
-            if (char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else
-                e.Handled = true;
-        }
-
-        public static bool ValidarCI(string txtCI)
-        {
-            if (txtCI.Length >= 1 && txtCI.Length < 8)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public static bool ValidarPIN(string txtPIN)
-        {
-            if (txtPIN.Length >= 1 && txtPIN.Length < 4)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public static bool ValidarCampos(string txtCI, string txtPIN, string txtNombre, string txtApellido, ComboBox cbxCombobox, ComboBox cbxCombobox2)
-        {
-            if (txtCI == "" || txtPIN == "" || txtNombre == "" || txtApellido == "" || (cbxCombobox != null && cbxCombobox.Text == "") || (cbxCombobox2 != null && cbxCombobox2.Text == ""))
-            {
-                return true;
-            }
-            return false;
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
         public static bool buscarPIN(TextBox txtPIN, TextBox txtCI)
         {

@@ -287,7 +287,7 @@
             this.txtCI.TabIndex = 22;
             this.txtCI.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCI.Click += new System.EventHandler(this.txtCI_Click);
-            this.txtCI.TextChanged += new System.EventHandler(this.txtCI_TextChanged);
+            this.txtCI.TextChanged += new System.EventHandler(this.TxtCI_TextChanged);
             // 
             // btnExit
             // 

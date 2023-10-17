@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace CapaEntidades
 {
-    public  class Cargo
+    public class Cargo
     {
         private byte id;
         private string nombre;
 
         public byte Id { get { return id; } }
-        public string Nombre { get {  return nombre; } }
+        public string Nombre { get { return nombre; } }
 
         public Cargo(byte id, string nombre)
         {
@@ -20,7 +20,8 @@ namespace CapaEntidades
             this.nombre = nombre;
         }
 
-        public Cargo(byte id) {
+        public Cargo(byte id)
+        {
             this.id = id;
         }
     }

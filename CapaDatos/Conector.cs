@@ -13,17 +13,17 @@ namespace CapaDatos
         private string database;
         private Sesion sesion;
         private string userVariables;
-        
+
         private static Conector conn = null;
 
 
         private Conector()  //Metodo en private para que no se tenga acceso al constructor
         {
-            this.database = "nitid"; //Establecemos los valores en el constructor.
-            this.server = "localhost";
-            this.uid = "root";
-            this.pwd = "1234";
-               
+            database = "nitid"; //Establecemos los valores en el constructor.
+            server = "localhost";
+            uid = "root";
+            pwd = "root";
+
         }
 
         //Método público para devolver string de conexión
@@ -36,9 +36,9 @@ namespace CapaDatos
             {
                 //Crear cadena de conexión
 
-                conn.ConnectionString = "server=" + this.server + ";uid=" + this.uid + ";pwd=" + this.pwd + ";database=" + this.database + ";Allow User Variables = true";
+                conn.ConnectionString = "server=" + server + ";uid=" + uid + ";pwd=" + pwd + ";database=" + database + ";Allow User Variables = true";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 conn = null;
                 throw ex; //En caso de que no se conecte, muestra un error.
@@ -52,7 +52,7 @@ namespace CapaDatos
 
         public static Conector crearInstancia() //Al crear este método automáticamente le asigna los valores a las variables privadas.
         {
-            if(conn == null)
+            if (conn == null)
             {
                 conn = new Conector(); //Crea la conexión en caso de que no exista
             }

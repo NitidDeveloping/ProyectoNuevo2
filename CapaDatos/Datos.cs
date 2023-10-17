@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.CodeDom;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace CapaDatos
 {
@@ -114,14 +117,9 @@ namespace CapaDatos
                     switch (referencia)//Segun la referencia inicializa aux de una forma u otra
                     {
                         case TipoReferencia.Alumno:
-                            if (dr.IsDBNull(3))
-                            {
-                                aux = new Alumno(dr.GetString(0), dr.GetString(1), dr.GetInt32(2));
-                            }
-                            else
-                            {
-                                aux = new Alumno(dr.GetString(0), dr.GetString(1), dr.GetInt32(2), dr.GetString(3));
-                            }
+                            aux = dr.IsDBNull(3)
+                                ? new Alumno(dr.GetString(0), dr.GetString(1), dr.GetInt32(2))
+                                : (object)new Alumno(dr.GetString(0), dr.GetString(1), dr.GetInt32(2), dr.GetString(3));
                             break;
 
                         case TipoReferencia.Turno:
@@ -268,7 +266,7 @@ namespace CapaDatos
             switch (referencia)
             {
                 case TipoReferencia.Usuario:
-                cmd.Parameters.Add("@CI", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
+                    cmd.Parameters.Add("@CI", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
                     break;
 
                 case TipoReferencia.Alumno:
@@ -533,7 +531,7 @@ namespace CapaDatos
                     }
                     break;
 
-                case TipoReferencia.Funcionario: 
+                case TipoReferencia.Funcionario:
                     if (item is Funcionario funcionario)
                     {
                         cmd.Parameters.Add("@CI_Funcionario", MySqlDbType.Int32).Value = funcionario.CI;
@@ -598,7 +596,7 @@ namespace CapaDatos
 
                 case TipoReferencia.Grupo:
                     cmdstr = "UPDATE Grupo SET Anio=@Anio, Turno=@Turno, Orientacion=@Orientacion WHERE ID_Grupo=@ID_Grupo;";
-                    break;  
+                    break;
 
                 case TipoReferencia.Orientacion:
                     cmdstr = "UPDATE Orientacion SET Nombre_Orientacion=@Nombre_Orientacion WHERE Orientacion=@Orientacion;";
@@ -667,7 +665,8 @@ namespace CapaDatos
             MySqlCommand cmd;
             MySqlDataReader dr;
 
-            switch (referencia){
+            switch (referencia)
+            {
                 case TipoReferencia.Alumno:
                     cmdstr = "SELECT (CI, Nombre, Apellido) FROM Usuario_Alumno WHERE CI=@ID;";
                     break;
@@ -714,11 +713,7 @@ namespace CapaDatos
                     conn.Close(); //Cerramos la conexión en caso de que esté abierta
                 }
             }
-
-
-
         }
-
         public int GenerarIdAutomatico(TipoReferencia referencia) //Metodo para generar un id automatico para las tablas a las que el usuario no les asigna uno
                                                                   //Segun la referencia devuelve el id mas alto de una tabla mas uno
         {
@@ -742,7 +737,7 @@ namespace CapaDatos
                     cmdstr = "SELECT MAX(Turno) FROM Turno;";
                     break;
 
-                default : throw new ArgumentException("No se pudo conseguir id, referencia no reconocida");
+                default: throw new ArgumentException("No se pudo conseguir id, referencia no reconocida");
             }
             cmd = new MySqlCommand(cmdstr, conn);
             try
@@ -763,6 +758,48 @@ namespace CapaDatos
                 }
             }
             return respuesta;
+        }
+
+        public void CargarLugaresComboBox(TipoRol rol, ComboBox comboBox)
+        {
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
+            MySqlCommand cmd;
+            string cmdstr;
+
+            switch (rol)
+            {
+                case TipoRol.Alumno:
+                case TipoRol.Docente:
+                    cmdstr = "SELECT Nombre FROM Lugares;";
+                    break;
+                default:
+                    cmdstr = "SELECT * FROM Lugar WHERE Nombre IN ('Bedelía', 'Adscripción 1er piso', 'Adscripción 2do piso', 'Baños planta baja', 'Baños primer piso', 'Gimnasio', 'Patio', 'Auditorio', 'Hall');";
+                    break;
+            }
+
+            try
+            {
+                conn.Open();
+                cmd = new MySqlCommand(cmdstr, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                {
+                    while (reader.Read())
+                    {
+                        comboBox.Items.Add(reader["Nombre"].ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
         }
 
         public bool VerificarNombreNuevo(TipoReferencia referencia, string nombre)
@@ -969,7 +1006,7 @@ namespace CapaDatos
                 {
                     case TipoReferencia.Hora:
                         Turno auxturno = new Turno(dr.GetByte(1), dr.GetString(2));
-                       respuesta = new Hora((dr.GetByte(0), auxturno), dr.GetTimeSpan(3), dr.GetTimeSpan(4));
+                        respuesta = new Hora((dr.GetByte(0), auxturno), dr.GetTimeSpan(3), dr.GetTimeSpan(4));
                         break;
                     default: throw new ArgumentException("Argumento de consulta imposible de transformar, contacte a un administrador si el problema persiste");
                 }
@@ -998,6 +1035,7 @@ namespace CapaDatos
         #endregion
 
         //Metodos para operaciones propias de los alumnos
+
         #region
         public List<Grupo> ConsultarGruposAlumno(int ciAlumno) //Devuelve los grupos en los que se encuentra el alumno solicitado
         {

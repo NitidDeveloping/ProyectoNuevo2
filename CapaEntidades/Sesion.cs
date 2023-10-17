@@ -17,15 +17,15 @@ namespace CapaEntidades
         private static TipoRol loggedRol = TipoRol.Default; // Roles: Default_User, Visitante, Alumno, Docente, Operador, Administrador
         private static TipoReferencia referenciaActual;
 
-        public static string LoggedNombre { get {  return loggedNombre; } }
-        public static TipoRol LoggedRol { get {  return loggedRol; } }
-        public static int LoggedCi { get {  return loggedCi; } }
-        public static int LoggedPin { get {  return loggedPin; } }
+        public static string LoggedNombre { get { return loggedNombre; } }
+        public static TipoRol LoggedRol { get { return loggedRol; } }
+        public static int LoggedCi { get { return loggedCi; } }
+        public static int LoggedPin { get { return loggedPin; } }
         public static TipoReferencia ReferenciaActual { get { return referenciaActual; } }
 
         public void LogIn(string nombre, TipoRol rol, int ci, int pin)
         {
-            loggedCi = ci;  
+            loggedCi = ci;
             loggedPin = pin;
             loggedNombre = nombre;
             loggedRol = rol;
@@ -45,7 +45,7 @@ namespace CapaEntidades
             loggedCi = 0;
             loggedPin = 0;
             loggedNombre = "default";
-            loggedRol= TipoRol.Default;
+            loggedRol = TipoRol.Default;
         }
 
         public void SetReferenciaActual(TipoReferencia referencia) { referenciaActual = referencia; }

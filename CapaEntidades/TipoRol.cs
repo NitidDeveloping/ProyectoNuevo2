@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CapaEntidades
 {
-   public enum TipoRol
+    public enum TipoRol
     {
         Alumno,
         Docente,

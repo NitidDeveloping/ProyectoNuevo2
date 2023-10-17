@@ -98,7 +98,7 @@ namespace Proyecto
                     plComboBox1.Visible = true;
                     plCombobox2.Visible = true;
                     plCombobox3.Visible = true;
-                    
+
                     lblCbx1.Text = "Turno";
                     cbx1.DataSource = negocio.Listar(TipoReferencia.Turno, null, null);
                     cbx1.DisplayMember = "Nombre";
@@ -228,11 +228,11 @@ namespace Proyecto
                 case TipoReferencia.Lugar:
 
                     plNombre.Visible = true;
-                    plComboBox1.Visible= true;
+                    plComboBox1.Visible = true;
                     plCombobox2.Visible = true;
                     plCheckBox1.Visible = true;
                     plCheckBox2.Visible = true;
-                    
+
                     txtNombre.MaxLength = 45;
 
                     //COSAS PARA EDITAR
@@ -302,7 +302,7 @@ namespace Proyecto
                         chck1.Text = "Administrador";
 
                     }
-                    
+
                     break;
 
 
@@ -364,7 +364,7 @@ namespace Proyecto
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Lista lista = new Lista();
-            this.Close();
+            Close();
             Metodos.openChildForm(lista, Metodos.menuForm.plForms);
         }
 
@@ -372,7 +372,7 @@ namespace Proyecto
         {
             MsgBox msg = null;
             Negocio negocio = new Negocio();
-            if(IdDestino == null)
+            if (IdDestino == null)
             {
                 //Segun la referencia aplicamos unas validaciones u otras
                 switch (Sesion.ReferenciaActual)
@@ -557,7 +557,7 @@ namespace Proyecto
                             DateTime medianocheinicio = new DateTime(fechaseleccionadainicio.Year, fechaseleccionadainicio.Month, fechaseleccionadainicio.Day, 0, 0, 0);
                             TimeSpan horaInicio = fechaseleccionadainicio - medianocheinicio;
 
-                            DateTime fechaseleccionadafin= dtpFin.Value;
+                            DateTime fechaseleccionadafin = dtpFin.Value;
                             DateTime medianochefin = new DateTime(fechaseleccionadafin.Year, fechaseleccionadafin.Month, fechaseleccionadafin.Day, 0, 0, 0);
                             TimeSpan horaFin = fechaseleccionadafin - medianochefin;
 
@@ -586,31 +586,31 @@ namespace Proyecto
                     case TipoReferencia.Lugar:
                         if (ValidarAgregarLugar() == RetornoValidacion.OK)
                         {
-                          /*  string nombre = txtNombre.Text;
-                            TipoLugar tipo = new TipoLugar((byte)cbx1.SelectedValue);
-                            byte piso = (byte)cbx2.SelectedValue;
-                            //int coordenada_x = ;
-                            //int coordenada_y = ;
-                            bool isClase = chck1.Checked;
-                            bool isUsoComun = chck2.Checked;
-                           // Lugar lugar = new Lugar(nombre, tipo, piso, coordenada_x, coordenada_y, isClase, isUsoComun);
-                           // RetornoValidacion resultadoAgregar = negocio.Agregar(TipoReferencia.Lugar, lugar, nombre);
+                            /*  string nombre = txtNombre.Text;
+                              TipoLugar tipo = new TipoLugar((byte)cbx1.SelectedValue);
+                              byte piso = (byte)cbx2.SelectedValue;
+                              //int coordenada_x = ;
+                              //int coordenada_y = ;
+                              bool isClase = chck1.Checked;
+                              bool isUsoComun = chck2.Checked;
+                             // Lugar lugar = new Lugar(nombre, tipo, piso, coordenada_x, coordenada_y, isClase, isUsoComun);
+                             // RetornoValidacion resultadoAgregar = negocio.Agregar(TipoReferencia.Lugar, lugar, nombre);
 
-                            switch (resultadoAgregar)
-                            {
-                                case RetornoValidacion.OK:
-                                    msg = new MsgBox("exito", "Lugar cargado exitosamente");
-                                    Limpiar();
-                                    break;
+                              switch (resultadoAgregar)
+                              {
+                                  case RetornoValidacion.OK:
+                                      msg = new MsgBox("exito", "Lugar cargado exitosamente");
+                                      Limpiar();
+                                      break;
 
-                                case RetornoValidacion.YaExiste:
-                                    msg = new MsgBox("error", "Ya existe un lugar con ese nombre en el sistema. Por favor seleccione uno nuevo.");
-                                    break;
+                                  case RetornoValidacion.YaExiste:
+                                      msg = new MsgBox("error", "Ya existe un lugar con ese nombre en el sistema. Por favor seleccione uno nuevo.");
+                                      break;
 
-                                case RetornoValidacion.ErrorInesperadoBD:
-                                    msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
-                                    break;
-                            }*/
+                                  case RetornoValidacion.ErrorInesperadoBD:
+                                      msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
+                                      break;
+                              }*/
                         }
                         break;
 
@@ -949,6 +949,6 @@ namespace Proyecto
 
         #endregion
 
-       
+
     }
 }

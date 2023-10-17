@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace CapaNegocio
 {
@@ -11,6 +12,14 @@ namespace CapaNegocio
     {
         //Metodos y propiedades para operaciones basicas del menu de gestiones
         #region
+
+        public  TipoRol DeterminarRolUsuario()
+        {
+            TipoRol rol = Sesion.LoggedRol;
+            return rol;
+        }
+
+
         public DataTable Listar(TipoReferencia referencia, string columna, object valor)
         {
             Datos datos = new Datos();
@@ -268,7 +277,7 @@ namespace CapaNegocio
                     switch (referencia)
                     {
                         case TipoReferencia.Lugar:
-                            if(item is Lugar lugar)
+                            if (item is Lugar lugar)
                             {
                                 ushort id = (ushort)datos.GenerarIdAutomatico(referencia);
                                 item = new Lugar(
@@ -327,15 +336,15 @@ namespace CapaNegocio
                 }
             }
 
-          /*  if (datos.Consultar(referencia, idnombre) != null)
-            {
-                return RetornoValidacion.YaExiste;
-            }
-            else
-            { */
-                return datos.Agregar(referencia, item);
+            /*  if (datos.Consultar(referencia, idnombre) != null)
+              {
+                  return RetornoValidacion.YaExiste;
+              }
+              else
+              { */
+            return datos.Agregar(referencia, item);
 
-           // }
+            // }
         }
 
         public RetornoValidacion Editar(TipoReferencia referencia, object item, string idObjetivo, string nombre)
@@ -424,15 +433,15 @@ namespace CapaNegocio
         public RetornoValidacion Eliminar(TipoReferencia referencia, string idObjetivo)
         {
             Datos datos = new Datos();
-           // if (datos.Consultar(referencia, idObjetivo) != null)
-           // {
-                return datos.Eliminar(referencia, idObjetivo);
+            // if (datos.Consultar(referencia, idObjetivo) != null)
+            // {
+            return datos.Eliminar(referencia, idObjetivo);
 
-           // }
-          //  else
-           // {
-           //     return RetornoValidacion.NoExiste;
-           // }
+            // }
+            //  else
+            // {
+            //     return RetornoValidacion.NoExiste;
+            // }
         }
 
         //Sobrecargas para horas
@@ -480,9 +489,13 @@ namespace CapaNegocio
             // }
         }
 
-
+        public void CargarLugaresComboBox(ComboBox comboBox)
+        {
+            Datos datos = new Datos();
+            TipoRol rol = DeterminarRolUsuario();
+            datos.CargarLugaresComboBox(rol, comboBox);
+        }
         #endregion
-
 
 
     }
