@@ -13,11 +13,7 @@ namespace CapaNegocio
         //Metodos y propiedades para operaciones basicas del menu de gestiones
         #region
 
-        public TipoRol DeterminarRolUsuario()
-        {
-            TipoRol rol = Sesion.LoggedRol;
-            return rol;
-        }
+       
         public DataTable Listar(TipoReferencia referencia, string columna, object valor)
         {
             Datos datos = new Datos();
@@ -491,15 +487,20 @@ namespace CapaNegocio
             // }
         }
 
-        public void CargarLugaresComboBox(ComboBox comboBox)
+        public DataTable CargarLugaresComboBox()
         {
             Datos datos = new Datos();
             TipoRol rol = DeterminarRolUsuario();
-            datos.CargarLugaresComboBox(rol, comboBox);
+            return datos.CargarLugares(rol);
         }
+
         #endregion
 
-
+        public TipoRol DeterminarRolUsuario()
+        {
+            TipoRol rol = Sesion.LoggedRol;
+            return rol;
+        }
 
     }
 }

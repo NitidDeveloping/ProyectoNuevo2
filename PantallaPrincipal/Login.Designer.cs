@@ -84,7 +84,6 @@
             this.txtPIN.Location = new System.Drawing.Point(299, 258);
             this.txtPIN.MaxLength = 4;
             this.txtPIN.Name = "txtPIN";
-            this.txtPIN.ReadOnly = true;
             this.txtPIN.Size = new System.Drawing.Size(339, 59);
             this.txtPIN.TabIndex = 1;
             this.txtPIN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -282,7 +281,6 @@
             this.txtCI.Location = new System.Drawing.Point(299, 112);
             this.txtCI.MaxLength = 8;
             this.txtCI.Name = "txtCI";
-            this.txtCI.ReadOnly = true;
             this.txtCI.Size = new System.Drawing.Size(339, 59);
             this.txtCI.TabIndex = 22;
             this.txtCI.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
