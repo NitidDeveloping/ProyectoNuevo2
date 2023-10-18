@@ -22,7 +22,7 @@ namespace CapaDatos
             this.database = "nitid"; //Establecemos los valores en el constructor.
             this.server = "localhost";
             this.uid = "root";
-            this.pwd = "1234";
+            this.pwd = "root";
                
         }
 

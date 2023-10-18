@@ -1260,7 +1260,7 @@ namespace CapaDatos
         //Metodos para operaciones propias de los alumnos
         #region
 
-        public void CargarLugaresComboBox(TipoRol rol, ComboBox comboBox)
+        public DataTable CargarLugares(TipoRol rol)
         {
             MySqlConnection conn = Conector.crearInstancia().crearConexion();
             MySqlCommand cmd;
@@ -1277,17 +1277,14 @@ namespace CapaDatos
                     break;
             }
 
+            DataTable table = new DataTable();
+
             try
             {
                 conn.Open();
                 cmd = new MySqlCommand(cmdstr, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
-                {
-                    while (reader.Read())
-                    {
-                        comboBox.Items.Add(reader["Nombre"].ToString());
-                    }
-                }
+                table.Load(reader); // Cargar los datos en el DataTable
             }
             catch (Exception ex)
             {
@@ -1300,6 +1297,8 @@ namespace CapaDatos
                     conn.Close();
                 }
             }
+
+            return table;
         }
         public List<Grupo> ConsultarGruposAlumno(int ciAlumno) //Devuelve los grupos en los que se encuentra el alumno solicitado
         {

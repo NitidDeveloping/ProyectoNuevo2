@@ -2,6 +2,7 @@
 using CapaNegocio;
 using Proyecto;
 using System;
+using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -25,7 +26,13 @@ namespace Proyecto
             Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
             Metodos.openChildForm(mapa, plMapa);
             Negocio negocio = new Negocio();
-            negocio.CargarLugaresComboBox(cbxLugares);
+            DataTable lugaresTable = negocio.CargarLugaresComboBox();
+
+            // Asignar el DataTable al ComboBox
+            cbxLugares.DataSource = lugaresTable;
+            cbxLugares.DisplayMember = "Nombre"; // Mostrar la columna "Nombre" en el ComboBox
+            cbxLugares.ValueMember = "Nombre";
+            cbxLugares.SelectedIndex = -1;
 
         }
 
@@ -270,6 +277,14 @@ namespace Proyecto
             Mapa mapa = new Mapa();
             Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
             Metodos.openChildForm(mapa, plMapa);
+            Negocio negocio = new Negocio();
+            DataTable lugaresTable = negocio.CargarLugaresComboBox();
+
+            // Asignar el DataTable al ComboBox
+            cbxLugares.DataSource = lugaresTable;
+            cbxLugares.DisplayMember = "Nombre"; // Mostrar la columna "Nombre" en el ComboBox
+            cbxLugares.ValueMember = "Nombre";
+            cbxLugares.SelectedIndex = -1;
         }
     }
 }
