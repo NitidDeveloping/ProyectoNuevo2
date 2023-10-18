@@ -1338,6 +1338,133 @@ namespace CapaDatos
             }
         }
         #endregion
+
+        //Metodos para usar con la consulta de grupo
+        #region
+        public List<(Materia, Docente)> ListarMateriasYDocentesDeGrupo(string idGrupo)
+        {
+            //Variables
+            List<(Materia, Docente)> lista = new List<(Materia, Docente)>();
+            Materia auxmateria;
+            Docente auxdocente;
+            (Materia m, Docente d) auxmateriadocente;
+            string cmdstr;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
+            MySqlCommand cmd;
+            MySqlDataReader dr;
+
+            //Asiganmos el valor de la consulta
+            cmdstr = "SELECT gm.ID_Materia, m.Nombre, gmd.CI_Docente, u.Nombre, u.Apellido " +
+                "\r\n FROM Grupo grp" +
+                "\r\n JOIN Grupo_Materia gm ON grp.ID_Grupo = gm.ID_Grupo" +
+                "\r\n JOIN Materia m ON gm.ID_Materia = m.ID_Materia " +
+                "\r\n LEFT JOIN Grupo_Materia_Docente gmd ON  gm.ID_Grupo = gmd.ID_Grupo AND gm.ID_Materia = gmd.ID_Materia" +
+                "\r\n LEFT JOIN Docente d ON gmd.CI_Docente = d.CI_Docente" +
+                "\r\n LEFT JOIN Usuario u ON d.CI_Docente = u.CI" +
+                "\r\n WHERE grp.ID_Grupo = @IdGrupo;";
+
+
+            //Inicializa y agrega los parametros al comando
+            cmd = new MySqlCommand(cmdstr, conn);
+            cmd.Parameters.AddWithValue("@IdGrupo", idGrupo);
+
+            //Ejecuta la consulta
+            try
+            {
+                conn.Open(); //Abro la conexión
+
+                dr = cmd.ExecuteReader(); //Inicio el comando
+                
+                if (dr.HasRows) //Si el comando devuelve algo ejecuta el while
+                {
+                    while (dr.Read()) //Mientras haya registros en el datareader lee lo que hay y lo agrega a la lista
+                    {
+                        auxmateria = null;
+                        auxdocente = null;
+                        auxmateriadocente = (null, null);
+
+                        auxmateria = new Materia(dr.GetUInt16(0), dr.GetString(1));
+                        if (!dr.IsDBNull(3))
+                        {
+                            auxdocente = new Docente(dr.GetString(3), dr.GetString(4), dr.GetInt32(2));
+                        }
+
+                        auxmateriadocente = (auxmateria, auxdocente);
+
+                        lista.Add(auxmateriadocente);
+                    }
+                   
+                }
+                return lista;//Retorna lo que encuentre
+            }
+            catch (Exception ex)// En caso de excepcion throwea esta
+            {
+                throw ex;
+            }
+            finally//Al final haya excepcion o no cierra la base de datos
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close(); //Cerramos la conexión en caso de que esté abierta
+                }
+            }
+        }
+
+        public List<Alumno> ListarAlumnosDeGrupo(string idGrupo)
+        {
+            //Variables
+            List<Alumno> lista = new List<Alumno>();
+            Alumno auxalumno;
+            string cmdstr;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
+            MySqlCommand cmd;
+            MySqlDataReader dr;
+
+            //Asiganmos el valor de la consulta
+            cmdstr = "SELECT ga.CI_Alumno, u.Nombre, u.Apellido" +
+                "\r\n FROM grupo grp" +
+                "\r\n JOIN grupo_alumno ga ON grp.ID_Grupo = ga.ID_Grupo" +
+                "\r\n JOIN alumno a ON ga.CI_Alumno = a.CI_Alumno" +
+                "\r\n JOIN usuario u ON a.CI_Alumno = u.CI" +
+                "\r\n WHERE grp.ID_Grupo = @IdGrupo;";
+
+
+            //Inicializa y agrega los parametros al comando
+            cmd = new MySqlCommand(cmdstr, conn);
+            cmd.Parameters.AddWithValue("@IdGrupo", idGrupo);
+
+            //Ejecuta la consulta
+            try
+            {
+                conn.Open(); //Abro la conexión
+
+                dr = cmd.ExecuteReader(); //Inicio el comando
+
+                if (dr.HasRows) //Si el comando devuelve algo ejecuta el while
+                {
+                    while (dr.Read()) //Mientras haya registros en el datareader lee lo que hay y lo agrega a la lista
+                    {
+                        auxalumno = new Alumno(dr.GetString(1), dr.GetString(2), dr.GetInt32(0));
+
+                        lista.Add(auxalumno);
+                    }
+
+                }
+                return lista;//Retorna lo que encuentre
+            }
+            catch (Exception ex)// En caso de excepcion throwea esta
+            {
+                throw ex;
+            }
+            finally//Al final haya excepcion o no cierra la base de datos
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close(); //Cerramos la conexión en caso de que esté abierta
+                }
+            }
+        }
+        #endregion
     }
 
 

@@ -275,7 +275,7 @@ namespace CapaNegocio
                     switch (referencia)
                     {
                         case TipoReferencia.Lugar:
-                            if(item is Lugar lugar)
+                            if (item is Lugar lugar)
                             {
                                 ushort id = (ushort)datos.GenerarIdAutomatico(referencia);
                                 item = new Lugar(
@@ -435,18 +435,19 @@ namespace CapaNegocio
         public RetornoValidacion Eliminar(TipoReferencia referencia, string idObjetivo)
         {
             Datos datos = new Datos();
-           // if (datos.Consultar(referencia, idObjetivo) != null)
-           // {
+            if (datos.Consultar(referencia, idObjetivo) != null)
+            {
                 return datos.Eliminar(referencia, idObjetivo);
 
-           // }
-          //  else
-           // {
-           //     return RetornoValidacion.NoExiste;
-           // }
+            }
+            else
+            {
+                return RetornoValidacion.NoExiste;
+            }
         }
 
         //Sobrecargas para horas
+        #region
         public RetornoValidacion Agregar(TipoReferencia referencia, object item, byte idObjetivo, byte idPadre)
         {
             Datos datos = new Datos();
@@ -490,6 +491,59 @@ namespace CapaNegocio
             //     return RetornoValidacion.NoExiste;
             // }
         }
+        #endregion
+        #endregion
+
+        //Metodos para la consulta de grupos
+        #region
+        public DataTable ListarMateriasYDocentes(string idGrupo)
+        {
+            Datos datos = new Datos();
+            List<(Materia, Docente)> lista = datos.ListarMateriasYDocentesDeGrupo(idGrupo);
+            DataTable dt = new DataTable();
+
+            dt.Columns.Add("ID_Materia", typeof(ushort));
+            dt.Columns.Add("Materia", typeof(string));
+            dt.Columns.Add("CI Docente", typeof(int));
+            dt.Columns.Add("Nombre Docente", typeof(string));
+            dt.Columns.Add("Apellido Docente", typeof(string));
+
+            foreach ((Materia m, Docente d) md in lista)
+            {
+                if (md.d != null)
+                {
+                    dt.Rows.Add(md.m.Id, md.m.Nombre, md.d.CI, md.d.Nombre, md.d.Apellido);
+                }
+                else
+                {
+                    dt.Rows.Add(md.m.Id, md.m.Nombre);
+                }
+               
+
+            }
+
+            return dt;
+        }
+
+        public DataTable ListarAlumnosDeGrupo(string idGrupo)
+        {
+            Datos datos = new Datos();
+            List<Alumno> lista = datos.ListarAlumnosDeGrupo(idGrupo);
+            DataTable dt = new DataTable();
+
+            dt.Columns.Add("CI", typeof(int));
+            dt.Columns.Add("Nombre", typeof(string));
+            dt.Columns.Add("Apellido", typeof(string));
+
+            foreach (Alumno alumno in lista)
+            {
+                dt.Rows.Add(alumno.CI, alumno.Nombre, alumno.Apellido);
+            }
+
+            return dt;
+        }
+
+        #endregion
 
         public void CargarLugaresComboBox(ComboBox comboBox)
         {
@@ -497,7 +551,7 @@ namespace CapaNegocio
             TipoRol rol = DeterminarRolUsuario();
             datos.CargarLugaresComboBox(rol, comboBox);
         }
-        #endregion
+
 
 
 

@@ -710,9 +710,23 @@ namespace Proyecto
 
         private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow selectedRow = DGV.Rows[e.RowIndex];
-            MsgBox msg = new MsgBox("exito", selectedRow.Cells["CI"].Value.ToString());
-            msg.ShowDialog();
+            //Si hace doble click sobre un elemento de la lista y la referencia actual es grupo abre la consulta de grupo con el grupo que haya seleccionado
+            if (Sesion.ReferenciaActual == TipoReferencia.Grupo)
+            {
+                Grupo grupoConsulta;
+                DataGridViewRow selectedRow = DGV.Rows[e.RowIndex];
+                ConsultaGrupo consultaGrupo; //Formulario de consulta grupo
+
+                string nombregrupo = selectedRow.Cells["Nombre"].Value.ToString();
+                string nombreOrientacion = selectedRow.Cells["Orientación"].Value.ToString();
+                Orientacion orientacion = new Orientacion(nombreOrientacion);
+                int anio = (int)selectedRow.Cells["Año"].Value;
+
+                grupoConsulta = new Grupo(nombregrupo, orientacion, anio);
+
+                consultaGrupo = new ConsultaGrupo(grupoConsulta);
+                Metodos.openChildForm(consultaGrupo, Metodos.menuForm.plForms);
+            }
         }
     }
 }

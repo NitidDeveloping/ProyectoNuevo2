@@ -70,6 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsultaGrupo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConsultaGrupo.Designer.cs">
+      <DependentUpon>ConsultaGrupo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Lista.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +127,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ConsultaGrupo.resx">
+      <DependentUpon>ConsultaGrupo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Lista.resx">
       <DependentUpon>Lista.cs</DependentUpon>
     </EmbeddedResource>

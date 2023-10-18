@@ -29,6 +29,13 @@ namespace CapaEntidades
             this.anio = anio;
         }
 
+        public Grupo(string nombre, Orientacion orientacion, int anio)
+        {
+            this.nombre = nombre;
+            this.orientacion = orientacion;
+            this.anio = anio;
+        }
+
         public Grupo(string nombre, Turno turno, Orientacion orientacion, int anio, byte lista)
         {
             this.nombre = nombre;
