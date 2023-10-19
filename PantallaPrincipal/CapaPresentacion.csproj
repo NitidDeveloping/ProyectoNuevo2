@@ -70,6 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgregarAlumnoAGrupo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgregarAlumnoAGrupo.Designer.cs">
+      <DependentUpon>AgregarAlumnoAGrupo.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConsultaGrupo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +133,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AgregarAlumnoAGrupo.resx">
+      <DependentUpon>AgregarAlumnoAGrupo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConsultaGrupo.resx">
       <DependentUpon>ConsultaGrupo.cs</DependentUpon>
     </EmbeddedResource>

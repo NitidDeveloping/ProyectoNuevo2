@@ -1463,6 +1463,89 @@ namespace CapaDatos
                 }
             }
         }
+
+        public bool ConsultarAlumnoEnGrupo(string ciAlumno, string idGrupo) //Devuelve true si un alumno esta ingresado dentro de un grupo
+        {
+            //Variables
+            bool respuesta;
+            string cmdstr;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
+            MySqlCommand cmd;
+
+            //Asiganmos el valor de la consulta
+            cmdstr = "SELECT COUNT(u.CI)" +
+                "\r\n FROM grupo g " +
+                "\r\n JOIN grupo_alumno ga ON g.ID_Grupo = ga.ID_Grupo" +
+                "\r\n JOIN alumno a ON ga.CI_Alumno = a.CI_Alumno " +
+                "\r\n JOIN usuario u ON a.CI_Alumno = u.CI" +
+                "\r\n WHERE g.ID_Grupo = @ID_Grupo AND a.CI_Alumno = @CI_Alumno;";
+
+
+            //Inicializa y agrega los parametros al comando
+            cmd = new MySqlCommand(cmdstr, conn);
+            cmd.Parameters.AddWithValue("@ID_Grupo", idGrupo);
+            cmd.Parameters.AddWithValue("@CI_Alumno", ciAlumno);
+
+            //Ejecuta la consulta
+            try
+            {
+                conn.Open(); //Abro la conexión
+
+                respuesta = Convert.ToInt32(cmd.ExecuteScalar()) == 1;
+
+                return respuesta;//Retorna lo que encuentre
+            }
+            catch (Exception ex)// En caso de excepcion throwea esta
+            {
+                throw ex;
+            }
+            finally//Al final haya excepcion o no cierra la base de datos
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close(); //Cerramos la conexión en caso de que esté abierta
+                }
+            }
+        }
+
+        public RetornoValidacion AgregarAlumnoAGrupo(string ciAlumno, string idGrupo)
+        {
+            //Variables
+            RetornoValidacion respuesta;
+            string cmdstr;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
+            MySqlCommand cmd;
+
+            cmdstr = "INSERT INTO Grupo_Alumno (CI_Alumno, ID_Grupo) VALUES (@CiAlumno, @IdGrupo);";
+
+            //Agrega los parametros al comando
+            cmd = new MySqlCommand(cmdstr, conn);
+
+            cmd.Parameters.Add("@CiAlumno", MySqlDbType.Int32).Value = ciAlumno;
+            cmd.Parameters.Add("@IdGrupo", MySqlDbType.VarChar).Value = idGrupo;
+
+            // Ejecuta el comando y devuelve un retorno segun como salga la operacion
+            try
+            {
+                conn.Open();
+                respuesta = cmd.ExecuteNonQuery() == 1 ? RetornoValidacion.OK : RetornoValidacion.ErrorInesperadoBD; //Asgina un valor al resultado de la operaciones
+            }
+            catch (Exception ex)
+            {
+                throw ex; //esto lo manejamos con un try catch en la presentación
+            }
+            finally
+            {
+                //Cierra la conexion
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return respuesta;
+        }
+
+
         #endregion
     }
 

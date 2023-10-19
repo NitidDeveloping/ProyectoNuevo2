@@ -39,6 +39,13 @@ namespace Proyecto
             Metodos.openChildForm(lista, Metodos.menuForm.plForms);
         }
 
+        private void btnAgregarAlumno_Click(object sender, EventArgs e)
+        {
+            AgregarAlumnoAGrupo agregar = new AgregarAlumnoAGrupo(grupoConsulta);
+            this.Close();
+            Metodos.openChildForm(agregar, Metodos.menuForm.plForms);
+        }
+
         #endregion
 
         //Backgroundworkers
@@ -88,7 +95,9 @@ namespace Proyecto
             DGVAlumnos.DataSource = (DataTable)e.Result;
         }
         #endregion
+
         #endregion
+
 
     }
 }

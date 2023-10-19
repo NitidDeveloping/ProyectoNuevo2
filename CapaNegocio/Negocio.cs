@@ -13,7 +13,7 @@ namespace CapaNegocio
         //Metodos y propiedades para operaciones basicas del menu de gestiones
         #region
 
-       
+
         public DataTable Listar(TipoReferencia referencia, string columna, object valor)
         {
             Datos datos = new Datos();
@@ -514,7 +514,6 @@ namespace CapaNegocio
                 {
                     dt.Rows.Add(md.m.Id, md.m.Nombre);
                 }
-               
 
             }
 
@@ -539,20 +538,47 @@ namespace CapaNegocio
             return dt;
         }
 
-        public DataTable CargarLugaresComboBox()
+        public Usuario ConsultarAlumnosDocentes(TipoReferencia referencia, string ci)
         {
             Datos datos = new Datos();
-            TipoRol rol = DeterminarRolUsuario();
-            return datos.CargarLugares(rol);
+            Usuario consultaCruda = (Usuario)datos.Consultar(referencia, ci);
+            Usuario respuesta = null;
+
+            if (consultaCruda != null)
+            {
+                respuesta = new Usuario(consultaCruda.Nombre, consultaCruda.Apellido, consultaCruda.CI);
+            }
+            return respuesta;
+
+        }
+
+        public RetornoValidacion AgregarAlumnoAGrupo(string cialumno, string idgrupo)
+        {
+            Datos datos = new Datos();
+            RetornoValidacion respuesta = datos.AgregarAlumnoAGrupo(cialumno, idgrupo);
+            return respuesta;
         }
 
 
+        public bool ConsultarAlumnoEnGrupo(string cialumno, string idgrupo)
+        {
+            Datos datos = new Datos();
+            bool respuesta = datos.ConsultarAlumnoEnGrupo(cialumno, idgrupo);
+            return respuesta;
+
+        }
         #endregion
 
         public TipoRol DeterminarRolUsuario()
         {
             TipoRol rol = Sesion.LoggedRol;
             return rol;
+        }
+        public DataTable CargarLugaresComboBox()
+        {
+            Datos datos = new Datos();
+            TipoRol rol = DeterminarRolUsuario();
+            return datos.CargarLugares(rol);
         }
 
     }
