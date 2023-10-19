@@ -559,7 +559,6 @@ namespace CapaNegocio
             return respuesta;
         }
 
-
         public bool ConsultarAlumnoEnGrupo(string cialumno, string idgrupo)
         {
             Datos datos = new Datos();
@@ -567,6 +566,33 @@ namespace CapaNegocio
             return respuesta;
 
         }
+        public bool ConsultarDocenteEnGrupoMateria(string ciDocente, string idGrupo, ushort idMateria)
+        {
+            Datos datos = new Datos();
+            bool respuesta = datos.ConsultarDocenteEnGrupoMateria(ciDocente, idGrupo, idMateria);
+            return respuesta;
+        }
+        public RetornoValidacion AgregarDocenteEnGrupoMateria(int ciDocente, string idGrupo, ushort idMateria)
+        {
+            Datos datos = new Datos();
+            RetornoValidacion respuesta = datos.AgregarDocenteAGrupoMateria(ciDocente, idGrupo, idMateria);
+            return respuesta;
+        }
+
+        public RetornoValidacion AgregarMateriaAGrupo(ushort idMateria, string idgrupo)
+        {
+            Datos datos = new Datos();
+            if (datos.ConsultarMateriaEnGrupo(idMateria, idgrupo))
+            {
+                return RetornoValidacion.YaExiste;
+            }
+            else
+            {
+                return datos.AgregarMateriaAGrupo(idMateria, idgrupo);
+
+            }
+        }
+
         #endregion
 
         public TipoRol DeterminarRolUsuario()

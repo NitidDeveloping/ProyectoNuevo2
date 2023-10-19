@@ -30,6 +30,8 @@ namespace Proyecto
             //Segun la referencia actual mostraremos unos paneles u otros para que el usuario cargue objetos
             switch (Sesion.ReferenciaActual)
             {
+                //Alumnos
+                #region
                 case TipoReferencia.Alumno:
 
                     //Mostramos paneles comunes a ambas operaciones (agregar y editar alumnos siempre mostraran los paneles para nombre y apellido)
@@ -57,13 +59,23 @@ namespace Proyecto
                         //Mostramos paneles
                         plCI.Visible = true;
                         plPIN.Visible = true;
+                        plComboBox1.Visible = true;
 
                         txtCI.MaxLength = 8; //Seteamos la longitud maxima en el campo de ci para que pueda poner como maximo 8 caracteres
                         txtPIN.MaxLength = 4;//Seteamos la longitud maxima en el campo de pin para que pueda poner como maximo 4 caracteres
+
+                        lblCbx1.Text = "Grupos";
+                        cbx1.DataSource = negocio.Listar(TipoReferencia.Grupo, null, null);
+                        cbx1.DisplayMember = "Nombre";
+                        cbx1.ValueMember = "Nombre";
+                        cbx1.SelectedIndex = -1;
                     }
 
                     break;
+                #endregion
 
+                //Turno
+                #region
                 case TipoReferencia.Turno:
 
                     plNombre.Visible = true;
@@ -79,7 +91,10 @@ namespace Proyecto
                         }
                     }
                     break;
+                #endregion
 
+                //Materia
+                #region
                 case TipoReferencia.Materia:
 
                     plNombre.Visible = true;
@@ -95,7 +110,10 @@ namespace Proyecto
                         }
                     }
                     break;
+                #endregion
 
+                //Grupo
+                #region
                 case TipoReferencia.Grupo:
 
                     plComboBox1.Visible = true;
@@ -167,7 +185,10 @@ namespace Proyecto
                         txtNombre.MaxLength = 5;
                     }
                     break;
+                #endregion
 
+                //Docente
+                #region
                 case TipoReferencia.Docente:
 
                     plNombre.Visible = true;
@@ -196,7 +217,10 @@ namespace Proyecto
 
                     }
                     break;
+                #endregion
 
+                //Orientacion
+                #region
                 case TipoReferencia.Orientacion:
 
                     plNombre.Visible = true;
@@ -212,7 +236,10 @@ namespace Proyecto
                         }
                     }
                     break;
+                #endregion
 
+                //Hora
+                #region
                 case TipoReferencia.Hora:
                     plInicio.Visible = true;
                     plFin.Visible = true;
@@ -245,7 +272,10 @@ namespace Proyecto
                         lblCI.Text = "Numero de hora";
                     }
                     break;
+                #endregion
 
+                //Anio
+                #region
                 case TipoReferencia.Anio:
 
                     plPIN.Visible = true;
@@ -253,7 +283,10 @@ namespace Proyecto
                     txtPIN.MaxLength = 4;
 
                     break;
+                #endregion
 
+                //Lugar
+                #region
                 case TipoReferencia.Lugar:
 
                     plNombre.Visible = true;
@@ -299,8 +332,10 @@ namespace Proyecto
                         }
                     }
                     break;
+                #endregion
 
-
+                //Funcionario
+                #region
                 case TipoReferencia.Funcionario:
 
                     plNombre.Visible = true;
@@ -349,6 +384,7 @@ namespace Proyecto
                     }
 
                     break;
+                #endregion
 
 
                 default:
@@ -427,6 +463,7 @@ namespace Proyecto
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             MsgBox msg = null;
+            MsgBox msgsecundario = null; //Usado para cuando se agrega un alumno ya con un grupo
             Negocio negocio = new Negocio();
 
             //Segun la referencia aplicamos unas validaciones u otras
@@ -451,7 +488,9 @@ namespace Proyecto
                         switch (resultadoAgregarUsuario)
                         {
                             case RetornoValidacion.OK:
+
                                 RetornoValidacion resultadoAgregarAlumno;
+                                RetornoValidacion resultadoAgregarAlumnoGrupo;
 
                                 if (IdDestino != null)
                                 {
@@ -465,6 +504,22 @@ namespace Proyecto
                                 {
                                     case RetornoValidacion.OK:
                                         msg = new MsgBox("exito", "Alumno cargado exitosamente");
+                                        if (cbx1.SelectedIndex != -1)
+                                        {
+                                            resultadoAgregarAlumnoGrupo = negocio.AgregarAlumnoAGrupo(txtCI.Text, cbx1.SelectedValue.ToString());
+
+                                            switch (resultadoAgregarAlumnoGrupo)
+                                            {
+                                                case RetornoValidacion.OK:
+                                                    msgsecundario = new MsgBox("exito", "El alumno se registro en el grupo satisfactoriamente");
+                                                    break;
+
+                                                case RetornoValidacion.ErrorInesperadoBD:
+                                                    msgsecundario = new MsgBox("error", "Error inesperado. No se pudo registrar el alumno en el grupo");
+                                                    break;
+
+                                            }
+                                        }
                                         Limpiar();
                                         break;
 
@@ -550,7 +605,7 @@ namespace Proyecto
                                 }
                                 else
                                 {
-                                    resultadoAgregarDocente = negocio.Agregar(TipoReferencia.Alumno, docente, txtCI.Text);
+                                    resultadoAgregarDocente = negocio.Agregar(TipoReferencia.Docente, docente, txtCI.Text);
                                 }
                                 switch (resultadoAgregarDocente)
                                 {
@@ -956,6 +1011,10 @@ namespace Proyecto
             if (msg != null)
             {
                 msg.ShowDialog();
+            }
+            if (msgsecundario != null)
+            {
+                msgsecundario.ShowDialog();
             }
         }
 

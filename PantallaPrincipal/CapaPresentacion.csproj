@@ -70,11 +70,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AgregarAlumnoAGrupo.cs">
+    <Compile Include="AgregarMateriaAGrupo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AgregarAlumnoAGrupo.Designer.cs">
-      <DependentUpon>AgregarAlumnoAGrupo.cs</DependentUpon>
+    <Compile Include="AgregarMateriaAGrupo.Designer.cs">
+      <DependentUpon>AgregarMateriaAGrupo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AgregarAlumnoDocenteAGrupo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgregarAlumnoDocenteAGrupo.Designer.cs">
+      <DependentUpon>AgregarAlumnoDocenteAGrupo.cs</DependentUpon>
     </Compile>
     <Compile Include="ConsultaGrupo.cs">
       <SubType>Form</SubType>
@@ -133,8 +139,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AgregarAlumnoAGrupo.resx">
-      <DependentUpon>AgregarAlumnoAGrupo.cs</DependentUpon>
+    <EmbeddedResource Include="AgregarMateriaAGrupo.resx">
+      <DependentUpon>AgregarMateriaAGrupo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AgregarAlumnoDocenteAGrupo.resx">
+      <DependentUpon>AgregarAlumnoDocenteAGrupo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConsultaGrupo.resx">
       <DependentUpon>ConsultaGrupo.cs</DependentUpon>

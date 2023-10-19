@@ -10,66 +10,87 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Proyecto
 {
-    public partial class AgregarAlumnoAGrupo : Form
+    public partial class AgregarAlumnoDocenteAGrupo : Form
     {
         private Grupo grupoConsulta;
+        private Materia materia = null; //Materia a la que se asiganara el docente
 
-        public AgregarAlumnoAGrupo(Grupo grupoConsulta)
+        public AgregarAlumnoDocenteAGrupo(Grupo grupoConsulta)
         {
             InitializeComponent();
             this.grupoConsulta = grupoConsulta;
         }
 
+        public AgregarAlumnoDocenteAGrupo(Grupo grupoConsulta, Materia materia)
+        {
+            InitializeComponent();
+            this.grupoConsulta = grupoConsulta;
+            this.materia = materia;
+        }
+
         private void ConsultaGrupo_Load(object sender, EventArgs e)
         {
+            bool isAgregarDocente = materia != null;
             //Setea los labels con los valores del grupo
             lblId.Text = grupoConsulta.Nombre;
 
-            txtCI.Text = "Ingrese la cedula del alumno que desea agregar";
+            if (isAgregarDocente)
+            {
+                txtCI.Text = "CI del Docente";
+                lblAuxMateria.Visible = isAgregarDocente;
+                lblMateria.Visible = isAgregarDocente;
+                lblMateria.Text = materia.Nombre.ToString();
+            }
+            else
+            {
+                txtCI.Text ="CI del Alumno";
+            }
         }
 
 
         private void txtCI_Enter(object sender, EventArgs e) //Si se hace foco en el textbox por primera vez quita el texto de pista
         {
-                txtCI.Text = string.Empty; 
-        }
-
-
-
-        private void txtCI_Leave(object sender, EventArgs e)
-        {
-           
+            txtCI.Text = string.Empty;
         }
 
         private void txtCI_KeyPress(object sender, KeyPressEventArgs e)
         {
             btnAceptar.Enabled = false;
             Negocio negocio = new Negocio();
-            string ciAlumno = txtCI.Text;
+            string ci = txtCI.Text;
             Validaciones validaciones = new Validaciones();
             Usuario consulta;
             MsgBox msg = null;
+            bool isAgregarDocente = materia != null; // Es verdadero si la materia es distinto de null, que solo debe pasar cuando se invoca desde el boton agregar docente
+            string auxMensaje = null; //Usado para asignarle un mensaje al msg box
 
+            //Si presiona enter mientras escribe hacemos validaciones sobre la cedula escrita y mostramos un mensaje si algo no esta bien
             if (e.KeyChar == (char)Keys.Enter)
             {
-                if (validaciones.ValidarVacio(ciAlumno))
+                if (validaciones.ValidarVacio(ci))
                 {
-                    msg = new MsgBox("error", "Debe ingresar la cedula de un alumno inscrito en el sistema para continuar");
+                    auxMensaje = isAgregarDocente ? "Debe ingresar la cedula de un docente inscrito en el sistema para continuar" : "Debe ingresar la cedula de un alumno inscrito en el sistema para continuar";
                 }
-                else if (!validaciones.ValidarCI(ciAlumno))
+
+                else if (!validaciones.ValidarCI(ci))
                 {
-                    msg = new MsgBox("error", "Cédula no válida");
+                    auxMensaje = "Cédula no válida";
                 }
                 else
                 {
-                    consulta = negocio.ConsultarAlumnosDocentes(TipoReferencia.Alumno, ciAlumno);
+                    consulta = isAgregarDocente ? negocio.ConsultarAlumnosDocentes(TipoReferencia.Docente, ci) : negocio.ConsultarAlumnosDocentes(TipoReferencia.Alumno, ci);
+
                     if (consulta == null)
                     {
-                        msg = new MsgBox("error", "No se encontraron alumnos con esa cedula");
+                        auxMensaje = isAgregarDocente ? "No se encontraron docentes con esa cedula" : "No se encontraron alumnos con esa cedula";
                     }
-                    else if (negocio.ConsultarAlumnoEnGrupo(ciAlumno, grupoConsulta.Nombre))
+                    else if (!isAgregarDocente && negocio.ConsultarAlumnoEnGrupo(ci, grupoConsulta.Nombre)) //Si se esta agregando un alumno y se encuentra que ya esta ingresado en el grupo muestra un mensaje de error
                     {
-                        msg = new MsgBox("error", "El alumno que intenta ingresar ya esta inscrito en este grupo");
+                        auxMensaje = "El alumno que intenta ingresar ya esta inscrito en este grupo";
+                    }
+                    else if (isAgregarDocente && negocio.ConsultarDocenteEnGrupoMateria(ci, grupoConsulta.Nombre, materia.Id))
+                    {
+                       auxMensaje = "El docente que intenta ingresar ya esta inscrito en esta materia en este grupo";
                     }
                     else
                     {
@@ -78,10 +99,11 @@ namespace Proyecto
                         btnAceptar.Enabled = true;
                     }
                 }
-                
 
-                if ( msg != null)
+
+                if (auxMensaje != null)
                 {
+                    msg = new MsgBox("error", auxMensaje);
                     msg.ShowDialog();
                     txtCI.Focus();
                 }
@@ -105,17 +127,19 @@ namespace Proyecto
             Negocio negocio = new Negocio();
             RetornoValidacion resultadoOperacion;
             MsgBox msg = new MsgBox("error", "Ha ocurrido un error inesperado a la hora de intentar hacer la operacion, intentelo de nuvo o contacte con un adiministrador del sistema");
+            bool isAgregarDocente = materia != null;
 
             try
             {
-                resultadoOperacion = negocio.AgregarAlumnoAGrupo(txtCI.Text, grupoConsulta.Nombre);
+                resultadoOperacion = isAgregarDocente ? negocio.AgregarDocenteEnGrupoMateria(int.Parse(txtCI.Text), grupoConsulta.Nombre, materia.Id) : negocio.AgregarAlumnoAGrupo(txtCI.Text, grupoConsulta.Nombre);
 
                 if (resultadoOperacion == RetornoValidacion.OK)
                 {
-                    msg = new MsgBox("exito", "Se ha agregado el alumno a la lista correctamente");
+                    msg = new MsgBox("exito", isAgregarDocente ? "Se ha asignado el docente satisfactoriamente" : "Se ha asignado el alumno en el grupo satisfactoriamente");
                     txtCI.Text = "";
                     txtApellido.Text = "";
                     txtNombre.Text = "";
+                    btnAceptar.Enabled = false;
                 }
                 else if (resultadoOperacion == RetornoValidacion.ErrorInesperadoBD)
                 {
@@ -126,7 +150,7 @@ namespace Proyecto
                     throw new Exception("No se esperaba este tipo de retorno validacion");
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 msg = new MsgBox("error", ex.Message);
             }
@@ -136,5 +160,6 @@ namespace Proyecto
             }
 
         }
+
     }
 }

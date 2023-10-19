@@ -41,7 +41,14 @@ namespace Proyecto
 
         private void btnAgregarAlumno_Click(object sender, EventArgs e)
         {
-            AgregarAlumnoAGrupo agregar = new AgregarAlumnoAGrupo(grupoConsulta);
+            AgregarAlumnoDocenteAGrupo agregar = new AgregarAlumnoDocenteAGrupo(grupoConsulta);
+            this.Close();
+            Metodos.openChildForm(agregar, Metodos.menuForm.plForms);
+        }
+
+        private void btnAsignarMateria_Click(object sender, EventArgs e)
+        {
+            AgregarMateriaAGrupo agregar = new AgregarMateriaAGrupo(grupoConsulta);
             this.Close();
             Metodos.openChildForm(agregar, Metodos.menuForm.plForms);
         }
@@ -94,10 +101,40 @@ namespace Proyecto
         {
             DGVAlumnos.DataSource = (DataTable)e.Result;
         }
-        #endregion
 
         #endregion
 
+        #endregion
 
+        private void btnAsignarDocenteAMateria_Click(object sender, EventArgs e)
+        {
+            MsgBox msg;
+            if (DGVMateriasDocentes.SelectedRows.Count > 0)
+            {
+                DataGridViewRow row = DGVMateriasDocentes.SelectedRows[0];
+                if (row.Cells["CI Docente"].Value.ToString() != string.Empty)
+                {
+                    msg = new MsgBox("error", "No puede seleccionar materias que ya tengan un docente asignado");
+                    msg.ShowDialog();
+                }
+                else
+                {
+                    string nombreMateria = row.Cells["Materia"].Value.ToString();
+                    ushort idMateria = (ushort)row.Cells["ID_Materia"].Value;
+                    Materia materia = new Materia(idMateria, nombreMateria);
+
+
+                    AgregarAlumnoDocenteAGrupo agregar = new AgregarAlumnoDocenteAGrupo(grupoConsulta, materia);
+                    this.Close();
+                    Metodos.openChildForm(agregar, Metodos.menuForm.plForms);
+                }
+            }
+            else
+            {
+                msg = new MsgBox("error", "Debe seleccionar una materia antes de continuar");
+                msg.ShowDialog();
+            }
+        }
     }
+
 }

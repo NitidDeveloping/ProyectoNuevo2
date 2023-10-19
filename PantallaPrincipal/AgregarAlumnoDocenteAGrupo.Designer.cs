@@ -1,6 +1,6 @@
 ﻿namespace Proyecto
 {
-    partial class AgregarAlumnoAGrupo
+    partial class AgregarAlumnoDocenteAGrupo
     {
         /// <summary>
         /// Required designer variable.
@@ -29,10 +29,7 @@
         private void InitializeComponent()
         {
             this.lblId = new System.Windows.Forms.Label();
-            this.bckgAlumnos = new System.ComponentModel.BackgroundWorker();
             this.lblAuxId = new System.Windows.Forms.Label();
-            this.bckgMateriasDocentes = new System.ComponentModel.BackgroundWorker();
-            this.btnVolver = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.lblCI = new System.Windows.Forms.Label();
@@ -44,6 +41,8 @@
             this.lblApellido = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtApellido = new System.Windows.Forms.TextBox();
+            this.lblAuxMateria = new System.Windows.Forms.Label();
+            this.lblMateria = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblId
@@ -65,13 +64,6 @@
             this.lblAuxId.Size = new System.Drawing.Size(171, 55);
             this.lblAuxId.TabIndex = 57;
             this.lblAuxId.Text = "Grupo:";
-            // 
-            // btnVolver
-            // 
-            this.btnVolver.Location = new System.Drawing.Point(0, 0);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 69;
             // 
             // btnCancelar
             // 
@@ -126,7 +118,6 @@
             this.txtCI.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCI.Enter += new System.EventHandler(this.txtCI_Enter);
             this.txtCI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCI_KeyPress);
-            this.txtCI.Leave += new System.EventHandler(this.txtCI_Leave);
             // 
             // lblNombre
             // 
@@ -188,11 +179,35 @@
             this.txtApellido.TabIndex = 68;
             this.txtApellido.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // AgregarAlumnoAGrupo
+            // lblAuxMateria
+            // 
+            this.lblAuxMateria.AutoSize = true;
+            this.lblAuxMateria.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAuxMateria.Location = new System.Drawing.Point(47, 110);
+            this.lblAuxMateria.Name = "lblAuxMateria";
+            this.lblAuxMateria.Size = new System.Drawing.Size(197, 55);
+            this.lblAuxMateria.TabIndex = 70;
+            this.lblAuxMateria.Text = "Materia:";
+            this.lblAuxMateria.Visible = false;
+            // 
+            // lblMateria
+            // 
+            this.lblMateria.AutoSize = true;
+            this.lblMateria.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMateria.Location = new System.Drawing.Point(250, 110);
+            this.lblMateria.Name = "lblMateria";
+            this.lblMateria.Size = new System.Drawing.Size(196, 55);
+            this.lblMateria.TabIndex = 69;
+            this.lblMateria.Text = "Nombre";
+            this.lblMateria.Visible = false;
+            // 
+            // AgregarAlumnoDocenteAGrupo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1601, 919);
+            this.Controls.Add(this.lblAuxMateria);
+            this.Controls.Add(this.lblMateria);
             this.Controls.Add(this.lblApellido);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtApellido);
@@ -202,13 +217,12 @@
             this.Controls.Add(this.lblCI);
             this.Controls.Add(this.lblSubCI);
             this.Controls.Add(this.txtCI);
-            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblAuxId);
             this.Controls.Add(this.lblId);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "AgregarAlumnoAGrupo";
+            this.Name = "AgregarAlumnoDocenteAGrupo";
             this.Text = "Docentes";
             this.Load += new System.EventHandler(this.ConsultaGrupo_Load);
             this.ResumeLayout(false);
@@ -218,10 +232,7 @@
 
         #endregion
         private System.Windows.Forms.Label lblId;
-        private System.ComponentModel.BackgroundWorker bckgAlumnos;
         private System.Windows.Forms.Label lblAuxId;
-        private System.ComponentModel.BackgroundWorker bckgMateriasDocentes;
-        private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Label lblCI;
@@ -233,5 +244,7 @@
         private System.Windows.Forms.Label lblApellido;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtApellido;
+        private System.Windows.Forms.Label lblAuxMateria;
+        private System.Windows.Forms.Label lblMateria;
     }
 }
