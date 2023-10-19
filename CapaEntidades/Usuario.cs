@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace CapaEntidades //De la capa de presentación y la de negocios puedo enviar información directamente a la capa entidad
                         //y esta va a estar ahí para ser obtenida cuando se necesite
 {
-  
+
     public class Usuario
     {
         //Agregamos las propiedades según los campos de la tabla.
@@ -15,7 +15,7 @@ namespace CapaEntidades //De la capa de presentación y la de negocios puedo env
         private string apellido;
         private int ci;
         private short pin;
-       
+
         public Usuario(string nombre, string apellido, int ci, short pin)
         {
             this.nombre = nombre;
@@ -52,8 +52,8 @@ namespace CapaEntidades //De la capa de presentación y la de negocios puedo env
         }
 
         public string Apellido
-        { 
-            get { return apellido; } 
+        {
+            get { return apellido; }
         }
     }
 

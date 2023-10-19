@@ -13,7 +13,7 @@ namespace CapaEntidades
         private string nombre;
 
         //Coordenadas para el mapa
-        private int coordenada_x; 
+        private int coordenada_x;
         private int coordenada_y;
 
         private TipoLugar tipo;// Hay que poner el enum de la bd
@@ -60,11 +60,11 @@ namespace CapaEntidades
 
         public ushort ID { get { return id; } }
         public string Nombre { get { return nombre; } }
-        public int Coordenada_x { get {  return coordenada_x; } }
+        public int Coordenada_x { get { return coordenada_x; } }
         public int Coordenada_y { get { return coordenada_y; } }
-        public bool IsClase { get {  return isClase; } }
-        public bool IsUsoComun { get {  return isUsoComun; } }
-        public byte Piso { get {  return piso; } }
+        public bool IsClase { get { return isClase; } }
+        public bool IsUsoComun { get { return isUsoComun; } }
+        public byte Piso { get { return piso; } }
         public TipoLugar Tipo { get { return tipo; } }
         public bool Ocupado { get { return ocupado; } }
 

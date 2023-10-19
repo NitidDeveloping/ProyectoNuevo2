@@ -315,6 +315,7 @@ namespace Proyecto
                     startNode = grid[x, y]; // O donde tengas almacenado el nodo en map
                                             // Dibujar el punto de inicio en la imagen
                     DrawPoint(new Point(x * GridSize, y * GridSize), Color.Blue);
+                    Invalidate();
                 }
                 else if (endPoint == Point.Empty)
                 {
@@ -324,6 +325,7 @@ namespace Proyecto
                     endNode = grid[x, y]; // O donde tengas almacenado el nodo en map
                                           // Dibujar el punto final en la imagen
                     DrawPoint(new Point(x * GridSize, y * GridSize), Color.Red);
+                    Invalidate();
                 }
                 else
                 {
@@ -333,6 +335,7 @@ namespace Proyecto
 
                     // Borrar cualquier punto dibujado previamente
                     ClearPoints();
+                    Invalidate();
                 }
             }
         }

@@ -22,13 +22,13 @@ namespace CapaEntidades
         {
             this.isAdmn = isAdmn;
             this.cargo = cargo;
-            fecha_Ingreso=fecha_ingreso;
+            fecha_Ingreso = fecha_ingreso;
         }
 
         public bool IsAdmn
         {
             get { return isAdmn; }
-        
+
         }
         public Cargo Cargo
         {

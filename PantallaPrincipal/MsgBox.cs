@@ -49,16 +49,17 @@ namespace Proyecto
 
         public void btnAceptar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-       private void btnSiLogout_Click(object sender, EventArgs e)
+        private void btnSiLogout_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void btnNo_Click(object sender, EventArgs e)
         {
-            this.Close();        }
+            Close();
+        }
     }
 }

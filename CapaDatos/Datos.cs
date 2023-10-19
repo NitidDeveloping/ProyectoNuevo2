@@ -1,10 +1,11 @@
-﻿    using MySqlConnector;
+﻿using MySqlConnector;
 using CapaEntidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.CodeDom;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace CapaDatos
 {
@@ -269,7 +270,7 @@ namespace CapaDatos
             switch (referencia)
             {
                 case TipoReferencia.Usuario:
-                cmd.Parameters.Add("@CI", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
+                    cmd.Parameters.Add("@CI", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
                     break;
 
                 case TipoReferencia.Alumno:
@@ -534,7 +535,7 @@ namespace CapaDatos
                     }
                     break;
 
-                case TipoReferencia.Funcionario: 
+                case TipoReferencia.Funcionario:
                     if (item is Funcionario funcionario)
                     {
                         byte admn = (byte)(funcionario.IsAdmn ? 1 : 0);
@@ -727,7 +728,8 @@ namespace CapaDatos
             MySqlCommand cmd;
             MySqlDataReader dr;
 
-            switch (referencia){
+            switch (referencia)
+            {
                 case TipoReferencia.Usuario:
                     cmdstr = "SELECT CI, Nombre, Apellido FROM Usuario WHERE CI = @CI;";
                     break;
@@ -756,7 +758,7 @@ namespace CapaDatos
                     cmdstr = "SELECT Orientacion, Nombre_Orientacion FROM Orientacion WHERE Orientacion=@Orientacion;";
                     break;
 
-                    //HORARIO (grupo materia horario clase)
+                //HORARIO (grupo materia horario clase)
 
                 case TipoReferencia.Hora:
                     cmdstr = "SELECT ID_Horario, Turno, Nombre_Turno, Hora_Inicio, Hora_Fin FROM Lista_Horas WHERE ID_Horario=@ID_Horario;";
@@ -956,13 +958,13 @@ namespace CapaDatos
                     cmdstr = "SELECT MAX(Turno) FROM Turno;";
                     break;
 
-                default : throw new ArgumentException("No se pudo conseguir id, referencia no reconocida");
+                default: throw new ArgumentException("No se pudo conseguir id, referencia no reconocida");
             }
             cmd = new MySqlCommand(cmdstr, conn);
             try
             {
                 conn.Open();
-                respuesta =  Convert.ToInt32(cmd.ExecuteScalar());
+                respuesta = Convert.ToInt32(cmd.ExecuteScalar());
                 respuesta++;
             }
             catch (Exception ex)
@@ -1014,7 +1016,7 @@ namespace CapaDatos
             catch (Exception ex)
             {
                 throw ex;
-            } 
+            }
             finally
             {
                 if (conn.State == ConnectionState.Open)
@@ -1233,7 +1235,7 @@ namespace CapaDatos
                         default: throw new ArgumentException("Argumento de consulta imposible de transformar, contacte a un administrador si el problema persiste");
                     }
                 }
-               
+
                 return respuesta;//Retorna la lista
             }
             catch (Exception ex)// En caso de excepcion throwea esta
@@ -1373,7 +1375,7 @@ namespace CapaDatos
                 conn.Open(); //Abro la conexión
 
                 dr = cmd.ExecuteReader(); //Inicio el comando
-                
+
                 if (dr.HasRows) //Si el comando devuelve algo ejecuta el while
                 {
                     while (dr.Read()) //Mientras haya registros en el datareader lee lo que hay y lo agrega a la lista
@@ -1392,7 +1394,7 @@ namespace CapaDatos
 
                         lista.Add(auxmateriadocente);
                     }
-                   
+
                 }
                 return lista;//Retorna lo que encuentre
             }
@@ -1711,6 +1713,185 @@ namespace CapaDatos
 
 
         #endregion
+
+        //Metodos para el login
+        #region
+        public bool BuscarCI(int ci)
+        {
+            MySqlConnection conn = new MySqlConnection();
+
+            try
+            {
+                conn = Conector.crearInstancia().crearConexion();
+                MySqlCommand cmd = new MySqlCommand("SELECT CI FROM usuario where CI = @CI;", conn);
+                cmd.Parameters.AddWithValue("@CI", ci);
+                conn.Open();
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                return dr.Read();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public bool BuscarPIN(int ci, int pin)
+        {
+            MySqlConnection conn = new MySqlConnection();
+
+            try
+            {
+                conn = Conector.crearInstancia().crearConexion();
+                MySqlCommand cmd = new MySqlCommand("SELECT CI FROM usuario where CI = @CI AND PIN = @PIN;", conn);
+                cmd.Parameters.AddWithValue("@CI", ci);
+                cmd.Parameters.AddWithValue("@PIN", pin);
+                conn.Open();
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+                return dr.Read();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public TipoRol ObtenerRol(int ci)
+        {
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
+            MySqlCommand cmd;
+            string cmdstr;
+            TipoRol resultado;
+
+            try
+            {
+                conn.Open();
+
+                cmdstr = "SELECT Tipo FROM ( " +
+                    "SELECT 'Alumno' AS Tipo FROM alumno WHERE CI_Alumno = @CI " +
+                    "UNION ALL " +
+                    "SELECT 'Docente' AS Tipo FROM docente WHERE CI_Docente = @CI " +
+                    "UNION ALL " +
+                    "SELECT CASE WHEN Tipo = 1 THEN 'Administrador' ELSE 'Operador' END AS Tipo FROM funcionario WHERE CI_Funcionario = @CI " +
+                    ") t";
+                cmd = new MySqlCommand(cmdstr, conn);
+                cmd.Parameters.AddWithValue("@CI", ci);
+
+                var tipo = cmd.ExecuteScalar();
+                if (tipo != null)
+                {
+                    string rol = tipo.ToString();
+                    switch (rol)
+                    {
+                        case "Alumno":
+                            resultado = TipoRol.Alumno;
+                            break;
+                        case "Docente":
+                            resultado = TipoRol.Docente;
+                            break;
+                        case "Operador":
+                            resultado = TipoRol.Operador;
+                            break;
+                        case "Administrador":
+                            resultado = TipoRol.Administrador;
+                            break;
+                        default:
+                            resultado = TipoRol.Default;
+                            break;
+                    }
+                }
+                else
+                {
+                    resultado = TipoRol.Default;
+                }
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        public string buscarCiRetornaNombreTipo(int ci, TipoRol rol)
+        {
+            string res = "";
+            string cmdstr;
+
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
+
+            try
+            {
+                conn.Open();
+                MySqlCommand cmd = null;
+
+                switch (rol)
+                {
+                    case TipoRol.Alumno:
+                        cmdstr = "SELECT usuario.Nombre, 'Alumn@' AS Tipo FROM usuario JOIN alumno ON usuario.CI = alumno.CI_Alumno WHERE usuario.CI = @CI;";
+                        break;
+                    case TipoRol.Docente:
+                        cmdstr = "SELECT usuario.Nombre, 'Docente' AS Tipo FROM usuario JOIN docente ON usuario.CI = docente.CI_Docente WHERE usuario.CI = @CI;";
+                        break;
+                    case TipoRol.Operador:
+                    case TipoRol.Administrador:
+                        cmdstr = "SELECT usuario.Nombre, CASE WHEN funcionario.Tipo = 1 THEN 'Administrador(a)' ELSE 'Operador(a)' END AS Tipo FROM usuario JOIN funcionario ON usuario.CI = funcionario.CI_Funcionario WHERE usuario.CI = @CI;";
+                        break;
+                    default:
+                        throw new ArgumentException("Rol no válido");
+                }
+
+                cmd = new MySqlCommand(cmdstr, conn);
+                cmd.Parameters.AddWithValue("@CI", ci);
+                MySqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    string nombre = dr.GetString("Nombre");
+                    string tipo = dr.GetString("Tipo");
+                    res = $"{nombre} - {tipo}";
+                    Sesion sesion = new Sesion();
+                    sesion.SetName(nombre);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return res;
+        }
+
+
+
+        #endregion
+
     }
 
 

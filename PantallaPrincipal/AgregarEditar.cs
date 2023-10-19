@@ -456,7 +456,7 @@ namespace Proyecto
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Lista lista = new Lista();
-            this.Close();
+            Close();
             Metodos.openChildForm(lista, Metodos.menuForm.plForms);
         }
 
@@ -894,7 +894,7 @@ namespace Proyecto
                         string id;
                         RetornoValidacion resultadoAgregar;
 
-                        if (IdDestino!=null)
+                        if (IdDestino != null)
                         {
                             id = IdDestino;
                             resultadoAgregar = negocio.Editar(TipoReferencia.Materia, materia, id, nombre);
@@ -972,7 +972,7 @@ namespace Proyecto
                     if (ValidarMateriaTurnoOrientacion() == RetornoValidacion.OK)
                     {
                         string nombre = txtNombre.Text;
-                        Turno turno =  new Turno(nombre);
+                        Turno turno = new Turno(nombre);
                         RetornoValidacion resultadoAgregar;
 
                         if (IdDestino != null)
@@ -1287,7 +1287,7 @@ namespace Proyecto
             if (IdDestino != null)
             {
                 Lista lista = new Lista();
-                this.Close();
+                Close();
                 Metodos.openChildForm(lista, Metodos.menuForm.plForms);
             }
         }

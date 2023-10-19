@@ -35,7 +35,7 @@ namespace Proyecto
         private void btnVolver_Click(object sender, EventArgs e)
         {
             Lista lista = new Lista();
-            this.Close();
+            Close();
             Metodos.openChildForm(lista, Metodos.menuForm.plForms);
         }
 
