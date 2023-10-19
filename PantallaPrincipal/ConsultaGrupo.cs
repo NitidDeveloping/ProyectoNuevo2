@@ -35,14 +35,14 @@ namespace Proyecto
         private void btnVolver_Click(object sender, EventArgs e)
         {
             Lista lista = new Lista();
-            this.Close();
+            Close();
             Metodos.openChildForm(lista, Metodos.menuForm.plForms);
         }
 
         private void btnAgregarAlumno_Click(object sender, EventArgs e)
         {
             AgregarAlumnoAGrupo agregar = new AgregarAlumnoAGrupo(grupoConsulta);
-            this.Close();
+            Close();
             Metodos.openChildForm(agregar, Metodos.menuForm.plForms);
         }
 

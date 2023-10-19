@@ -72,7 +72,7 @@ namespace Proyecto
         {
             if (btnSender != null)
             {
-               if (currentButton != (Button)btnSender)
+                if (currentButton != (Button)btnSender)
                 {
                     DisableButton();
                     Color color = Color.FromArgb(178, 8, 55);
@@ -87,12 +87,13 @@ namespace Proyecto
 
         private void DisableButton()
         {
-            foreach(Control previousBtn in plLateral.Controls)
+            foreach (Control previousBtn in plLateral.Controls)
             {
-                if(previousBtn.GetType() == typeof(Button)) {
+                if (previousBtn.GetType() == typeof(Button))
+                {
                     previousBtn.BackColor = Color.Gainsboro;
                     previousBtn.ForeColor = Color.Black;
-                    previousBtn.Font= new System.Drawing.Font("MADE INFINITY PERSONAL USE", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    previousBtn.Font = new System.Drawing.Font("MADE INFINITY PERSONAL USE", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 }
             }
         }
@@ -108,7 +109,7 @@ namespace Proyecto
             msg.btnSi.Click += (sender, e) => //Le asigno una función al botón "Sí" del form "MsgBox"
             {
                 msg.Close(); //Cierro el mensaje
-                this.Close(); //Cierro el menú
+                Close(); //Cierro el menú
             };
             msg.btnNo.Click += (sender, e) => //Le asigno una función al botón "No" del form "MsgBox"
             {
@@ -148,7 +149,7 @@ namespace Proyecto
             int panelWidth = plPersona.ClientSize.Width; //Tomamos el ancho del panel
             int panelHeight = plPersona.ClientSize.Height; //La altura del panel
 
-            int x = (panelWidth - labelWidth) / 2; 
+            int x = (panelWidth - labelWidth) / 2;
             int y = (panelHeight - labelHeight) / 2;
 
             lblPersona.Location = new Point(x, y);
@@ -194,7 +195,7 @@ namespace Proyecto
         {
             AbrirLista(TipoReferencia.Materia);
         }
-    private void btnTurnos_Click(object sender, EventArgs e)
+        private void btnTurnos_Click(object sender, EventArgs e)
         {
             AbrirLista(TipoReferencia.Turno);
         }

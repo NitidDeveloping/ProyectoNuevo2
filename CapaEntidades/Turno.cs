@@ -11,7 +11,7 @@ namespace CapaEntidades
         private byte id;
         private string nombre;
 
-        public byte Id { get { return id; }}
+        public byte Id { get { return id; } }
         public string Nombre { get { return nombre; } }
 
         public Turno(byte id, string nombre)

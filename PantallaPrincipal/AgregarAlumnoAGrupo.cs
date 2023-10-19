@@ -31,14 +31,14 @@ namespace Proyecto
 
         private void txtCI_Enter(object sender, EventArgs e) //Si se hace foco en el textbox por primera vez quita el texto de pista
         {
-                txtCI.Text = string.Empty; 
+            txtCI.Text = string.Empty;
         }
 
 
 
         private void txtCI_Leave(object sender, EventArgs e)
         {
-           
+
         }
 
         private void txtCI_KeyPress(object sender, KeyPressEventArgs e)
@@ -78,9 +78,9 @@ namespace Proyecto
                         btnAceptar.Enabled = true;
                     }
                 }
-                
 
-                if ( msg != null)
+
+                if (msg != null)
                 {
                     msg.ShowDialog();
                     txtCI.Focus();
@@ -126,7 +126,7 @@ namespace Proyecto
                     throw new Exception("No se esperaba este tipo de retorno validacion");
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 msg = new MsgBox("error", ex.Message);
             }

@@ -569,15 +569,35 @@ namespace CapaNegocio
         }
         #endregion
 
-        public TipoRol DeterminarRolUsuario()
+        //Metodos para el login
+        #region
+        public bool ValidarCI(int ci)
         {
-            TipoRol rol = Sesion.LoggedRol;
-            return rol;
+            Datos datos = new Datos();
+            return datos.BuscarCI(ci);
         }
+
+        public bool ValidarPIN(int ci, int pin)
+        {
+            Datos datos = new Datos();
+            return datos.BuscarPIN(ci, pin);
+        }
+
+        public string UsuarioNombreTipo(int ci, TipoRol rol)
+        {
+            Datos datos = new Datos();
+            return datos.buscarCiRetornaNombreTipo(ci, rol);
+        }
+        public TipoRol ObtenerRol(int ci)
+        {
+            Datos datos = new Datos();
+            return datos.ObtenerRol(ci);
+        }
+        #endregion
         public DataTable CargarLugaresComboBox()
         {
             Datos datos = new Datos();
-            TipoRol rol = DeterminarRolUsuario();
+            TipoRol rol = Sesion.LoggedRol;
             return datos.CargarLugares(rol);
         }
 

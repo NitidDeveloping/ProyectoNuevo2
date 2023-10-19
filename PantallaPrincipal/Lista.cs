@@ -219,7 +219,7 @@ namespace Proyecto
 
                         nombreDestino = row.Cells["Nombre"].Value.ToString();
 
-                        objetoDestino = new Turno (nombreTurno);
+                        objetoDestino = new Turno(nombreTurno);
 
                         break;
 
@@ -237,14 +237,14 @@ namespace Proyecto
 
                     case TipoReferencia.Grupo:
 
-                       string nombre = row.Cells["Nombre"].Value.ToString();
+                        string nombre = row.Cells["Nombre"].Value.ToString();
 
                         byte idTurno = (byte)row.Cells["ID_Turno"].Value;
                         byte idOrientacion = (byte)row.Cells["ID_Orientacion"].Value;
                         int anio = (int)row.Cells["Año"].Value;
 
                         Turno turno = new Turno(idTurno);
-                        Orientacion orientacion = new Orientacion (idOrientacion);
+                        Orientacion orientacion = new Orientacion(idOrientacion);
 
                         idDestino = nombre;
 
@@ -290,7 +290,7 @@ namespace Proyecto
                         idDestino = numeroHora.ToString();
                         idPadre = row.Cells["ID_Turno"].Value.ToString();
 
-                        nombreDestino = row.Cells["Numero"].Value.ToString() +" "+ row.Cells["Turno"].Value.ToString();
+                        nombreDestino = row.Cells["Numero"].Value.ToString() + " " + row.Cells["Turno"].Value.ToString();
 
                         objetoDestino = new Hora((numeroHora, turnoHora), inicio, fin);
 
@@ -349,7 +349,7 @@ namespace Proyecto
                 {
                     AbrirAgregarEditar(objetoDestino, idDestino, nombreDestino);
                 }
-               
+
             }
             else
             {
@@ -437,12 +437,12 @@ namespace Proyecto
 
                 e.Result = negocio.Listar(Sesion.ReferenciaActual, columna, valor);
 
-             }
-             catch (Exception ex)
-             {
+            }
+            catch (Exception ex)
+            {
                 MsgBox msg = new MsgBox("error", ex.ToString());
                 msg.ShowDialog();
-             }
+            }
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -556,7 +556,7 @@ namespace Proyecto
         //Metodo para especificar el formato de datatable que usan todas las datatable para el combobox de las columnas
         private DataTable FormatodDataTablePropsColumns()
         {
-            DataTable dt = new DataTable(); 
+            DataTable dt = new DataTable();
             dt.Columns.Add("Columna", typeof(string)); //Nombre que vera el usuario
             dt.Columns.Add("ColumnaBD", typeof(string)); //Nombre de la columna que recibira la bd
             dt.Columns.Add("TipoControl", typeof(Control)); //Tipo de campo de busqueda que se usara para seleccionar el valor

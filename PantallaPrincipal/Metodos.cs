@@ -7,7 +7,7 @@ namespace Proyecto
 {
     public class Metodos
     {
-        static string query="";
+        static string query = "";
 
         private static Form activeForm = null; //Declaramos una variable activeForm para que no se acumulen forms en el panel
         public static Menú menuForm = null;

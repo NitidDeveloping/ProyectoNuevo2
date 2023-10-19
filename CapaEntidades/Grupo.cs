@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CapaEntidades
 {
-    public  class Grupo
+    public class Grupo
     {
         //Representa la entidad grupo de la bd
         private string nombre;
@@ -16,10 +16,10 @@ namespace CapaEntidades
         private byte lista;
 
         public string Nombre { get { return nombre; } }
-        public Orientacion Orientacion { get {  return orientacion; } }
-        public int Anio { get { return anio; }}
-        public Turno Turno { get { return turno; }}
-        public byte Lista { get { return lista; }}
+        public Orientacion Orientacion { get { return orientacion; } }
+        public int Anio { get { return anio; } }
+        public Turno Turno { get { return turno; } }
+        public byte Lista { get { return lista; } }
 
         public Grupo(string nombre, Turno turno, Orientacion orientacion, int anio)
         {

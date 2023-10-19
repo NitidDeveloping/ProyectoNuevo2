@@ -33,10 +33,10 @@ namespace CapaNegocio
             return txt.Trim() == string.Empty;
         }
 
-      /*  public bool ValidadNombreNuevo(TipoReferencia referencia, string nombre)
-        {
-            Datos datos = new Datos();
-        }*/
+        /*  public bool ValidadNombreNuevo(TipoReferencia referencia, string nombre)
+          {
+              Datos datos = new Datos();
+          }*/
 
         public bool ValidarAnio(short anio)
         {
