@@ -525,14 +525,17 @@ namespace CapaNegocio
             Datos datos = new Datos();
             List<Alumno> lista = datos.ListarAlumnosDeGrupo(idGrupo);
             DataTable dt = new DataTable();
+            byte nLista = 0;
 
+            dt.Columns.Add("N°", typeof(byte));
             dt.Columns.Add("CI", typeof(int));
             dt.Columns.Add("Nombre", typeof(string));
             dt.Columns.Add("Apellido", typeof(string));
 
             foreach (Alumno alumno in lista)
             {
-                dt.Rows.Add(alumno.CI, alumno.Nombre, alumno.Apellido);
+                nLista++;
+                dt.Rows.Add(nLista, alumno.CI, alumno.Nombre, alumno.Apellido);
             }
 
             return dt;
@@ -592,6 +595,48 @@ namespace CapaNegocio
 
             }
         }
+
+        public RetornoValidacion EliminarAlumnoDeGrupo(string ciAlumno, string idGrupo)
+        {
+            Datos datos = new Datos();
+            if (datos.ConsultarAlumnoEnGrupo(ciAlumno, idGrupo))
+            {
+                return datos.EliminarAlumnoDeGrupo(ciAlumno, idGrupo);
+
+            }
+            else
+            {
+                return RetornoValidacion.NoExiste;
+            }
+        }
+        public RetornoValidacion EliminarDocenteDeGrupoMateria(string idMateria, string idGrupo, string ciDocente)
+        {
+            Datos datos = new Datos();
+            if (datos.ConsultarDocenteEnGrupoMateria(ciDocente, idGrupo, ushort.Parse(idMateria)))
+            {
+                return datos.EliminarDocenteDeMateriaGrupo(idMateria, idGrupo, ciDocente);
+
+            }
+            else
+            {
+                return RetornoValidacion.NoExiste;
+            }
+        }
+        public RetornoValidacion EliminarMateriaDeGrupo(string idMateria, string idGrupo)
+        {
+            Datos datos = new Datos();
+            if (datos.ConsultarMateriaEnGrupo(ushort.Parse(idMateria), idGrupo))
+            {
+                return datos.EliminarMateriaDeGrupo(idMateria, idGrupo);
+
+            }
+            else
+            {
+                return RetornoValidacion.NoExiste;
+            }
+        }
+
+
 
         #endregion
 

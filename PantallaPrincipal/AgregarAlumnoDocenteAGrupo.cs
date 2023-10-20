@@ -136,10 +136,20 @@ namespace Proyecto
                 if (resultadoOperacion == RetornoValidacion.OK)
                 {
                     msg = new MsgBox("exito", isAgregarDocente ? "Se ha asignado el docente satisfactoriamente" : "Se ha asignado el alumno en el grupo satisfactoriamente");
-                    txtCI.Text = "";
-                    txtApellido.Text = "";
-                    txtNombre.Text = "";
-                    btnAceptar.Enabled = false;
+
+                    //Si se esta agregando un docente cierra la ventana para que no agrege mas de un docente a una materia
+                    //Sino vacia los campos para que siga inscribiendo alumnos si quiere
+                    if (isAgregarDocente)
+                    {
+                        btnCancelar_Click(sender, e);
+                    }
+                    else
+                    {
+                        txtCI.Text = "";
+                        txtApellido.Text = "";
+                        txtNombre.Text = "";
+                        btnAceptar.Enabled = false;
+                    }
                 }
                 else if (resultadoOperacion == RetornoValidacion.ErrorInesperadoBD)
                 {

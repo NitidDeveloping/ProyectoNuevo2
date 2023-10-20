@@ -1553,7 +1553,7 @@ namespace CapaDatos
             }
         }
 
-        public bool ConsultarDocenteEnGrupoMateria(string ciDocente, string idGrupo, ushort idMateria) //Devuelve true si una materia esta ingresada dentro de un grupo
+        public bool ConsultarDocenteEnGrupoMateria(string ciDocente, string idGrupo, ushort idMateria) //Devuelve true si un docente esta ingresado en una materia en un grupo
         {
             //Variables
             bool respuesta;
@@ -1709,6 +1709,108 @@ namespace CapaDatos
                 }
             }
             return respuesta;
+        }
+        public RetornoValidacion EliminarAlumnoDeGrupo(string ciAlumno, string idGrupo)
+        {
+            RetornoValidacion respuesta;
+            string cmdstr;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
+            MySqlCommand cmd;
+
+            cmdstr = "DELETE from grupo_alumno where grupo_alumno.ID_Grupo = @IdGrupo AND grupo_alumno.CI_Alumno = @CiAlumno;";
+
+            cmd = new MySqlCommand(cmdstr, conn);
+
+            cmd.Parameters.Add("@CiAlumno", MySqlDbType.Int32).Value = Convert.ToInt32(ciAlumno);
+            cmd.Parameters.Add("@IdGrupo", MySqlDbType.VarChar).Value = idGrupo;
+
+            try
+            {
+                conn.Open();
+                respuesta = cmd.ExecuteNonQuery() == 1 ? RetornoValidacion.OK : RetornoValidacion.ErrorInesperadoBD;
+            }
+            catch (Exception ex)
+            {
+                throw ex; //esto lo manejamos con un try catch en la presentación
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return respuesta;
+
+        }
+        public RetornoValidacion EliminarMateriaDeGrupo(string idMateria, string idGrupo)
+        {
+            RetornoValidacion respuesta;
+            string cmdstr;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
+            MySqlCommand cmd;
+
+            cmdstr = "DELETE from grupo_materia where grupo_materia.ID_Grupo = @IdGrupo AND grupo_materia.ID_Materia = @IdMateria;";
+
+            cmd = new MySqlCommand(cmdstr, conn);
+
+            cmd.Parameters.Add("@IdMateria", MySqlDbType.Int16).Value = Convert.ToInt16(idMateria);
+            cmd.Parameters.Add("@IdGrupo", MySqlDbType.VarChar).Value = idGrupo;
+
+            try
+            {
+                conn.Open();
+                respuesta = cmd.ExecuteNonQuery() == 1 ? RetornoValidacion.OK : RetornoValidacion.ErrorInesperadoBD;
+            }
+            catch (Exception ex)
+            {
+                throw ex; //esto lo manejamos con un try catch en la presentación
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return respuesta;
+
+        }
+
+        public RetornoValidacion EliminarDocenteDeMateriaGrupo(string idMateria, string idGrupo, string ciDocente)
+        {
+            RetornoValidacion respuesta;
+            string cmdstr;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
+            MySqlCommand cmd;
+
+            cmdstr = "DELETE from grupo_materia_docente where grupo_materia_docente.ID_Grupo = @idGrupo AND grupo_materia_docente.ID_Materia = @IdMateria AND grupo_materia_docente.CI_Docente = @CiDocente;";
+
+            cmd = new MySqlCommand(cmdstr, conn);
+
+
+            cmd.Parameters.Add("@CiDocente", MySqlDbType.Int32).Value = Convert.ToInt32(ciDocente);
+            cmd.Parameters.Add("@IdMateria", MySqlDbType.Int16).Value = Convert.ToInt16(idMateria);
+            cmd.Parameters.Add("@IdGrupo", MySqlDbType.VarChar).Value = idGrupo;
+
+            try
+            {
+                conn.Open();
+                respuesta = cmd.ExecuteNonQuery() == 1 ? RetornoValidacion.OK : RetornoValidacion.ErrorInesperadoBD;
+            }
+            catch (Exception ex)
+            {
+                throw ex; //esto lo manejamos con un try catch en la presentación
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return respuesta;
+
         }
 
 
