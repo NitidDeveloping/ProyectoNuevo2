@@ -535,9 +535,9 @@
             this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.Location = new System.Drawing.Point(31, 52);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(341, 55);
+            this.lblTitulo.Size = new System.Drawing.Size(145, 55);
             this.lblTitulo.TabIndex = 9;
-            this.lblTitulo.Text = "Menú Principal";
+            this.lblTitulo.Text = "Mapa";
             // 
             // plForms
             // 
@@ -577,6 +577,7 @@
             this.cbxLugares.Size = new System.Drawing.Size(558, 67);
             this.cbxLugares.Sorted = true;
             this.cbxLugares.TabIndex = 75;
+            this.cbxLugares.SelectedIndexChanged += new System.EventHandler(this.cbxLugares_SelectedIndexChanged);
             // 
             // btnClase
             // 
@@ -589,6 +590,7 @@
             this.btnClase.TabIndex = 77;
             this.btnClase.Text = "MI CLASE";
             this.btnClase.UseVisualStyleBackColor = false;
+            this.btnClase.Visible = false;
             // 
             // btnGrupo
             // 
@@ -601,6 +603,7 @@
             this.btnGrupo.TabIndex = 78;
             this.btnGrupo.Text = "MI GRUPO";
             this.btnGrupo.UseVisualStyleBackColor = false;
+            this.btnGrupo.Visible = false;
             // 
             // plMapa
             // 

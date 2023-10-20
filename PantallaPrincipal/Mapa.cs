@@ -11,7 +11,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Proyecto
@@ -62,6 +61,7 @@ namespace Proyecto
                         {
                             grid[x, y] = new Node(x, y);
                             grid[x, y].IsWall = true;
+                            grid[x, y].IsUnwalkableFloor = true;
                         }
                         else
                         {
@@ -80,18 +80,29 @@ namespace Proyecto
             if (BackgroundImage != null)
             {
                 Bitmap bitmap = new Bitmap(BackgroundImage);
-                int wallThreshold = 128;
+
+                // Color hexadecimal que deseas reconocer como piso (por ejemplo, #F4F4F4)
+                Color floorColor = ColorTranslator.FromHtml("#F4F4F4");
 
                 for (int x = 0; x < bitmap.Width; x++)
                 {
                     for (int y = 0; y < bitmap.Height; y++)
                     {
                         Color pixelColor = bitmap.GetPixel(x, y);
+
+                        // Convierte los píxeles en escala de grises a píxeles negros
                         int grayscale = (pixelColor.R + pixelColor.G + pixelColor.B) / 3;
 
-                        if (grayscale < wallThreshold)
+                        // Compara el color del píxel con el color objetivo
+                        if (grayscale < 128)
                         {
                             bitmap.SetPixel(x, y, Color.Black);
+                            grid[x, y].IsWall = true;
+                        }
+
+                        if (pixelColor == floorColor)
+                        {
+                            grid[x, y].IsUnwalkableFloor = true;
                         }
                     }
                 }
@@ -103,6 +114,7 @@ namespace Proyecto
                 MessageBox.Show("La imagen no se ha cargado correctamente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -123,7 +135,7 @@ namespace Proyecto
         }
         private void DrawGrid(Graphics g)
         {
-            int nodeSize = GridSize * 4; // Doble del tamaño actual
+            int nodeSize = GridSize; // Doble del tamaño actual
 
             foreach (Node node in grid)
             {
@@ -131,6 +143,12 @@ namespace Proyecto
                 if (node.IsWall)
                 {
                     g.FillRectangle(Brushes.Black, node.X * GridSize, node.Y * GridSize, GridSize, GridSize);
+                    continue; // Continúa al siguiente nodo sin procesar los nodos de inicio, fin o camino
+                }
+
+                if (node.IsUnwalkableFloor)
+                {
+                    g.FillRectangle(Brushes.WhiteSmoke, node.X * GridSize, node.Y * GridSize, GridSize, GridSize);
                     continue; // Continúa al siguiente nodo sin procesar los nodos de inicio, fin o camino
                 }
 
@@ -197,9 +215,10 @@ namespace Proyecto
                 foreach (Node neighbor in GetNeighbors(currentNode))
                 {
                     if (neighbor.IsWall || closedSet.Contains(neighbor))
-                    {
                         continue;
-                    }
+
+                    if (neighbor.IsUnwalkableFloor || closedSet.Contains(neighbor))
+                        continue;
 
                     int tentativeGCost = currentNode.GCost + GetDistance(currentNode, neighbor);
                     if (tentativeGCost < neighbor.GCost || !openSet.Contains(neighbor))
@@ -209,9 +228,7 @@ namespace Proyecto
                         neighbor.HCost = GetDistance(neighbor, endNode);
 
                         if (!openSet.Contains(neighbor))
-                        {
                             openSet.Add(neighbor);
-                        }
                     }
                 }
             }
@@ -233,9 +250,7 @@ namespace Proyecto
                 int y = node.Y + yOffset[i];
 
                 if (x >= 0 && x < grid.GetLength(0) && y >= 0 && y < grid.GetLength(1))
-                {
                     neighbors.Add(grid[x, y]);
-                }
             }
 
             return neighbors;
@@ -259,14 +274,13 @@ namespace Proyecto
                 path.Add(currentNode);
                 currentNode = currentNode.Parent;
             }
+
             path.Reverse();
 
             foreach (Node node in path)
             {
                 if (node != startNode && node != endNode)
-                {
                     node.IsPath = true;
-                }
             }
         }
 
@@ -278,29 +292,26 @@ namespace Proyecto
 
         private void Mapa_MouseClick(object sender, MouseEventArgs e)
         {
+            MouseEventArgs mouseEvent = e as MouseEventArgs;
 
-            /* string coordenada = $"{e.X}, {e.Y}";
+            string coordenada = $"{e.X}, {e.Y}";
 
-             try
-             {
-                 // Abre o crea un archivo de texto
-                 string rutaArchivo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "coordenadas.txt");
+           /* try
+            {
+                // Abre o crea un archivo de texto
+                string rutaArchivo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "coordenadas.txt");
 
-                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(rutaArchivo, true))
-                 {
-                     // Escribe la coordenada en el archivo
-                     file.WriteLine(coordenada);
-                 }
-             }
-             catch (Exception ex)
-             {
-                 // Maneja cualquier excepción que pueda ocurrir al escribir en el archivo
-                 MessageBox.Show("Error al escribir en el archivo: " + ex.Message);
-             }*/
-
-
-            MouseEventArgs mouseEvent = e;
-
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(rutaArchivo, true))
+                {
+                    // Escribe la coordenada en el archivo
+                    file.WriteLine(coordenada);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Maneja cualquier excepción que pueda ocurrir al escribir en el archivo
+                MessageBox.Show("Error al escribir en el archivo: " + ex.Message);
+            }*/
 
             if (mouseEvent != null)
             {
@@ -361,6 +372,12 @@ namespace Proyecto
                     node.Reset();
                 }
             }
+        }
+
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            InitializeGrid();
         }
     }
 }
