@@ -1990,7 +1990,7 @@ namespace CapaDatos
         }
         #endregion
 
-        public List<TipoLugar> ObtenerTiposDeLugar()
+       /* public List<TipoLugar> ObtenerTiposDeLugar()
         {
             MySqlConnection conn = new MySqlConnection();
             List<TipoLugar> tiposLugar = new List<TipoLugar>();
@@ -2025,7 +2025,7 @@ namespace CapaDatos
             }
 
             return tiposLugar;
-        }
+        }*/
     }
 
 

@@ -672,7 +672,7 @@ namespace CapaNegocio
             return datos.CargarLugares(rol);
         }
 
-        public List<ushort> ObtenerIdLugares()
+        /*public List<ushort> ObtenerIdLugares()
         {
             Datos datos = new Datos();
             List<object> lugares = datos.ListarLugares(null, null);
@@ -684,7 +684,7 @@ namespace CapaNegocio
             }
 
             return List<object> lugares = datos.ListarLugares(null, null); ;
-        }
+        }*/
 
     }
 }
