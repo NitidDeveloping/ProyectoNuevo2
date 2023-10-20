@@ -25,14 +25,26 @@ namespace Proyecto
             Mapa mapa = new Mapa();
             Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
             Metodos.openChildForm(mapa, plMapa);
-            Negocio negocio = new Negocio();
-            DataTable lugaresTable = negocio.CargarLugaresComboBox();
+            Negocio negocio = new Negocio();        
+            
 
             // Asignar el DataTable al ComboBox
-            cbxLugares.DataSource = lugaresTable;
+            cbxLugares.DataSource = negocio.CargarLugaresComboBox();
             cbxLugares.DisplayMember = "Nombre"; // Mostrar la columna "Nombre" en el ComboBox
             cbxLugares.ValueMember = "Nombre";
             cbxLugares.SelectedIndex = -1;
+
+            switch (Sesion.LoggedRol)
+            {
+                case TipoRol.Alumno:
+                    btnClase.Visible = true;
+                    break;
+
+                case TipoRol.Docente:
+                    btnGrupo.Visible = true;
+                    break;
+
+            }
 
         }
 
@@ -279,13 +291,18 @@ namespace Proyecto
             Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
             Metodos.openChildForm(mapa, plMapa);
             Negocio negocio = new Negocio();
-            DataTable lugaresTable = negocio.CargarLugaresComboBox();
+            lblTitulo.Text = "Mapa";
 
             // Asignar el DataTable al ComboBox
-            cbxLugares.DataSource = lugaresTable;
+            cbxLugares.DataSource = negocio.CargarLugaresComboBox();
             cbxLugares.DisplayMember = "Nombre"; // Mostrar la columna "Nombre" en el ComboBox
             cbxLugares.ValueMember = "Nombre";
             cbxLugares.SelectedIndex = -1;
+        }
+
+        private void cbxLugares_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

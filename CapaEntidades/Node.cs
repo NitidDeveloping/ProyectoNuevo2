@@ -11,6 +11,7 @@ namespace CapaEntidades
         public int X { get; }
         public int Y { get; }
         public bool IsWall { get; set; }
+        public bool IsUnwalkableFloor { get; set; }
         public int GCost { get; set; }
         public int HCost { get; set; }
         public int FCost => GCost + HCost;

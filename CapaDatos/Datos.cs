@@ -1272,10 +1272,10 @@ namespace CapaDatos
             {
                 case TipoRol.Alumno:
                 case TipoRol.Docente:
-                    cmdstr = "SELECT Nombre FROM Lugares;";
+                    cmdstr = "SELECT ID, Nombre FROM Lugares;";
                     break;
                 default:
-                    cmdstr = "SELECT * FROM Lugar WHERE Nombre IN ('Bedelía', 'Adscripción 1er piso', 'Adscripción 2do piso', 'Baños planta baja', 'Baños primer piso', 'Gimnasio', 'Patio', 'Auditorio', 'Hall');";
+                    cmdstr = "SELECT Nombre FROM solo_usocomun;";
                     break;
             }
 
@@ -1781,11 +1781,11 @@ namespace CapaDatos
                 conn.Open();
 
                 cmdstr = "SELECT Tipo FROM ( " +
-                    "SELECT 'Alumno' AS Tipo FROM alumno WHERE CI_Alumno = @CI " +
+                    "SELECT 'Alumno' AS Tipo FROM usuario_alumno WHERE CI_Alumno = @CI " +
                     "UNION ALL " +
-                    "SELECT 'Docente' AS Tipo FROM docente WHERE CI_Docente = @CI " +
+                    "SELECT 'Docente' AS Tipo FROM usuario_docente WHERE CI_Docente = @CI " +
                     "UNION ALL " +
-                    "SELECT CASE WHEN Tipo = 1 THEN 'Administrador' ELSE 'Operador' END AS Tipo FROM funcionario WHERE CI_Funcionario = @CI " +
+                    "SELECT CASE WHEN Tipo = 1 THEN 'Administrador' ELSE 'Operador' END AS Tipo FROM usuario_funcionario WHERE CI_Funcionario = @CI " +
                     ") t";
                 cmd = new MySqlCommand(cmdstr, conn);
                 cmd.Parameters.AddWithValue("@CI", ci);
@@ -1832,7 +1832,6 @@ namespace CapaDatos
                 }
             }
         }
-
         public string buscarCiRetornaNombreTipo(int ci, TipoRol rol)
         {
             string res = "";
@@ -1887,11 +1886,44 @@ namespace CapaDatos
             }
             return res;
         }
-
-
-
         #endregion
 
+        public List<TipoLugar> ObtenerTiposDeLugar()
+        {
+            MySqlConnection conn = new MySqlConnection();
+            List<TipoLugar> tiposLugar = new List<TipoLugar>();
+
+            try
+            {
+                conn = Conector.crearInstancia().crearConexion();
+
+                MySqlCommand cmd = new MySqlCommand(SELECT Tipo, Nombre_Tipo FROM Tipo_Lugar, conn);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+                
+                    while (reader.Read())
+                    {
+                        TipoLugar tipoLugar = new TipoLugar
+                        {
+                            Tipo = reader.GetByte("Tipo"),
+                            Nombre = reader.GetString("Nombre_Tipo")
+                        };
+                        tiposLugar.Add(tipoLugar);
+                    }
+                
+            }
+            catch (MySqlException ex)
+            {
+                // Manejo de excepciones
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return tiposLugar;
+        }
     }
 
 
