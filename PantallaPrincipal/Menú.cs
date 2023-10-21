@@ -190,7 +190,7 @@ namespace Proyecto
 
         private void btnHorarios_Click(object sender, EventArgs e)
         {
-            //AbrirLista(TipoReferencia.Horario);
+            AbrirLista(TipoReferencia.Horario);
         }
 
         private void btnLugares_Click(object sender, EventArgs e)
@@ -246,6 +246,10 @@ namespace Proyecto
 
                 case TipoReferencia.Hora:
                     titulo = "Horas";
+                    break;
+
+                case TipoReferencia.Horario:
+                    titulo = "Horario";
                     break;
 
                 case TipoReferencia.Lugar:

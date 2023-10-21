@@ -149,6 +149,78 @@ namespace CapaNegocio
                     }
 
                     break;
+
+                case TipoReferencia.Horario:
+                    //Turno
+                    dt.Columns.Add("IdTurno", typeof(byte));
+                    dt.Columns.Add("Turno", typeof(string));
+                    //Grupo
+                    dt.Columns.Add("Grupo", typeof(string));
+                    //Materia
+                    dt.Columns.Add("IdMateria", typeof(ushort));
+                    dt.Columns.Add("Materia", typeof(string));
+                    //Docente
+                    dt.Columns.Add("CI Docente", typeof(int));
+                    dt.Columns.Add("Nombre Docente", typeof(string));
+                    dt.Columns.Add("Apellido Docente", typeof(string));
+                    //Dia Semana
+                    dt.Columns.Add("IdDiaSemana", typeof(byte));
+                    dt.Columns.Add("Dia", typeof(string));
+                    //Horas
+                    dt.Columns.Add("Horas", typeof(string));
+                    //Salon predeterminado
+                    dt.Columns.Add("ID_SalonP", typeof(ushort));
+                    dt.Columns.Add("Salon", typeof(string));
+                    //Asignado temporal
+                    dt.Columns.Add("ID_SalonT", typeof(ushort));
+                    dt.Columns.Add("Salon temporal", typeof(string));
+
+                    foreach (object objeto in lista)
+                    {
+                        if (objeto is Horario horario)
+                        {
+                            Docente horarioDocente = new Docente(null, null, 0);
+                            Lugar horarioSalon = new Lugar(0, null);
+                            Lugar horarioAsignadoTemporal = new Lugar(0, null);
+
+
+                            if (horario.Docente != null)
+                            {
+                                horarioDocente = horario.Docente;
+                            }
+                            if (horario.Salon != null)
+                            {
+                                horarioSalon = horario.Salon;
+                            }
+                            if (horario.SalonTemporal != null)
+                            {
+                                horarioAsignadoTemporal = horario.SalonTemporal;
+                            }
+
+
+                            dt.Rows.Add(
+                                horario.Turno.Id,
+                                horario.Turno.Nombre,
+                                horario.Grupo,
+                                horario.Materia.Id,
+                                horario.Materia.Nombre,
+                                horarioDocente.CI,
+                                horarioDocente.Nombre,
+                                horarioDocente.Apellido,
+                                horario.Dia.Id,
+                                horario.Dia.Nombre,
+                                horario.StrListaHoras(), //Muestro el string con las horas que abarca
+                                horarioSalon.ID,
+                                horarioSalon.Nombre,
+                                horarioAsignadoTemporal.ID,
+                                horarioAsignadoTemporal.Nombre
+                                );
+                        }
+
+                    }
+
+                    break;
+
                 case TipoReferencia.Lugar:
                     dt.Columns.Add("ID_Lugar", typeof(ushort));
                     dt.Columns.Add("Nombre", typeof(string));

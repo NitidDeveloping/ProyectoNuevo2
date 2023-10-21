@@ -458,9 +458,9 @@ namespace Proyecto
                 e.Result = negocio.Listar(Sesion.ReferenciaActual, columna, valor);
 
             }
-            catch (Exception ex)
-            {
-                MsgBox msg = new MsgBox("error", ex.ToString());
+           catch (Exception ex)
+           {
+               MsgBox msg = new MsgBox("error", ex.ToString());
                 msg.ShowDialog();
             }
         }
@@ -729,6 +729,6 @@ namespace Proyecto
 
         #endregion
 
-        
+
     }
 }

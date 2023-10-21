@@ -26,9 +26,14 @@ namespace CapaEntidades
             this.fin = fin;
         }
 
+        public Hora((byte, Turno) id)
+        {
+            this.id = id;
+        }
+
         public override string ToString()
         {
-            return " " + Nid.ToString() + "-" + Turno.ToString();
+            return Nid.ToString();
         }
     }
 }

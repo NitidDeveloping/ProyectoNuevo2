@@ -28,6 +28,18 @@ namespace CapaEntidades
             this.turno = turno;
         }
 
+        public Horario(string grupo, Materia materia, Docente docente, Dia_Semana dia, Lugar salon, Lugar salonT, List<Hora> horas, Turno turno)
+        {
+            this.grupo = grupo;
+            this.materia = materia;
+            this.docente = docente;
+            this.dia = dia;
+            this.salon = salon;
+            this.horas = horas;
+            this.turno = turno;
+            this.salonTemporal = salonT;
+        }
+
         public string Grupo { get { return grupo; } }
         public Materia Materia { get { return materia; } }
         public Docente Docente { get { return docente; } }

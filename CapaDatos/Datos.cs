@@ -75,6 +75,27 @@ namespace CapaDatos
                     cmdstr = "SELECT Tipo, Nombre_Tipo FROM Tipo_Lugar;";
                     break;
 
+                case TipoReferencia.Horario:
+                    cmdstr = "SELECT " +
+                        "IdTurno," + //0
+                        " NombreTurno," + //1
+                        " IdGrupo," + //2
+                        " IdMateria," + //3
+                        " NombreMateria," + //4
+                        " CiDocente," + //5
+                        " NombreDocente," + //6
+                        " ApellidoDocente," + //7
+                        " IdDiaSemana," + //8
+                        " NombreDiaSemana," + //9
+                        " Horas_Abarca," + //10
+                        " IdSalon_Asignado_Predeterminado," + //11
+                        " NombreSalon_Asignado_Predeterminado," + //12
+                        " IdSalon_Asignado_Predeterminado," + //13
+                        " IdAsignadoTemporal," + //14
+                        " NombreAsignadoTemporal" + //15
+                        " FROM ListaHorarios;\r\n"; //16
+                    break;
+
                 default: //Pongo el default porque sino me marca un error a la hora de asignar el cmdstring pero en realidad no lo pienso usar asi
                     throw new ArgumentException("Agrumento de lista invalido, contacte a un administrador si el problema persiste");
             }
@@ -151,6 +172,60 @@ namespace CapaDatos
                         case TipoReferencia.Hora:
                             Turno auxturnohora = new Turno(dr.GetByte(1), dr.GetString(2));
                             aux = new Hora((dr.GetByte(0), auxturnohora), dr.GetTimeSpan(3), dr.GetTimeSpan(4));
+                            break;
+
+                        case TipoReferencia.Horario:
+                            Turno auxTurnoH = new Turno(dr.GetByte(0), dr.GetString(1));
+                            string auxGrupoH = dr.GetString(2);
+                            Materia auxMateriaH = new Materia(dr.GetUInt16(3), dr.GetString(4));
+
+                            //Si el campo de cedula del docente contiene algo lo agrego
+                            //al horario
+                            Docente auxDocenteH = null;
+                            if (!dr.IsDBNull(5))
+                            {
+                                auxDocenteH = new Docente(dr.GetString(6), dr.GetString(7), dr.GetInt32(5));
+                            }
+
+
+                            Dia_Semana auxDiaSH = new Dia_Semana(dr.GetByte(8), dr.GetString(9));
+
+                            //Si el campo con la id de la clase tiene algo
+                            //Inicializa la clase y la agregar al horario
+                            Lugar auxSalonH = null;
+                            if (!dr.IsDBNull(11))
+                            {
+                                auxSalonH = new Lugar(dr.GetUInt16(11), dr.GetString(12));
+                            }
+
+                            //Si el campo con la id de el salon temporal tiene algo
+                            //Inicializa el salon temporal y lo agrega al horario
+                            Lugar auxSalonTH = null;
+                            if (!dr.IsDBNull(14))
+                            {
+
+                                auxSalonTH = new Lugar(dr.GetUInt16(14), dr.GetString(15));
+                            }
+
+                            //Instancia lista de horas que abarca un grupo
+                            List<Hora> auxListaHorasH = new List<Hora>();
+                            Hora auxHoraHorario;
+
+                            //Recupera el texto con la lista de horas, lo divide y por cada hora
+                            //resultante de la division agrega una hora a la lista
+                            string cadenaHorasH = dr.GetString(10);
+
+                            string[] auxHoraIndividualH = cadenaHorasH.Split(',');
+
+                            foreach (string nHora in auxHoraIndividualH)
+                            {
+                                auxHoraHorario = new Hora((byte.Parse(nHora), auxTurnoH));
+                                auxListaHorasH.Add(auxHoraHorario);
+                            }
+
+
+                            aux = new Horario(auxGrupoH, auxMateriaH, auxDocenteH, auxDiaSH, auxSalonH, auxSalonTH, auxListaHorasH, auxTurnoH);
+
                             break;
 
                         case TipoReferencia.Anio:
