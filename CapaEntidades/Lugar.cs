@@ -63,6 +63,12 @@ namespace CapaEntidades
             this.id= id;
             this.nombre = nombre;
         }
+
+        public Lugar(ushort id)
+        {
+            this.id = id;
+        }
+
         public ushort ID { get { return id; } }
         public string Nombre { get { return nombre; } }
         public int Coordenada_x { get { return coordenada_x; } }

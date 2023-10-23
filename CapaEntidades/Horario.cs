@@ -16,6 +16,7 @@ namespace CapaEntidades
         private Lugar salon;
         private Lugar salonTemporal;
         private List<Hora> horas;
+        private string strhoras;
 
         public Horario(string grupo, Materia materia, Docente docente, Dia_Semana dia, Lugar salon, List<Hora> horas, Turno turno)
         {
@@ -40,14 +41,46 @@ namespace CapaEntidades
             this.salonTemporal = salonT;
         }
 
+        public Horario(string grupo, Materia materia, Docente docente, Dia_Semana dia, Lugar salon, Lugar salonT, string horas, Turno turno)
+        {
+            this.grupo = grupo;
+            this.materia = materia;
+            this.docente = docente;
+            this.dia = dia;
+            this.salon = salon;
+            this.strhoras = horas;
+            this.turno = turno;
+            this.salonTemporal = salonT;
+        }
+
+        public Horario(string grupo, Materia materia, Dia_Semana dia, Lugar salon, List<Hora> horas, Turno turno)
+        {
+            this.grupo = grupo;
+            this.materia = materia;
+            this.dia = dia;
+            this.salon = salon;
+            this.horas = horas;
+            this.turno = turno;
+        }
+
+        public Horario(string grupo, Materia materia, Dia_Semana dia, List<Hora> horas, Turno turno)
+        {
+            this.grupo = grupo;
+            this.materia = materia;
+            this.dia = dia;
+            this.horas = horas;
+            this.turno = turno;
+        }
+
         public string Grupo { get { return grupo; } }
         public Materia Materia { get { return materia; } }
         public Docente Docente { get { return docente; } }
         public Lugar Salon { get { return salon; } }
         public Dia_Semana Dia { get { return dia; } }
         public Lugar SalonTemporal { get { return salonTemporal; } }
-        public List<Hora> Hora { get { return horas; } }
+        public List<Hora> Horas { get { return horas; } }
         public Turno Turno { get { return turno; } }
+        public string StrHoras { get { return strhoras; } }
 
         public string StrListaHoras()
         {

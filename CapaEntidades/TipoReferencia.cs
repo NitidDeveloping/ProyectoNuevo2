@@ -11,6 +11,8 @@ namespace CapaEntidades
         Alumno,
         Anio,
         CargosFuncionarios,
+        Clases,
+        DiaSemana,
         Docente,
         Funcionario,
         Grupo,

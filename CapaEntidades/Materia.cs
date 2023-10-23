@@ -24,5 +24,10 @@ namespace CapaEntidades
         {
             this.nombre = nombre;
         }
+
+        public Materia(ushort id)
+        {
+            this.id = id;
+        }
     }
 }

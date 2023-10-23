@@ -449,8 +449,6 @@ namespace Proyecto
 
         #endregion
 
-
-
         //Botones
         #region
         private void btnCancelar_Click(object sender, EventArgs e)

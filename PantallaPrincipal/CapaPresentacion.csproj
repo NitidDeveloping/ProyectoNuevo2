@@ -70,6 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgregarHorario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgregarHorario.Designer.cs">
+      <DependentUpon>AgregarHorario.cs</DependentUpon>
+    </Compile>
     <Compile Include="AgregarMateriaAGrupo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,6 +145,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AgregarHorario.resx">
+      <DependentUpon>AgregarHorario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AgregarMateriaAGrupo.resx">
       <DependentUpon>AgregarMateriaAGrupo.cs</DependentUpon>
     </EmbeddedResource>

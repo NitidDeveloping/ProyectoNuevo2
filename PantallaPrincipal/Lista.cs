@@ -47,6 +47,8 @@ namespace Proyecto
 
                 case TipoReferencia.Horario:
                     comboColumn.DataSource = CargarPropsHorarios();
+                    btnEditar.Visible = false;
+                    btnAsignarSalonTemporal.Visible = true;
                     break;
 
                 case TipoReferencia.Lugar:
@@ -171,7 +173,6 @@ namespace Proyecto
                 }
             }
         }
-
 
         private void BtnEditar_Click(object sender, EventArgs e)
         {
@@ -362,7 +363,15 @@ namespace Proyecto
 
         private void BtnAgregar_Click(object sender, EventArgs e)
         {
-            AbrirAgregarEditar();
+            if(Sesion.ReferenciaActual != TipoReferencia.Horario)
+            {
+                AbrirAgregarEditar();
+            }
+            else
+            {
+                AgregarHorario agH = new AgregarHorario();
+                Metodos.openChildForm(agH, Metodos.menuForm.plForms);
+            }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -673,9 +682,40 @@ namespace Proyecto
 
         private DataTable CargarPropsHorarios()
         {
-            /**/
+            /*"SELECT " +
+                        "IdTurno," + //0
+                        " NombreTurno," + //1
+                        " IdGrupo," + //2
+                        " IdMateria," + //3
+                        " NombreMateria," + //4
+                        " CiDocente," + //5
+                        " NombreDocente," + //6
+                        " ApellidoDocente," + //7
+                        " IdDiaSemana," + //8
+                        " NombreDiaSemana," + //9
+                        " Horas_Abarca," + //10
+                        " IdSalon_Asignado_Predeterminado," + //11
+                        " NombreSalon_Asignado_Predeterminado," + //12
+                        " IdSalon_Asignado_Predeterminado," + //13
+                        " IdAsignadoTemporal," + //14
+                        " NombreAsignadoTemporal" + //15
+                        " FROM ListaHorarios;\r\n"; //16*/
 
             DataTable dt = FormatodDataTablePropsColumns();
+
+
+            dt.Rows.Add("Turno", "IdTurno", comboSearch, TipoReferencia.Turno);
+            dt.Rows.Add("Grupo", "IdGrupo", txtSearch, null);
+            dt.Rows.Add("Materia", "NombreMateria", txtSearch, null);
+            dt.Rows.Add("CI Docente", "CiDocente", txtSearch, null);
+            dt.Rows.Add("Nombre Docente", "NombreDocente", txtSearch, null);
+            dt.Rows.Add("Apellido Docente", "ApellidoDocente", txtSearch, null);
+            dt.Rows.Add("Dia", "IdDiaSemana", comboSearch, TipoReferencia.DiaSemana);
+            dt.Rows.Add("Horas", "Horas_Abarca", txtSearch, null);
+            dt.Rows.Add("Salon", "NombreSalon_Asignado_Predeterminado", txtSearch, null);
+            dt.Rows.Add("Asignado temporal", "NombreAsignadoTemporal", txtSearch,null);
+
+
             return dt;
         }
 

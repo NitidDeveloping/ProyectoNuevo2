@@ -79,6 +79,20 @@ namespace CapaNegocio
                     }
                     break;
 
+                case TipoReferencia.DiaSemana:
+                    dt.Columns.Add("IdDiaSemana", typeof(byte));
+                    dt.Columns.Add("Dia", typeof(string));
+
+                    foreach (object objeto in lista)
+                    {
+                        if (objeto is Dia_Semana dia)
+                        {
+                            dt.Rows.Add(dia.Id, dia.Nombre);
+                        }
+
+                    }
+                    break;
+
                 case TipoReferencia.Funcionario:
                     dt.Columns.Add("CI", typeof(int));
                     dt.Columns.Add("Nombre", typeof(string));
@@ -209,7 +223,7 @@ namespace CapaNegocio
                                 horarioDocente.Apellido,
                                 horario.Dia.Id,
                                 horario.Dia.Nombre,
-                                horario.StrListaHoras(), //Muestro el string con las horas que abarca
+                                horario.StrHoras, //Muestro el string con las horas que abarca
                                 horarioSalon.ID,
                                 horarioSalon.Nombre,
                                 horarioAsignadoTemporal.ID,
@@ -221,6 +235,7 @@ namespace CapaNegocio
 
                     break;
 
+                case TipoReferencia.Clases:
                 case TipoReferencia.Lugar:
                     dt.Columns.Add("ID_Lugar", typeof(ushort));
                     dt.Columns.Add("Nombre", typeof(string));
@@ -758,5 +773,21 @@ namespace CapaNegocio
             return List<object> lugares = datos.ListarLugares(null, null); ;
         }*/
 
+        //Metodos para los horarios
+        #region
+        public RetornoValidacion AgregarHorario(Horario horario)
+        {
+            Datos datos = new Datos();
+
+            if (datos.ConsultarHorarioExiste(horario))
+            {
+                return RetornoValidacion.YaExiste;
+            }
+            else
+            {
+                return datos.AgregarHorario(horario);
+            }
+        }
+        #endregion
     }
 }
