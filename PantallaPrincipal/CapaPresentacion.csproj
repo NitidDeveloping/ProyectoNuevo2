@@ -70,6 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsignarSalonTemporal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AsignarSalonTemporal.Designer.cs">
+      <DependentUpon>AsignarSalonTemporal.cs</DependentUpon>
+    </Compile>
     <Compile Include="AgregarHorario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +151,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AsignarSalonTemporal.resx">
+      <DependentUpon>AsignarSalonTemporal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AgregarHorario.resx">
       <DependentUpon>AgregarHorario.cs</DependentUpon>
     </EmbeddedResource>

@@ -127,6 +127,7 @@
             this.btnAsignarSalonTemporal.TabIndex = 76;
             this.btnAsignarSalonTemporal.UseVisualStyleBackColor = true;
             this.btnAsignarSalonTemporal.Visible = false;
+            this.btnAsignarSalonTemporal.Click += new System.EventHandler(this.btnAsignarSalonTemporal_Click);
             // 
             // comboSearch
             // 

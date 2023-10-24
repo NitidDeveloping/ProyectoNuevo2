@@ -182,6 +182,9 @@ namespace CapaNegocio
                     dt.Columns.Add("Dia", typeof(string));
                     //Horas
                     dt.Columns.Add("Horas", typeof(string));
+                    //Inicio y fin
+                    dt.Columns.Add("Inicio", typeof(TimeSpan));
+                    dt.Columns.Add("Fin", typeof(TimeSpan));
                     //Salon predeterminado
                     dt.Columns.Add("ID_SalonP", typeof(ushort));
                     dt.Columns.Add("Salon", typeof(string));
@@ -224,6 +227,8 @@ namespace CapaNegocio
                                 horario.Dia.Id,
                                 horario.Dia.Nombre,
                                 horario.StrHoras, //Muestro el string con las horas que abarca
+                                horario.Inicio,
+                                horario.Fin,
                                 horarioSalon.ID,
                                 horarioSalon.Nombre,
                                 horarioAsignadoTemporal.ID,
@@ -788,6 +793,23 @@ namespace CapaNegocio
                 return datos.AgregarHorario(horario);
             }
         }
+
+        public MensajeSalonOcupado ConsultarSalonOcupado(ushort idLugar, TimeSpan inicio, TimeSpan fin, byte dia)
+        {
+            Datos datos = new Datos();
+            return datos.ConsultarSalonOcupado(idLugar, inicio, fin, dia);
+        }
+
+        public RetornoValidacion AsignarSalonTemporal(Horario horarioDestino, ushort idSalon)
+        {
+            Datos datos = new Datos();
+            if (!datos.ConsultarHorarioConSalonExiste(horarioDestino))
+            {
+                return RetornoValidacion.NoExiste;
+            }
+            return datos.AsignarSalonTemporal(horarioDestino, idSalon);
+        }
+
         #endregion
     }
 }

@@ -1,11 +1,13 @@
 ﻿using CapaEntidades;
 using CapaNegocio;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Menu;
 
 namespace Proyecto
 {
@@ -363,7 +365,7 @@ namespace Proyecto
 
         private void BtnAgregar_Click(object sender, EventArgs e)
         {
-            if(Sesion.ReferenciaActual != TipoReferencia.Horario)
+            if (Sesion.ReferenciaActual != TipoReferencia.Horario)
             {
                 AbrirAgregarEditar();
             }
@@ -467,9 +469,9 @@ namespace Proyecto
                 e.Result = negocio.Listar(Sesion.ReferenciaActual, columna, valor);
 
             }
-           catch (Exception ex)
-           {
-               MsgBox msg = new MsgBox("error", ex.ToString());
+            catch (Exception ex)
+            {
+                MsgBox msg = new MsgBox("error", ex.ToString());
                 msg.ShowDialog();
             }
         }
@@ -478,6 +480,17 @@ namespace Proyecto
         {
             // Si la operación en segundo plano se completó con éxito, actualiza la interfaz de usuario.
             DGV.DataSource = (DataTable)e.Result;
+
+            switch (Sesion.ReferenciaActual)
+            {
+                case TipoReferencia.Horario:
+                    DGV.Columns[0].Visible = false;
+                    DGV.Columns[3].Visible = false;
+                    DGV.Columns[8].Visible = false;
+                    DGV.Columns[13].Visible = false;
+                    DGV.Columns[15].Visible = false;
+                    break;
+            }
         }
         #endregion
 
@@ -713,7 +726,7 @@ namespace Proyecto
             dt.Rows.Add("Dia", "IdDiaSemana", comboSearch, TipoReferencia.DiaSemana);
             dt.Rows.Add("Horas", "Horas_Abarca", txtSearch, null);
             dt.Rows.Add("Salon", "NombreSalon_Asignado_Predeterminado", txtSearch, null);
-            dt.Rows.Add("Asignado temporal", "NombreAsignadoTemporal", txtSearch,null);
+            dt.Rows.Add("Asignado temporal", "NombreAsignadoTemporal", txtSearch, null);
 
 
             return dt;
@@ -765,10 +778,60 @@ namespace Proyecto
 
             return dt;
         }
-        #endregion
 
         #endregion
 
+        #endregion
 
+        private void btnAsignarSalonTemporal_Click(object sender, EventArgs e)
+        {
+            if (Sesion.ReferenciaActual != TipoReferencia.Horario)
+            { return; }
+
+            if (DGV.SelectedRows.Count > 0)
+            {
+                Horario horarioDestino;
+                DataGridViewRow row = DGV.SelectedRows[0];
+
+                //Turno
+                byte idTurno = (byte)row.Cells["IdTurno"].Value;
+                Turno turno = new Turno(idTurno);
+
+                //Grupo
+                string idGrupo = row.Cells["Grupo"].Value.ToString();
+
+                //Materia
+                ushort idMateria = (ushort)row.Cells["IdMateria"].Value;
+                Materia materia = new Materia(idMateria);
+
+                //Horas
+                List<Hora> horas = new List<Hora>();
+                Hora auxHora;
+                string strHoras = row.Cells["Horas"].Value.ToString();
+                string[] fragmentosStr = strHoras.Split(',');
+
+                foreach (string nHora in fragmentosStr)
+                {
+                    auxHora = new Hora((byte.Parse(nHora), turno));
+                    horas.Add(auxHora);
+                }
+
+                //Inicio y fin
+                TimeSpan inicio = (TimeSpan)row.Cells["Inicio"].Value;
+                TimeSpan fin = (TimeSpan)row.Cells["Fin"].Value;
+
+                //Dia Semana
+                byte idDia = (byte)row.Cells["IdDiaSemana"].Value;
+                Dia_Semana dia = new Dia_Semana(idDia);
+
+                //Ensamblado de horario
+                horarioDestino = new Horario(idGrupo, materia, dia, horas, turno, inicio, fin);
+
+
+                AsignarSalonTemporal ast = new AsignarSalonTemporal(horarioDestino);
+                Metodos.openChildForm(ast, Metodos.menuForm.plForms);
+            }
+
+        }
     }
 }

@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Alumno.cs" />
     <Compile Include="Cargo.cs" />
+    <Compile Include="MensajeSalonOcupado.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Orientacion.cs" />
     <Compile Include="TipoLugar.cs" />

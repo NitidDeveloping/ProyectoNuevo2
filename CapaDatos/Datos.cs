@@ -85,7 +85,7 @@ namespace CapaDatos
 
                 case TipoReferencia.Horario:
                     cmdstr = "SELECT " +
-                        "IdTurno," + //0
+                        " IdTurno," + //0
                         " NombreTurno," + //1
                         " IdGrupo," + //2
                         " IdMateria," + //3
@@ -100,8 +100,10 @@ namespace CapaDatos
                         " NombreSalon_Asignado_Predeterminado," + //12
                         " IdSalon_Asignado_Predeterminado," + //13
                         " IdAsignadoTemporal," + //14
-                        " NombreAsignadoTemporal" + //15
-                        " FROM ListaHorarios;\r\n"; //16
+                        " NombreAsignadoTemporal," + //15
+                        " Inicio," + //16
+                        " Fin" + //17
+                        " FROM ListaHorarios;\r\n";
                     break;
 
                 default: //Pongo el default porque sino me marca un error a la hora de asignar el cmdstring pero en realidad no lo pienso usar asi
@@ -227,16 +229,10 @@ namespace CapaDatos
                             //resultante de la division agrega una hora a la lista
                             string cadenaHorasH = dr.GetString(10);
 
-                            /*string[] auxHoraIndividualH = cadenaHorasH.Split(',');
+                            TimeSpan inicio = dr.GetTimeSpan(16);
+                            TimeSpan fin = dr.GetTimeSpan(17);
 
-                            foreach (string nHora in auxHoraIndividualH)
-                            {
-                                auxHoraHorario = new Hora((byte.Parse(nHora), auxTurnoH));
-                                auxListaHorasH.Add(auxHoraHorario);
-                            }*/
-
-                            aux = new Horario(auxGrupoH, auxMateriaH, auxDocenteH, auxDiaSH, auxSalonH, auxSalonTH, cadenaHorasH, auxTurnoH);
-                            //aux = new Horario(auxGrupoH, auxMateriaH, auxDocenteH, auxDiaSH, auxSalonH, auxSalonTH, auxListaHorasH, auxTurnoH);
+                            aux = new Horario(auxGrupoH, auxMateriaH, auxDocenteH, auxDiaSH, auxSalonH, auxSalonTH, cadenaHorasH, auxTurnoH, inicio, fin);
 
                             break;
 
@@ -2218,6 +2214,198 @@ namespace CapaDatos
             }
         }
 
+        public bool ConsultarHorarioConSalonExiste(Horario horario)
+        {
+            //Variables
+            bool respuesta = false;
+            string cmdstr;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
+            List<MySqlCommand> listacmds = new List<MySqlCommand>();
+            MySqlCommand auxcmd;
+            MySqlDataReader dr;
+
+
+            cmdstr = "SELECT ID_Grupo, ID_Materia, ID_Horario, Dia_Semana, Turno" +
+                "\r\n FROM Grupo_Materia_Horario_Clase gmhc " +
+                "\r\n WHERE gmhc.ID_Grupo = @IdGrupo " +
+                "\r\n AND gmhc.ID_Materia = @IdMateria" +
+                "\r\n AND gmhc.ID_Horario = @IdHora " +
+                "\r\n AND gmhc.Turno = @IdTurno" +
+                "\r\n AND gmhc.Dia_Semana = @DiaSemana;";
+
+
+            //Agrega los parametros al comando
+            foreach (Hora hora in horario.Horas)
+            {
+                auxcmd = new MySqlCommand(cmdstr, conn);
+
+                auxcmd.Parameters.Add("@IdGrupo", MySqlDbType.VarChar).Value = horario.Grupo;
+                auxcmd.Parameters.Add("@IdMateria", MySqlDbType.Int16).Value = horario.Materia.Id;
+                auxcmd.Parameters.Add("@IdHora", MySqlDbType.Int16).Value = hora.Nid;
+                auxcmd.Parameters.Add("@IdTurno", MySqlDbType.Byte).Value = horario.Turno.Id;
+                auxcmd.Parameters.Add("@DiaSemana", MySqlDbType.Byte).Value = horario.Dia.Id;
+
+                listacmds.Add(auxcmd);
+            }
+
+            //Ejecuta la consulta
+            try
+            {
+                foreach (MySqlCommand cmd in listacmds)
+                {
+                    conn.Open(); //Abro la conexión
+                    dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        return true;
+                    }
+                    conn.Close();
+                }
+
+                return respuesta;//Retorna lo que encuentre
+            }
+            catch (Exception ex)// En caso de excepcion throwea esta
+            {
+                throw ex;
+            }
+            finally//Al final haya excepcion o no cierra la base de datos
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close(); //Cerramos la conexión en caso de que esté abierta
+                }
+            }
+        }
+        public MensajeSalonOcupado ConsultarSalonOcupado(ushort idlugar, TimeSpan inicio, TimeSpan fin, byte dia) //Devuelve un MensajeSalonOcupado si un lugar esta ocupado dentro de un intervalo de tiempo
+        {
+            //Variables
+            MensajeSalonOcupado respuesta = null;
+            string cmdstr;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
+            MySqlCommand cmd;
+            MySqlDataReader dr;
+
+
+            cmdstr = "SELECT IdGrupo, CONCAT(NombreDocente, ' ', ApellidoDocente) AS NCDocente, Inicio, Fin, NombreDiaSemana FROM listahorarios" +
+                "\r\n WHERE NOT (@HNInicio >= Fin) -- Si el horario nuevo inicia antes del fin del original no devuelve nada" +
+                "\r\n  AND NOT (@HNFin <= Inicio) -- Si el horario nuevo termina antes del inicio del original no devuelve nada" +
+                "\r\n  AND ((@HNInicio <= Fin AND @HNInicio >= Inicio) OR (Inicio >= @HNInicio AND Fin <= @HNFin)) -- " +
+                "Si el horario nuevo esta contenido dentro del horario original devuelve algo." +
+                " Tambien devuelve si el horario original esta contenido dentro del horario nuevo" +
+                "\r\n  AND IdSalon_Asignado_Predeterminado = @IdSalon " +
+                "\r\n  AND (IdDiaSemana = @IdDiaSemana);";
+
+            cmd = new MySqlCommand(cmdstr, conn);
+
+            cmd.Parameters.Add("@HNInicio", MySqlDbType.Time).Value = inicio;
+            cmd.Parameters.Add("@HNFin", MySqlDbType.Time).Value = fin;
+            cmd.Parameters.Add("@IdSalon", MySqlDbType.Int32).Value = idlugar;
+            cmd.Parameters.Add("@IdDiaSemana", MySqlDbType.Byte).Value = dia;
+
+            //Ejecuta la consulta
+            try
+            {
+                conn.Open();
+                dr = cmd.ExecuteReader();
+                dr.Read();
+                if (!dr.HasRows)
+                {
+                    return respuesta; //Si la consulta no devuelve nada devuelve un horario inicializado como null
+                }
+
+
+                string nombreGrupo = dr.GetString(0);
+
+                //Si el campo de cedula del docente contiene algo lo agrego
+                string nombreDocente = null;
+                if (!dr.IsDBNull(1))
+                {
+                    nombreDocente = dr.GetString(1);
+                }
+
+                string horaInicio = dr.GetTimeSpan(2).ToString();
+                string horaFin = dr.GetTimeSpan(3).ToString();
+                string diaSemana = dr.GetString(4);
+
+                respuesta = new MensajeSalonOcupado(nombreDocente, nombreGrupo, horaInicio, horaFin, diaSemana);
+
+
+                return respuesta;//Retorna lo que encuentre
+            }
+            catch (Exception ex)// En caso de excepcion throwea esta
+            {
+                throw ex;
+            }
+            finally//Al final haya excepcion o no cierra la base de datos
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close(); //Cerramos la conexión en caso de que esté abierta
+                }
+            }
+        }
+        public RetornoValidacion AsignarSalonTemporal(Horario horarioDestino, ushort idSalon)
+        {
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
+            List<MySqlCommand> listacmds = new List<MySqlCommand>();
+            MySqlCommand auxcmd;
+            string cmdstr;
+            RetornoValidacion respuesta = RetornoValidacion.OK;
+
+            //Actualiza el asignado temporal en el horario indicado
+            cmdstr = "UPDATE Grupo_Materia_Horario_Clase " +
+                " SET Asignado_Temporal = @IdAsignadoTemporal" +
+                " WHERE ID_Grupo = @IdGrupo " +
+                " AND ID_Materia = @IdMateria " +
+                " AND ID_Horario = @IdHora " +
+                " AND Turno = @IdTurno " +
+                " AND Dia_Semana = @IdDiaSemana;";
+
+            //Arma los comandos para agregarlos a la lista
+            foreach (Hora hora in horarioDestino.Horas)
+            {
+                auxcmd = null;
+
+                auxcmd = new MySqlCommand(cmdstr, conn);
+
+                auxcmd.Parameters.Add("@IdAsignadoTemporal", MySqlDbType.Int32).Value = idSalon;
+                auxcmd.Parameters.Add("@IdGrupo", MySqlDbType.VarChar).Value = horarioDestino.Grupo;
+                auxcmd.Parameters.Add("@IdMateria", MySqlDbType.Int16).Value = horarioDestino.Materia.Id;
+                auxcmd.Parameters.Add("@IdHora", MySqlDbType.Int16).Value = hora.Nid;
+                auxcmd.Parameters.Add("@IdTurno", MySqlDbType.Byte).Value = horarioDestino.Turno.Id;
+                auxcmd.Parameters.Add("@IdDiaSemana", MySqlDbType.Byte).Value = horarioDestino.Dia.Id;
+
+                listacmds.Add(auxcmd);
+            }
+
+            try
+            {
+                conn.Open();
+                //Ejectua la operacion por cada comando
+                foreach (MySqlCommand cmd in listacmds)
+                {
+                    //Ejecuta el comando y si no se ejecuta bien corta el metodo y retorna que hubo un error inesperado
+                    if (cmd.ExecuteNonQuery() != 1)
+                    {
+                        respuesta = RetornoValidacion.ErrorInesperadoBD;
+                        return respuesta;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                //Cierra la conexion
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return respuesta;
+        }
         #endregion
 
         /* public List<TipoLugar> ObtenerTiposDeLugar()

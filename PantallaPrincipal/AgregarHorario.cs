@@ -49,7 +49,6 @@ namespace Proyecto
 
             if (Validar() == RetornoValidacion.OK)
             {
-
                 //Arma el horario
                 //Grupo
                 string grupo = cbxGrupo.SelectedValue.ToString();
@@ -68,16 +67,54 @@ namespace Proyecto
                 //Horas
                 List<Hora> horas = new List<Hora>();
                 Hora auxHora;
+                string strItem;
+                string[] fragmentosStr;
+                string numeroHora;
 
                 foreach (object item in chlbHoras.CheckedItems)
                 {
-                    auxHora = new Hora((byte.Parse(item.ToString()), turno));
+                    strItem = item.ToString();
+                    fragmentosStr = strItem.Split(' ');
+
+                    //Resultado 
+                    //0 = idHora
+                    //1 = (
+                    //2 = inicioHora
+                    //3 = -
+                    //4 = finalHora
+                    //5 = )
+
+                    numeroHora = fragmentosStr[0];
+                    TimeSpan inicioHora = TimeSpan.Parse(fragmentosStr[2]);
+                    TimeSpan finHora = TimeSpan.Parse(fragmentosStr[4]);
+
+                    auxHora = new Hora((byte.Parse(numeroHora), turno), inicioHora, finHora);
                     horas.Add(auxHora);
                 }
 
                 //Salon
                 if (cbxClase.SelectedValue != null)
                 {
+                    //Si elige un salon valida si esta ocupado primero
+                    //y segun lo que el usuario decida sigue con la operacion o cancela
+                    ushort idSalon = (ushort)cbxClase.SelectedValue;
+
+                    MensajeSalonOcupado mslo = negocio.ConsultarSalonOcupado(idSalon, horas[0].Inicio, horas[horas.Count - 1].Fin, dia.Id);
+
+                    if (mslo != null)
+                    {
+                        //Si se encuentra que el salon esta ocupado muestra un mensaje de confirmacion
+                        MsgBox msgMslo = new MsgBox("pregunta", "Este salón ya se encuentra ocupado por el grupo (" + mslo.NombreGrupo + ") durante el horario (" + mslo.HoraInicio + ") - (" + mslo.HoraFin + ") en el dia (" + mslo.NombreDia + ") con el profesor (" + mslo.NombreDocente + ") ¿Desea continuar de todos modos?");
+                        msgMslo.label3.Visible = true;
+
+                        //Si el usuario decide que no quiere continuar se cierra el metodo y no se hace la operacion
+                        if (msgMslo.ShowDialog() == DialogResult.No)
+                        {
+                            return;
+                        }
+
+                    }
+
                     salon = new Lugar((ushort)cbxClase.SelectedValue);
                 }
 
@@ -96,6 +133,8 @@ namespace Proyecto
                 {
                     case RetornoValidacion.OK:
                         msg = new MsgBox("exito", "Horario cargado exitosamente");
+                        cbxGrupo.SelectedIndex = -1;
+                        cbxClase.SelectedIndex = -1;
                         break;
 
                     case RetornoValidacion.YaExiste:
@@ -166,7 +205,7 @@ namespace Proyecto
         }
         #endregion
 
-        //Habilitacion de los controles
+        //Habilitacion y cargado de los controles
         #region
 
         //Metodo para cargar un combobox con elementos despues
@@ -278,11 +317,15 @@ namespace Proyecto
                 string turno = grupoSeleccionado.Row.ItemArray[1].ToString(); //Recupera la id del turno del grupo elegido
 
                 plHoras.Enabled = true;
+                chlbHoras.Items.Clear();
                 DataTable dtHoras = negocio.Listar(TipoReferencia.Hora, "Turno", turno);
 
                 foreach (DataRow row in dtHoras.Rows)
                 {
-                    auxHora = row[2].ToString();
+                    string idHora = row[2].ToString();
+                    string inicioHora = row[3].ToString();
+                    string finalHora = row[4].ToString();
+                    auxHora = idHora + " ( " + inicioHora + " - " + finalHora + " )";
                     chlbHoras.Items.Add(auxHora);
                 }
             }
@@ -316,6 +359,7 @@ namespace Proyecto
             else
             {
                 plClase.Enabled = false;
+                cbxClase.SelectedIndex = -1;
             }
         }
 
