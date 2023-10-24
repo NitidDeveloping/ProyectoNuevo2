@@ -58,12 +58,22 @@ namespace CapaEntidades
             this.isUsoComun = isUsoComun;
         }
 
-        public Lugar(ushort id, string nombre) 
+        public Lugar(ushort id, string nombre, TipoLugar tipo, int coordenada_x, int coordenada_y, byte piso) 
         {
             this.id= id;
             this.nombre = nombre;
+            this.tipo= tipo;
+            this.coordenada_x = coordenada_x;
+            this.coordenada_y = coordenada_y;
+            this.piso = piso;
+
         }
 
+        public Lugar (ushort id, string nombre)
+        {
+            this.id = id;
+            this.nombre = nombre ;
+        }
         public Lugar(ushort id)
         {
             this.id = id;
