@@ -22,7 +22,7 @@ namespace CapaDatos
             database = "nitid"; //Establecemos los valores en el constructor.
             server = "localhost";
             uid = "root";
-            pwd = "root";
+            pwd = "1234";
 
         }
 

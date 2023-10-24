@@ -93,87 +93,170 @@ namespace Proyecto
             MsgBox confirm; //Solicita confirmacion antes de eliminar
 
             MsgBox msg; //Muestra un mensaje de exito o error
-
-            //Asignacion de nombre de tipoId segun la referencia actual
-            switch (Sesion.ReferenciaActual)
+            if (Sesion.ReferenciaActual != TipoReferencia.Horario)
             {
-                case TipoReferencia.Alumno:
-                case TipoReferencia.Docente:
-                case TipoReferencia.Funcionario:
-                    tipoId = "CI";
-                    break;
-
-                case TipoReferencia.Anio:
-                    tipoId = "Anio";
-                    break;
-
-                case TipoReferencia.Grupo:
-                    tipoId = "Nombre";
-                    break;
-
-                case TipoReferencia.Hora:
-                    tipoId = "Numero";
-                    tipoIdPadre = "ID_Turno";
-                    break;
-
-                case TipoReferencia.Lugar:
-                    tipoId = "ID_Lugar";
-                    break;
-
-                case TipoReferencia.Materia:
-                case TipoReferencia.Orientacion:
-                case TipoReferencia.TipoDeLugar:
-                case TipoReferencia.Turno:
-                    tipoId = "Id";
-                    break;
-            }
-
-            //En caso de que se haya asginado algo al tipo id padre se hacen operaciones para entidades con debilidad
-            if (tipoIdPadre != null)
-            {
-                idPadre = DGV.SelectedRows[0].Cells[tipoIdPadre].Value.ToString();
-            }
-            id = DGV.SelectedRows[0].Cells[tipoId].Value.ToString();
-
-            confirm = new MsgBox("pregunta", "Se eliminará el elemento ¿Está seguro que desea continuar?.");
-            confirm.label3.Visible = true;
-
-            if (confirm.ShowDialog() == DialogResult.Yes)
-            {
-                try
+                //Asignacion de nombre de tipoId segun la referencia actual
+                switch (Sesion.ReferenciaActual)
                 {
-                    if (tipoIdPadre != null)
-                    {
-                        respuesta = negocio.Eliminar(Sesion.ReferenciaActual, byte.Parse(id), byte.Parse(idPadre));
-                    }
-                    else
-                    {
-                        respuesta = negocio.Eliminar(Sesion.ReferenciaActual, id);
-                    }
+                    case TipoReferencia.Alumno:
+                    case TipoReferencia.Docente:
+                    case TipoReferencia.Funcionario:
+                        tipoId = "CI";
+                        break;
 
-                    if (respuesta == RetornoValidacion.OK)
+                    case TipoReferencia.Anio:
+                        tipoId = "Anio";
+                        break;
+
+                    case TipoReferencia.Grupo:
+                        tipoId = "Nombre";
+                        break;
+
+                    case TipoReferencia.Hora:
+                        tipoId = "Numero";
+                        tipoIdPadre = "ID_Turno";
+                        break;
+
+                    case TipoReferencia.Lugar:
+                        tipoId = "ID_Lugar";
+                        break;
+
+                    case TipoReferencia.Materia:
+                    case TipoReferencia.Orientacion:
+                    case TipoReferencia.TipoDeLugar:
+                    case TipoReferencia.Turno:
+                        tipoId = "Id";
+                        break;
+                }
+
+                //En caso de que se haya asginado algo al tipo id padre se hacen operaciones para entidades con debilidad
+                if (tipoIdPadre != null)
+                {
+                    idPadre = DGV.SelectedRows[0].Cells[tipoIdPadre].Value.ToString();
+                }
+                id = DGV.SelectedRows[0].Cells[tipoId].Value.ToString();
+
+                confirm = new MsgBox("pregunta", "Se eliminará el elemento ¿Está seguro que desea continuar?.");
+                confirm.label3.Visible = true;
+
+                if (confirm.ShowDialog() == DialogResult.Yes)
+                {
+                    try
                     {
-                        msg = new MsgBox("exito", "Elemento eliminado correctamente.");
-                        msg.ShowDialog();
-                        backgroundWorker1.RunWorkerAsync();
+                        if (tipoIdPadre != null)
+                        {
+                            respuesta = negocio.Eliminar(Sesion.ReferenciaActual, byte.Parse(id), byte.Parse(idPadre));
+                        }
+                        else
+                        {
+                            respuesta = negocio.Eliminar(Sesion.ReferenciaActual, id);
+                        }
+
+                        if (respuesta == RetornoValidacion.OK)
+                        {
+                            msg = new MsgBox("exito", "Elemento eliminado correctamente.");
+                            msg.ShowDialog();
+                            backgroundWorker1.RunWorkerAsync();
+                        }
+                        else if (respuesta == RetornoValidacion.NoExiste)
+                        {
+                            msg = new MsgBox("error", "No se ha podido encontrar el elemento en la base de datos.");
+                            msg.ShowDialog();
+                        }
+                        else if (respuesta == RetornoValidacion.ErrorInesperadoBD)
+                        {
+                            msg = new MsgBox("error", "Ha surgido un error inesperado, intente de nuevo, en caso de que el problema persista contacte con un tecnico.");
+                            msg.ShowDialog();
+                        }
                     }
-                    else if (respuesta == RetornoValidacion.NoExiste)
+                    catch (Exception ex)
                     {
-                        msg = new MsgBox("error", "No se ha podido encontrar el elemento en la base de datos.");
-                        msg.ShowDialog();
-                    }
-                    else if (respuesta == RetornoValidacion.ErrorInesperadoBD)
-                    {
-                        msg = new MsgBox("error", "Ha surgido un error inesperado, intente de nuevo, en caso de que el problema persista contacte con un tecnico.");
+                        msg = new MsgBox("error", ex.Message);
                         msg.ShowDialog();
                     }
                 }
-                catch (Exception ex)
+            }
+            //Eliminar horario
+            else
+            {
+                if (DGV.SelectedRows.Count > 0)
                 {
-                    msg = new MsgBox("error", ex.Message);
-                    msg.ShowDialog();
+                    //Ensamblado del objeto horario
+                    #region
+                    Horario horarioDestino;
+                    DataGridViewRow row = DGV.SelectedRows[0];
+
+                    //Turno
+                    byte idTurno = (byte)row.Cells["IdTurno"].Value;
+                    Turno turno = new Turno(idTurno);
+
+                    //Grupo
+                    string idGrupo = row.Cells["Grupo"].Value.ToString();
+
+                    //Materia
+                    ushort idMateria = (ushort)row.Cells["IdMateria"].Value;
+                    Materia materia = new Materia(idMateria);
+
+                    //Horas
+                    List<Hora> horas = new List<Hora>();
+                    Hora auxHora;
+                    string strHoras = row.Cells["Horas"].Value.ToString();
+                    string[] fragmentosStr = strHoras.Split(',');
+
+                    foreach (string nHora in fragmentosStr)
+                    {
+                        auxHora = new Hora((byte.Parse(nHora), turno));
+                        horas.Add(auxHora);
+                    }
+
+                    //Inicio y fin
+                    TimeSpan inicio = (TimeSpan)row.Cells["Inicio"].Value;
+                    TimeSpan fin = (TimeSpan)row.Cells["Fin"].Value;
+
+                    //Dia Semana
+                    byte idDia = (byte)row.Cells["IdDiaSemana"].Value;
+                    Dia_Semana dia = new Dia_Semana(idDia);
+
+                    //Ensamblado de horario
+                    horarioDestino = new Horario(idGrupo, materia, dia, horas, turno, inicio, fin);
+                    #endregion
+
+                    confirm = new MsgBox("pregunta", "Se eliminará el horario ¿Está seguro que desea continuar?.");
+                    confirm.label3.Visible = true;
+
+                    if (confirm.ShowDialog() == DialogResult.Yes)
+                    {
+                        try
+                        {
+
+                            respuesta = negocio.EliminarHorario(horarioDestino);
+
+                            if (respuesta == RetornoValidacion.OK)
+                            {
+                                msg = new MsgBox("exito", "Elemento eliminado correctamente.");
+                                msg.ShowDialog();
+                                backgroundWorker1.RunWorkerAsync();
+                            }
+                            else if (respuesta == RetornoValidacion.NoExiste)
+                            {
+                                msg = new MsgBox("error", "No se ha podido encontrar el elemento en la base de datos.");
+                                msg.ShowDialog();
+                            }
+                            else if (respuesta == RetornoValidacion.ErrorInesperadoBD)
+                            {
+                                msg = new MsgBox("error", "Ha surgido un error inesperado, intente de nuevo, en caso de que el problema persista contacte con un tecnico.");
+                                msg.ShowDialog();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            msg = new MsgBox("error", ex.Message);
+                            msg.ShowDialog();
+                        }
+                    }
                 }
             }
+
         }
 
         private void BtnEditar_Click(object sender, EventArgs e)
@@ -382,6 +465,57 @@ namespace Proyecto
             {
                 backgroundWorker1.RunWorkerAsync(); //Si el background worker no esta ocupado entonces empieza la operacion, esto sirve para no sobrecargarlo
             }
+        }
+
+        private void btnAsignarSalonTemporal_Click(object sender, EventArgs e)
+        {
+            if (Sesion.ReferenciaActual != TipoReferencia.Horario)
+            { return; }
+
+            if (DGV.SelectedRows.Count > 0)
+            {
+                Horario horarioDestino;
+                DataGridViewRow row = DGV.SelectedRows[0];
+
+                //Turno
+                byte idTurno = (byte)row.Cells["IdTurno"].Value;
+                Turno turno = new Turno(idTurno);
+
+                //Grupo
+                string idGrupo = row.Cells["Grupo"].Value.ToString();
+
+                //Materia
+                ushort idMateria = (ushort)row.Cells["IdMateria"].Value;
+                Materia materia = new Materia(idMateria);
+
+                //Horas
+                List<Hora> horas = new List<Hora>();
+                Hora auxHora;
+                string strHoras = row.Cells["Horas"].Value.ToString();
+                string[] fragmentosStr = strHoras.Split(',');
+
+                foreach (string nHora in fragmentosStr)
+                {
+                    auxHora = new Hora((byte.Parse(nHora), turno));
+                    horas.Add(auxHora);
+                }
+
+                //Inicio y fin
+                TimeSpan inicio = (TimeSpan)row.Cells["Inicio"].Value;
+                TimeSpan fin = (TimeSpan)row.Cells["Fin"].Value;
+
+                //Dia Semana
+                byte idDia = (byte)row.Cells["IdDiaSemana"].Value;
+                Dia_Semana dia = new Dia_Semana(idDia);
+
+                //Ensamblado de horario
+                horarioDestino = new Horario(idGrupo, materia, dia, horas, turno, inicio, fin);
+
+
+                AsignarSalonTemporal ast = new AsignarSalonTemporal(horarioDestino);
+                Metodos.openChildForm(ast, Metodos.menuForm.plForms);
+            }
+
         }
         private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -782,56 +916,5 @@ namespace Proyecto
         #endregion
 
         #endregion
-
-        private void btnAsignarSalonTemporal_Click(object sender, EventArgs e)
-        {
-            if (Sesion.ReferenciaActual != TipoReferencia.Horario)
-            { return; }
-
-            if (DGV.SelectedRows.Count > 0)
-            {
-                Horario horarioDestino;
-                DataGridViewRow row = DGV.SelectedRows[0];
-
-                //Turno
-                byte idTurno = (byte)row.Cells["IdTurno"].Value;
-                Turno turno = new Turno(idTurno);
-
-                //Grupo
-                string idGrupo = row.Cells["Grupo"].Value.ToString();
-
-                //Materia
-                ushort idMateria = (ushort)row.Cells["IdMateria"].Value;
-                Materia materia = new Materia(idMateria);
-
-                //Horas
-                List<Hora> horas = new List<Hora>();
-                Hora auxHora;
-                string strHoras = row.Cells["Horas"].Value.ToString();
-                string[] fragmentosStr = strHoras.Split(',');
-
-                foreach (string nHora in fragmentosStr)
-                {
-                    auxHora = new Hora((byte.Parse(nHora), turno));
-                    horas.Add(auxHora);
-                }
-
-                //Inicio y fin
-                TimeSpan inicio = (TimeSpan)row.Cells["Inicio"].Value;
-                TimeSpan fin = (TimeSpan)row.Cells["Fin"].Value;
-
-                //Dia Semana
-                byte idDia = (byte)row.Cells["IdDiaSemana"].Value;
-                Dia_Semana dia = new Dia_Semana(idDia);
-
-                //Ensamblado de horario
-                horarioDestino = new Horario(idGrupo, materia, dia, horas, turno, inicio, fin);
-
-
-                AsignarSalonTemporal ast = new AsignarSalonTemporal(horarioDestino);
-                Metodos.openChildForm(ast, Metodos.menuForm.plForms);
-            }
-
-        }
     }
 }

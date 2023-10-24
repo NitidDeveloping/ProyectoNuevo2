@@ -401,9 +401,9 @@
             this.lblClase.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblClase.Location = new System.Drawing.Point(21, 8);
             this.lblClase.Name = "lblClase";
-            this.lblClase.Size = new System.Drawing.Size(160, 55);
+            this.lblClase.Size = new System.Drawing.Size(179, 55);
             this.lblClase.TabIndex = 55;
-            this.lblClase.Text = "Salon:";
+            this.lblClase.Text = "Salon*:";
             // 
             // btnAceptar
             // 

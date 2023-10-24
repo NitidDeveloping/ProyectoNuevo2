@@ -798,11 +798,18 @@ namespace CapaNegocio
         public RetornoValidacion AsignarSalonTemporal(Horario horarioDestino, ushort idSalon)
         {
             Datos datos = new Datos();
-            if (!datos.ConsultarHorarioConSalonExiste(horarioDestino))
+            return datos.AsignarSalonTemporal(horarioDestino, idSalon);
+        }
+
+        public RetornoValidacion EliminarHorario(Horario horario)
+        {
+            Datos datos = new Datos();
+            if (!datos.ConsultarHorarioExiste(horario))
             {
                 return RetornoValidacion.NoExiste;
             }
-            return datos.AsignarSalonTemporal(horarioDestino, idSalon);
+
+            return datos.EliminarHorario(horario);
         }
 
         #endregion

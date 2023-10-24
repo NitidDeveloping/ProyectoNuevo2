@@ -253,13 +253,13 @@ namespace CapaDatos
 
                         case TipoReferencia.Clases:
                         case TipoReferencia.Lugar:
-                            
-                            if(Sesion.LoggedRol == TipoRol.Visitante)
+
+                            if (Sesion.LoggedRol == TipoRol.Visitante)
                             {
                                 TipoLugar auxtipolugar = new TipoLugar(dr.GetByte(2));
-                                aux = new Lugar(dr.GetUInt16(0), dr.GetString(1), auxtipolugar, dr.GetInt32(3), dr.GetInt32(4), dr.GetByte(5));                             
+                                aux = new Lugar(dr.GetUInt16(0), dr.GetString(1), auxtipolugar, dr.GetInt32(3), dr.GetInt32(4), dr.GetByte(5));
                             }
-                            else 
+                            else
                             {
                                 TipoLugar auxtipolugar = new TipoLugar(dr.GetByte(2), dr.GetString(3));
                                 aux = new Lugar(dr.GetUInt16(0), dr.GetString(1), dr.GetInt32(4), dr.GetInt32(5), dr.GetByte(6), dr.GetBoolean(7), dr.GetBoolean(8), auxtipolugar, dr.GetBoolean(9));
@@ -689,10 +689,6 @@ namespace CapaDatos
                     cmdstr = "UPDATE Orientacion SET Nombre_Orientacion=@Nombre_Orientacion WHERE Orientacion=@Orientacion;";
                     break;
 
-                case TipoReferencia.Horario: //esto esta mal creo, creo q habia q hacer un metodo especial para horario (grupo_materia_horario_clase)
-                    cmdstr = "UPDATE Grupo_Materia_Horario_Clase SET Asignado_Temporal=@Asignado_Temporal WHERE ID_Grupo=@ID_Grupo AND ID_Materia=@ID_Materia AND ID_Horario=@ID_Horario AND Turno=@Turno AND Dia_Semana=@Dia_Semana;";
-                    break;
-
                 case TipoReferencia.Lugar:
                     cmdstr = "UPDATE Lugar SET Nombre=@Nombre, Tipo=@Tipo, Piso=@Piso WHERE ID=@ID;";
                     break;
@@ -754,11 +750,6 @@ namespace CapaDatos
                         cmd.Parameters.Add("@Nombre_Orientacion", MySqlDbType.VarChar).Value = orientacion.Nombre;
                     }
                     break;
-
-                //HORARIO (GMHC)
-                //HORARIO (GMHC)
-                //HORARIO (GMHC)
-                //HORARIO (GMHC)
 
                 case TipoReferencia.Lugar:
                     if (item is Lugar lugar)
@@ -2063,29 +2054,21 @@ namespace CapaDatos
                 auxcmd1.Parameters.Add("@IdDiaSemana", MySqlDbType.Byte).Value = horario.Dia.Id;
                 auxcmd1.Parameters.Add("@IdTurno", MySqlDbType.Byte).Value = horario.Turno.Id;
 
-                if (horario.Salon != null)
-                {
-                    cmdstr2 = "INSERT INTO Grupo_Materia_Horario_Clase (ID_Grupo, ID_Materia, ID_Horario, ID_Clase, Dia_Semana, Turno) " +
-                    "\r\n VALUES (@IdGrupo, @IdMateria, @IdHora, @IdClase, @IdDiaSemana, @IdTurno);";
+                cmdstr2 = "INSERT INTO Grupo_Materia_Horario_Clase (ID_Grupo, ID_Materia, ID_Horario, ID_Clase, Dia_Semana, Turno) " +
+                "\r\n VALUES (@IdGrupo, @IdMateria, @IdHora, @IdClase, @IdDiaSemana, @IdTurno);";
 
-                    //Agrega los parametros al comando
-                    auxcmd2 = new MySqlCommand(cmdstr2, conn);
+                //Agrega los parametros al comando
+                auxcmd2 = new MySqlCommand(cmdstr2, conn);
 
-                    auxcmd2.Parameters.Add("@IdGrupo", MySqlDbType.VarChar).Value = horario.Grupo;
-                    auxcmd2.Parameters.Add("@IdMateria", MySqlDbType.Int16).Value = horario.Materia.Id;
-                    auxcmd2.Parameters.Add("@IdHora", MySqlDbType.Int16).Value = hora.Nid;
-                    auxcmd2.Parameters.Add("@IdDiaSemana", MySqlDbType.Byte).Value = horario.Dia.Id;
-                    auxcmd2.Parameters.Add("@IdTurno", MySqlDbType.Byte).Value = horario.Turno.Id;
+                auxcmd2.Parameters.Add("@IdGrupo", MySqlDbType.VarChar).Value = horario.Grupo;
+                auxcmd2.Parameters.Add("@IdMateria", MySqlDbType.Int16).Value = horario.Materia.Id;
+                auxcmd2.Parameters.Add("@IdHora", MySqlDbType.Int16).Value = hora.Nid;
+                auxcmd2.Parameters.Add("@IdDiaSemana", MySqlDbType.Byte).Value = horario.Dia.Id;
+                auxcmd2.Parameters.Add("@IdTurno", MySqlDbType.Byte).Value = horario.Turno.Id;
 
-                    auxcmd2.Parameters.Add("@IdClase", MySqlDbType.Int32).Value = horario.Salon.ID;
+                auxcmd2.Parameters.Add("@IdClase", MySqlDbType.Int32).Value = horario.Salon.ID;
 
-                    listacmds.Add((auxcmd1, auxcmd2));
-
-                }
-                else
-                {
-                    listacmds.Add((auxcmd1, null));
-                }
+                listacmds.Add((auxcmd1, auxcmd2));
 
 
             }
@@ -2102,21 +2085,102 @@ namespace CapaDatos
                         respuesta = RetornoValidacion.ErrorInesperadoBD;
                         return respuesta;
                     }
-                    if (cmd2 != null)
+                    if (cmd2.ExecuteNonQuery() != 1)
                     {
-                        if (cmd2.ExecuteNonQuery() != 1)
-                        {
-                            respuesta = RetornoValidacion.ErrorInesperadoBD;
-                            return respuesta;
-                        }
-
+                        respuesta = RetornoValidacion.ErrorInesperadoBD;
+                        return respuesta;
                     }
+
+
                 }
             }
-            //catch (Exception ex)
-            //{
-            //    throw ex; //esto lo manejamos con un try catch en la presentación
-            //}
+            catch (Exception ex)
+            {
+                throw ex; //esto lo manejamos con un try catch en la presentación
+            }
+            finally
+            {
+                //Cierra la conexion
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return respuesta;
+        }
+        public RetornoValidacion EliminarHorario(Horario horario)
+        {
+            //Variables
+            RetornoValidacion respuesta = RetornoValidacion.OK;
+            string cmdstr1;
+            string cmdstr2;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
+            List<(MySqlCommand cmd1, MySqlCommand cmd2)> listacmds = new List<(MySqlCommand, MySqlCommand)>();
+            MySqlCommand auxcmd1;
+            MySqlCommand auxcmd2;
+
+            cmdstr1 = "DELETE FROM Grupo_Materia_Horario_Clase " +
+                " WHERE ID_Grupo = @IdGrupo " +
+                " AND ID_Materia = @IdMateria" +
+                " AND ID_Horario = @IdHora " +
+                " AND Turno = @IdTurno " +
+                " AND Dia_Semana = @IdDiaSemana;";
+
+            cmdstr2 = "DELETE FROM Grupo_Materia_Horario " +
+                " WHERE ID_Grupo = @IdGrupo " +
+                " AND ID_Materia = @IdMateria " +
+                " AND ID_Horario = @IdHora " +
+                " AND Turno = @IdTurno " +
+                " AND Dia_Semana = @IdDiaSemana;";
+
+            foreach (Hora hora in horario.Horas)
+            {
+                //Agrega los parametros al comando
+                auxcmd1 = new MySqlCommand(cmdstr1, conn);
+
+                auxcmd1.Parameters.Add("@IdGrupo", MySqlDbType.VarChar).Value = horario.Grupo;
+                auxcmd1.Parameters.Add("@IdMateria", MySqlDbType.Int16).Value = horario.Materia.Id;
+                auxcmd1.Parameters.Add("@IdHora", MySqlDbType.Int16).Value = hora.Nid;
+                auxcmd1.Parameters.Add("@IdDiaSemana", MySqlDbType.Byte).Value = horario.Dia.Id;
+                auxcmd1.Parameters.Add("@IdTurno", MySqlDbType.Byte).Value = horario.Turno.Id;
+
+                //Agrega los parametros al comando
+                auxcmd2 = new MySqlCommand(cmdstr2, conn);
+
+                auxcmd2.Parameters.Add("@IdGrupo", MySqlDbType.VarChar).Value = horario.Grupo;
+                auxcmd2.Parameters.Add("@IdMateria", MySqlDbType.Int16).Value = horario.Materia.Id;
+                auxcmd2.Parameters.Add("@IdHora", MySqlDbType.Int16).Value = hora.Nid;
+                auxcmd2.Parameters.Add("@IdDiaSemana", MySqlDbType.Byte).Value = horario.Dia.Id;
+                auxcmd2.Parameters.Add("@IdTurno", MySqlDbType.Byte).Value = horario.Turno.Id;
+
+                listacmds.Add((auxcmd1, auxcmd2));
+            }
+
+            // Ejecuta el comando y devuelve un retorno segun como salga la operacion
+            try
+            {
+                conn.Open();
+
+                foreach ((MySqlCommand cmd1, MySqlCommand cmd2) in listacmds)
+                {
+                    if (cmd1.ExecuteNonQuery() != 1)
+                    {
+                       // respuesta = RetornoValidacion.ErrorInesperadoBD;
+                       // return respuesta;
+                    }
+                    if (cmd2.ExecuteNonQuery() != 1)
+                    {
+                        respuesta = RetornoValidacion.ErrorInesperadoBD;
+                        return respuesta;
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex; //esto lo manejamos con un try catch en la presentación
+            }
             finally
             {
                 //Cierra la conexion
@@ -2145,69 +2209,6 @@ namespace CapaDatos
                 "\r\n AND gmh.ID_Horario = @IdHora " +
                 "\r\n AND gmh.Turno = @IdTurno" +
                 "\r\n AND gmh.Dia_Semana = @DiaSemana;";
-
-
-            //Agrega los parametros al comando
-            foreach (Hora hora in horario.Horas)
-            {
-                auxcmd = new MySqlCommand(cmdstr, conn);
-
-                auxcmd.Parameters.Add("@IdGrupo", MySqlDbType.VarChar).Value = horario.Grupo;
-                auxcmd.Parameters.Add("@IdMateria", MySqlDbType.Int16).Value = horario.Materia.Id;
-                auxcmd.Parameters.Add("@IdHora", MySqlDbType.Int16).Value = hora.Nid;
-                auxcmd.Parameters.Add("@IdTurno", MySqlDbType.Byte).Value = horario.Turno.Id;
-                auxcmd.Parameters.Add("@DiaSemana", MySqlDbType.Byte).Value = horario.Dia.Id;
-
-                listacmds.Add(auxcmd);
-            }
-
-            //Ejecuta la consulta
-            try
-            {
-                foreach (MySqlCommand cmd in listacmds)
-                {
-                    conn.Open(); //Abro la conexión
-                    dr = cmd.ExecuteReader();
-                    if (dr.HasRows)
-                    {
-                        return true;
-                    }
-                    conn.Close();
-                }
-
-                return respuesta;//Retorna lo que encuentre
-            }
-            catch (Exception ex)// En caso de excepcion throwea esta
-            {
-                throw ex;
-            }
-            finally//Al final haya excepcion o no cierra la base de datos
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close(); //Cerramos la conexión en caso de que esté abierta
-                }
-            }
-        }
-
-        public bool ConsultarHorarioConSalonExiste(Horario horario)
-        {
-            //Variables
-            bool respuesta = false;
-            string cmdstr;
-            MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
-            List<MySqlCommand> listacmds = new List<MySqlCommand>();
-            MySqlCommand auxcmd;
-            MySqlDataReader dr;
-
-
-            cmdstr = "SELECT ID_Grupo, ID_Materia, ID_Horario, Dia_Semana, Turno" +
-                "\r\n FROM Grupo_Materia_Horario_Clase gmhc " +
-                "\r\n WHERE gmhc.ID_Grupo = @IdGrupo " +
-                "\r\n AND gmhc.ID_Materia = @IdMateria" +
-                "\r\n AND gmhc.ID_Horario = @IdHora " +
-                "\r\n AND gmhc.Turno = @IdTurno" +
-                "\r\n AND gmhc.Dia_Semana = @DiaSemana;";
 
 
             //Agrega los parametros al comando

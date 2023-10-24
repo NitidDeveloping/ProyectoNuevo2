@@ -17,7 +17,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace Proyecto
 {
     public partial class Mapa : Form
-    {
+    {/*
 
         public static Mapa CurrentMapa { get; private set; }
 
@@ -371,5 +371,6 @@ namespace Proyecto
             endNode = grid[cX / GridSize, cY / GridSize];
             Invalidate();
         }
+    */
     }
 }

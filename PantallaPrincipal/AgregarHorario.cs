@@ -93,30 +93,28 @@ namespace Proyecto
                 }
 
                 //Salon
-                if (cbxClase.SelectedValue != null)
+                //Si elige un salon valida si esta ocupado primero
+                //y segun lo que el usuario decida sigue con la operacion o cancela
+                ushort idSalon = (ushort)cbxClase.SelectedValue;
+
+                MensajeSalonOcupado mslo = negocio.ConsultarSalonOcupado(idSalon, horas[0].Inicio, horas[horas.Count - 1].Fin, dia.Id);
+
+                if (mslo != null)
                 {
-                    //Si elige un salon valida si esta ocupado primero
-                    //y segun lo que el usuario decida sigue con la operacion o cancela
-                    ushort idSalon = (ushort)cbxClase.SelectedValue;
+                    //Si se encuentra que el salon esta ocupado muestra un mensaje de confirmacion
+                    MsgBox msgMslo = new MsgBox("pregunta", "Este salón ya se encuentra ocupado por el grupo (" + mslo.NombreGrupo + ") durante el horario (" + mslo.HoraInicio + ") - (" + mslo.HoraFin + ") en el dia (" + mslo.NombreDia + ") con el profesor (" + mslo.NombreDocente + ") ¿Desea continuar de todos modos?");
+                    msgMslo.label3.Visible = true;
 
-                    MensajeSalonOcupado mslo = negocio.ConsultarSalonOcupado(idSalon, horas[0].Inicio, horas[horas.Count - 1].Fin, dia.Id);
-
-                    if (mslo != null)
+                    //Si el usuario decide que no quiere continuar se cierra el metodo y no se hace la operacion
+                    if (msgMslo.ShowDialog() == DialogResult.No)
                     {
-                        //Si se encuentra que el salon esta ocupado muestra un mensaje de confirmacion
-                        MsgBox msgMslo = new MsgBox("pregunta", "Este salón ya se encuentra ocupado por el grupo (" + mslo.NombreGrupo + ") durante el horario (" + mslo.HoraInicio + ") - (" + mslo.HoraFin + ") en el dia (" + mslo.NombreDia + ") con el profesor (" + mslo.NombreDocente + ") ¿Desea continuar de todos modos?");
-                        msgMslo.label3.Visible = true;
-
-                        //Si el usuario decide que no quiere continuar se cierra el metodo y no se hace la operacion
-                        if (msgMslo.ShowDialog() == DialogResult.No)
-                        {
-                            return;
-                        }
-
+                        return;
                     }
 
-                    salon = new Lugar((ushort)cbxClase.SelectedValue);
                 }
+
+                salon = new Lugar((ushort)cbxClase.SelectedValue);
+
 
                 if (salon != null)
                 {
@@ -379,29 +377,34 @@ namespace Proyecto
             RetornoValidacion respuesta = RetornoValidacion.OK;
             Validaciones validaciones = new Validaciones();
             MsgBox msg = null;
-            string camposobligatorios = "Debe completar los campos olbigatorios, estos estan marcados con un *.";
 
             if (cbxGrupo.SelectedValue == null)
             {
-                msg = new MsgBox("error", camposobligatorios);
+                msg = new MsgBox("error", "Debe elegir un grupo");
                 cbxGrupo.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
             }
             else if (cbxMateria.SelectedValue == null)
             {
-                msg = new MsgBox("error", camposobligatorios);
+                msg = new MsgBox("error", "Debe elegir una materia");
                 lblSubMateria.BackColor = Color.ForestGreen;
                 respuesta = RetornoValidacion.ErrorDeFormato;
             }
             else if (cbxDia.SelectedValue == null)
             {
-                msg = new MsgBox("error", camposobligatorios);
+                msg = new MsgBox("error", "Debe elegir un dia");
                 lblSubDia.BackColor = Color.ForestGreen;
                 respuesta = RetornoValidacion.ErrorDeFormato;
             }
             else if (chlbHoras.CheckedItems.Count <= 0)
             {
                 msg = new MsgBox("error", "Debe elegir al menos una hora.");
+                lblSubHoras.BackColor = Color.ForestGreen;
+                respuesta = RetornoValidacion.ErrorDeFormato;
+            }
+            else if (cbxClase.SelectedValue == null)
+            {
+                msg = new MsgBox("error", "Debe elegir un salon.");
                 lblSubHoras.BackColor = Color.ForestGreen;
                 respuesta = RetornoValidacion.ErrorDeFormato;
             }
