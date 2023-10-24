@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CapaEntidades;
+using System;
 using System.Windows.Forms;
 
 namespace Proyecto
@@ -22,10 +23,12 @@ namespace Proyecto
         private void btnGuest_Click(object sender, EventArgs e)
         {
             Menú menu = new Menú();
+            Sesion sesion = new Sesion();
             menu.btnUsuarios.Visible = false;
             menu.btnDatos.Visible = false;
             menu.btnModPIN.Visible = false;
             menu.lblPersona.Text = "Invitado";
+            sesion.LogIn(TipoRol.Visitante);
             menu.ShowDialog();
         }
     }

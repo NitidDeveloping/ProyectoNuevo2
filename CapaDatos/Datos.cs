@@ -68,7 +68,14 @@ namespace CapaDatos
                     break;
 
                 case TipoReferencia.Lugar:
-                    cmdstr = "SELECT ID, Nombre, Tipo, Nombre_Tipo, Coordenada_X, Coordenada_Y, Piso, AptoParaClase, UsoComun, EstadoOcupacion FROM Lugares;";
+                    if (Sesion.LoggedRol == TipoRol.Visitante)
+                    {
+                        cmdstr = "SELECT ID_UsoComun as ID, Nombre, Tipo, Coordenada_X, Coordenada_Y, Piso FROM solo_usocomun;";
+                    }
+                    else
+                    {
+                        cmdstr = "SELECT ID, Nombre, Tipo, Nombre_Tipo, Coordenada_X, Coordenada_Y, Piso, AptoParaClase, UsoComun, EstadoOcupacion FROM Lugares;";
+                    }
                     break;
 
                 case TipoReferencia.Clases:
@@ -250,8 +257,17 @@ namespace CapaDatos
 
                         case TipoReferencia.Clases:
                         case TipoReferencia.Lugar:
-                            TipoLugar auxtipolugar = new TipoLugar(dr.GetByte(2), dr.GetString(3));
-                            aux = new Lugar(dr.GetUInt16(0), dr.GetString(1), dr.GetInt32(4), dr.GetInt32(5), dr.GetByte(6), dr.GetBoolean(7), dr.GetBoolean(8), auxtipolugar, dr.GetBoolean(9));
+                            
+                            if(Sesion.LoggedRol == TipoRol.Visitante)
+                            {
+                                TipoLugar auxtipolugar = new TipoLugar(dr.GetByte(2));
+                                aux = new Lugar(dr.GetUInt16(0), dr.GetString(1), auxtipolugar, dr.GetInt32(3), dr.GetInt32(4), dr.GetByte(5));                             
+                            }
+                            else 
+                            {
+                                TipoLugar auxtipolugar = new TipoLugar(dr.GetByte(2), dr.GetString(3));
+                                aux = new Lugar(dr.GetUInt16(0), dr.GetString(1), dr.GetInt32(4), dr.GetInt32(5), dr.GetByte(6), dr.GetBoolean(7), dr.GetBoolean(8), auxtipolugar, dr.GetBoolean(9));
+                            }
                             break;
 
                         case TipoReferencia.Funcionario:
@@ -1332,46 +1348,6 @@ namespace CapaDatos
         //Metodos para operaciones propias de los alumnos
         #region
 
-        public DataTable CargarLugares(TipoRol rol)
-        {
-            MySqlConnection conn = Conector.crearInstancia().crearConexion();
-            MySqlCommand cmd;
-            string cmdstr;
-
-            switch (rol)
-            {
-                case TipoRol.Alumno:
-                case TipoRol.Docente:
-                    cmdstr = "SELECT ID, Nombre FROM Lugares;";
-                    break;
-                default:
-                    cmdstr = "SELECT Nombre FROM solo_usocomun;";
-                    break;
-            }
-
-            DataTable table = new DataTable();
-
-            try
-            {
-                conn.Open();
-                cmd = new MySqlCommand(cmdstr, conn);
-                MySqlDataReader reader = cmd.ExecuteReader();
-                table.Load(reader); // Cargar los datos en el DataTable
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-            }
-
-            return table;
-        }
         public List<Grupo> ConsultarGruposAlumno(int ciAlumno) //Devuelve los grupos en los que se encuentra el alumno solicitado
         {
             MySqlDataReader dr;

@@ -752,12 +752,7 @@ namespace CapaNegocio
             return datos.ObtenerRol(ci);
         }
         #endregion
-        public DataTable CargarLugaresComboBox()
-        {
-            Datos datos = new Datos();
-            TipoRol rol = Sesion.LoggedRol;
-            return datos.CargarLugares(rol);
-        }
+
 
         /*public List<ushort> ObtenerIdLugares()
         {

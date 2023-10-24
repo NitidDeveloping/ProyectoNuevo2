@@ -31,13 +31,13 @@ namespace CapaEntidades
             loggedRol = rol;
         }
 
-        /*public void LogIn(TipoRol rol)
+        public void LogIn(TipoRol rol)
         {
             loggedCi = 0;
             loggedPin = 0;
             loggedNombre = "Visitante";
             loggedRol = TipoRol.Visitante;
-        }*/
+        }
 
         public string SetName(string nombre)
         {

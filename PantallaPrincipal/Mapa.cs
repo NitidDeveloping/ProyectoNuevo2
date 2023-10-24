@@ -1,4 +1,5 @@
 ﻿using CapaEntidades;
+using CapaNegocio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,8 +18,12 @@ namespace Proyecto
 {
     public partial class Mapa : Form
     {
+
+        public static Mapa CurrentMapa { get; private set; }
+
         private Point startPoint = Point.Empty;
         private Point endPoint = Point.Empty;
+        private int cX, cY;
 
         private Bitmap originalBackgroundImage;
 
@@ -35,12 +40,12 @@ namespace Proyecto
             InitializeMap();
             IdentifyWalls();
             BackgroundImage = null;
-
+            CurrentMapa = this;
             DoubleBuffered = true;
 
         }
 
-        private void InitializeMap()
+        public void InitializeMap()
         {
             if (BackgroundImage != null)
             {
@@ -74,6 +79,7 @@ namespace Proyecto
             {
                 MessageBox.Show("La imagen no se ha cargado correctamente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            startNode = grid[408 / GridSize, 541 / GridSize];
         }
         private void IdentifyWalls()
         {
@@ -152,7 +158,6 @@ namespace Proyecto
                     continue; // Continúa al siguiente nodo sin procesar los nodos de inicio, fin o camino
                 }
 
-                // Dibuja nodos directamente en el PictureBox
                 Brush brush = Brushes.White;
                 if (node == startNode)
                 {
@@ -296,7 +301,7 @@ namespace Proyecto
 
             string coordenada = $"{e.X}, {e.Y}";
 
-           /* try
+            try
             {
                 // Abre o crea un archivo de texto
                 string rutaArchivo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "coordenadas.txt");
@@ -311,7 +316,7 @@ namespace Proyecto
             {
                 // Maneja cualquier excepción que pueda ocurrir al escribir en el archivo
                 MessageBox.Show("Error al escribir en el archivo: " + ex.Message);
-            }*/
+            }
 
             if (mouseEvent != null)
             {
@@ -333,9 +338,8 @@ namespace Proyecto
                     // Establecer el punto final en el segundo clic
                     endPoint = new Point(x, y);
                     // Configurar endNode con las coordenadas
-                    endNode = grid[x, y]; // O donde tengas almacenado el nodo en map
-                                          // Dibujar el punto final en la imagen
-                    DrawPoint(new Point(x * GridSize, y * GridSize), Color.Red);
+                    endNode = grid[cX, cY];
+                    DrawPoint(new Point(cX * GridSize, cY * GridSize), Color.Red);
                     Invalidate();
                 }
                 else
@@ -350,35 +354,22 @@ namespace Proyecto
                 }
             }
         }
-        private void ClearPoints()
+        public void ClearPoints()
         {
-            if (startNode != null)
-            {
-                startNode = null;
-            }
 
             if (endNode != null)
             {
                 endNode = null;
             }
 
-            if (BackgroundImage != null)
-            {
-                BackgroundImage.Dispose(); // Liberar la imagen actual
-                BackgroundImage = (Image)originalBackgroundImage.Clone(); // Restaurar la imagen original
-
-                foreach (Node node in grid)
-                {
-                    node.Reset();
-                }
-            }
         }
 
-
-        private void Form1_Load(object sender, EventArgs e)
+        public void SetNodoFinal(int x, int y)
         {
-            InitializeGrid();
+            cX = x;
+            cY = y;
+            endNode = grid[cX / GridSize, cY / GridSize];
+            Invalidate();
         }
     }
 }
-

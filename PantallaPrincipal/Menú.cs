@@ -25,12 +25,12 @@ namespace Proyecto
             Mapa mapa = new Mapa();
             Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
             Metodos.openChildForm(mapa, plMapa);
-            Negocio negocio = new Negocio();        
-            
+            Negocio negocio = new Negocio();
+
 
             // Asignar el DataTable al ComboBox
-            cbxLugares.DataSource = negocio.CargarLugaresComboBox();
-            cbxLugares.DisplayMember = "Nombre"; // Mostrar la columna "Nombre" en el ComboBox
+            cbxLugares.DataSource = negocio.Listar(TipoReferencia.Lugar, null, null);
+            cbxLugares.DisplayMember = "Nombre";
             cbxLugares.ValueMember = "Nombre";
             cbxLugares.SelectedIndex = -1;
 
@@ -190,7 +190,7 @@ namespace Proyecto
 
         private void btnHorarios_Click(object sender, EventArgs e)
         {
-            AbrirLista(TipoReferencia.Horario);
+            //AbrirLista(TipoReferencia.Horario);
         }
 
         private void btnLugares_Click(object sender, EventArgs e)
@@ -248,10 +248,6 @@ namespace Proyecto
                     titulo = "Horas";
                     break;
 
-                case TipoReferencia.Horario:
-                    titulo = "Horario";
-                    break;
-
                 case TipoReferencia.Lugar:
                     titulo = "Lugares";
                     break;
@@ -298,16 +294,33 @@ namespace Proyecto
             lblTitulo.Text = "Mapa";
 
             // Asignar el DataTable al ComboBox
-            cbxLugares.DataSource = negocio.CargarLugaresComboBox();
-            cbxLugares.DisplayMember = "Nombre"; // Mostrar la columna "Nombre" en el ComboBox
+            cbxLugares.DataSource = negocio.Listar(TipoReferencia.Lugar, null, null);
+            cbxLugares.DisplayMember = "Nombre";
             cbxLugares.ValueMember = "Nombre";
             cbxLugares.SelectedIndex = -1;
         }
 
         private void cbxLugares_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
+            DataRowView row = cbxLugares.SelectedItem as DataRowView;
+            if (row != null)
+            {
+                if (row.Row.Table.Columns.Contains("Coordenada_X") && row.Row.Table.Columns.Contains("Coordenada_Y"))
+                {
+                    int coordenadaX = Convert.ToInt32(row["Coordenada_X"]);
+                    int coordenadaY = Convert.ToInt32(row["Coordenada_Y"]);
 
+                    Mapa.CurrentMapa.SetNodoFinal(coordenadaX, coordenadaY);
+                }
+            }
+            else
+            {
+                Mapa.CurrentMapa.ClearPoints();
+            }
         }
     }
 }
+
+
 
