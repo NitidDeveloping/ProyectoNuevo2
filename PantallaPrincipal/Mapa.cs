@@ -17,9 +17,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace Proyecto
 {
     public partial class Mapa : Form
-    {/*
-
-        public static Mapa CurrentMapa { get; private set; }
+    {
+        public static Mapa CurrentMapa { get; set; }
+        public int SelectedX { get; private set; }
+        public int SelectedY { get; private set; }
 
         private Point startPoint = Point.Empty;
         private Point endPoint = Point.Empty;
@@ -75,10 +76,7 @@ namespace Proyecto
                     }
                 }
             }
-            else
-            {
-                MessageBox.Show("La imagen no se ha cargado correctamente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            
             startNode = grid[408 / GridSize, 541 / GridSize];
         }
         private void IdentifyWalls()
@@ -115,10 +113,7 @@ namespace Proyecto
 
                 BackgroundImage = bitmap;
             }
-            else
-            {
-                MessageBox.Show("La imagen no se ha cargado correctamente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+           
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -190,7 +185,7 @@ namespace Proyecto
             }
         }
 
-        private void FindPath()
+        public void FindPath()
         {
             foreach (Node node in grid)
             {
@@ -297,9 +292,8 @@ namespace Proyecto
 
         private void Mapa_MouseClick(object sender, MouseEventArgs e)
         {
-            MouseEventArgs mouseEvent = e as MouseEventArgs;
 
-            string coordenada = $"{e.X}, {e.Y}";
+            /*string coordenada = $"{e.X}, {e.Y}";
 
             try
             {
@@ -316,49 +310,40 @@ namespace Proyecto
             {
                 // Maneja cualquier excepción que pueda ocurrir al escribir en el archivo
                 MessageBox.Show("Error al escribir en el archivo: " + ex.Message);
-            }
+            }*/
 
-            if (mouseEvent != null)
+            if (e != null)
             {
-                int x = mouseEvent.X / GridSize;
-                int y = mouseEvent.Y / GridSize;
+                int x = e.X / GridSize;
+                int y = e.Y / GridSize;
 
-                if (startPoint == Point.Empty)
+                if (endPoint == Point.Empty)
                 {
-                    // Establecer el punto de inicio en el primer clic
-                    startPoint = new Point(x, y);
-                    // Configurar startNode con las coordenadas
-                    startNode = grid[x, y]; // O donde tengas almacenado el nodo en map
-                                            // Dibujar el punto de inicio en la imagen
-                    DrawPoint(new Point(x * GridSize, y * GridSize), Color.Blue);
-                    Invalidate();
-                }
-                else if (endPoint == Point.Empty)
-                {
-                    // Establecer el punto final en el segundo clic
                     endPoint = new Point(x, y);
-                    // Configurar endNode con las coordenadas
-                    endNode = grid[cX, cY];
-                    DrawPoint(new Point(cX * GridSize, cY * GridSize), Color.Red);
+                    endNode = grid[x, y];
+                    DrawPoint(new Point(x * GridSize, y * GridSize), Color.Red);
                     Invalidate();
+
                 }
                 else
                 {
-                    // Ambos puntos ya han sido establecidos, reiniciar si se hace clic nuevamente
-                    startPoint = Point.Empty;
-                    endPoint = Point.Empty;
-
-                    // Borrar cualquier punto dibujado previamente
                     ClearPoints();
+                    endPoint = new Point(x, y);
+                    endNode = grid[x, y];
+                    DrawPoint(new Point(x * GridSize, y * GridSize), Color.Red);
                     Invalidate();
                 }
+
+                SelectedX = x;
+                SelectedY = y;
             }
         }
         public void ClearPoints()
         {
 
-            if (endNode != null)
+            if (startPoint != null)
             {
+                endPoint = Point.Empty;
                 endNode = null;
             }
 
@@ -371,6 +356,5 @@ namespace Proyecto
             endNode = grid[cX / GridSize, cY / GridSize];
             Invalidate();
         }
-    */
     }
 }

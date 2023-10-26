@@ -41,7 +41,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Mapa";
             this.Text = "Mapa";
-            //this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Mapa_MouseClick);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Mapa_MouseClick);
             this.ResumeLayout(false);
 
         }

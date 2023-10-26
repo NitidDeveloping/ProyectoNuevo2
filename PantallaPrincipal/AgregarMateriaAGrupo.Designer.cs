@@ -61,24 +61,28 @@
             // 
             // btnCancelar
             // 
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(1320, 371);
+            this.btnCancelar.Image = global::Proyecto.Properties.Resources.cancelar;
+            this.btnCancelar.Location = new System.Drawing.Point(1320, 462);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(233, 45);
+            this.btnCancelar.Size = new System.Drawing.Size(233, 95);
             this.btnCancelar.TabIndex = 48;
-            this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnAceptar
             // 
             this.btnAceptar.Enabled = false;
+            this.btnAceptar.FlatAppearance.BorderSize = 0;
+            this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAceptar.Location = new System.Drawing.Point(1320, 286);
+            this.btnAceptar.Image = global::Proyecto.Properties.Resources.ACEOPTAR;
+            this.btnAceptar.Location = new System.Drawing.Point(1320, 362);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(233, 41);
+            this.btnAceptar.Size = new System.Drawing.Size(233, 94);
             this.btnAceptar.TabIndex = 49;
-            this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
@@ -97,7 +101,7 @@
             this.lblSubMateria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
             this.lblSubMateria.Location = new System.Drawing.Point(298, 469);
             this.lblSubMateria.Name = "lblSubMateria";
-            this.lblSubMateria.Size = new System.Drawing.Size(734, 10);
+            this.lblSubMateria.Size = new System.Drawing.Size(734, 5);
             this.lblSubMateria.TabIndex = 64;
             // 
             // cbxMateria

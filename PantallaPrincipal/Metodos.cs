@@ -11,12 +11,17 @@ namespace Proyecto
 
         private static Form activeForm = null; //Declaramos una variable activeForm para que no se acumulen forms en el panel
         public static Menú menuForm = null;
+        public static AgregarEditar AgregarForm = null;
 
         public static void SetMenuForm(Menú form) //Almacenamos la instancia del formulario menú
         {
             menuForm = form;
         }
-        public static void openChildForm(Form childForm, Panel panel) //Abrir un formulario en el panel "plForms"
+        public static void SetAgregarForm(AgregarEditar form) //Almacenamos la instancia del formulario AgregarEditar
+        {
+            AgregarForm = form;
+        }
+        public static void OpenChildForm(Form childForm, Panel panel) //Abrir un formulario en el panel "plForms"
         {
             if (activeForm != null)
             {  //Si hay un form activo, lo cerramos
@@ -29,8 +34,21 @@ namespace Proyecto
             panel.Controls.Add(childForm); //Agregamos el form al panel para poder controlarlo
             panel.Tag = childForm;  //Asociamos el form con el panel
             childForm.BringToFront(); //Traemos el form hacia el frente en caso de que contenga alguna imagen
-            childForm.Show(); //Mostramos el form
+            childForm.Show();
         }
+
+        public static void OpenMapForm(Form childForm, Panel panel) //Abrir un formulario en el panel "plForms"
+        {
+
+            activeForm = childForm; //Guardamos el form que se abre en la variable "activeForm", esto gracias al parametro "childForm"
+            childForm.TopLevel = false; //Aclaramos que el childForm no es de un nivel superior, es decir, va a actuar como un controlador          
+            childForm.Dock = DockStyle.Fill; //Llenamos todo el panel
+            panel.Controls.Add(childForm); //Agregamos el form al panel para poder controlarlo
+            panel.Tag = childForm;  //Asociamos el form con el panel
+            childForm.BringToFront(); //Traemos el form hacia el frente en caso de que contenga alguna imagen
+            childForm.Show();
+        }
+
         public static bool buscarCI(TextBox txtCI)
         {
 
@@ -61,7 +79,9 @@ namespace Proyecto
                 e.Handled = false;
             }
             else
+            {
                 e.Handled = true;
+            }
         }
 
         public static void SoloLetrasYEspacio(KeyPressEventArgs e)

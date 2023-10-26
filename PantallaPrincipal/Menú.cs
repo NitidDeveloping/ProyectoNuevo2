@@ -11,7 +11,6 @@ namespace Proyecto
     public partial class Menú : Form
     {
         private Button currentButton;
-
         public Menú()
         {
             InitializeComponent();
@@ -22,9 +21,10 @@ namespace Proyecto
         private void Menú_Load(object sender, EventArgs e)
         {
             timer1.Start();
+            cbxLugares.SelectedIndexChanged -= cbxLugares_SelectedIndexChanged;
             Mapa mapa = new Mapa();
             Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
-            Metodos.openChildForm(mapa, plMapa);
+            Metodos.OpenChildForm(mapa, plMapa);
             Negocio negocio = new Negocio();
 
 
@@ -33,6 +33,7 @@ namespace Proyecto
             cbxLugares.DisplayMember = "Nombre";
             cbxLugares.ValueMember = "Nombre";
             cbxLugares.SelectedIndex = -1;
+            cbxLugares.SelectedIndexChanged += cbxLugares_SelectedIndexChanged;
 
             switch (Sesion.LoggedRol)
             {
@@ -274,9 +275,8 @@ namespace Proyecto
             lblTitulo.Text = "Gestionar " + titulo;
             Sesion sesion = new Sesion();
             sesion.SetReferenciaActual(referencia);
-            Lista lista = new Lista();
-            Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
-            Metodos.openChildForm(lista, plForms);
+            Lista lista = new Lista();//Almacenamos la instancia del formulario menú
+            Metodos.OpenChildForm(lista, plForms);
         }
 
         private void btnOrientacion_Click(object sender, EventArgs e)
@@ -290,10 +290,10 @@ namespace Proyecto
         }
 
         private void pbMapa_Click(object sender, EventArgs e)
-        {/*
+        {
+            cbxLugares.SelectedIndexChanged -= cbxLugares_SelectedIndexChanged;
             Mapa mapa = new Mapa();
-            Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
-            Metodos.openChildForm(mapa, plMapa);
+            Metodos.OpenChildForm(mapa, plMapa);
             Negocio negocio = new Negocio();
             lblTitulo.Text = "Mapa";
 
@@ -302,12 +302,12 @@ namespace Proyecto
             cbxLugares.DisplayMember = "Nombre";
             cbxLugares.ValueMember = "Nombre";
             cbxLugares.SelectedIndex = -1;
-            */
+            cbxLugares.SelectedIndexChanged += cbxLugares_SelectedIndexChanged;
+
         }
 
         private void cbxLugares_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /*
             DataRowView row = cbxLugares.SelectedItem as DataRowView;
             if (row != null)
             {
@@ -317,13 +317,13 @@ namespace Proyecto
                     int coordenadaY = Convert.ToInt32(row["Coordenada_Y"]);
 
                     Mapa.CurrentMapa.SetNodoFinal(coordenadaX, coordenadaY);
+                    Mapa.CurrentMapa.FindPath();
                 }
             }
             else
             {
                 Mapa.CurrentMapa.ClearPoints();
             }
-            */
         }
     }
 }

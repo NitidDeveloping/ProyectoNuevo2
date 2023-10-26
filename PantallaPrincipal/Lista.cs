@@ -455,7 +455,7 @@ namespace Proyecto
             else
             {
                 AgregarHorario agH = new AgregarHorario();
-                Metodos.openChildForm(agH, Metodos.menuForm.plForms);
+                Metodos.OpenChildForm(agH, Metodos.menuForm.plForms);
             }
         }
 
@@ -513,7 +513,7 @@ namespace Proyecto
 
 
                 AsignarSalonTemporal ast = new AsignarSalonTemporal(horarioDestino);
-                Metodos.openChildForm(ast, Metodos.menuForm.plForms);
+                Metodos.OpenChildForm(ast, Metodos.menuForm.plForms);
             }
 
         }
@@ -534,7 +534,7 @@ namespace Proyecto
                 grupoConsulta = new Grupo(nombregrupo, orientacion, anio);
 
                 consultaGrupo = new ConsultaGrupo(grupoConsulta);
-                Metodos.openChildForm(consultaGrupo, Metodos.menuForm.plForms);
+                Metodos.OpenChildForm(consultaGrupo, Metodos.menuForm.plForms);
             }
         }
 
@@ -666,7 +666,7 @@ namespace Proyecto
         private void AbrirAgregarEditar()
         {
             AgregarEditar agregarEditar = new AgregarEditar();
-            Metodos.openChildForm(agregarEditar, Metodos.menuForm.plForms);
+            Metodos.OpenChildForm(agregarEditar, Metodos.menuForm.plForms);
         }
 
         private void AbrirAgregarEditar(object ObjetoDestino, string IdDestino, string NombreDestino)
@@ -677,7 +677,7 @@ namespace Proyecto
                 ObjetoDestino = ObjetoDestino,
                 NombreDestino = NombreDestino
             };
-            Metodos.openChildForm(agregarEditar, Metodos.menuForm.plForms);
+            Metodos.OpenChildForm(agregarEditar, Metodos.menuForm.plForms);
         }
 
         private void AbrirAgregarEditar(object ObjetoDestino, string IdDestino, string NombreDestino, string IdPadre)
@@ -689,7 +689,7 @@ namespace Proyecto
                 NombreDestino = NombreDestino,
                 IdPadre = IdPadre
             };
-            Metodos.openChildForm(agregarEditar, Metodos.menuForm.plForms);
+            Metodos.OpenChildForm(agregarEditar, Metodos.menuForm.plForms);
         }
 
         private void comboColumn_SelectedIndexChanged(object sender, EventArgs e)

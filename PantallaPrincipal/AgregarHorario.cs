@@ -35,7 +35,7 @@ namespace Proyecto
         {
             Lista lista = new Lista();
             Close();
-            Metodos.openChildForm(lista, Metodos.menuForm.plForms);
+            Metodos.OpenChildForm(lista, Metodos.menuForm.plForms);
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

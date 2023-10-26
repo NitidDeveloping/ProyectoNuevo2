@@ -283,14 +283,16 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.BackColor = System.Drawing.Color.Red;
+            this.btnVolver.BackColor = System.Drawing.Color.Transparent;
+            this.btnVolver.FlatAppearance.BorderSize = 0;
+            this.btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolver.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.btnVolver.Location = new System.Drawing.Point(1356, 848);
+            this.btnVolver.Image = global::Proyecto.Properties.Resources.VOLVER;
+            this.btnVolver.Location = new System.Drawing.Point(1356, 798);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(233, 45);
+            this.btnVolver.Size = new System.Drawing.Size(233, 95);
             this.btnVolver.TabIndex = 62;
-            this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = false;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
