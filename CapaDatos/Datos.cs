@@ -70,7 +70,7 @@ namespace CapaDatos
                 case TipoReferencia.Lugar:
                     if (Sesion.LoggedRol == TipoRol.Visitante)
                     {
-                        cmdstr = "SELECT ID_UsoComun as ID, Nombre, Tipo, Coordenada_X, Coordenada_Y, Piso FROM solo_usocomun;";
+                        cmdstr = "SELECT ID, Nombre, Tipo, Coordenada_X, Coordenada_Y, Piso FROM Solo_UsoComun;";
                     }
                     else
                     {

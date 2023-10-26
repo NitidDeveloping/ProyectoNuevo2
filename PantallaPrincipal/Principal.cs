@@ -29,7 +29,7 @@ namespace Proyecto
             menu.btnModPIN.Visible = false;
             menu.lblPersona.Text = "Invitado";
             sesion.LogIn(TipoRol.Visitante);
-            menu.ShowDialog();
+            menu.Show();
         }
     }
 }

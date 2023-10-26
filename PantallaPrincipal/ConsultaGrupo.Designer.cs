@@ -108,7 +108,7 @@
             // btnAgregarAlumno
             // 
             this.btnAgregarAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarAlumno.Location = new System.Drawing.Point(1356, 214);
+            this.btnAgregarAlumno.Location = new System.Drawing.Point(1356, 222);
             this.btnAgregarAlumno.Name = "btnAgregarAlumno";
             this.btnAgregarAlumno.Size = new System.Drawing.Size(233, 41);
             this.btnAgregarAlumno.TabIndex = 49;
@@ -119,7 +119,7 @@
             // btnEliminarAlumno
             // 
             this.btnEliminarAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminarAlumno.Location = new System.Drawing.Point(1356, 267);
+            this.btnEliminarAlumno.Location = new System.Drawing.Point(1356, 275);
             this.btnEliminarAlumno.Name = "btnEliminarAlumno";
             this.btnEliminarAlumno.Size = new System.Drawing.Size(233, 45);
             this.btnEliminarAlumno.TabIndex = 48;
@@ -185,7 +185,7 @@
             // btnAsignarDocenteAMateria
             // 
             this.btnAsignarDocenteAMateria.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAsignarDocenteAMateria.Location = new System.Drawing.Point(633, 353);
+            this.btnAsignarDocenteAMateria.Location = new System.Drawing.Point(640, 353);
             this.btnAsignarDocenteAMateria.Name = "btnAsignarDocenteAMateria";
             this.btnAsignarDocenteAMateria.Size = new System.Drawing.Size(233, 41);
             this.btnAsignarDocenteAMateria.TabIndex = 56;
@@ -196,7 +196,7 @@
             // btnDesasignarDocenteAMateria
             // 
             this.btnDesasignarDocenteAMateria.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDesasignarDocenteAMateria.Location = new System.Drawing.Point(633, 400);
+            this.btnDesasignarDocenteAMateria.Location = new System.Drawing.Point(640, 400);
             this.btnDesasignarDocenteAMateria.Name = "btnDesasignarDocenteAMateria";
             this.btnDesasignarDocenteAMateria.Size = new System.Drawing.Size(233, 45);
             this.btnDesasignarDocenteAMateria.TabIndex = 55;
@@ -207,7 +207,7 @@
             // btnDesasignarMateria
             // 
             this.btnDesasignarMateria.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDesasignarMateria.Location = new System.Drawing.Point(633, 267);
+            this.btnDesasignarMateria.Location = new System.Drawing.Point(640, 267);
             this.btnDesasignarMateria.Name = "btnDesasignarMateria";
             this.btnDesasignarMateria.Size = new System.Drawing.Size(233, 45);
             this.btnDesasignarMateria.TabIndex = 55;
@@ -218,7 +218,7 @@
             // btnAsignarMateria
             // 
             this.btnAsignarMateria.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAsignarMateria.Location = new System.Drawing.Point(633, 223);
+            this.btnAsignarMateria.Location = new System.Drawing.Point(640, 223);
             this.btnAsignarMateria.Name = "btnAsignarMateria";
             this.btnAsignarMateria.Size = new System.Drawing.Size(233, 41);
             this.btnAsignarMateria.TabIndex = 56;

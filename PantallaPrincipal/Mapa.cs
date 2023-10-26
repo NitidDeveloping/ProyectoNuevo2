@@ -21,6 +21,7 @@ namespace Proyecto
         public static Mapa CurrentMapa { get; set; }
         public int SelectedX { get; private set; }
         public int SelectedY { get; private set; }
+        public bool MapaClick = false;
 
         private Point startPoint = Point.Empty;
         private Point endPoint = Point.Empty;
@@ -322,6 +323,7 @@ namespace Proyecto
                     endPoint = new Point(x, y);
                     endNode = grid[x, y];
                     DrawPoint(new Point(x * GridSize, y * GridSize), Color.Red);
+                    MapaClick = true;
                     Invalidate();
 
                 }
@@ -336,6 +338,7 @@ namespace Proyecto
 
                 SelectedX = x;
                 SelectedY = y;
+
             }
         }
         public void ClearPoints()
@@ -353,7 +356,7 @@ namespace Proyecto
         {
             cX = x;
             cY = y;
-            endNode = grid[cX / GridSize, cY / GridSize];
+            endNode = grid[cX, cY];
             Invalidate();
         }
     }

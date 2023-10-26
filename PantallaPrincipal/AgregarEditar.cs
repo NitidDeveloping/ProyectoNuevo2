@@ -1231,6 +1231,7 @@ namespace Proyecto
         {
             RetornoValidacion respuesta = RetornoValidacion.OK;
             Validaciones validaciones = new Validaciones();
+            Mapa mapa = new Mapa();
 
             //Validar vacio
             if (validaciones.ValidarVacio(txtNombre.Text))
@@ -1252,6 +1253,11 @@ namespace Proyecto
                 MsgBox msg = new MsgBox("error", "Debe seleccionar un piso");
                 msg.ShowDialog();
                 cbx1.Focus();
+                respuesta = RetornoValidacion.ErrorDeFormato;
+            }else if (mapa.MapaClick == false)
+            {
+                MsgBox msg = new MsgBox("error", "Debe seleccionar el lugar en el mapa");
+                msg.ShowDialog();
                 respuesta = RetornoValidacion.ErrorDeFormato;
             }
 

@@ -112,23 +112,13 @@ namespace Proyecto
         }
         private void CerrarSesion()  //Creo el método para confirmar el cierre de sesión
         {
-            MsgBox msg = new MsgBox("pregunta", "¿Desea cerrar sesión?"); //Hago la pregunta
-
-            msg.btnAceptar.Visible = false; //Oculto el botón "Aceptar" del form "MsgBox"
-            msg.btnSi.Visible = true; //Muestro el botón "Sí" del form "MsgBox"
-            msg.btnNo.Visible = true; //Muestro el botón "No" del form "MsgBox"
-            msg.label3.Visible = true; //Muestro el "label3" del form "MsgBox"
-
-            msg.btnSi.Click += (sender, e) => //Le asigno una función al botón "Sí" del form "MsgBox"
-            {
-                msg.Close(); //Cierro el mensaje
-                Close(); //Cierro el menú
-            };
-            msg.btnNo.Click += (sender, e) => //Le asigno una función al botón "No" del form "MsgBox"
-            {
-                msg.Close(); //Cierro el mensaje
-            };
+            MsgBox msg = new MsgBox("pregunta", "¿Desea cerrar sesión?"); //Hago la pregunta"
             msg.ShowDialog(); //Luego de asignar las funciones de cada botón, muestro el form con las modificaciones realizadas previamente
+
+            if (msg.DialogResult == DialogResult.Yes)
+            {
+                this.Close(); //Cierro el menú
+            }
         }
 
         private void BtnLogout_Click(object sender, EventArgs e)
