@@ -31,6 +31,7 @@ namespace Proyecto
             childForm.BringToFront(); //Traemos el form hacia el frente en caso de que contenga alguna imagen
             childForm.Show(); //Mostramos el form
         }
+
         public static bool buscarCI(TextBox txtCI)
         {
 

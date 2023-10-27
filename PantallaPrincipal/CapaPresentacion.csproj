@@ -12,6 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -100,6 +102,12 @@
     <Compile Include="ConsultaGrupo.Designer.cs">
       <DependentUpon>ConsultaGrupo.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManualDeUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManualDeUsuario.Designer.cs">
+      <DependentUpon>ManualDeUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Lista.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +174,9 @@
     <EmbeddedResource Include="ConsultaGrupo.resx">
       <DependentUpon>ConsultaGrupo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ManualDeUsuario.resx">
+      <DependentUpon>ManualDeUsuario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Lista.resx">
       <DependentUpon>Lista.cs</DependentUpon>
     </EmbeddedResource>
@@ -221,6 +232,7 @@
     <None Include="Resources\Exclamation.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Nitid Developing - Redes de datos y seguridad - Segunda entrega.rtf" />
     <None Include="Resources\Question.png" />
   </ItemGroup>
   <ItemGroup>
@@ -337,6 +349,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Provisional.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Help.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

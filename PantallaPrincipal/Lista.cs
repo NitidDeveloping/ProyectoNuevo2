@@ -69,6 +69,7 @@ namespace Proyecto
                     comboColumn.DataSource = CargarPropsTurnos();
                     break;
             }
+
             comboColumn.DisplayMember = "Columna";
             comboColumn.ValueMember = "ColumnaBD";
             comboColumn.SelectedIndex = -1;
@@ -615,15 +616,73 @@ namespace Proyecto
             // Si la operación en segundo plano se completó con éxito, actualiza la interfaz de usuario.
             DGV.DataSource = (DataTable)e.Result;
 
+            //Segun la tabla ponemos datos que no tiene por que ver el usuario como no visibles
             switch (Sesion.ReferenciaActual)
             {
-                case TipoReferencia.Horario:
-                    DGV.Columns[0].Visible = false;
-                    DGV.Columns[3].Visible = false;
-                    DGV.Columns[8].Visible = false;
-                    DGV.Columns[13].Visible = false;
-                    DGV.Columns[15].Visible = false;
+                //Funcionario
+                #region
+                case TipoReferencia.Funcionario:
+                    DGV.Columns[3].Visible = false; //Id tipo funcionario
                     break;
+                #endregion
+
+                //Grupo
+                #region
+                case TipoReferencia.Grupo:
+                    DGV.Columns[1].Visible = false; //Id Turno
+                    DGV.Columns[3].Visible = false; //Id Orientacion
+                    break;
+                #endregion
+
+                //Hora
+                #region
+                case TipoReferencia.Hora:
+                    DGV.Columns[0].Visible = false; //Id turno
+                    break;
+                #endregion
+
+                //Horario
+                #region
+                case TipoReferencia.Horario:
+                    DGV.Columns[0].Visible = false; //Id turno
+                    DGV.Columns[3].Visible = false; //Id Materia
+                    DGV.Columns[8].Visible = false; //Id dia semana
+                    DGV.Columns[13].Visible = false; //Id salon predeterminado
+                    DGV.Columns[15].Visible = false; //Id salon temporal
+                    break;
+                #endregion
+
+
+                //Lugar
+                #region
+                case TipoReferencia.Lugar:
+                    DGV.Columns[0].Visible = false;//Id lugar
+                    DGV.Columns[2].Visible = false;//Id tipo lugar
+                    DGV.Columns[5].Visible = false;//Coordenada x
+                    DGV.Columns[6].Visible = false;//Coordenada y
+                    break;
+                #endregion
+
+                //Materia
+                #region
+                case TipoReferencia.Materia:
+                    DGV.Columns[0].Visible = false;//Id materia
+                    break;
+                #endregion
+
+                //Orientacion
+                #region
+                case TipoReferencia.Orientacion:
+                    DGV.Columns[0].Visible = false;//Id orientacion
+                    break;
+                #endregion
+
+                //Turno
+                #region
+                case TipoReferencia.Turno:
+                    DGV.Columns[0].Visible = false;//Id turno
+                    break;
+                    #endregion
             }
         }
         #endregion

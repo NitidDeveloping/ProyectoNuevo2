@@ -133,8 +133,8 @@
   <data name="Refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ASIGNAR SALON TEMPORAL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ASIGNAR SALON TEMPORAL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cancelar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cancelar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -178,20 +178,20 @@
   <data name="HourYearSubject" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sin título-aa1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cancelar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cancelar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Schedule" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Schedule.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Pin Pad" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pin Pad.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Question" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Question.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ASIGNAR SALON TEMPORAL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ASIGNAR SALON TEMPORAL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="siguiente" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\siguiente.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -208,13 +208,16 @@
   <data name="menu fondo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menu fondo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Provisional" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Provisional.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Graduation Cap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Graduation Cap.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ACEOPTAR" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ACEOPTAR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Provisional" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Provisional.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Help" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Help.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -22,6 +22,13 @@ namespace Proyecto
         private void Menú_Load(object sender, EventArgs e)
         {
             timer1.Start();
+
+            //Timer de cierre de sesion automatico
+            if (Sesion.LoggedRol == TipoRol.Alumno || Sesion.LoggedRol == TipoRol.Docente)
+            {
+                timerCierreSesion.Start();
+            }
+
             Mapa mapa = new Mapa();
             Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
             Metodos.openChildForm(mapa, plMapa);
@@ -173,6 +180,9 @@ namespace Proyecto
             CenterLabelInPanel();
         }
 
+
+        //Botones para abrir listas
+        #region
         private void btnABMAlumnos_Click(object sender, EventArgs e)
         {
             AbrirLista(TipoReferencia.Alumno);
@@ -211,8 +221,6 @@ namespace Proyecto
         {
             AbrirLista(TipoReferencia.Turno);
         }
-
-
         private void btnAnios_Click_1(object sender, EventArgs e)
         {
             AbrirLista(TipoReferencia.Anio);
@@ -288,6 +296,8 @@ namespace Proyecto
         {
             AbrirLista(TipoReferencia.Hora);
         }
+        #endregion
+
 
         private void pbMapa_Click(object sender, EventArgs e)
         {/*
@@ -307,6 +317,7 @@ namespace Proyecto
 
         private void cbxLugares_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ResetTimerCierreSesion(); //Reinicia el timer de cierre de sesion
             /*
             DataRowView row = cbxLugares.SelectedItem as DataRowView;
             if (row != null)
@@ -324,6 +335,58 @@ namespace Proyecto
                 Mapa.CurrentMapa.ClearPoints();
             }
             */
+        }
+
+        //Cierre de sesion automatico
+        #region
+        //Si el temporizador de actividad llega al tick se cierra el form
+        //El temporizador tiene el intervalo cada 10 000 milisegundos
+        private void timerActividad_Tick(object sender, EventArgs e)
+        {
+            if (Sesion.LoggedRol != TipoRol.Operador || Sesion.LoggedRol != TipoRol.Administrador)
+            {
+                this.Close();
+            }
+        }
+
+        //Si se hace click en algun panel del reinicia el temporizador de actividad
+        private void plForms_Click(object sender, EventArgs e)
+        {
+            timerCierreSesion.Stop();
+            timerCierreSesion.Start();
+        }
+        private void panel4_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void ResetTimerCierreSesion()
+        {
+            timerCierreSesion.Stop();
+            timerCierreSesion.Start();
+        }
+
+
+
+        #endregion
+
+        private void btnAyuda_Click(object sender, EventArgs e)
+        {
+            ResetTimerCierreSesion(); // Reinicia el timer de cierre de sesion
+
+            //Abre el manual
+            ManualDeUsuario manual = new ManualDeUsuario();
+            Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
+            Metodos.openChildForm(manual, plForms);
+        }
+
+        private void btnClase_Click(object sender, EventArgs e)
+        {
+            ResetTimerCierreSesion(); //Reinicia el timer de cierre de sesion
+        }
+
+        private void btnGrupo_Click(object sender, EventArgs e)
+        {
+            ResetTimerCierreSesion();//Reinicia el timer de cierre de sesion
         }
     }
 }
