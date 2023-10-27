@@ -323,7 +323,7 @@ namespace Proyecto
             else
             {
                 Mapa.CurrentMapa.ClearPoints();
-            }
+            }*/
         }
 
         private void MapaRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -387,7 +387,7 @@ namespace Proyecto
             //Abre el manual
             ManualDeUsuario manual = new ManualDeUsuario();
             Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
-            Metodos.openChildForm(manual, plForms);
+            Metodos.OpenChildForm(manual, plForms);
         }
 
         private void btnClase_Click(object sender, EventArgs e)

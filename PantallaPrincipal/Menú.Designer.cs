@@ -38,7 +38,6 @@
             this.btnLogout = new System.Windows.Forms.Button();
             this.plPersona = new System.Windows.Forms.Panel();
             this.plPersona = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
             this.plDatosSubMenu = new System.Windows.Forms.Panel();
             this.btnDatos = new System.Windows.Forms.Button();
             this.plABMSubMenu = new System.Windows.Forms.Panel();
