@@ -854,6 +854,7 @@ namespace Proyecto
                         {
                             id = ushort.Parse(IdDestino);
                             resultadoAgregar = negocio.Editar(TipoReferencia.Lugar, lugar, id.ToString(), nombre);
+                            Mapa.CurrentMapa.MapaClick = true;
                         }
                         //En caso contrario ejecuta la operacion como agregar
                         else
@@ -865,6 +866,7 @@ namespace Proyecto
                         {
                             case RetornoValidacion.OK:
                                 msg = new MsgBox("exito", "Lugar cargado exitosamente");
+                                Mapa.CurrentMapa.MapaClick = false;
                                 Limpiar();
                                 break;
 
@@ -1231,7 +1233,6 @@ namespace Proyecto
         {
             RetornoValidacion respuesta = RetornoValidacion.OK;
             Validaciones validaciones = new Validaciones();
-            Mapa mapa = new Mapa();
 
             //Validar vacio
             if (validaciones.ValidarVacio(txtNombre.Text))
@@ -1254,7 +1255,8 @@ namespace Proyecto
                 msg.ShowDialog();
                 cbx1.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
-            }else if (mapa.MapaClick == false)
+            }
+            else if (!Mapa.CurrentMapa.MapaClick)
             {
                 MsgBox msg = new MsgBox("error", "Debe seleccionar el lugar en el mapa");
                 msg.ShowDialog();
@@ -1298,30 +1300,39 @@ namespace Proyecto
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
-            if (!isVolverMode)
+            if (cbx2.SelectedIndex == -1)
             {
-                Mapa mapa = new Mapa();
-                plLugares.Visible = true;
-                Metodos.OpenMapForm(mapa, plLugares);
-
-                plNombre.Visible = false;
-                plComboBox1.Visible = false;
-                plCombobox2.Visible = false;
-                plCheckBox1.Visible = false;
-                plCheckBox2.Visible = false;
-                btnSiguiente.Image = Resources.VOLVER;
-                isVolverMode = true;
+                MsgBox msg = new MsgBox("error", "Seleccione un piso antes de elegir las coordenadas");
+                msg.ShowDialog();
             }
             else
             {
-                plLugares.Visible = false;
-                plNombre.Visible = true;
-                plComboBox1.Visible = true;
-                plCombobox2.Visible = true;
-                plCheckBox1.Visible = true;
-                plCheckBox2.Visible = true;
-                btnSiguiente.Image = Resources.siguiente;
-                isVolverMode = false;
+                if (!isVolverMode)
+                {
+                    Mapa mapa = new Mapa();
+                    mapa.CambiarMapa(cbx2.SelectedIndex);
+                    plLugares.Visible = true;
+                    Metodos.OpenMapForm(mapa, plLugares);
+
+                    plNombre.Visible = false;
+                    plComboBox1.Visible = false;
+                    plCombobox2.Visible = false;
+                    plCheckBox1.Visible = false;
+                    plCheckBox2.Visible = false;
+                    btnSiguiente.Image = Resources.VOLVER;
+                    isVolverMode = true;
+                }
+                else
+                {
+                    plLugares.Visible = false;
+                    plNombre.Visible = true;
+                    plComboBox1.Visible = true;
+                    plCombobox2.Visible = true;
+                    plCheckBox1.Visible = true;
+                    plCheckBox2.Visible = true;
+                    btnSiguiente.Image = Resources.siguiente;
+                    isVolverMode = false;
+                }
             }
         }
     }

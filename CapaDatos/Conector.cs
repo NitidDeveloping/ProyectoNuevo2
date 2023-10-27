@@ -33,10 +33,10 @@ namespace CapaDatos
 
         private Conector()  //Metodo en private para que no se tenga acceso al constructor
         {
-            database = "sreyes"; //Establecemos los valores en el constructor.
-            server = "192.168.2.53";
-            uid = "sreyes";
-            pwd = "55591147";
+            database = "nitid"; //Establecemos los valores en el constructor.
+            server = "localhost";
+            uid = "root";
+            pwd = "root";
 
             /*switch (Sesion.LoggedRol)
             {

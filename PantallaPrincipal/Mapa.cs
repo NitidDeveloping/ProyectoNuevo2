@@ -1,5 +1,6 @@
 ﻿using CapaEntidades;
 using CapaNegocio;
+using Proyecto.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,9 +20,11 @@ namespace Proyecto
     public partial class Mapa : Form
     {
         public static Mapa CurrentMapa { get; set; }
+
         public int SelectedX { get; private set; }
         public int SelectedY { get; private set; }
         public bool MapaClick = false;
+
 
         private Point startPoint = Point.Empty;
         private Point endPoint = Point.Empty;
@@ -44,8 +47,8 @@ namespace Proyecto
             BackgroundImage = null;
             CurrentMapa = this;
             DoubleBuffered = true;
-
         }
+
 
         public void InitializeMap()
         {
@@ -77,7 +80,7 @@ namespace Proyecto
                     }
                 }
             }
-            
+
             startNode = grid[408 / GridSize, 541 / GridSize];
         }
         private void IdentifyWalls()
@@ -114,7 +117,7 @@ namespace Proyecto
 
                 BackgroundImage = bitmap;
             }
-           
+
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -293,25 +296,25 @@ namespace Proyecto
 
         private void Mapa_MouseClick(object sender, MouseEventArgs e)
         {
-
+            MapaClick = true;
             /*string coordenada = $"{e.X}, {e.Y}";
 
-            try
-            {
-                // Abre o crea un archivo de texto
-                string rutaArchivo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "coordenadas.txt");
+             try
+             {
+                 // Abre o crea un archivo de texto
+                 string rutaArchivo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "coordenadas.txt");
 
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(rutaArchivo, true))
-                {
-                    // Escribe la coordenada en el archivo
-                    file.WriteLine(coordenada);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Maneja cualquier excepción que pueda ocurrir al escribir en el archivo
-                MessageBox.Show("Error al escribir en el archivo: " + ex.Message);
-            }*/
+                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(rutaArchivo, true))
+                 {
+                     // Escribe la coordenada en el archivo
+                     file.WriteLine(coordenada);
+                 }
+             }
+             catch (Exception ex)
+             {
+                 // Maneja cualquier excepción que pueda ocurrir al escribir en el archivo
+                 MessageBox.Show("Error al escribir en el archivo: " + ex.Message);
+             }*/
 
             if (e != null)
             {
@@ -323,7 +326,6 @@ namespace Proyecto
                     endPoint = new Point(x, y);
                     endNode = grid[x, y];
                     DrawPoint(new Point(x * GridSize, y * GridSize), Color.Red);
-                    MapaClick = true;
                     Invalidate();
 
                 }
@@ -343,13 +345,38 @@ namespace Proyecto
         }
         public void ClearPoints()
         {
-
             if (startPoint != null)
             {
                 endPoint = Point.Empty;
                 endNode = null;
             }
+        }
 
+        public void CambiarMapa(int mapaSeleccionado)
+        {
+
+            // Determinar qué mapa seleccionar según el valor de mapaSeleccionado
+            switch (mapaSeleccionado)
+            {
+                case 0:
+                    BackgroundImage = Resources.planta_baja;
+                    break;
+                case 1:
+                    BackgroundImage = Resources.piso_1;
+                    break;
+                case 2:
+                    BackgroundImage = Resources.piso_2;
+                    break;
+                default:
+                    BackgroundImage = Resources.planta_baja;
+                    break;
+            }
+            InitializeGrid();
+            InitializeMap();
+            IdentifyWalls();
+            Invalidate();
+            BackgroundImage = null;
+            CurrentMapa = this;
         }
 
         public void SetNodoFinal(int x, int y)

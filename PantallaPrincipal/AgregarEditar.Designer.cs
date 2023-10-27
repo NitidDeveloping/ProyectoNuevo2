@@ -278,24 +278,25 @@
             // cbx1
             // 
             this.cbx1.DropDownHeight = 750;
-            this.cbx1.Font = new System.Drawing.Font("Verdana", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbx1.Font = new System.Drawing.Font("Verdana", 34F);
             this.cbx1.FormattingEnabled = true;
             this.cbx1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.cbx1.IntegralHeight = false;
+            this.cbx1.ItemHeight = 54;
             this.cbx1.Items.AddRange(new object[] {
             "Matutino",
             "Nocturno",
             "Vespertino"});
-            this.cbx1.Location = new System.Drawing.Point(22, 79);
+            this.cbx1.Location = new System.Drawing.Point(20, 79);
             this.cbx1.MaxDropDownItems = 25;
             this.cbx1.Name = "cbx1";
-            this.cbx1.Size = new System.Drawing.Size(339, 67);
+            this.cbx1.Size = new System.Drawing.Size(339, 62);
             this.cbx1.TabIndex = 74;
             // 
             // lblSubCbx1
             // 
             this.lblSubCbx1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
-            this.lblSubCbx1.Location = new System.Drawing.Point(19, 151);
+            this.lblSubCbx1.Location = new System.Drawing.Point(19, 142);
             this.lblSubCbx1.Name = "lblSubCbx1";
             this.lblSubCbx1.Size = new System.Drawing.Size(342, 5);
             this.lblSubCbx1.TabIndex = 58;
@@ -325,23 +326,23 @@
             // cbx2
             // 
             this.cbx2.DropDownHeight = 750;
-            this.cbx2.Font = new System.Drawing.Font("Verdana", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbx2.Font = new System.Drawing.Font("Verdana", 34F);
             this.cbx2.FormattingEnabled = true;
             this.cbx2.IntegralHeight = false;
             this.cbx2.Items.AddRange(new object[] {
             "Matutino",
             "Nocturno",
             "Vespertino"});
-            this.cbx2.Location = new System.Drawing.Point(22, 79);
+            this.cbx2.Location = new System.Drawing.Point(20, 79);
             this.cbx2.MaxDropDownItems = 25;
             this.cbx2.Name = "cbx2";
-            this.cbx2.Size = new System.Drawing.Size(339, 67);
+            this.cbx2.Size = new System.Drawing.Size(339, 62);
             this.cbx2.TabIndex = 74;
             // 
             // lblSubCbx2
             // 
             this.lblSubCbx2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
-            this.lblSubCbx2.Location = new System.Drawing.Point(19, 151);
+            this.lblSubCbx2.Location = new System.Drawing.Point(19, 142);
             this.lblSubCbx2.Name = "lblSubCbx2";
             this.lblSubCbx2.Size = new System.Drawing.Size(342, 5);
             this.lblSubCbx2.TabIndex = 58;
@@ -371,23 +372,23 @@
             // cbx3
             // 
             this.cbx3.DropDownHeight = 750;
-            this.cbx3.Font = new System.Drawing.Font("Verdana", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbx3.Font = new System.Drawing.Font("Verdana", 34F);
             this.cbx3.FormattingEnabled = true;
             this.cbx3.IntegralHeight = false;
             this.cbx3.Items.AddRange(new object[] {
             "Matutino",
             "Nocturno",
             "Vespertino"});
-            this.cbx3.Location = new System.Drawing.Point(22, 79);
+            this.cbx3.Location = new System.Drawing.Point(20, 79);
             this.cbx3.MaxDropDownItems = 25;
             this.cbx3.Name = "cbx3";
-            this.cbx3.Size = new System.Drawing.Size(339, 67);
+            this.cbx3.Size = new System.Drawing.Size(339, 62);
             this.cbx3.TabIndex = 74;
             // 
             // lblSubCbx3
             // 
             this.lblSubCbx3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
-            this.lblSubCbx3.Location = new System.Drawing.Point(19, 151);
+            this.lblSubCbx3.Location = new System.Drawing.Point(19, 142);
             this.lblSubCbx3.Name = "lblSubCbx3";
             this.lblSubCbx3.Size = new System.Drawing.Size(342, 5);
             this.lblSubCbx3.TabIndex = 58;
