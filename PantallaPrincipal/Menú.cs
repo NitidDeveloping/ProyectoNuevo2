@@ -4,6 +4,7 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using static CustomControls;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
@@ -50,9 +51,40 @@ namespace Proyecto
 
         private void Menú_Load(object sender, EventArgs e)
         {
+            //Mostrar unos controles u otros segun el rol logueado
+            #region
+            switch (Sesion.LoggedRol)
+            {
+                case TipoRol.Operador:
+                    this.btnABMOp.Visible = false;
+                    break;
+
+                case TipoRol.Alumno:
+                    this.btnDatos.Visible = false;
+                    this.btnUsuarios.Visible = false;
+                    this.btnClase.Visible = false;
+                    break;
+
+                case TipoRol.Docente:
+                    this.btnDatos.Visible = false;
+                    this.btnUsuarios.Visible = false;
+                    this.btnGrupo.Visible = false;
+                    break;
+
+                case TipoRol.Visitante:
+                    this.btnDatos.Visible = false;
+                    this.btnClase.Visible = false;
+                    this.btnGrupo.Visible = false;
+                    this.btnUsuarios.Visible = false;
+                    break;
+            }
+
+            lblPersona.Text = Sesion.LoggedNombre;
+            #endregion
+
             timer1.Start();
 
-            //Timer de cierre de sesion automatico
+            //Inicia timer de cierre de sesion automatico
             if (Sesion.LoggedRol == TipoRol.Alumno || Sesion.LoggedRol == TipoRol.Docente)
             {
                 timerCierreSesion.Start();

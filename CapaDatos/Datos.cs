@@ -6,6 +6,7 @@ using System.Data;
 using System.CodeDom;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Web;
 
 namespace CapaDatos
 {
@@ -2021,6 +2022,79 @@ namespace CapaDatos
             }
             return res;
         }
+
+        public RetornoValidacion IntentarLogIn(string ci, string pin)
+        {
+            //Variables
+            RetornoValidacion respuesta;
+            string cmdstr;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
+            MySqlCommand cmd;
+            MySqlDataReader dr;
+
+            cmdstr = "SELECT CI, Nombre, Pin, Rol FROM ConsultaLogin WHERE CI = @CI AND Pin = @Pin;";
+
+            //Agrega los parametros al comando
+            cmd = new MySqlCommand(cmdstr, conn);
+
+            cmd.Parameters.Add("@CI", MySqlDbType.Int32).Value = Convert.ToInt32(ci);
+            cmd.Parameters.Add("@Pin", MySqlDbType.Int32).Value = Convert.ToInt32(pin);
+
+            //Ejecuta la consulta
+            try
+            {
+                conn.Open(); //Abro la conexión
+
+                dr = cmd.ExecuteReader(); //Inicio el comando
+                if (dr.HasRows)
+                {
+                    Sesion sesion = new Sesion();
+                    dr.Read();
+                    int ciLog = dr.GetInt32(0);
+                    string nombreLog = dr.GetString(1);
+                    int pinLog = dr.GetInt32(2);
+                    TipoRol rolLog;
+                    byte auxRol = dr.GetByte(3);
+
+                    switch (auxRol)
+                    {
+                        case 0:
+                            rolLog = TipoRol.Operador;
+                            break;
+                        case 1:
+                            rolLog = TipoRol.Administrador;
+                            break;
+                        case 2:
+                            rolLog = TipoRol.Docente;
+                            break;
+                        case 3:
+                            rolLog = TipoRol.Alumno;
+                            break;
+                        default: throw new Exception("Rol no valido");
+                    }
+
+                    sesion.LogIn(nombreLog, rolLog, ciLog, pinLog);
+                    respuesta = RetornoValidacion.OK;
+                    return respuesta;
+                }
+                else
+                {
+                    respuesta = RetornoValidacion.NoExiste;
+                    return respuesta;
+                }
+            }
+            catch (Exception ex)// En caso de excepcion throwea esta
+            {
+                throw ex;
+            }
+            finally//Al final haya excepcion o no cierra la base de datos
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close(); //Cerramos la conexión en caso de que esté abierta
+                }
+            }
+        }
         #endregion
 
         //Metodos para los horarios
@@ -2165,8 +2239,8 @@ namespace CapaDatos
                 {
                     if (cmd1.ExecuteNonQuery() != 1)
                     {
-                       // respuesta = RetornoValidacion.ErrorInesperadoBD;
-                       // return respuesta;
+                        // respuesta = RetornoValidacion.ErrorInesperadoBD;
+                        // return respuesta;
                     }
                     if (cmd2.ExecuteNonQuery() != 1)
                     {

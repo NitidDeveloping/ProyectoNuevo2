@@ -14,7 +14,7 @@ namespace CapaEntidades
         private static int loggedCi = 0;
         private static int loggedPin = 0;
         private static string loggedNombre = "default";
-        private static TipoRol loggedRol = TipoRol.Default; // Roles: Default_User, Visitante, Alumno, Docente, Operador, Administrador
+        private static TipoRol loggedRol = TipoRol.Administrador;
         private static TipoReferencia referenciaActual;
 
         public static string LoggedNombre { get { return loggedNombre; } }

@@ -33,10 +33,6 @@
             this.lblPersona = new System.Windows.Forms.Label();
             this.plLateral = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnModPIN = new System.Windows.Forms.Button();
-            this.btnAyuda = new System.Windows.Forms.Button();
-            this.btnLogout = new System.Windows.Forms.Button();
-            this.plPersona = new System.Windows.Forms.Panel();
             this.plPersona = new System.Windows.Forms.Panel();
             this.plDatosSubMenu = new System.Windows.Forms.Panel();
             this.btnDatos = new System.Windows.Forms.Button();
@@ -50,15 +46,9 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.timerCierreSesion = new System.Windows.Forms.Timer(this.components);
-            this.plForms = new System.Windows.Forms.Panel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.cbxLugares = new System.Windows.Forms.ComboBox();
-            this.btnClase = new System.Windows.Forms.Button();
-            this.btnGrupo = new System.Windows.Forms.Button();
-            this.plMapa = new System.Windows.Forms.Panel();
-            this.plPisos = new System.Windows.Forms.Panel();
-            this.btnLogout = new System.Windows.Forms.Button();
             this.btnModPIN = new System.Windows.Forms.Button();
+            this.btnAyuda = new System.Windows.Forms.Button();
+            this.btnLogout = new System.Windows.Forms.Button();
             this.btnHoras = new System.Windows.Forms.Button();
             this.btnOrientacion = new System.Windows.Forms.Button();
             this.btnAnios = new System.Windows.Forms.Button();
@@ -71,6 +61,13 @@
             this.btnABMDocentes = new System.Windows.Forms.Button();
             this.btnABMAlumnos = new System.Windows.Forms.Button();
             this.pbMapa = new System.Windows.Forms.PictureBox();
+            this.plForms = new System.Windows.Forms.Panel();
+            this.plPisos = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.cbxLugares = new System.Windows.Forms.ComboBox();
+            this.btnClase = new System.Windows.Forms.Button();
+            this.btnGrupo = new System.Windows.Forms.Button();
+            this.plMapa = new System.Windows.Forms.Panel();
             this.plLateral.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.plPersona.SuspendLayout();
@@ -79,9 +76,9 @@
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMapa)).BeginInit();
             this.plForms.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMapa)).BeginInit();
             this.SuspendLayout();
             // 
             // lblBienvenido
@@ -133,37 +130,13 @@
             this.flowLayoutPanel2.Size = new System.Drawing.Size(259, 198);
             this.flowLayoutPanel2.TabIndex = 14;
             // 
-            // btnModPIN
+            // plPersona
             // 
-            this.btnModPIN.FlatAppearance.BorderSize = 0;
-            this.btnModPIN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnModPIN.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModPIN.Image = global::Proyecto.Properties.Resources.Pin_Pad;
-            this.btnModPIN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnModPIN.Location = new System.Drawing.Point(3, 3);
-            this.btnModPIN.Name = "btnModPIN";
-            this.btnModPIN.Size = new System.Drawing.Size(231, 66);
-            this.btnModPIN.TabIndex = 1;
-            this.btnModPIN.Text = "MODIFICAR PIN";
-            this.btnModPIN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnModPIN.UseVisualStyleBackColor = true;
-            this.btnModPIN.Click += new System.EventHandler(this.btnModPIN_Click);
-            // 
-            // btnAyuda
-            // 
-            this.btnAyuda.FlatAppearance.BorderSize = 0;
-            this.btnAyuda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAyuda.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAyuda.Image = global::Proyecto.Properties.Resources.Help;
-            this.btnAyuda.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAyuda.Location = new System.Drawing.Point(3, 75);
-            this.btnAyuda.Name = "btnAyuda";
-            this.btnAyuda.Size = new System.Drawing.Size(231, 53);
-            this.btnAyuda.TabIndex = 3;
-            this.btnAyuda.Text = "AYUDA";
-            this.btnAyuda.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnAyuda.UseVisualStyleBackColor = true;
-            this.btnAyuda.Click += new System.EventHandler(this.btnAyuda_Click);
+            this.plPersona.Controls.Add(this.lblPersona);
+            this.plPersona.Location = new System.Drawing.Point(0, 819);
+            this.plPersona.Name = "plPersona";
+            this.plPersona.Size = new System.Drawing.Size(319, 42);
+            this.plPersona.TabIndex = 13;
             // 
             // plDatosSubMenu
             // 
@@ -286,6 +259,7 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1601, 161);
             this.panel4.TabIndex = 9;
+            this.panel4.Click += new System.EventHandler(this.panel4_Click);
             // 
             // lblTitulo
             // 
@@ -297,85 +271,42 @@
             this.lblTitulo.TabIndex = 9;
             this.lblTitulo.Text = "Mapa";
             // 
-            // plForms
+            // timerCierreSesion
             // 
-            this.plForms.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.plForms.Controls.Add(this.plPisos);
-            this.plForms.Controls.Add(this.flowLayoutPanel1);
-            this.plForms.Controls.Add(this.plMapa);
-            this.plForms.Location = new System.Drawing.Point(319, 161);
-            this.plForms.Name = "plForms";
-            this.plForms.Size = new System.Drawing.Size(1601, 919);
-            this.plForms.TabIndex = 3;
+            this.timerCierreSesion.Interval = 300000;
+            this.timerCierreSesion.Tick += new System.EventHandler(this.timerActividad_Tick);
             // 
-            // flowLayoutPanel1
+            // btnModPIN
             // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel1.Controls.Add(this.cbxLugares);
-            this.flowLayoutPanel1.Controls.Add(this.btnClase);
-            this.flowLayoutPanel1.Controls.Add(this.btnGrupo);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(75, 39);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1032, 77);
-            this.flowLayoutPanel1.TabIndex = 2;
+            this.btnModPIN.FlatAppearance.BorderSize = 0;
+            this.btnModPIN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnModPIN.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnModPIN.Image = global::Proyecto.Properties.Resources.Pin_Pad;
+            this.btnModPIN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnModPIN.Location = new System.Drawing.Point(3, 3);
+            this.btnModPIN.Name = "btnModPIN";
+            this.btnModPIN.Size = new System.Drawing.Size(231, 66);
+            this.btnModPIN.TabIndex = 1;
+            this.btnModPIN.Text = "MODIFICAR PIN";
+            this.btnModPIN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnModPIN.UseVisualStyleBackColor = true;
+            this.btnModPIN.Click += new System.EventHandler(this.btnModPIN_Click);
             // 
-            // cbxLugares
+            // btnAyuda
             // 
-            this.cbxLugares.DropDownHeight = 750;
-            this.cbxLugares.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxLugares.Font = new System.Drawing.Font("Verdana", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxLugares.FormattingEnabled = true;
-            this.cbxLugares.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.cbxLugares.IntegralHeight = false;
-            this.cbxLugares.Items.AddRange(new object[] {
-            " "});
-            this.cbxLugares.Location = new System.Drawing.Point(3, 3);
-            this.cbxLugares.MaxDropDownItems = 25;
-            this.cbxLugares.Name = "cbxLugares";
-            this.cbxLugares.Size = new System.Drawing.Size(558, 67);
-            this.cbxLugares.Sorted = true;
-            this.cbxLugares.TabIndex = 75;
-            this.cbxLugares.SelectedIndexChanged += new System.EventHandler(this.cbxLugares_SelectedIndexChanged);
-            // 
-            // btnClase
-            // 
-            this.btnClase.BackColor = System.Drawing.Color.YellowGreen;
-            this.btnClase.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClase.ForeColor = System.Drawing.Color.White;
-            this.btnClase.Location = new System.Drawing.Point(567, 3);
-            this.btnClase.Name = "btnClase";
-            this.btnClase.Size = new System.Drawing.Size(227, 67);
-            this.btnClase.TabIndex = 77;
-            this.btnClase.Text = "MI CLASE";
-            this.btnClase.UseVisualStyleBackColor = false;
-            this.btnClase.Visible = false;
-            // 
-            // btnGrupo
-            // 
-            this.btnGrupo.BackColor = System.Drawing.Color.YellowGreen;
-            this.btnGrupo.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGrupo.ForeColor = System.Drawing.Color.White;
-            this.btnGrupo.Location = new System.Drawing.Point(800, 3);
-            this.btnGrupo.Name = "btnGrupo";
-            this.btnGrupo.Size = new System.Drawing.Size(227, 67);
-            this.btnGrupo.TabIndex = 78;
-            this.btnGrupo.Text = "MI GRUPO";
-            this.btnGrupo.UseVisualStyleBackColor = false;
-            this.btnGrupo.Visible = false;
-            // 
-            // plMapa
-            // 
-            this.plMapa.Location = new System.Drawing.Point(64, 138);
-            this.plMapa.Name = "plMapa";
-            this.plMapa.Size = new System.Drawing.Size(1376, 743);
-            this.plMapa.TabIndex = 1;
-            // 
-            // plPisos
-            // 
-            this.plPisos.Location = new System.Drawing.Point(886, 39);
-            this.plPisos.Name = "plPisos";
-            this.plPisos.Size = new System.Drawing.Size(454, 76);
-            this.plPisos.TabIndex = 3;
+            this.btnAyuda.FlatAppearance.BorderSize = 0;
+            this.btnAyuda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAyuda.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAyuda.Image = global::Proyecto.Properties.Resources.Help;
+            this.btnAyuda.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAyuda.Location = new System.Drawing.Point(3, 75);
+            this.btnAyuda.Name = "btnAyuda";
+            this.btnAyuda.Size = new System.Drawing.Size(231, 53);
+            this.btnAyuda.TabIndex = 3;
+            this.btnAyuda.Text = "AYUDA";
+            this.btnAyuda.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAyuda.UseVisualStyleBackColor = true;
+            this.btnAyuda.Click += new System.EventHandler(this.btnAyuda_Click);
             // 
             // btnLogout
             // 
@@ -393,14 +324,6 @@
             this.btnLogout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLogout.UseVisualStyleBackColor = false;
             this.btnLogout.Click += new System.EventHandler(this.BtnLogout_Click);
-            // 
-            // plPersona
-            // 
-            this.plPersona.Controls.Add(this.lblPersona);
-            this.plPersona.Location = new System.Drawing.Point(0, 819);
-            this.plPersona.Name = "plPersona";
-            this.plPersona.Size = new System.Drawing.Size(319, 42);
-            this.plPersona.TabIndex = 13;
             // 
             // btnHoras
             // 
@@ -644,71 +567,11 @@
             this.pbMapa.TabStop = false;
             this.pbMapa.Click += new System.EventHandler(this.pbMapa_Click);
             // 
-            // lblHora
-            // 
-            this.lblHora.AutoSize = true;
-            this.lblHora.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHora.Location = new System.Drawing.Point(16, 15);
-            this.lblHora.Name = "lblHora";
-            this.lblHora.Size = new System.Drawing.Size(151, 39);
-            this.lblHora.TabIndex = 5;
-            this.lblHora.Text = "00:00:00";
-            // 
-            // lblFecha
-            // 
-            this.lblFecha.AutoSize = true;
-            this.lblFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFecha.Location = new System.Drawing.Point(19, 65);
-            this.lblFecha.Name = "lblFecha";
-            this.lblFecha.Size = new System.Drawing.Size(80, 29);
-            this.lblFecha.TabIndex = 7;
-            this.lblFecha.Text = "Fecha";
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.lblHora);
-            this.panel2.Controls.Add(this.lblFecha);
-            this.panel2.Location = new System.Drawing.Point(1100, 24);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(473, 111);
-            this.panel2.TabIndex = 8;
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
-            // panel4
-            // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.lblTitulo);
-            this.panel4.Controls.Add(this.panel2);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(319, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1601, 161);
-            this.panel4.TabIndex = 9;
-            this.panel4.Click += new System.EventHandler(this.panel4_Click);
-            // 
-            // lblTitulo
-            // 
-            this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.Location = new System.Drawing.Point(31, 52);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(145, 55);
-            this.lblTitulo.TabIndex = 9;
-            this.lblTitulo.Text = "Mapa";
-            // 
-            // timerCierreSesion
-            // 
-            this.timerCierreSesion.Interval = 300000;
-            this.timerCierreSesion.Tick += new System.EventHandler(this.timerActividad_Tick);
-            // 
             // plForms
             // 
             this.plForms.BackgroundImage = global::Proyecto.Properties.Resources.menu_fondo;
             this.plForms.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.plForms.Controls.Add(this.plPisos);
             this.plForms.Controls.Add(this.flowLayoutPanel1);
             this.plForms.Controls.Add(this.plMapa);
             this.plForms.Location = new System.Drawing.Point(319, 161);
@@ -716,6 +579,13 @@
             this.plForms.Size = new System.Drawing.Size(1601, 919);
             this.plForms.TabIndex = 3;
             this.plForms.Click += new System.EventHandler(this.plForms_Click);
+            // 
+            // plPisos
+            // 
+            this.plPisos.Location = new System.Drawing.Point(886, 39);
+            this.plPisos.Name = "plPisos";
+            this.plPisos.Size = new System.Drawing.Size(454, 76);
+            this.plPisos.TabIndex = 3;
             // 
             // flowLayoutPanel1
             // 
@@ -737,6 +607,7 @@
             this.cbxLugares.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.cbxLugares.IntegralHeight = false;
             this.cbxLugares.Items.AddRange(new object[] {
+            " ",
             " "});
             this.cbxLugares.Location = new System.Drawing.Point(3, 3);
             this.cbxLugares.MaxDropDownItems = 25;
@@ -807,9 +678,9 @@
             this.panel2.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMapa)).EndInit();
             this.plForms.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbMapa)).EndInit();
             this.ResumeLayout(false);
 
         }

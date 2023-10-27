@@ -756,6 +756,12 @@ namespace CapaNegocio
             Datos datos = new Datos();
             return datos.ObtenerRol(ci);
         }
+
+        public RetornoValidacion IntentarLogIn(string ci, string pin)
+        {
+            Datos datos = new Datos();
+            return datos.IntentarLogIn(ci, pin);
+        }
         #endregion
 
         //Metodos para los horarios

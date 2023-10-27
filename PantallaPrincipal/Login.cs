@@ -57,11 +57,12 @@ namespace Proyecto
         }
         private void btnSig_Click(object sender, EventArgs e)
         {
-            int ci = int.Parse(txtCI.Text);
+            string ci = txtCI.Text;
 
 
 
             Negocio negocio = new Negocio();
+            Validaciones validaciones = new Validaciones();
             if (txtPIN.Enabled == false)
             {
                 if (txtCI.Text == "")
@@ -71,12 +72,12 @@ namespace Proyecto
                 }
                 else
 
-                if (negocio.ValidarCI(ci))
+                if (validaciones.ValidarCI(ci))
                 {
                     pbOk.Visible = true; //Muestra un ícono de verificación
                     txtPIN.Enabled = true;   //Si la cédula es correcta, activa txtPIN
                 }
-                else if (!negocio.ValidarCI(ci))
+                else if (!validaciones.ValidarCI(ci))
                 {
                     lblSubCi.BackColor = Color.Red;
                     MsgBox msg = new MsgBox("error", "Cédula no válida."); //Personalizo el mensaje y declaro qué tipo de error me muestra
@@ -87,9 +88,9 @@ namespace Proyecto
             else
             {
 
-                int pin = int.Parse(txtPIN.Text);
+                string pin = txtPIN.Text;
 
-                if (negocio.ValidarPIN(ci, pin))  //Si el pin es el del usuario, entonces inicia sesión.
+                if (validaciones.ValidarPIN(pin))  //Si el pin es el del usuario, entonces inicia sesión.
                 {
                     pbOk1.Visible = true;
                 }
@@ -144,50 +145,38 @@ namespace Proyecto
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             Negocio negocio = new Negocio();
+            Validaciones validaciones = new Validaciones();
             Menú menu = new Menú();
+            MsgBox msg;
 
-            if (int.TryParse(txtCI.Text, out int ci))
+            string ci = txtCI.Text;
+            string pin = txtPIN.Text;
+
+            if (validaciones.ValidarVacio(ci) || validaciones.ValidarVacio(pin))
             {
-                if (txtCI.Text == "" || txtPIN.Text == "")
-                {
-                    MsgBox msg = new MsgBox("error", "Debe completar todos los campos.");
-                    msg.ShowDialog();
-                }
-                else
-                {
-                    TipoRol rol = negocio.ObtenerRol(ci);
+                msg = new MsgBox("error", "Debe completar todos los campos.");
+                msg.ShowDialog();
+            }
+            else if (!validaciones.ValidarCI(ci) || !validaciones.ValidarPIN(pin))
+            {
+                msg = new MsgBox("error", "Formatos no validos");
+                msg.ShowDialog();
 
-                    switch (rol)
-                    {
-                        case TipoRol.Operador:
-                            menu.btnABMOp.Visible = false;
-                            menu.plABMSubMenu.Size = new Size(307, 127);
-                            break;
-                        case TipoRol.Alumno:
-                        case TipoRol.Docente:
-                            menu.btnUsuarios.Visible = false;
-                            menu.btnDatos.Visible = false;
-                            break;
-                        default:
-                            break;
-                    }
-
-                    if (pbOk1.Visible)
-                    {
-                        menu.lblPersona.Text = negocio.UsuarioNombreTipo(ci, rol);
-                        Sesion sesion = new Sesion();
-                        sesion.LogIn(Sesion.LoggedNombre, rol, ci, int.Parse(txtPIN.Text));
-                        MsgBox msg = new MsgBox("exito", "Inicio de sesión exitoso.");
-                        msg.ShowDialog();
-                        menu.ShowDialog();
-                        Close();
-                    }
-                }
             }
             else
             {
-                MsgBox msg = new MsgBox("error", "La CI debe ser un número válido.");
-                msg.ShowDialog();
+                RetornoValidacion intentologin = negocio.IntentarLogIn(ci, pin);
+
+                if (intentologin == RetornoValidacion.OK)
+                {
+                    this.Close();
+                    menu.ShowDialog();
+                }
+                else
+                {
+                    msg = new MsgBox("error", "Ci o Pin no validos");
+                    msg.ShowDialog();
+                }
             }
         }
 
