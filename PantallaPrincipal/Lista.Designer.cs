@@ -119,6 +119,8 @@
             // 
             // btnAsignarSalonTemporal
             // 
+            this.btnAsignarSalonTemporal.FlatAppearance.BorderSize = 0;
+            this.btnAsignarSalonTemporal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAsignarSalonTemporal.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAsignarSalonTemporal.Image = global::Proyecto.Properties.Resources.ASIGNAR_SALON_TEMPORAL;
             this.btnAsignarSalonTemporal.Location = new System.Drawing.Point(1252, 548);
@@ -206,6 +208,8 @@
             // 
             // btnAgregar
             // 
+            this.btnAgregar.FlatAppearance.BorderSize = 0;
+            this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregar.Image = global::Proyecto.Properties.Resources.AGREGAR;
             this.btnAgregar.Location = new System.Drawing.Point(1252, 223);
@@ -217,6 +221,8 @@
             // 
             // btnEliminar
             // 
+            this.btnEliminar.FlatAppearance.BorderSize = 0;
+            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminar.Image = global::Proyecto.Properties.Resources.ELIMINAR;
             this.btnEliminar.Location = new System.Drawing.Point(1252, 438);
@@ -228,6 +234,8 @@
             // 
             // btnEditar
             // 
+            this.btnEditar.FlatAppearance.BorderSize = 0;
+            this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEditar.Image = global::Proyecto.Properties.Resources.EDITAR;
             this.btnEditar.Location = new System.Drawing.Point(1252, 329);

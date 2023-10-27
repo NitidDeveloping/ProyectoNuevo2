@@ -30,8 +30,6 @@
         {
             this.lblId = new System.Windows.Forms.Label();
             this.lblAuxId = new System.Windows.Forms.Label();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnAceptar = new System.Windows.Forms.Button();
             this.lblCI = new System.Windows.Forms.Label();
             this.lblSubCI = new System.Windows.Forms.Label();
             this.txtCI = new System.Windows.Forms.TextBox();
@@ -43,6 +41,8 @@
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.lblAuxMateria = new System.Windows.Forms.Label();
             this.lblMateria = new System.Windows.Forms.Label();
+            this.btnAceptar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblId
@@ -65,29 +65,6 @@
             this.lblAuxId.TabIndex = 57;
             this.lblAuxId.Text = "Grupo:";
             // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(1320, 371);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(233, 45);
-            this.btnCancelar.TabIndex = 48;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // btnAceptar
-            // 
-            this.btnAceptar.Enabled = false;
-            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAceptar.Location = new System.Drawing.Point(1320, 286);
-            this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(233, 41);
-            this.btnAceptar.TabIndex = 49;
-            this.btnAceptar.Text = "Aceptar";
-            this.btnAceptar.UseVisualStyleBackColor = true;
-            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
-            // 
             // lblCI
             // 
             this.lblCI.AutoSize = true;
@@ -101,9 +78,9 @@
             // lblSubCI
             // 
             this.lblSubCI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
-            this.lblSubCI.Location = new System.Drawing.Point(484, 344);
+            this.lblSubCI.Location = new System.Drawing.Point(485, 351);
             this.lblSubCI.Name = "lblSubCI";
-            this.lblSubCI.Size = new System.Drawing.Size(406, 10);
+            this.lblSubCI.Size = new System.Drawing.Size(406, 5);
             this.lblSubCI.TabIndex = 58;
             // 
             // txtCI
@@ -132,9 +109,9 @@
             // lblSubNombre
             // 
             this.lblSubNombre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
-            this.lblSubNombre.Location = new System.Drawing.Point(224, 565);
+            this.lblSubNombre.Location = new System.Drawing.Point(224, 571);
             this.lblSubNombre.Name = "lblSubNombre";
-            this.lblSubNombre.Size = new System.Drawing.Size(371, 10);
+            this.lblSubNombre.Size = new System.Drawing.Size(371, 5);
             this.lblSubNombre.TabIndex = 64;
             // 
             // txtNombre
@@ -162,9 +139,9 @@
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
-            this.label4.Location = new System.Drawing.Point(790, 565);
+            this.label4.Location = new System.Drawing.Point(790, 571);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(348, 10);
+            this.label4.Size = new System.Drawing.Size(348, 5);
             this.label4.TabIndex = 67;
             // 
             // txtApellido
@@ -201,11 +178,40 @@
             this.lblMateria.Text = "Nombre";
             this.lblMateria.Visible = false;
             // 
+            // btnAceptar
+            // 
+            this.btnAceptar.Enabled = false;
+            this.btnAceptar.FlatAppearance.BorderSize = 0;
+            this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAceptar.Image = global::Proyecto.Properties.Resources.ACEOPTAR;
+            this.btnAceptar.Location = new System.Drawing.Point(1287, 362);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(233, 94);
+            this.btnAceptar.TabIndex = 72;
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Image = global::Proyecto.Properties.Resources.cancelar;
+            this.btnCancelar.Location = new System.Drawing.Point(1287, 462);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(233, 95);
+            this.btnCancelar.TabIndex = 71;
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
             // AgregarAlumnoDocenteAGrupo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1601, 919);
+            this.Controls.Add(this.btnAceptar);
+            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.lblAuxMateria);
             this.Controls.Add(this.lblMateria);
             this.Controls.Add(this.lblApellido);
@@ -219,8 +225,6 @@
             this.Controls.Add(this.txtCI);
             this.Controls.Add(this.lblAuxId);
             this.Controls.Add(this.lblId);
-            this.Controls.Add(this.btnAceptar);
-            this.Controls.Add(this.btnCancelar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AgregarAlumnoDocenteAGrupo";
             this.Text = "Docentes";
@@ -233,8 +237,6 @@
         #endregion
         private System.Windows.Forms.Label lblId;
         private System.Windows.Forms.Label lblAuxId;
-        private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Label lblCI;
         private System.Windows.Forms.Label lblSubCI;
         private System.Windows.Forms.TextBox txtCI;
@@ -246,5 +248,7 @@
         private System.Windows.Forms.TextBox txtApellido;
         private System.Windows.Forms.Label lblAuxMateria;
         private System.Windows.Forms.Label lblMateria;
+        private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Button btnCancelar;
     }
 }

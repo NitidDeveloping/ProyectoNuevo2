@@ -66,6 +66,7 @@
             this.plEditar = new System.Windows.Forms.Panel();
             this.lblDestino = new System.Windows.Forms.Label();
             this.layout = new System.Windows.Forms.FlowLayoutPanel();
+            this.plLugares = new System.Windows.Forms.Panel();
             this.plInicio = new System.Windows.Forms.Panel();
             this.dtpInicio = new System.Windows.Forms.DateTimePicker();
             this.lblInicio = new System.Windows.Forms.Label();
@@ -129,7 +130,7 @@
             this.plNombre.Controls.Add(this.txtNombre);
             this.plNombre.Controls.Add(this.lblSubNombre);
             this.plNombre.Controls.Add(this.lblNombre);
-            this.plNombre.Location = new System.Drawing.Point(405, 7);
+            this.plNombre.Location = new System.Drawing.Point(405, 756);
             this.plNombre.Margin = new System.Windows.Forms.Padding(7);
             this.plNombre.Name = "plNombre";
             this.plNombre.Size = new System.Drawing.Size(384, 186);
@@ -141,7 +142,7 @@
             this.plApellido.Controls.Add(this.txtApellido);
             this.plApellido.Controls.Add(this.lblSubApellido);
             this.plApellido.Controls.Add(this.lblApellido);
-            this.plApellido.Location = new System.Drawing.Point(803, 7);
+            this.plApellido.Location = new System.Drawing.Point(803, 756);
             this.plApellido.Margin = new System.Windows.Forms.Padding(7);
             this.plApellido.Name = "plApellido";
             this.plApellido.Size = new System.Drawing.Size(384, 186);
@@ -183,7 +184,7 @@
             this.plCI.Controls.Add(this.txtCI);
             this.plCI.Controls.Add(this.lblSubCI);
             this.plCI.Controls.Add(this.lblCI);
-            this.plCI.Location = new System.Drawing.Point(7, 207);
+            this.plCI.Location = new System.Drawing.Point(7, 956);
             this.plCI.Margin = new System.Windows.Forms.Padding(7);
             this.plCI.Name = "plCI";
             this.plCI.Size = new System.Drawing.Size(384, 186);
@@ -225,7 +226,7 @@
             this.plPIN.Controls.Add(this.txtPIN);
             this.plPIN.Controls.Add(this.lblSubPIN);
             this.plPIN.Controls.Add(this.lblPIN);
-            this.plPIN.Location = new System.Drawing.Point(405, 207);
+            this.plPIN.Location = new System.Drawing.Point(405, 956);
             this.plPIN.Margin = new System.Windows.Forms.Padding(7);
             this.plPIN.Name = "plPIN";
             this.plPIN.Size = new System.Drawing.Size(384, 186);
@@ -267,7 +268,7 @@
             this.plComboBox1.Controls.Add(this.cbx1);
             this.plComboBox1.Controls.Add(this.lblSubCbx1);
             this.plComboBox1.Controls.Add(this.lblCbx1);
-            this.plComboBox1.Location = new System.Drawing.Point(803, 207);
+            this.plComboBox1.Location = new System.Drawing.Point(803, 956);
             this.plComboBox1.Margin = new System.Windows.Forms.Padding(7);
             this.plComboBox1.Name = "plComboBox1";
             this.plComboBox1.Size = new System.Drawing.Size(384, 186);
@@ -277,24 +278,25 @@
             // cbx1
             // 
             this.cbx1.DropDownHeight = 750;
-            this.cbx1.Font = new System.Drawing.Font("Verdana", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbx1.Font = new System.Drawing.Font("Verdana", 34F);
             this.cbx1.FormattingEnabled = true;
             this.cbx1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.cbx1.IntegralHeight = false;
+            this.cbx1.ItemHeight = 54;
             this.cbx1.Items.AddRange(new object[] {
             "Matutino",
             "Nocturno",
             "Vespertino"});
-            this.cbx1.Location = new System.Drawing.Point(22, 79);
+            this.cbx1.Location = new System.Drawing.Point(20, 79);
             this.cbx1.MaxDropDownItems = 25;
             this.cbx1.Name = "cbx1";
-            this.cbx1.Size = new System.Drawing.Size(339, 67);
+            this.cbx1.Size = new System.Drawing.Size(339, 62);
             this.cbx1.TabIndex = 74;
             // 
             // lblSubCbx1
             // 
             this.lblSubCbx1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
-            this.lblSubCbx1.Location = new System.Drawing.Point(19, 151);
+            this.lblSubCbx1.Location = new System.Drawing.Point(19, 142);
             this.lblSubCbx1.Name = "lblSubCbx1";
             this.lblSubCbx1.Size = new System.Drawing.Size(342, 5);
             this.lblSubCbx1.TabIndex = 58;
@@ -314,7 +316,7 @@
             this.plCombobox2.Controls.Add(this.cbx2);
             this.plCombobox2.Controls.Add(this.lblSubCbx2);
             this.plCombobox2.Controls.Add(this.lblCbx2);
-            this.plCombobox2.Location = new System.Drawing.Point(405, 407);
+            this.plCombobox2.Location = new System.Drawing.Point(405, 1156);
             this.plCombobox2.Margin = new System.Windows.Forms.Padding(7);
             this.plCombobox2.Name = "plCombobox2";
             this.plCombobox2.Size = new System.Drawing.Size(384, 186);
@@ -324,23 +326,23 @@
             // cbx2
             // 
             this.cbx2.DropDownHeight = 750;
-            this.cbx2.Font = new System.Drawing.Font("Verdana", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbx2.Font = new System.Drawing.Font("Verdana", 34F);
             this.cbx2.FormattingEnabled = true;
             this.cbx2.IntegralHeight = false;
             this.cbx2.Items.AddRange(new object[] {
             "Matutino",
             "Nocturno",
             "Vespertino"});
-            this.cbx2.Location = new System.Drawing.Point(22, 79);
+            this.cbx2.Location = new System.Drawing.Point(20, 79);
             this.cbx2.MaxDropDownItems = 25;
             this.cbx2.Name = "cbx2";
-            this.cbx2.Size = new System.Drawing.Size(339, 67);
+            this.cbx2.Size = new System.Drawing.Size(339, 62);
             this.cbx2.TabIndex = 74;
             // 
             // lblSubCbx2
             // 
             this.lblSubCbx2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
-            this.lblSubCbx2.Location = new System.Drawing.Point(19, 151);
+            this.lblSubCbx2.Location = new System.Drawing.Point(19, 142);
             this.lblSubCbx2.Name = "lblSubCbx2";
             this.lblSubCbx2.Size = new System.Drawing.Size(342, 5);
             this.lblSubCbx2.TabIndex = 58;
@@ -360,7 +362,7 @@
             this.plCombobox3.Controls.Add(this.cbx3);
             this.plCombobox3.Controls.Add(this.lblSubCbx3);
             this.plCombobox3.Controls.Add(this.lblCbx3);
-            this.plCombobox3.Location = new System.Drawing.Point(7, 407);
+            this.plCombobox3.Location = new System.Drawing.Point(7, 1156);
             this.plCombobox3.Margin = new System.Windows.Forms.Padding(7);
             this.plCombobox3.Name = "plCombobox3";
             this.plCombobox3.Size = new System.Drawing.Size(384, 186);
@@ -370,23 +372,23 @@
             // cbx3
             // 
             this.cbx3.DropDownHeight = 750;
-            this.cbx3.Font = new System.Drawing.Font("Verdana", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbx3.Font = new System.Drawing.Font("Verdana", 34F);
             this.cbx3.FormattingEnabled = true;
             this.cbx3.IntegralHeight = false;
             this.cbx3.Items.AddRange(new object[] {
             "Matutino",
             "Nocturno",
             "Vespertino"});
-            this.cbx3.Location = new System.Drawing.Point(22, 79);
+            this.cbx3.Location = new System.Drawing.Point(20, 79);
             this.cbx3.MaxDropDownItems = 25;
             this.cbx3.Name = "cbx3";
-            this.cbx3.Size = new System.Drawing.Size(339, 67);
+            this.cbx3.Size = new System.Drawing.Size(339, 62);
             this.cbx3.TabIndex = 74;
             // 
             // lblSubCbx3
             // 
             this.lblSubCbx3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
-            this.lblSubCbx3.Location = new System.Drawing.Point(19, 151);
+            this.lblSubCbx3.Location = new System.Drawing.Point(19, 142);
             this.lblSubCbx3.Name = "lblSubCbx3";
             this.lblSubCbx3.Size = new System.Drawing.Size(342, 5);
             this.lblSubCbx3.TabIndex = 58;
@@ -405,7 +407,7 @@
             // 
             this.plCheckBox1.Controls.Add(this.chck1);
             this.plCheckBox1.Controls.Add(this.lblSubChck1);
-            this.plCheckBox1.Location = new System.Drawing.Point(803, 407);
+            this.plCheckBox1.Location = new System.Drawing.Point(803, 1156);
             this.plCheckBox1.Margin = new System.Windows.Forms.Padding(7);
             this.plCheckBox1.Name = "plCheckBox1";
             this.plCheckBox1.Size = new System.Drawing.Size(384, 186);
@@ -434,7 +436,7 @@
             // 
             this.plCheckBox2.Controls.Add(this.chck2);
             this.plCheckBox2.Controls.Add(this.lblSubChck2);
-            this.plCheckBox2.Location = new System.Drawing.Point(7, 607);
+            this.plCheckBox2.Location = new System.Drawing.Point(7, 1356);
             this.plCheckBox2.Margin = new System.Windows.Forms.Padding(7);
             this.plCheckBox2.Name = "plCheckBox2";
             this.plCheckBox2.Size = new System.Drawing.Size(384, 186);
@@ -474,7 +476,7 @@
             // 
             this.plEditar.Controls.Add(this.lblDestino);
             this.plEditar.Controls.Add(this.lblTituloDestino);
-            this.plEditar.Location = new System.Drawing.Point(7, 7);
+            this.plEditar.Location = new System.Drawing.Point(7, 756);
             this.plEditar.Margin = new System.Windows.Forms.Padding(7);
             this.plEditar.Name = "plEditar";
             this.plEditar.Size = new System.Drawing.Size(384, 186);
@@ -494,6 +496,7 @@
             // layout
             // 
             this.layout.AutoScroll = true;
+            this.layout.Controls.Add(this.plLugares);
             this.layout.Controls.Add(this.plEditar);
             this.layout.Controls.Add(this.plNombre);
             this.layout.Controls.Add(this.plApellido);
@@ -512,11 +515,19 @@
             this.layout.Size = new System.Drawing.Size(1202, 814);
             this.layout.TabIndex = 81;
             // 
+            // plLugares
+            // 
+            this.plLugares.Location = new System.Drawing.Point(3, 3);
+            this.plLugares.Name = "plLugares";
+            this.plLugares.Size = new System.Drawing.Size(1222, 743);
+            this.plLugares.TabIndex = 82;
+            this.plLugares.Visible = false;
+            // 
             // plInicio
             // 
             this.plInicio.Controls.Add(this.dtpInicio);
             this.plInicio.Controls.Add(this.lblInicio);
-            this.plInicio.Location = new System.Drawing.Point(405, 607);
+            this.plInicio.Location = new System.Drawing.Point(405, 1356);
             this.plInicio.Margin = new System.Windows.Forms.Padding(7);
             this.plInicio.Name = "plInicio";
             this.plInicio.Size = new System.Drawing.Size(384, 186);
@@ -548,7 +559,7 @@
             // 
             this.plFin.Controls.Add(this.dtpFin);
             this.plFin.Controls.Add(this.lblFin);
-            this.plFin.Location = new System.Drawing.Point(803, 607);
+            this.plFin.Location = new System.Drawing.Point(803, 1356);
             this.plFin.Margin = new System.Windows.Forms.Padding(7);
             this.plFin.Name = "plFin";
             this.plFin.Size = new System.Drawing.Size(384, 186);
@@ -580,7 +591,7 @@
             // 
             this.plFechaIngreso.Controls.Add(this.dtpFechaIngreso);
             this.plFechaIngreso.Controls.Add(this.lblFechaIngreso);
-            this.plFechaIngreso.Location = new System.Drawing.Point(7, 807);
+            this.plFechaIngreso.Location = new System.Drawing.Point(7, 1556);
             this.plFechaIngreso.Margin = new System.Windows.Forms.Padding(7);
             this.plFechaIngreso.Name = "plFechaIngreso";
             this.plFechaIngreso.Size = new System.Drawing.Size(384, 186);
@@ -609,6 +620,8 @@
             // 
             // btnSiguiente
             // 
+            this.btnSiguiente.FlatAppearance.BorderSize = 0;
+            this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSiguiente.Image = global::Proyecto.Properties.Resources.siguiente;
             this.btnSiguiente.Location = new System.Drawing.Point(1252, 574);
@@ -617,9 +630,12 @@
             this.btnSiguiente.TabIndex = 72;
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Visible = false;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
             // btnAceptar
             // 
+            this.btnAceptar.FlatAppearance.BorderSize = 0;
+            this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.Image = global::Proyecto.Properties.Resources.ACEOPTAR;
             this.btnAceptar.Location = new System.Drawing.Point(1252, 361);
@@ -631,6 +647,8 @@
             // 
             // btnCancelar
             // 
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.Image = global::Proyecto.Properties.Resources.cancelar;
             this.btnCancelar.Location = new System.Drawing.Point(1252, 467);
@@ -733,5 +751,6 @@
         private System.Windows.Forms.Panel plFechaIngreso;
         private System.Windows.Forms.DateTimePicker dtpFechaIngreso;
         private System.Windows.Forms.Label lblFechaIngreso;
+        private System.Windows.Forms.Panel plLugares;
     }
 }

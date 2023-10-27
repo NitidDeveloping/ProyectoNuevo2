@@ -16,14 +16,55 @@ namespace CapaDatos
 
         private static Conector conn = null;
 
+        /*============= USUARIOS DE LA BD =============*/
+
+        /*CREATE USER 'Visitante' IDENTIFIED BY 'b+ygCVepakZpste+%+yeC%NoDD9L_KwQx*`bZbhn=xr@w';
+
+        CREATE USER 'Alumno' IDENTIFIED BY 'uVn5`rxeA/A92ZFgnG99qhSoi43`Wq/SACoenG^G6~~+i';
+
+        CREATE USER 'Docente' IDENTIFIED BY 'TcdiyM~ikDgd&VyFfjtPd74B=V^7D-Von%hKc^T/jnx-G';
+
+        CREATE USER 'Default_User' IDENTIFIED BY '';
+
+        CREATE USER 'OperadorEjemplo' IDENTIFIED BY 'contraseñaOperador';
+
+        CREATE USER 'AdministradorEjemplo' IDENTIFIED BY 'contraseñaAdmin'; */
+
 
         private Conector()  //Metodo en private para que no se tenga acceso al constructor
         {
             database = "nitid"; //Establecemos los valores en el constructor.
             server = "localhost";
             uid = "root";
-            pwd = "1234";
+            pwd = "root";
 
+            /*switch (Sesion.LoggedRol)
+            {
+                case TipoRol.Administrador:
+                    uid = "mgilino";
+                    pwd = "54828274";
+                    break;
+                case TipoRol.Operador:
+                    uid = "ngarcia";
+                    pwd = "59556020";
+                    break;
+                case TipoRol.Docente:
+                    uid = "lleyton";
+                    pwd = "53618088";
+                    break;
+                case TipoRol.Alumno:
+                    uid = "acisnero";
+                    pwd = "54819065";
+                    break;
+                case TipoRol.Default:
+                    uid = "";
+                    pwd = "";
+                    break;
+                case TipoRol.Visitante:
+                    uid = "";
+                    pwd = "";
+                    break;
+            }*/
         }
 
         //Método público para devolver string de conexión
@@ -59,6 +100,8 @@ namespace CapaDatos
             return conn; //Sino simplemente la devuelve
 
         }
+
+
 
 
     }

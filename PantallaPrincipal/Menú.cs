@@ -1,22 +1,51 @@
 ﻿using CapaEntidades;
 using CapaNegocio;
-using Proyecto;
 using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using static CustomControls;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace Proyecto
 {
     public partial class Menú : Form
     {
-        private Button currentButton;
-
+        private readonly CustomControls customControls;
         public Menú()
         {
             InitializeComponent();
+            customControls = new CustomControls(plLateral);
+            CustomRadioButton rbPB = new CustomRadioButton
+            {
+                Text = "Planta Baja",
+                Font = new Font("MADE INFINITY PERSONAL USE", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0),
+                MinimumSize = new Size(170, 50),
+                Location = new Point(10, 10)
+            };
 
-            plPersona.Paint += Panel1_Paint;
+
+            CustomRadioButton rbP1 = new CustomRadioButton
+            {
+                Text = "Piso 1",
+                Location = new Point(200, 11),
+                Font = new Font("MADE INFINITY PERSONAL USE", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0),
+            };
+
+            CustomRadioButton rbP2 = new CustomRadioButton
+            {
+                Text = "Piso 2",
+                Location = new Point(330, 11),
+                Font = new Font("MADE INFINITY PERSONAL USE", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0)
+            };
+
+            rbPB.CheckedChanged += MapaRadioButton_CheckedChanged;
+            rbP1.CheckedChanged += MapaRadioButton_CheckedChanged;
+            rbP2.CheckedChanged += MapaRadioButton_CheckedChanged;
+
+            plPisos.Controls.Add(rbPB);
+            plPisos.Controls.Add(rbP1);
+            plPisos.Controls.Add(rbP2);
         }
 
         private void Menú_Load(object sender, EventArgs e)
@@ -29,9 +58,10 @@ namespace Proyecto
                 timerCierreSesion.Start();
             }
 
+            cbxLugares.SelectedIndexChanged -= cbxLugares_SelectedIndexChanged;
             Mapa mapa = new Mapa();
             Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
-            Metodos.openChildForm(mapa, plMapa);
+            Metodos.OpenChildForm(mapa, plMapa);
             Negocio negocio = new Negocio();
 
 
@@ -40,6 +70,7 @@ namespace Proyecto
             cbxLugares.DisplayMember = "Nombre";
             cbxLugares.ValueMember = "Nombre";
             cbxLugares.SelectedIndex = -1;
+            cbxLugares.SelectedIndexChanged += cbxLugares_SelectedIndexChanged;
 
             switch (Sesion.LoggedRol)
             {
@@ -50,9 +81,7 @@ namespace Proyecto
                 case TipoRol.Docente:
                     btnGrupo.Visible = true;
                     break;
-
             }
-
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -87,54 +116,15 @@ namespace Proyecto
             }
         }
 
-        private void ActivateButton(object btnSender)
-        {
-            if (btnSender != null)
-            {
-                if (currentButton != (Button)btnSender)
-                {
-                    DisableButton();
-                    Color color = Color.FromArgb(178, 8, 55);
-                    currentButton = (Button)btnSender;
-                    currentButton.BackColor = color;
-                    currentButton.ForeColor = Color.White;
-                    currentButton.Font = new System.Drawing.Font("MADE INFINITY PERSONAL USE", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-
-                }
-            }
-        }
-
-        private void DisableButton()
-        {
-            foreach (Control previousBtn in plLateral.Controls)
-            {
-                if (previousBtn.GetType() == typeof(Button))
-                {
-                    previousBtn.BackColor = Color.Gainsboro;
-                    previousBtn.ForeColor = Color.Black;
-                    previousBtn.Font = new System.Drawing.Font("MADE INFINITY PERSONAL USE", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                }
-            }
-        }
         private void CerrarSesion()  //Creo el método para confirmar el cierre de sesión
         {
-            MsgBox msg = new MsgBox("pregunta", "¿Desea cerrar sesión?"); //Hago la pregunta
-
-            msg.btnAceptar.Visible = false; //Oculto el botón "Aceptar" del form "MsgBox"
-            msg.btnSi.Visible = true; //Muestro el botón "Sí" del form "MsgBox"
-            msg.btnNo.Visible = true; //Muestro el botón "No" del form "MsgBox"
-            msg.label3.Visible = true; //Muestro el "label3" del form "MsgBox"
-
-            msg.btnSi.Click += (sender, e) => //Le asigno una función al botón "Sí" del form "MsgBox"
-            {
-                msg.Close(); //Cierro el mensaje
-                Close(); //Cierro el menú
-            };
-            msg.btnNo.Click += (sender, e) => //Le asigno una función al botón "No" del form "MsgBox"
-            {
-                msg.Close(); //Cierro el mensaje
-            };
+            MsgBox msg = new MsgBox("pregunta", "¿Desea cerrar sesión?"); //Hago la pregunta"
             msg.ShowDialog(); //Luego de asignar las funciones de cada botón, muestro el form con las modificaciones realizadas previamente
+
+            if (msg.DialogResult == DialogResult.Yes)
+            {
+                this.Close(); //Cierro el menú
+            }
         }
 
         private void BtnLogout_Click(object sender, EventArgs e)
@@ -151,13 +141,13 @@ namespace Proyecto
         private void btnAbm_Click(object sender, EventArgs e)
         {
             ShowSubMenu(plABMSubMenu);
-            ActivateButton(sender);
+            customControls.ActivateButton(sender);
         }
 
         private void btnDatos_Click(object sender, EventArgs e)
         {
             ShowSubMenu(plDatosSubMenu);
-            ActivateButton(sender);
+            customControls.ActivateButton(sender);
         }
 
         private void CenterLabelInPanel() //Centrar el lblPersona en el panel sin importar el nombre o tipo de persona
@@ -176,7 +166,6 @@ namespace Proyecto
 
         private void Panel1_Paint(object sender, PaintEventArgs e)
         {
-            // Centrar el label en el panel
             CenterLabelInPanel();
         }
 
@@ -282,9 +271,8 @@ namespace Proyecto
             lblTitulo.Text = "Gestionar " + titulo;
             Sesion sesion = new Sesion();
             sesion.SetReferenciaActual(referencia);
-            Lista lista = new Lista();
-            Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
-            Metodos.openChildForm(lista, plForms);
+            Lista lista = new Lista();//Almacenamos la instancia del formulario menú
+            Metodos.OpenChildForm(lista, plForms);
         }
 
         private void btnOrientacion_Click(object sender, EventArgs e)
@@ -300,10 +288,10 @@ namespace Proyecto
 
 
         private void pbMapa_Click(object sender, EventArgs e)
-        {/*
+        {
+            cbxLugares.SelectedIndexChanged -= cbxLugares_SelectedIndexChanged;
             Mapa mapa = new Mapa();
-            Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
-            Metodos.openChildForm(mapa, plMapa);
+            Metodos.OpenChildForm(mapa, plMapa);
             Negocio negocio = new Negocio();
             lblTitulo.Text = "Mapa";
 
@@ -312,7 +300,8 @@ namespace Proyecto
             cbxLugares.DisplayMember = "Nombre";
             cbxLugares.ValueMember = "Nombre";
             cbxLugares.SelectedIndex = -1;
-            */
+            cbxLugares.SelectedIndexChanged += cbxLugares_SelectedIndexChanged;
+
         }
 
         private void cbxLugares_SelectedIndexChanged(object sender, EventArgs e)
@@ -328,13 +317,35 @@ namespace Proyecto
                     int coordenadaY = Convert.ToInt32(row["Coordenada_Y"]);
 
                     Mapa.CurrentMapa.SetNodoFinal(coordenadaX, coordenadaY);
+                    Mapa.CurrentMapa.FindPath();
                 }
             }
             else
             {
                 Mapa.CurrentMapa.ClearPoints();
             }
-            */
+        }
+
+        private void MapaRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (sender is CustomRadioButton radioButton)
+            {
+                if (radioButton.Checked)
+                {
+                    int mapaSeleccionado = 0;
+
+                    if (radioButton.Text == "Piso 1")
+                    {
+                        mapaSeleccionado = 1;
+                    }
+                    else if (radioButton.Text == "Piso 2")
+                    {
+                        mapaSeleccionado = 2;
+                    }
+
+                    Mapa.CurrentMapa.CambiarMapa(mapaSeleccionado);
+                }
+            }
         }
 
         //Cierre de sesion automatico

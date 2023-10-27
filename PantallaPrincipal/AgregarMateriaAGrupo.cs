@@ -38,7 +38,7 @@ namespace Proyecto
         {
             ConsultaGrupo consultaGrupo; //Formulario de consulta grupo
             consultaGrupo = new ConsultaGrupo(grupoConsulta);
-            Metodos.openChildForm(consultaGrupo, Metodos.menuForm.plForms);
+            Metodos.OpenChildForm(consultaGrupo, Metodos.menuForm.plForms);
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

@@ -758,21 +758,6 @@ namespace CapaNegocio
         }
         #endregion
 
-
-        /*public List<ushort> ObtenerIdLugares()
-        {
-            Datos datos = new Datos();
-            List<object> lugares = datos.ListarLugares(null, null);
-
-            List<ushort> idsLugares = new List<ushort>();
-            foreach (Lugar lugar in lugares)
-            {
-                idsLugares.Add(lugar.ID);
-            }
-
-            return List<object> lugares = datos.ListarLugares(null, null); ;
-        }*/
-
         //Metodos para los horarios
         #region
         public RetornoValidacion AgregarHorario(Horario horario)

@@ -1,10 +1,10 @@
 ﻿using CapaEntidades;
 using CapaNegocio;
+using Proyecto.Properties;
 using System;
 using System.Data;
-using System.Drawing;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 
 namespace Proyecto
 {
@@ -14,6 +14,7 @@ namespace Proyecto
         public string IdDestino;
         public string NombreDestino;
         public string IdPadre = null;
+        private bool isVolverMode = false;
 
         public AgregarEditar()
         {
@@ -22,6 +23,7 @@ namespace Proyecto
 
         private void AgregarEditar_Load(object sender, EventArgs e)
         {
+            Metodos.SetAgregarForm(this);
             Negocio negocio = new Negocio(); //Instancia de negocio para trabajar con metodos de la clase
 
             plEditar.Visible = IdDestino != null; //Si el idDestino es distinto de null el plEditar se pone en Visible true, sino false. Usamos una operacion booleana para ahorrarnos el if
@@ -455,7 +457,7 @@ namespace Proyecto
         {
             Lista lista = new Lista();
             Close();
-            Metodos.openChildForm(lista, Metodos.menuForm.plForms);
+            Metodos.OpenChildForm(lista, Metodos.menuForm.plForms);
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -826,6 +828,8 @@ namespace Proyecto
                         string nombre;
                         TipoLugar tipo;
                         byte piso;
+                        int coordX;
+                        int coordY;
                         bool isClase;
                         bool isUsoComun;
                         ushort id; // El id solo se usara si se quiere editar y se conseguira desde el idDestino
@@ -840,20 +844,17 @@ namespace Proyecto
                         piso = (byte)(int)cbx2.SelectedItem; //Obtiene el piso seleccionado en el combobox
                         isClase = chck1.Checked; //Asigna true si la casilla esta marcada o false si no lo esta
                         isUsoComun = chck2.Checked;
+                        coordX = Mapa.CurrentMapa.SelectedX;
+                        coordY = Mapa.CurrentMapa.SelectedY;
 
-                        //Esto hay que completarlo con lo del mapa
-                        //int coordenada_x = ;
-                        //int coordenada_y = ;
-
-                        lugar = new Lugar(nombre, tipo, piso, 0, 0, isClase, isUsoComun);
-                        //Cambiar el constructor cuando tenga el mapa para conseguir las coordenadas
-                        // Lugar lugar = new Lugar(nombre, tipo, piso, coordenada_x, coordenada_y, isClase, isUsoComun);
+                        lugar = new Lugar(nombre, tipo, piso, coordX, coordY, isClase, isUsoComun);
 
                         //En caso de edicion Asigna el valor al id y ejecuta la operacion como editar
                         if (IdDestino != null)
                         {
                             id = ushort.Parse(IdDestino);
                             resultadoAgregar = negocio.Editar(TipoReferencia.Lugar, lugar, id.ToString(), nombre);
+                            Mapa.CurrentMapa.MapaClick = true;
                         }
                         //En caso contrario ejecuta la operacion como agregar
                         else
@@ -865,6 +866,7 @@ namespace Proyecto
                         {
                             case RetornoValidacion.OK:
                                 msg = new MsgBox("exito", "Lugar cargado exitosamente");
+                                Mapa.CurrentMapa.MapaClick = false;
                                 Limpiar();
                                 break;
 
@@ -1254,6 +1256,12 @@ namespace Proyecto
                 cbx1.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
             }
+            else if (!Mapa.CurrentMapa.MapaClick)
+            {
+                MsgBox msg = new MsgBox("error", "Debe seleccionar el lugar en el mapa");
+                msg.ShowDialog();
+                respuesta = RetornoValidacion.ErrorDeFormato;
+            }
 
             return respuesta;
 
@@ -1286,10 +1294,46 @@ namespace Proyecto
             {
                 Lista lista = new Lista();
                 Close();
-                Metodos.openChildForm(lista, Metodos.menuForm.plForms);
+                Metodos.OpenChildForm(lista, Metodos.menuForm.plForms);
             }
         }
 
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (cbx2.SelectedIndex == -1)
+            {
+                MsgBox msg = new MsgBox("error", "Seleccione un piso antes de elegir las coordenadas");
+                msg.ShowDialog();
+            }
+            else
+            {
+                if (!isVolverMode)
+                {
+                    Mapa mapa = new Mapa();
+                    mapa.CambiarMapa(cbx2.SelectedIndex);
+                    plLugares.Visible = true;
+                    Metodos.OpenMapForm(mapa, plLugares);
 
+                    plNombre.Visible = false;
+                    plComboBox1.Visible = false;
+                    plCombobox2.Visible = false;
+                    plCheckBox1.Visible = false;
+                    plCheckBox2.Visible = false;
+                    btnSiguiente.Image = Resources.VOLVER;
+                    isVolverMode = true;
+                }
+                else
+                {
+                    plLugares.Visible = false;
+                    plNombre.Visible = true;
+                    plComboBox1.Visible = true;
+                    plCombobox2.Visible = true;
+                    plCheckBox1.Visible = true;
+                    plCheckBox2.Visible = true;
+                    btnSiguiente.Image = Resources.siguiente;
+                    isVolverMode = false;
+                }
+            }
+        }
     }
 }

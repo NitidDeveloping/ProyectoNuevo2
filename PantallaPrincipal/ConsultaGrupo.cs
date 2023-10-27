@@ -36,21 +36,21 @@ namespace Proyecto
         {
             Lista lista = new Lista();
             Close();
-            Metodos.openChildForm(lista, Metodos.menuForm.plForms);
+            Metodos.OpenChildForm(lista, Metodos.menuForm.plForms);
         }
 
         private void btnAgregarAlumno_Click(object sender, EventArgs e)
         {
             AgregarAlumnoDocenteAGrupo agregar = new AgregarAlumnoDocenteAGrupo(grupoConsulta);
             this.Close();
-            Metodos.openChildForm(agregar, Metodos.menuForm.plForms);
+            Metodos.OpenChildForm(agregar, Metodos.menuForm.plForms);
         }
 
         private void btnAsignarMateria_Click(object sender, EventArgs e)
         {
             AgregarMateriaAGrupo agregar = new AgregarMateriaAGrupo(grupoConsulta);
             this.Close();
-            Metodos.openChildForm(agregar, Metodos.menuForm.plForms);
+            Metodos.OpenChildForm(agregar, Metodos.menuForm.plForms);
         }
 
         #endregion
@@ -126,7 +126,7 @@ namespace Proyecto
 
                     AgregarAlumnoDocenteAGrupo agregar = new AgregarAlumnoDocenteAGrupo(grupoConsulta, materia);
                     this.Close();
-                    Metodos.openChildForm(agregar, Metodos.menuForm.plForms);
+                    Metodos.OpenChildForm(agregar, Metodos.menuForm.plForms);
                 }
             }
             else

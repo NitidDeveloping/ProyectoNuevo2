@@ -108,6 +108,7 @@
     <Compile Include="ManualDeUsuario.Designer.cs">
       <DependentUpon>ManualDeUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls.cs" />
     <Compile Include="Lista.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -349,6 +350,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Provisional.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VOLVER.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\piso 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\piso 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\planta baja.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Help.png" />
