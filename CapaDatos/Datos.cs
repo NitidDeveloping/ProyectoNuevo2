@@ -80,7 +80,7 @@ namespace CapaDatos
                     break;
 
                 case TipoReferencia.Clases:
-                    cmdstr = "SELECT ID, Nombre, Tipo, Nombre_Tipo, Coordenada_X, Coordenada_Y, Piso, AptoParaClase, UsoComun, EstadoOcupacion FROM Solo_UsoComun;";
+                    cmdstr = "SELECT ID, Nombre, Tipo, Nombre_Tipo, Coordenada_X, Coordenada_Y, Piso, AptoParaClase, UsoComun, EstadoOcupacion FROM Solo_Clase;";
                     break;
 
                 case TipoReferencia.Funcionario:

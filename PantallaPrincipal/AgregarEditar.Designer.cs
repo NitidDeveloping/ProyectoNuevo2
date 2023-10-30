@@ -278,6 +278,7 @@
             // cbx1
             // 
             this.cbx1.DropDownHeight = 750;
+            this.cbx1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbx1.Font = new System.Drawing.Font("Verdana", 34F);
             this.cbx1.FormattingEnabled = true;
             this.cbx1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -326,6 +327,7 @@
             // cbx2
             // 
             this.cbx2.DropDownHeight = 750;
+            this.cbx2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbx2.Font = new System.Drawing.Font("Verdana", 34F);
             this.cbx2.FormattingEnabled = true;
             this.cbx2.IntegralHeight = false;
@@ -372,6 +374,7 @@
             // cbx3
             // 
             this.cbx3.DropDownHeight = 750;
+            this.cbx3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbx3.Font = new System.Drawing.Font("Verdana", 34F);
             this.cbx3.FormattingEnabled = true;
             this.cbx3.IntegralHeight = false;

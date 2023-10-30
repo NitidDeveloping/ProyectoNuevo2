@@ -84,6 +84,12 @@ namespace Proyecto
         #region
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
+            if (DGV.SelectedRows.Count <= 0)
+            {
+                MsgBox error = new MsgBox("error", "Debe seleccionar un elemento de la lista para eliminar");
+                error.ShowDialog();
+                return;
+            }
             RetornoValidacion respuesta; //Resultado de la operacion
             string id; // Id del objeto que se va a pasar al metodo eliminar
             string idPadre = null; // Id padre en caso de que sea una entidad con debilidad  (hora)
@@ -167,6 +173,11 @@ namespace Proyecto
                         else if (respuesta == RetornoValidacion.ErrorInesperadoBD)
                         {
                             msg = new MsgBox("error", "Ha surgido un error inesperado, intente de nuevo, en caso de que el problema persista contacte con un tecnico.");
+                            msg.ShowDialog();
+                        }
+                        else if (respuesta == RetornoValidacion.ErrorInesperadoBDCategorizacion)
+                        {
+                            msg = new MsgBox("error", "Ha surgido un error inesperado al intentar eliminar al " + Sesion.ReferenciaActual + ", intente de nuevo o contacte con un administrador");
                             msg.ShowDialog();
                         }
                     }

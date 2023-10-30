@@ -523,15 +523,31 @@ namespace CapaNegocio
         public RetornoValidacion Eliminar(TipoReferencia referencia, string idObjetivo)
         {
             Datos datos = new Datos();
-            if (datos.Consultar(referencia, idObjetivo) != null)
-            {
-                return datos.Eliminar(referencia, idObjetivo);
 
-            }
-            else
+            //Si no se encuentra el objeto devuelve que no existe
+            if (datos.Consultar(referencia, idObjetivo) == null)
             {
                 return RetornoValidacion.NoExiste;
             }
+
+            //Si no es alumno docente ni funcionario elimina comun
+            if (referencia != TipoReferencia.Alumno && referencia != TipoReferencia.Docente && referencia != TipoReferencia.Funcionario)
+            {
+                return datos.Eliminar(referencia, idObjetivo);
+            }
+
+            // Si es alguno de esos elimina el alumno y despues el usuario
+            RetornoValidacion eliminarDeCategorizacion = datos.Eliminar(referencia, idObjetivo);
+
+            //Si eliminarDeCategorizacion sale mal devuelve que hubo un error
+            if (eliminarDeCategorizacion == RetornoValidacion.ErrorInesperadoBD)
+            {
+                return RetornoValidacion.ErrorInesperadoBDCategorizacion;
+            }
+
+            return datos.Eliminar(TipoReferencia.Usuario, idObjetivo);
+
+
         }
 
         //Sobrecargas para horas

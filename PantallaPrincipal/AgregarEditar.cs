@@ -67,6 +67,7 @@ namespace Proyecto
                         txtPIN.MaxLength = 4;//Seteamos la longitud maxima en el campo de pin para que pueda poner como maximo 4 caracteres
 
                         lblCbx1.Text = "Grupos";
+                        cbx1.DropDownStyle = ComboBoxStyle.DropDownList;
                         cbx1.DataSource = negocio.Listar(TipoReferencia.Grupo, null, null);
                         cbx1.DisplayMember = "Nombre";
                         cbx1.ValueMember = "Nombre";
@@ -413,7 +414,7 @@ namespace Proyecto
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
             //Si la referencia actual es grupo o lugar permite ingresar letras y numeros, sino solo permite ingresar letras
-            if (Sesion.ReferenciaActual == TipoReferencia.Grupo || Sesion.ReferenciaActual == TipoReferencia.Lugar)
+            if (Sesion.ReferenciaActual == TipoReferencia.Grupo || Sesion.ReferenciaActual == TipoReferencia.Lugar || Sesion.ReferenciaActual == TipoReferencia.Materia)
             {
                 Metodos.SoloLetrasYNumeros(e);
             }
@@ -1074,7 +1075,7 @@ namespace Proyecto
                 }
             }
 
-            else if (validaciones.ValidarVacio(txtNombre.Text))
+             if (validaciones.ValidarVacio(txtNombre.Text))
             {
                 MsgBox msg = new MsgBox("error", "Debe completar el campo de Nombre");
                 msg.ShowDialog();
@@ -1180,7 +1181,8 @@ namespace Proyecto
                     respuesta = RetornoValidacion.ErrorDeFormato;
                 }
             }
-            else if (cbx1.SelectedIndex == -1)
+            
+            if (cbx1.SelectedIndex == -1)
             {
                 MsgBox msg = new MsgBox("error", "Debe seleccionar una orientacion");
                 msg.ShowDialog();

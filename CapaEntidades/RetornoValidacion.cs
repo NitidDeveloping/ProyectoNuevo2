@@ -10,6 +10,7 @@ namespace CapaEntidades
     {
         ErrorDeFormato,
         ErrorInesperadoBD,
+        ErrorInesperadoBDCategorizacion,
         NoExiste,
         OK,
         YaExiste,
