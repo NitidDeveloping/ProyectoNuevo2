@@ -46,6 +46,15 @@ namespace CapaEntidades
             this.isUsoComun = isUsoComun;
         }
 
+        public Lugar(string nombre, TipoLugar tipo, bool isClase, bool isUsoComun)
+        {
+            this.nombre = nombre;
+            this.tipo = tipo;
+            this.isClase = isClase;
+            this.isUsoComun = isUsoComun;
+        }
+
+
         public Lugar(ushort id, string nombre, TipoLugar tipo, byte piso, int coordenada_x, int coordenada_y, bool isClase, bool isUsoComun)
         {
             this.id = id;

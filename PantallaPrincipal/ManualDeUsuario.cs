@@ -14,22 +14,32 @@ namespace Proyecto
 
         private void ManualDeUsuario_Load(object sender, EventArgs e)
         {
+            Metodos metodos = new Metodos();
+            metodos.ResetTimerCierreSesion(); // Reinicia el timer de cierre de sesion
+
             string directorioAplicacion = Path.GetDirectoryName(Application.ExecutablePath);
-            string path;
-            if (Sesion.LoggedRol == TipoRol.Alumno || Sesion.LoggedRol == TipoRol.Docente)
+            string ruta;
+            if (Sesion.LoggedRol == TipoRol.Alumno || Sesion.LoggedRol == TipoRol.Docente || Sesion.LoggedRol == TipoRol.Visitante)
             {
-                path = Path.Combine(directorioAplicacion, "Nitid Developing - Redes de datos y seguridad - Segunda entrega.rtf");
+                ruta = Path.Combine(directorioAplicacion, "Nitid Developing - Redes de datos y seguridad - Segunda entrega.rtf");
             }
             else
             {
-                path = Path.Combine(directorioAplicacion, "Nitid Developing - Redes de datos y seguridad - Segunda entrega.rtf");
+                ruta = Path.Combine(directorioAplicacion, "Nitid Developing - Redes de datos y seguridad - Segunda entrega.rtf");
             }
-            richTxt.LoadFile(path, RichTextBoxStreamType.RichText);
+            richTxt.LoadFile(ruta, RichTextBoxStreamType.RichText);
         }
-
-        private void btnVolver_Click(object sender, EventArgs e)
+        private void btnCerrar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Metodos metodos = new Metodos();
+            metodos.ResetTimerCierreSesion(); // Reinicia el timer de cierre de sesion
+
+            Close();
+        }
+        private void richTxt_VScroll(object sender, EventArgs e)
+        {
+            Metodos metodos = new Metodos();
+            metodos.ResetTimerCierreSesion();
         }
     }
 }

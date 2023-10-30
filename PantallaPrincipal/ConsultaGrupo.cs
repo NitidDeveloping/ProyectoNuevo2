@@ -52,60 +52,6 @@ namespace Proyecto
             this.Close();
             Metodos.OpenChildForm(agregar, Metodos.menuForm.plForms);
         }
-
-        #endregion
-
-        //Backgroundworkers
-        #region
-
-        //BckgMateriasDocentes
-        #region
-        private void bckgMateriasDocentes_DoWork(object sender, DoWorkEventArgs e)
-        {
-            Negocio negocio = new Negocio();
-            try
-            {
-                e.Result = negocio.ListarMateriasYDocentes(grupoConsulta.Nombre);
-            }
-            catch (Exception ex)
-            {
-                MsgBox msg = new MsgBox("error", ex.Message);
-                msg.ShowDialog();
-            }
-        }
-
-        private void bckgMateriasDocentes_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            DGVMateriasDocentes.DataSource = (DataTable)e.Result;
-            DGVMateriasDocentes.Columns[0].Visible = false; //Pone la columna con la id de la materia en no visible
-        }
-        #endregion
-
-        //BckgAlumnos
-        #region
-        private void bckgAlumnos_DoWork(object sender, DoWorkEventArgs e)
-        {
-            Negocio negocio = new Negocio();
-            try
-            {
-                e.Result = negocio.ListarAlumnosDeGrupo(grupoConsulta.Nombre);
-            }
-            catch (Exception ex)
-            {
-                MsgBox msg = new MsgBox("error", ex.Message);
-                msg.ShowDialog();
-            }
-        }
-
-        private void bckgAlumnos_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            DGVAlumnos.DataSource = (DataTable)e.Result;
-        }
-
-        #endregion
-
-        #endregion
-
         private void btnAsignarDocenteAMateria_Click(object sender, EventArgs e)
         {
             MsgBox msg;
@@ -191,7 +137,7 @@ namespace Proyecto
             ciDocente = DGVMateriasDocentes.SelectedRows[0].Cells["CI Docente"].Value.ToString();
             idMateria = DGVMateriasDocentes.SelectedRows[0].Cells["ID_Materia"].Value.ToString();
 
-            if(ciDocente == string.Empty)
+            if (ciDocente == string.Empty)
             {
                 msg = new MsgBox("error", "La materia seleccionada no tiene ningun docente asignado.");
                 msg.ShowDialog();
@@ -276,6 +222,60 @@ namespace Proyecto
                 }
             }
         }
+        #endregion
+
+        //Backgroundworkers
+        #region
+
+        //BckgMateriasDocentes
+        #region
+        private void bckgMateriasDocentes_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Negocio negocio = new Negocio();
+            try
+            {
+                e.Result = negocio.ListarMateriasYDocentes(grupoConsulta.Nombre);
+            }
+            catch (Exception ex)
+            {
+                MsgBox msg = new MsgBox("error", ex.Message);
+                msg.ShowDialog();
+            }
+        }
+
+        private void bckgMateriasDocentes_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            DGVMateriasDocentes.DataSource = (DataTable)e.Result;
+            DGVMateriasDocentes.Columns[0].Visible = false; //Pone la columna con la id de la materia en no visible
+        }
+        #endregion
+
+        //BckgAlumnos
+        #region
+        private void bckgAlumnos_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Negocio negocio = new Negocio();
+            try
+            {
+                e.Result = negocio.ListarAlumnosDeGrupo(grupoConsulta.Nombre);
+            }
+            catch (Exception ex)
+            {
+                MsgBox msg = new MsgBox("error", ex.Message);
+                msg.ShowDialog();
+            }
+        }
+
+        private void bckgAlumnos_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            DGVAlumnos.DataSource = (DataTable)e.Result;
+        }
+
+        #endregion
+
+        #endregion
+
+       
     }
 
 }

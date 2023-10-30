@@ -30,11 +30,6 @@ namespace CapaEntidades //De la capa de presentación y la de negocios puedo env
             this.apellido = apellido;
             this.ci = ci;
         }
-        public Usuario(string nombre, string apellido)
-        {
-            this.nombre = nombre;
-            this.apellido = apellido;
-        }
 
         public int CI
         {

@@ -737,7 +737,7 @@
         private System.Windows.Forms.Panel plEditar;
         private System.Windows.Forms.Label lblDestino;
         private System.Windows.Forms.TextBox txtNombre;
-        public System.Windows.Forms.Panel plNombre;
+        private System.Windows.Forms.Panel plNombre;
         private System.Windows.Forms.TextBox txtApellido;
         private System.Windows.Forms.TextBox txtCI;
         private System.Windows.Forms.TextBox txtPIN;

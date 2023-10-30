@@ -24,11 +24,7 @@ namespace Proyecto
         {
             Menú menu = new Menú();
             Sesion sesion = new Sesion();
-            menu.btnUsuarios.Visible = false;
-            menu.btnDatos.Visible = false;
-            menu.btnModPIN.Visible = false;
-            menu.lblPersona.Text = "Invitado";
-            sesion.LogIn(TipoRol.Visitante);
+            sesion.LogIn();
             menu.Show();
         }
     }

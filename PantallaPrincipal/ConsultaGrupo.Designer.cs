@@ -335,10 +335,10 @@
         private System.Windows.Forms.Button btnAgregarAlumno;
         private System.Windows.Forms.Label lblId;
         private System.ComponentModel.BackgroundWorker bckgAlumnos;
-        public System.Windows.Forms.DataGridView DGVMateriasDocentes;
+        private System.Windows.Forms.DataGridView DGVMateriasDocentes;
         private System.Windows.Forms.Label lblMateriasDocentes;
         private System.Windows.Forms.Label lblAlumnos;
-        public System.Windows.Forms.DataGridView DGVAlumnos;
+        private System.Windows.Forms.DataGridView DGVAlumnos;
         private System.Windows.Forms.Button btnAsignarDocenteAMateria;
         private System.Windows.Forms.Button btnDesasignarDocenteAMateria;
         private System.Windows.Forms.Button btnDesasignarMateria;

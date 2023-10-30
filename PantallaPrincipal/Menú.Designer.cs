@@ -33,22 +33,11 @@
             this.lblPersona = new System.Windows.Forms.Label();
             this.plLateral = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.plPersona = new System.Windows.Forms.Panel();
-            this.plDatosSubMenu = new System.Windows.Forms.Panel();
-            this.btnDatos = new System.Windows.Forms.Button();
-            this.plABMSubMenu = new System.Windows.Forms.Panel();
-            this.btnUsuarios = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.lblHora = new System.Windows.Forms.Label();
-            this.lblFecha = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.lblTitulo = new System.Windows.Forms.Label();
-            this.timerCierreSesion = new System.Windows.Forms.Timer(this.components);
             this.btnModPIN = new System.Windows.Forms.Button();
             this.btnAyuda = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
+            this.plPersona = new System.Windows.Forms.Panel();
+            this.plDatosSubMenu = new System.Windows.Forms.Panel();
             this.btnHoras = new System.Windows.Forms.Button();
             this.btnOrientacion = new System.Windows.Forms.Button();
             this.btnAnios = new System.Windows.Forms.Button();
@@ -57,10 +46,20 @@
             this.btnGrupos = new System.Windows.Forms.Button();
             this.btnLugares = new System.Windows.Forms.Button();
             this.btnHorarios = new System.Windows.Forms.Button();
+            this.btnDatos = new System.Windows.Forms.Button();
+            this.plABMSubMenu = new System.Windows.Forms.Panel();
             this.btnABMOp = new System.Windows.Forms.Button();
             this.btnABMDocentes = new System.Windows.Forms.Button();
             this.btnABMAlumnos = new System.Windows.Forms.Button();
+            this.btnUsuarios = new System.Windows.Forms.Button();
+            this.plLogo = new System.Windows.Forms.Panel();
             this.pbMapa = new System.Windows.Forms.PictureBox();
+            this.lblHora = new System.Windows.Forms.Label();
+            this.lblFecha = new System.Windows.Forms.Label();
+            this.plReloj = new System.Windows.Forms.Panel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.plTitulo = new System.Windows.Forms.Panel();
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.plForms = new System.Windows.Forms.Panel();
             this.plPisos = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -73,10 +72,10 @@
             this.plPersona.SuspendLayout();
             this.plDatosSubMenu.SuspendLayout();
             this.plABMSubMenu.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.plLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMapa)).BeginInit();
+            this.plReloj.SuspendLayout();
+            this.plTitulo.SuspendLayout();
             this.plForms.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -112,7 +111,7 @@
             this.plLateral.Controls.Add(this.plABMSubMenu);
             this.plLateral.Controls.Add(this.lblBienvenido);
             this.plLateral.Controls.Add(this.btnUsuarios);
-            this.plLateral.Controls.Add(this.panel3);
+            this.plLateral.Controls.Add(this.plLogo);
             this.plLateral.Dock = System.Windows.Forms.DockStyle.Left;
             this.plLateral.Location = new System.Drawing.Point(0, 0);
             this.plLateral.Name = "plLateral";
@@ -129,152 +128,6 @@
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(259, 198);
             this.flowLayoutPanel2.TabIndex = 14;
-            // 
-            // plPersona
-            // 
-            this.plPersona.Controls.Add(this.lblPersona);
-            this.plPersona.Location = new System.Drawing.Point(0, 819);
-            this.plPersona.Name = "plPersona";
-            this.plPersona.Size = new System.Drawing.Size(319, 42);
-            this.plPersona.TabIndex = 13;
-            // 
-            // plDatosSubMenu
-            // 
-            this.plDatosSubMenu.AutoScroll = true;
-            this.plDatosSubMenu.BackColor = System.Drawing.Color.LightGray;
-            this.plDatosSubMenu.Controls.Add(this.btnHoras);
-            this.plDatosSubMenu.Controls.Add(this.btnOrientacion);
-            this.plDatosSubMenu.Controls.Add(this.btnAnios);
-            this.plDatosSubMenu.Controls.Add(this.btnTurnos);
-            this.plDatosSubMenu.Controls.Add(this.btnMaterias);
-            this.plDatosSubMenu.Controls.Add(this.btnGrupos);
-            this.plDatosSubMenu.Controls.Add(this.btnLugares);
-            this.plDatosSubMenu.Controls.Add(this.btnHorarios);
-            this.plDatosSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.plDatosSubMenu.Location = new System.Drawing.Point(0, 527);
-            this.plDatosSubMenu.Name = "plDatosSubMenu";
-            this.plDatosSubMenu.Size = new System.Drawing.Size(319, 251);
-            this.plDatosSubMenu.TabIndex = 11;
-            this.plDatosSubMenu.Visible = false;
-            // 
-            // btnDatos
-            // 
-            this.btnDatos.BackColor = System.Drawing.Color.Gainsboro;
-            this.btnDatos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnDatos.FlatAppearance.BorderSize = 0;
-            this.btnDatos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDatos.ForeColor = System.Drawing.Color.Black;
-            this.btnDatos.Location = new System.Drawing.Point(0, 452);
-            this.btnDatos.Name = "btnDatos";
-            this.btnDatos.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnDatos.Size = new System.Drawing.Size(319, 75);
-            this.btnDatos.TabIndex = 10;
-            this.btnDatos.Text = "DATOS";
-            this.btnDatos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDatos.UseVisualStyleBackColor = false;
-            this.btnDatos.Click += new System.EventHandler(this.btnDatos_Click);
-            // 
-            // plABMSubMenu
-            // 
-            this.plABMSubMenu.BackColor = System.Drawing.Color.LightGray;
-            this.plABMSubMenu.Controls.Add(this.btnABMOp);
-            this.plABMSubMenu.Controls.Add(this.btnABMDocentes);
-            this.plABMSubMenu.Controls.Add(this.btnABMAlumnos);
-            this.plABMSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.plABMSubMenu.Location = new System.Drawing.Point(0, 265);
-            this.plABMSubMenu.Name = "plABMSubMenu";
-            this.plABMSubMenu.Size = new System.Drawing.Size(319, 187);
-            this.plABMSubMenu.TabIndex = 9;
-            this.plABMSubMenu.Visible = false;
-            // 
-            // btnUsuarios
-            // 
-            this.btnUsuarios.BackColor = System.Drawing.Color.Gainsboro;
-            this.btnUsuarios.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnUsuarios.FlatAppearance.BorderSize = 0;
-            this.btnUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUsuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUsuarios.ForeColor = System.Drawing.Color.Black;
-            this.btnUsuarios.Location = new System.Drawing.Point(0, 190);
-            this.btnUsuarios.Name = "btnUsuarios";
-            this.btnUsuarios.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnUsuarios.Size = new System.Drawing.Size(319, 75);
-            this.btnUsuarios.TabIndex = 8;
-            this.btnUsuarios.Text = "USUARIOS";
-            this.btnUsuarios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUsuarios.UseVisualStyleBackColor = false;
-            this.btnUsuarios.Click += new System.EventHandler(this.btnAbm_Click);
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.pbMapa);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(319, 190);
-            this.panel3.TabIndex = 7;
-            // 
-            // lblHora
-            // 
-            this.lblHora.AutoSize = true;
-            this.lblHora.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHora.Location = new System.Drawing.Point(16, 15);
-            this.lblHora.Name = "lblHora";
-            this.lblHora.Size = new System.Drawing.Size(151, 39);
-            this.lblHora.TabIndex = 5;
-            this.lblHora.Text = "00:00:00";
-            // 
-            // lblFecha
-            // 
-            this.lblFecha.AutoSize = true;
-            this.lblFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFecha.Location = new System.Drawing.Point(19, 65);
-            this.lblFecha.Name = "lblFecha";
-            this.lblFecha.Size = new System.Drawing.Size(80, 29);
-            this.lblFecha.TabIndex = 7;
-            this.lblFecha.Text = "Fecha";
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.lblHora);
-            this.panel2.Controls.Add(this.lblFecha);
-            this.panel2.Location = new System.Drawing.Point(1100, 24);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(473, 111);
-            this.panel2.TabIndex = 8;
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
-            // panel4
-            // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.lblTitulo);
-            this.panel4.Controls.Add(this.panel2);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(319, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1601, 161);
-            this.panel4.TabIndex = 9;
-            this.panel4.Click += new System.EventHandler(this.panel4_Click);
-            // 
-            // lblTitulo
-            // 
-            this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.Location = new System.Drawing.Point(31, 52);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(145, 55);
-            this.lblTitulo.TabIndex = 9;
-            this.lblTitulo.Text = "Mapa";
-            // 
-            // timerCierreSesion
-            // 
-            this.timerCierreSesion.Interval = 300000;
-            this.timerCierreSesion.Tick += new System.EventHandler(this.timerActividad_Tick);
             // 
             // btnModPIN
             // 
@@ -324,6 +177,33 @@
             this.btnLogout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLogout.UseVisualStyleBackColor = false;
             this.btnLogout.Click += new System.EventHandler(this.BtnLogout_Click);
+            // 
+            // plPersona
+            // 
+            this.plPersona.Controls.Add(this.lblPersona);
+            this.plPersona.Location = new System.Drawing.Point(0, 819);
+            this.plPersona.Name = "plPersona";
+            this.plPersona.Size = new System.Drawing.Size(319, 42);
+            this.plPersona.TabIndex = 13;
+            // 
+            // plDatosSubMenu
+            // 
+            this.plDatosSubMenu.AutoScroll = true;
+            this.plDatosSubMenu.BackColor = System.Drawing.Color.LightGray;
+            this.plDatosSubMenu.Controls.Add(this.btnHoras);
+            this.plDatosSubMenu.Controls.Add(this.btnOrientacion);
+            this.plDatosSubMenu.Controls.Add(this.btnAnios);
+            this.plDatosSubMenu.Controls.Add(this.btnTurnos);
+            this.plDatosSubMenu.Controls.Add(this.btnMaterias);
+            this.plDatosSubMenu.Controls.Add(this.btnGrupos);
+            this.plDatosSubMenu.Controls.Add(this.btnLugares);
+            this.plDatosSubMenu.Controls.Add(this.btnHorarios);
+            this.plDatosSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.plDatosSubMenu.Location = new System.Drawing.Point(0, 527);
+            this.plDatosSubMenu.Name = "plDatosSubMenu";
+            this.plDatosSubMenu.Size = new System.Drawing.Size(319, 251);
+            this.plDatosSubMenu.TabIndex = 11;
+            this.plDatosSubMenu.Visible = false;
             // 
             // btnHoras
             // 
@@ -493,6 +373,37 @@
             this.btnHorarios.UseVisualStyleBackColor = false;
             this.btnHorarios.Click += new System.EventHandler(this.btnHorarios_Click);
             // 
+            // btnDatos
+            // 
+            this.btnDatos.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnDatos.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnDatos.FlatAppearance.BorderSize = 0;
+            this.btnDatos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDatos.ForeColor = System.Drawing.Color.Black;
+            this.btnDatos.Location = new System.Drawing.Point(0, 452);
+            this.btnDatos.Name = "btnDatos";
+            this.btnDatos.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnDatos.Size = new System.Drawing.Size(319, 75);
+            this.btnDatos.TabIndex = 10;
+            this.btnDatos.Text = "DATOS";
+            this.btnDatos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDatos.UseVisualStyleBackColor = false;
+            this.btnDatos.Click += new System.EventHandler(this.btnDatos_Click);
+            // 
+            // plABMSubMenu
+            // 
+            this.plABMSubMenu.BackColor = System.Drawing.Color.LightGray;
+            this.plABMSubMenu.Controls.Add(this.btnABMOp);
+            this.plABMSubMenu.Controls.Add(this.btnABMDocentes);
+            this.plABMSubMenu.Controls.Add(this.btnABMAlumnos);
+            this.plABMSubMenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.plABMSubMenu.Location = new System.Drawing.Point(0, 265);
+            this.plABMSubMenu.Name = "plABMSubMenu";
+            this.plABMSubMenu.Size = new System.Drawing.Size(319, 187);
+            this.plABMSubMenu.TabIndex = 9;
+            this.plABMSubMenu.Visible = false;
+            // 
             // btnABMOp
             // 
             this.btnABMOp.BackColor = System.Drawing.Color.Silver;
@@ -556,6 +467,33 @@
             this.btnABMAlumnos.UseVisualStyleBackColor = false;
             this.btnABMAlumnos.Click += new System.EventHandler(this.btnABMAlumnos_Click);
             // 
+            // btnUsuarios
+            // 
+            this.btnUsuarios.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnUsuarios.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnUsuarios.FlatAppearance.BorderSize = 0;
+            this.btnUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUsuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUsuarios.ForeColor = System.Drawing.Color.Black;
+            this.btnUsuarios.Location = new System.Drawing.Point(0, 190);
+            this.btnUsuarios.Name = "btnUsuarios";
+            this.btnUsuarios.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnUsuarios.Size = new System.Drawing.Size(319, 75);
+            this.btnUsuarios.TabIndex = 8;
+            this.btnUsuarios.Text = "USUARIOS";
+            this.btnUsuarios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUsuarios.UseVisualStyleBackColor = false;
+            this.btnUsuarios.Click += new System.EventHandler(this.btnAbm_Click);
+            // 
+            // plLogo
+            // 
+            this.plLogo.Controls.Add(this.pbMapa);
+            this.plLogo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.plLogo.Location = new System.Drawing.Point(0, 0);
+            this.plLogo.Name = "plLogo";
+            this.plLogo.Size = new System.Drawing.Size(319, 190);
+            this.plLogo.TabIndex = 7;
+            // 
             // pbMapa
             // 
             this.pbMapa.Image = global::Proyecto.Properties.Resources.ITS_500_322;
@@ -566,6 +504,61 @@
             this.pbMapa.TabIndex = 0;
             this.pbMapa.TabStop = false;
             this.pbMapa.Click += new System.EventHandler(this.pbMapa_Click);
+            // 
+            // lblHora
+            // 
+            this.lblHora.AutoSize = true;
+            this.lblHora.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHora.Location = new System.Drawing.Point(16, 15);
+            this.lblHora.Name = "lblHora";
+            this.lblHora.Size = new System.Drawing.Size(151, 39);
+            this.lblHora.TabIndex = 5;
+            this.lblHora.Text = "00:00:00";
+            // 
+            // lblFecha
+            // 
+            this.lblFecha.AutoSize = true;
+            this.lblFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFecha.Location = new System.Drawing.Point(19, 65);
+            this.lblFecha.Name = "lblFecha";
+            this.lblFecha.Size = new System.Drawing.Size(80, 29);
+            this.lblFecha.TabIndex = 7;
+            this.lblFecha.Text = "Fecha";
+            // 
+            // plReloj
+            // 
+            this.plReloj.Controls.Add(this.lblHora);
+            this.plReloj.Controls.Add(this.lblFecha);
+            this.plReloj.Location = new System.Drawing.Point(1100, 24);
+            this.plReloj.Name = "plReloj";
+            this.plReloj.Size = new System.Drawing.Size(473, 111);
+            this.plReloj.TabIndex = 8;
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            // 
+            // plTitulo
+            // 
+            this.plTitulo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.plTitulo.Controls.Add(this.lblTitulo);
+            this.plTitulo.Controls.Add(this.plReloj);
+            this.plTitulo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.plTitulo.Location = new System.Drawing.Point(319, 0);
+            this.plTitulo.Name = "plTitulo";
+            this.plTitulo.Size = new System.Drawing.Size(1601, 161);
+            this.plTitulo.TabIndex = 9;
+            // 
+            // lblTitulo
+            // 
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.Location = new System.Drawing.Point(31, 52);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(145, 55);
+            this.lblTitulo.TabIndex = 9;
+            this.lblTitulo.Text = "Mapa";
             // 
             // plForms
             // 
@@ -578,7 +571,6 @@
             this.plForms.Name = "plForms";
             this.plForms.Size = new System.Drawing.Size(1601, 919);
             this.plForms.TabIndex = 3;
-            this.plForms.Click += new System.EventHandler(this.plForms_Click);
             // 
             // plPisos
             // 
@@ -657,7 +649,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1920, 1080);
-            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.plTitulo);
             this.Controls.Add(this.plLateral);
             this.Controls.Add(this.plForms);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -673,12 +665,12 @@
             this.plPersona.PerformLayout();
             this.plDatosSubMenu.ResumeLayout(false);
             this.plABMSubMenu.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            this.plLogo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbMapa)).EndInit();
+            this.plReloj.ResumeLayout(false);
+            this.plReloj.PerformLayout();
+            this.plTitulo.ResumeLayout(false);
+            this.plTitulo.PerformLayout();
             this.plForms.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -689,10 +681,10 @@
         private System.Windows.Forms.Label lblBienvenido;
         private System.Windows.Forms.Label lblHora;
         private System.Windows.Forms.Label lblFecha;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel plReloj;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel plLogo;
+        private System.Windows.Forms.Panel plTitulo;
         private System.Windows.Forms.PictureBox pbMapa;
         private System.Windows.Forms.Button btnABMDocentes;
         private System.Windows.Forms.Button btnABMAlumnos;
@@ -720,7 +712,6 @@
         private System.Windows.Forms.Button btnGrupo;
         private System.Windows.Forms.Panel plMapa;
         private System.Windows.Forms.Panel plPisos;
-        private System.Windows.Forms.Timer timerCierreSesion;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         public System.Windows.Forms.Button btnModPIN;
         public System.Windows.Forms.Button btnAyuda;

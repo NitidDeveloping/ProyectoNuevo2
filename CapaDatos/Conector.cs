@@ -11,7 +11,6 @@ namespace CapaDatos
         private string uid;
         private string pwd;
         private string database;
-        private Sesion sesion;
         private string userVariables;
 
         private static Conector conn = null;

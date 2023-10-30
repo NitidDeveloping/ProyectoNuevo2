@@ -1,22 +1,70 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
+using CapaEntidades;
 using MySqlConnector;
 
 namespace Proyecto
 {
     public class Metodos
     {
-        static string query = "";
-
         private static Form activeForm = null; //Declaramos una variable activeForm para que no se acumulen forms en el panel
         public static Menú menuForm = null;
         public static AgregarEditar AgregarForm = null;
+
+        //Cierre de sesion automatico
+        public Timer timerCierreSesion;
+        private const int tiempoInactividadEnSegundos = 5 * 60; //5 minutos
+
+        //Metodos para el timer cierre de sesion automatico
+        #region
+        public void InitializeTimer()
+        {
+            if (Sesion.LoggedRol == TipoRol.Alumno || Sesion.LoggedRol == TipoRol.Docente || Sesion.LoggedRol == TipoRol.Visitante)
+            {
+                timerCierreSesion = new Timer();
+                timerCierreSesion.Interval = tiempoInactividadEnSegundos * 1000; // Convertir segundos a milisegundos
+                timerCierreSesion.Tick += TimerCierreSesion_Tick;
+                timerCierreSesion.Start();
+            }
+        }
+
+        public void ResetTimerCierreSesion()
+        {
+            TipoRol rolActual = Sesion.LoggedRol;
+            if (rolActual == TipoRol.Alumno || rolActual == TipoRol.Docente || rolActual == TipoRol.Visitante)
+            {
+                timerCierreSesion.Stop();
+                timerCierreSesion.Start();
+            }
+        }
+
+        private void TimerCierreSesion_Tick(object sender, EventArgs e)
+        {
+            TipoRol rolActual = Sesion.LoggedRol;
+            if (rolActual == TipoRol.Alumno || rolActual == TipoRol.Docente || rolActual == TipoRol.Visitante)
+            {
+                Sesion sesion = new Sesion();
+                sesion.LogOut();
+                CloseMenuForm();
+            }
+        }
+        #endregion
+
+
 
         public static void SetMenuForm(Menú form) //Almacenamos la instancia del formulario menú
         {
             menuForm = form;
         }
+        public static void CloseMenuForm()
+        {
+            if (menuForm != null)
+            {
+                menuForm.Close();
+            }
+        }
+
         public static void SetAgregarForm(AgregarEditar form) //Almacenamos la instancia del formulario AgregarEditar
         {
             AgregarForm = form;
@@ -49,19 +97,9 @@ namespace Proyecto
             childForm.Show();
         }
 
-        public static bool buscarCI(TextBox txtCI)
-        {
 
-            MySqlConnection conn = new MySqlConnection();
-            MySqlCommand cmd = new MySqlCommand("select CI from usuario where CI = '" + txtCI.Text + "'", conn);
-            conn.Open();
-
-            MySqlDataReader dr = cmd.ExecuteReader();
-
-            return dr.Read();
-
-        }
-
+        //Controles para los campos
+        #region
         public static void SoloLetras(KeyPressEventArgs e)
         {
             if (char.IsLetter(e.KeyChar) || char.IsControl(e.KeyChar))
@@ -103,106 +141,7 @@ namespace Proyecto
             else
                 e.Handled = true;
         }
-
-        public static bool ValidarCI(string txtCI)
-        {
-            if (txtCI.Length >= 1 && txtCI.Length < 8)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public static bool ValidarPIN(string txtPIN)
-        {
-            if (txtPIN.Length >= 1 && txtPIN.Length < 4)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public static bool ValidarCampos(string txtCI, string txtPIN, string txtNombre, string txtApellido, ComboBox cbxCombobox, ComboBox cbxCombobox2)
-        {
-            if (txtCI == "" || txtPIN == "" || txtNombre == "" || txtApellido == "" || (cbxCombobox != null && cbxCombobox.Text == "") || (cbxCombobox2 != null && cbxCombobox2.Text == ""))
-            {
-                return true;
-            }
-            return false;
-        }
-        public static bool buscarPIN(TextBox txtPIN, TextBox txtCI)
-        {
-            Boolean find = false;
-
-            query = "select pin from usuario where ci='" + txtCI.Text + "';";
-            MySqlConnection conn = new MySqlConnection();
-            MySqlCommand cmd = new MySqlCommand(query, conn);
-            conn.Open();
-
-            MySqlDataReader dr = cmd.ExecuteReader();
-
-            if (dr.Read())
-            {
-                int pin = dr.GetInt32("pin");
-                if (pin.ToString().Equals(txtPIN.Text))
-                {
-                    find = true;
-                }
-            }
-            return find;
-        }
-
-        public static string buscarCiRetornaNombreTipo(string ci)
-        {
-            string nombre = "";
-
-            query = "select * from usuario where ci='" + ci + "';";
-            MySqlConnection conn = new MySqlConnection();
-            MySqlCommand cmd = new MySqlCommand(query, conn);
-            conn.Open();
-            MySqlDataReader dr = cmd.ExecuteReader();
-
-            if (dr.Read())
-            {
-                nombre = dr.GetString("Nombre");
-            }
-
-            return nombre + " - ";
-        }
-        public static bool buscarCiRetornaAlumno()
-        {
-            query = "SELECT * FROM usuario JOIN alumno ON usuario.ci = alumno.ci_alumno;";
-            MySqlConnection conn = new MySqlConnection();
-            MySqlCommand cmd = new MySqlCommand(query, conn);
-            conn.Open();
-            MySqlDataReader dr = cmd.ExecuteReader();
-
-            return true;
-        }
-
-        public static bool buscarCiRetornaDocente()
-        {
-            query = "SELECT * FROM usuario JOIN docente ON usuario.ci = docente.ci_docente;";
-            MySqlConnection conn = new MySqlConnection();
-            MySqlCommand cmd = new MySqlCommand(query, conn);
-            conn.Open();
-            MySqlDataReader dr = cmd.ExecuteReader();
-
-            return true;
-
-        }
-
-        public static bool buscarCiRetornaOperador()
-        {
-            query = "SELECT * FROM usuario JOIN funcionario ON usuario.ci = funcionario.ci_funcionario;";
-            MySqlConnection conn = new MySqlConnection();
-            MySqlCommand cmd = new MySqlCommand(query, conn);
-            conn.Open();
-            MySqlDataReader dr = cmd.ExecuteReader();
-
-            return true;
-
-        }
+        #endregion
 
     }
 }

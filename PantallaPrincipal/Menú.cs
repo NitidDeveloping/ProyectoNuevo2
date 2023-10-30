@@ -62,7 +62,7 @@ namespace Proyecto
                 case TipoRol.Alumno:
                     this.btnDatos.Visible = false;
                     this.btnUsuarios.Visible = false;
-                    this.btnClase.Visible = false;
+                    btnClase.Visible = true;
                     break;
 
                 case TipoRol.Docente:
@@ -85,10 +85,8 @@ namespace Proyecto
             timer1.Start();
 
             //Inicia timer de cierre de sesion automatico
-            if (Sesion.LoggedRol == TipoRol.Alumno || Sesion.LoggedRol == TipoRol.Docente)
-            {
-                timerCierreSesion.Start();
-            }
+            Metodos metodos = new Metodos();
+            metodos.InitializeTimer();
 
             cbxLugares.SelectedIndexChanged -= cbxLugares_SelectedIndexChanged;
             Mapa mapa = new Mapa();
@@ -104,24 +102,59 @@ namespace Proyecto
             cbxLugares.SelectedIndex = -1;
             cbxLugares.SelectedIndexChanged += cbxLugares_SelectedIndexChanged;
 
-            switch (Sesion.LoggedRol)
-            {
-                case TipoRol.Alumno:
-                    btnClase.Visible = true;
-                    break;
-
-                case TipoRol.Docente:
-                    btnGrupo.Visible = true;
-                    break;
-            }
         }
 
+        //Timer del reloj
+        #region
         private void Timer1_Tick(object sender, EventArgs e)
         {
             lblHora.Text = DateTime.Now.ToLongTimeString();
             lblFecha.Text = DateTime.Now.ToLongDateString();
         }
+        #endregion
 
+        //Boton de cierre de sesion
+        #region
+        private void CerrarSesion()  //Creo el método para confirmar el cierre de sesión
+        {
+            MsgBox msg = new MsgBox("pregunta", "¿Desea cerrar sesión?"); //Hago la pregunta"
+            msg.ShowDialog(); //Luego de asignar las funciones de cada botón, muestro el form con las modificaciones realizadas previamente
+
+            if (msg.DialogResult == DialogResult.Yes)
+            {
+                Sesion sesion = new Sesion();
+                sesion.LogOut();
+                this.Close(); //Cierro el menú
+            }
+        }
+
+        private void BtnLogout_Click(object sender, EventArgs e)
+        {
+            CerrarSesion(); //Invoco el método "CerrarSesion()" para que se muestre al apretar el botón de cerrar sesión
+        }
+        #endregion
+
+        //Boton para modificar pin
+        #region
+        private void btnModPIN_Click(object sender, EventArgs e)
+        {
+            PIN pin = new PIN();
+            pin.ShowDialog();
+        }
+        #endregion
+
+        //Controles de los menus desplegables para el panel lateral de usuarios y de datos
+        #region
+        private void btnAbm_Click(object sender, EventArgs e)
+        {
+            ShowSubMenu(plABMSubMenu);
+            customControls.ActivateButton(sender);
+        }
+        private void btnDatos_Click(object sender, EventArgs e)
+        {
+            ShowSubMenu(plDatosSubMenu);
+            customControls.ActivateButton(sender);
+        }
         private void HideSubMenu()
         {
             if (plABMSubMenu.Visible)
@@ -134,7 +167,6 @@ namespace Proyecto
                 plDatosSubMenu.Visible = false;
             }
         }
-
         private void ShowSubMenu(Panel subMenu)
         {
             if (subMenu.Visible == false)
@@ -147,41 +179,10 @@ namespace Proyecto
                 subMenu.Visible = false;
             }
         }
+        #endregion
 
-        private void CerrarSesion()  //Creo el método para confirmar el cierre de sesión
-        {
-            MsgBox msg = new MsgBox("pregunta", "¿Desea cerrar sesión?"); //Hago la pregunta"
-            msg.ShowDialog(); //Luego de asignar las funciones de cada botón, muestro el form con las modificaciones realizadas previamente
-
-            if (msg.DialogResult == DialogResult.Yes)
-            {
-                this.Close(); //Cierro el menú
-            }
-        }
-
-        private void BtnLogout_Click(object sender, EventArgs e)
-        {
-            CerrarSesion(); //Invoco el método "CerrarSesion()" para que se muestre al apretar el botón de cerrar sesión
-        }
-
-        private void btnModPIN_Click(object sender, EventArgs e)
-        {
-            PIN pin = new PIN();
-            pin.ShowDialog();
-        }
-
-        private void btnAbm_Click(object sender, EventArgs e)
-        {
-            ShowSubMenu(plABMSubMenu);
-            customControls.ActivateButton(sender);
-        }
-
-        private void btnDatos_Click(object sender, EventArgs e)
-        {
-            ShowSubMenu(plDatosSubMenu);
-            customControls.ActivateButton(sender);
-        }
-
+        //Centrar lblPersona en el panel
+        #region
         private void CenterLabelInPanel() //Centrar el lblPersona en el panel sin importar el nombre o tipo de persona
         {
 
@@ -200,53 +201,10 @@ namespace Proyecto
         {
             CenterLabelInPanel();
         }
-
+        #endregion
 
         //Botones para abrir listas
         #region
-        private void btnABMAlumnos_Click(object sender, EventArgs e)
-        {
-            AbrirLista(TipoReferencia.Alumno);
-
-        }
-        private void btnABMDocentes_Click(object sender, EventArgs e)
-        {
-            AbrirLista(TipoReferencia.Docente);
-        }
-
-        private void btnABMOp_Click(object sender, EventArgs e)
-        {
-            AbrirLista(TipoReferencia.Funcionario);
-        }
-
-        private void btnHorarios_Click(object sender, EventArgs e)
-        {
-            AbrirLista(TipoReferencia.Horario);
-        }
-
-        private void btnLugares_Click(object sender, EventArgs e)
-        {
-            AbrirLista(TipoReferencia.Lugar);
-        }
-
-        private void btnGrupos_Click(object sender, EventArgs e)
-        {
-            AbrirLista(TipoReferencia.Grupo);
-        }
-
-        private void btnMaterias_Click(object sender, EventArgs e)
-        {
-            AbrirLista(TipoReferencia.Materia);
-        }
-        private void btnTurnos_Click(object sender, EventArgs e)
-        {
-            AbrirLista(TipoReferencia.Turno);
-        }
-        private void btnAnios_Click_1(object sender, EventArgs e)
-        {
-            AbrirLista(TipoReferencia.Anio);
-        }
-
         private void AbrirLista(TipoReferencia referencia)
         {
             string titulo;
@@ -307,18 +265,55 @@ namespace Proyecto
             Metodos.OpenChildForm(lista, plForms);
         }
 
+        private void btnABMAlumnos_Click(object sender, EventArgs e)
+        {
+            AbrirLista(TipoReferencia.Alumno);
+
+        }
+        private void btnABMDocentes_Click(object sender, EventArgs e)
+        {
+            AbrirLista(TipoReferencia.Docente);
+        }
+        private void btnABMOp_Click(object sender, EventArgs e)
+        {
+            AbrirLista(TipoReferencia.Funcionario);
+        }
+        private void btnHorarios_Click(object sender, EventArgs e)
+        {
+            AbrirLista(TipoReferencia.Horario);
+        }
+        private void btnLugares_Click(object sender, EventArgs e)
+        {
+            AbrirLista(TipoReferencia.Lugar);
+        }
+        private void btnGrupos_Click(object sender, EventArgs e)
+        {
+            AbrirLista(TipoReferencia.Grupo);
+        }
+        private void btnMaterias_Click(object sender, EventArgs e)
+        {
+            AbrirLista(TipoReferencia.Materia);
+        }
+        private void btnTurnos_Click(object sender, EventArgs e)
+        {
+            AbrirLista(TipoReferencia.Turno);
+        }
+        private void btnAnios_Click_1(object sender, EventArgs e)
+        {
+            AbrirLista(TipoReferencia.Anio);
+        }
         private void btnOrientacion_Click(object sender, EventArgs e)
         {
             AbrirLista(TipoReferencia.Orientacion);
         }
-
         private void btnHoras_Click(object sender, EventArgs e)
         {
             AbrirLista(TipoReferencia.Hora);
         }
         #endregion
 
-
+        //Cosas para el mapa
+        #region
         private void pbMapa_Click(object sender, EventArgs e)
         {
             cbxLugares.SelectedIndexChanged -= cbxLugares_SelectedIndexChanged;
@@ -338,7 +333,9 @@ namespace Proyecto
 
         private void cbxLugares_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ResetTimerCierreSesion(); //Reinicia el timer de cierre de sesion
+            Metodos metodos = new Metodos();
+            metodos.ResetTimerCierreSesion(); //Reinicia el timer de cierre de sesion
+
             /*
             DataRowView row = cbxLugares.SelectedItem as DataRowView;
             if (row != null)
@@ -379,58 +376,34 @@ namespace Proyecto
                 }
             }
         }
-
-        //Cierre de sesion automatico
-        #region
-        //Si el temporizador de actividad llega al tick se cierra el form
-        //El temporizador tiene el intervalo cada 10 000 milisegundos
-        private void timerActividad_Tick(object sender, EventArgs e)
-        {
-            if (Sesion.LoggedRol != TipoRol.Operador || Sesion.LoggedRol != TipoRol.Administrador)
-            {
-                this.Close();
-            }
-        }
-
-        //Si se hace click en algun panel del reinicia el temporizador de actividad
-        private void plForms_Click(object sender, EventArgs e)
-        {
-            timerCierreSesion.Stop();
-            timerCierreSesion.Start();
-        }
-        private void panel4_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void ResetTimerCierreSesion()
-        {
-            timerCierreSesion.Stop();
-            timerCierreSesion.Start();
-        }
-
-
-
-        #endregion
-
-        private void btnAyuda_Click(object sender, EventArgs e)
-        {
-            ResetTimerCierreSesion(); // Reinicia el timer de cierre de sesion
-
-            //Abre el manual
-            ManualDeUsuario manual = new ManualDeUsuario();
-            Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
-            Metodos.OpenChildForm(manual, plForms);
-        }
-
         private void btnClase_Click(object sender, EventArgs e)
         {
-            ResetTimerCierreSesion(); //Reinicia el timer de cierre de sesion
+            Metodos metodos = new Metodos();
+            metodos.ResetTimerCierreSesion(); // Reinicia el timer de cierre de sesion
         }
 
         private void btnGrupo_Click(object sender, EventArgs e)
         {
-            ResetTimerCierreSesion();//Reinicia el timer de cierre de sesion
+            Metodos metodos = new Metodos();
+            metodos.ResetTimerCierreSesion(); // Reinicia el timer de cierre de sesion
         }
+        #endregion
+
+        //Boton ayuda
+        #region
+        private void btnAyuda_Click(object sender, EventArgs e)
+        {
+            Metodos metodos = new Metodos();
+            metodos.ResetTimerCierreSesion(); // Reinicia el timer de cierre de sesion
+
+            //Abre el manual
+            ManualDeUsuario manual = new ManualDeUsuario();
+            manual.ShowDialog();
+        }
+
+        #endregion
+
+
     }
 }
 

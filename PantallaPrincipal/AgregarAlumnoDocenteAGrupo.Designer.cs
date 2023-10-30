@@ -228,7 +228,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AgregarAlumnoDocenteAGrupo";
             this.Text = "Docentes";
-            this.Load += new System.EventHandler(this.ConsultaGrupo_Load);
+            this.Load += new System.EventHandler(this.AgregarAlumnoDocenteAGrupo_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

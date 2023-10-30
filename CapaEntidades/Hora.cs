@@ -13,7 +13,6 @@ namespace CapaEntidades
         private TimeSpan inicio;
         private TimeSpan fin;
 
-        public (byte, Turno) Id { get { return id; } }
         public TimeSpan Inicio { get { return inicio; } }
         public TimeSpan Fin { get { return fin; } }
         public Turno Turno { get { return id.turno; } }
@@ -29,11 +28,6 @@ namespace CapaEntidades
         public Hora((byte, Turno) id)
         {
             this.id = id;
-        }
-
-        public override string ToString()
-        {
-            return Nid.ToString();
         }
     }
 }

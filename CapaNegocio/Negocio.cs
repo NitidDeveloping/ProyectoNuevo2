@@ -734,33 +734,16 @@ namespace CapaNegocio
 
         //Metodos para el login
         #region
-        public bool ValidarCI(int ci)
-        {
-            Datos datos = new Datos();
-            return datos.BuscarCI(ci);
-        }
-
-        public bool ValidarPIN(int ci, int pin)
-        {
-            Datos datos = new Datos();
-            return datos.BuscarPIN(ci, pin);
-        }
-
-        public string UsuarioNombreTipo(int ci, TipoRol rol)
-        {
-            Datos datos = new Datos();
-            return datos.buscarCiRetornaNombreTipo(ci, rol);
-        }
-        public TipoRol ObtenerRol(int ci)
-        {
-            Datos datos = new Datos();
-            return datos.ObtenerRol(ci);
-        }
-
         public RetornoValidacion IntentarLogIn(string ci, string pin)
         {
             Datos datos = new Datos();
             return datos.IntentarLogIn(ci, pin);
+        }
+
+        public RetornoValidacion ActualizarPin(string pin)
+        {
+            Datos datos = new Datos();
+            return datos.ActualizarPin(pin);
         }
         #endregion
 
@@ -780,10 +763,10 @@ namespace CapaNegocio
             }
         }
 
-        public MensajeSalonOcupado ConsultarSalonOcupado(ushort idLugar, TimeSpan inicio, TimeSpan fin, byte dia)
+        public MensajeSalonOcupado ConsultarSalonOcupado(ushort idLugar, TimeSpan inicio, TimeSpan fin, byte idDia)
         {
             Datos datos = new Datos();
-            return datos.ConsultarSalonOcupado(idLugar, inicio, fin, dia);
+            return datos.ConsultarSalonOcupado(idLugar, inicio, fin, idDia);
         }
 
         public RetornoValidacion AsignarSalonTemporal(Horario horarioDestino, ushort idSalon)

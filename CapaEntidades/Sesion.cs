@@ -27,11 +27,12 @@ namespace CapaEntidades
         {
             loggedCi = ci;
             loggedPin = pin;
-            loggedNombre = SetName(nombre);
+            loggedNombre = nombre;
             loggedRol = rol;
         }
 
-        public void LogIn(TipoRol rol)
+        //Logueo como visitante
+        public void LogIn()
         {
             loggedCi = 0;
             loggedPin = 0;
@@ -39,11 +40,6 @@ namespace CapaEntidades
             loggedRol = TipoRol.Visitante;
         }
 
-        public string SetName(string nombre)
-        {
-            loggedNombre = nombre;
-            return loggedNombre;
-        }
         public void LogOut()
         {
             loggedCi = 0;

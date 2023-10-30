@@ -293,7 +293,6 @@ namespace Proyecto
 
                     plNombre.Visible = true;
                     plComboBox1.Visible = true;
-                    plCombobox2.Visible = true;
                     plCheckBox1.Visible = true;
                     plCheckBox2.Visible = true;
 
@@ -302,12 +301,6 @@ namespace Proyecto
                     cbx1.DataSource = dtTipoLugar;
                     cbx1.DisplayMember = "Nombre";
                     cbx1.ValueMember = "Id";
-
-                    lblCbx2.Text = "Piso";
-                    cbx2.Items.Clear();
-                    cbx2.Items.Add(0);
-                    cbx2.Items.Add(1);
-                    cbx2.Items.Add(2);
 
                     txtNombre.MaxLength = 45;
 
@@ -332,6 +325,15 @@ namespace Proyecto
                             cbx2.SelectedIndex = lugar.Piso;
 
                         }
+                    }
+                    else
+                    {
+                        plCombobox2.Visible = true;
+                        lblCbx2.Text = "Piso";
+                        cbx2.Items.Clear();
+                        cbx2.Items.Add(0);
+                        cbx2.Items.Add(1);
+                        cbx2.Items.Add(2);
                     }
                     break;
                 #endregion
@@ -841,13 +843,23 @@ namespace Proyecto
                         //ASIGNACION DE VALORES
                         nombre = txtNombre.Text;
                         tipo = new TipoLugar((byte)cbx1.SelectedValue); //Obtiene el id del tipolugar seleccionado en el combobox
-                        piso = (byte)(int)cbx2.SelectedItem; //Obtiene el piso seleccionado en el combobox
+                        
                         isClase = chck1.Checked; //Asigna true si la casilla esta marcada o false si no lo esta
                         isUsoComun = chck2.Checked;
-                        coordX = Mapa.CurrentMapa.SelectedX;
-                        coordY = Mapa.CurrentMapa.SelectedY;
+                       
 
-                        lugar = new Lugar(nombre, tipo, piso, coordX, coordY, isClase, isUsoComun);
+                        if (IdDestino == null)
+                        {
+                            piso = (byte)(int)cbx2.SelectedItem; //Obtiene el piso seleccionado en el combobox
+                            coordX = Mapa.CurrentMapa.SelectedX;
+                            coordY = Mapa.CurrentMapa.SelectedY;
+                            lugar = new Lugar(nombre, tipo, piso, coordX, coordY, isClase, isUsoComun);
+                        }
+                        else
+                        {
+                            lugar = new Lugar(nombre, tipo, isClase, isUsoComun);
+                        }
+
 
                         //En caso de edicion Asigna el valor al id y ejecuta la operacion como editar
                         if (IdDestino != null)
@@ -868,6 +880,7 @@ namespace Proyecto
                                 msg = new MsgBox("exito", "Lugar cargado exitosamente");
                                 Mapa.CurrentMapa.MapaClick = false;
                                 Limpiar();
+                                btnCancelar_Click(sender, e);
                                 break;
 
                             case RetornoValidacion.YaExisteNombre:
@@ -1249,18 +1262,22 @@ namespace Proyecto
                 cbx1.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
             }
-            else if (cbx2.SelectedIndex == -1)
+            
+            if (IdDestino == null)
             {
-                MsgBox msg = new MsgBox("error", "Debe seleccionar un piso");
-                msg.ShowDialog();
-                cbx1.Focus();
-                respuesta = RetornoValidacion.ErrorDeFormato;
-            }
-            else if (!Mapa.CurrentMapa.MapaClick)
-            {
-                MsgBox msg = new MsgBox("error", "Debe seleccionar el lugar en el mapa");
-                msg.ShowDialog();
-                respuesta = RetornoValidacion.ErrorDeFormato;
+                if (!Mapa.CurrentMapa.MapaClick)
+                {
+                    MsgBox msg = new MsgBox("error", "Debe seleccionar el lugar en el mapa");
+                    msg.ShowDialog();
+                    respuesta = RetornoValidacion.ErrorDeFormato;
+                }
+                else if (cbx2.SelectedIndex == -1)
+                {
+                    MsgBox msg = new MsgBox("error", "Debe seleccionar un piso");
+                    msg.ShowDialog();
+                    cbx1.Focus();
+                    respuesta = RetornoValidacion.ErrorDeFormato;
+                }
             }
 
             return respuesta;

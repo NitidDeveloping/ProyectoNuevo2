@@ -15,11 +15,12 @@ namespace Proyecto
 
         }
 
-
+        //Botones del numpad
+        #region
         private void NumeroButton_Click(object sender, EventArgs e)
         {
             Button boton = (Button)sender;
-            string numero = boton.Text;
+        string numero = boton.Text;
 
             if (txtPIN.Enabled == false)
             {
@@ -31,13 +32,6 @@ namespace Proyecto
                 txtPIN.Text += numero;
             }
         }
-
-        private void txtCI_Click(object sender, EventArgs e)
-        {
-            Location = new Point(300, 267);
-            ClientSize = new Size(1243, 505);              //Al seleccionar txtCI se mostrará el numpad                              
-        }
-
         private void btnBorrar_Click(object sender, EventArgs e)
         {
             if (txtPIN.Enabled == false)
@@ -101,7 +95,10 @@ namespace Proyecto
                 }
             }
         }
+        #endregion
 
+        //Controles para los subrayados de los textbox
+        #region
         private void txtCI_TextChanged(object sender, EventArgs e)
         {
             if (txtCI.Text == "")
@@ -121,7 +118,6 @@ namespace Proyecto
                 txtCI.Text = txtCI.Text.Substring(0, txtCI.Text.Length - 1);
             }
         }
-
         private void txtPIN_TextChanged(object sender, EventArgs e)
         {
             if (txtPIN.Text == "")
@@ -140,6 +136,14 @@ namespace Proyecto
             {
                 txtPIN.Text = txtPIN.Text.Substring(0, txtPIN.Text.Length - 1);
             }
+        }
+        #endregion
+
+        //Abre el numpad
+        private void txtCI_Click(object sender, EventArgs e)
+        {
+            Location = new Point(300, 267);
+            ClientSize = new Size(1243, 505);              //Al seleccionar txtCI se mostrará el numpad                              
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -169,19 +173,18 @@ namespace Proyecto
 
                 if (intentologin == RetornoValidacion.OK)
                 {
-                    this.Close();
                     menu.ShowDialog();
+                    this.Close();
                 }
                 else
                 {
                     msg = new MsgBox("error", "Ci o Pin no validos");
+                    txtPIN.Text = string.Empty;
+                    txtPIN.Enabled = false;
                     msg.ShowDialog();
                 }
             }
         }
-
-
-
         private void btnExit_Click(object sender, EventArgs e)
         {
             Close(); //Cierro el login

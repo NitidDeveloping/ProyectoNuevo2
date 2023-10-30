@@ -691,7 +691,7 @@ namespace CapaDatos
                     break;
 
                 case TipoReferencia.Lugar:
-                    cmdstr = "UPDATE Lugar SET Nombre=@Nombre, Tipo=@Tipo, Piso=@Piso WHERE ID=@ID;";
+                    cmdstr = "UPDATE Lugar SET Nombre=@Nombre, Tipo=@Tipo, WHERE ID=@ID;";
                     break;
 
                 case TipoReferencia.Funcionario:
@@ -758,7 +758,6 @@ namespace CapaDatos
                         cmd.Parameters.Add("@ID", DbType.Int32).Value = Convert.ToInt32(idObjetivo);
                         cmd.Parameters.Add("@Nombre", MySqlDbType.VarChar).Value = lugar.Nombre;
                         cmd.Parameters.Add("@Tipo", MySqlDbType.Byte).Value = lugar.Tipo.Id;
-                        cmd.Parameters.Add("@Piso", MySqlDbType.Byte).Value = lugar.Piso;
                     }
                     break;
 
@@ -1346,7 +1345,7 @@ namespace CapaDatos
             try
             {
                 conn = Conector.crearInstancia().crearConexion();
-                MySqlCommand cmd = new MySqlCommand("SELECT Grupo.* FROM Grupo INNER JOIN Grupo_Alumno ON Grupo.ID_Grupo = Grupo_Alumno.ID_Grupo" +
+                MySqlCommand cmd = new MySqlCommand("SELECT Grupo.ID_Grupo FROM Grupo INNER JOIN Grupo_Alumno ON Grupo.ID_Grupo = Grupo_Alumno.ID_Grupo" +
                     " WHERE Grupo_Alumno.CI_Alumno = @CI_Alumno;", conn);
                 cmd.Parameters.Add("@CI_Alumno", MySqlDbType.Int32).Value = ciAlumno;
 
@@ -1852,177 +1851,6 @@ namespace CapaDatos
 
         //Metodos para el login
         #region
-        public bool BuscarCI(int ci)
-        {
-            MySqlConnection conn = new MySqlConnection();
-
-            try
-            {
-                conn = Conector.crearInstancia().crearConexion();
-                MySqlCommand cmd = new MySqlCommand("SELECT CI FROM usuario where CI = @CI;", conn);
-                cmd.Parameters.AddWithValue("@CI", ci);
-                conn.Open();
-
-                MySqlDataReader dr = cmd.ExecuteReader();
-                return dr.Read();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-            }
-        }
-        public bool BuscarPIN(int ci, int pin)
-        {
-            MySqlConnection conn = new MySqlConnection();
-
-            try
-            {
-                conn = Conector.crearInstancia().crearConexion();
-                MySqlCommand cmd = new MySqlCommand("SELECT CI FROM usuario where CI = @CI AND PIN = @PIN;", conn);
-                cmd.Parameters.AddWithValue("@CI", ci);
-                cmd.Parameters.AddWithValue("@PIN", pin);
-                conn.Open();
-
-                MySqlDataReader dr = cmd.ExecuteReader();
-                return dr.Read();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-            }
-        }
-        public TipoRol ObtenerRol(int ci)
-        {
-            MySqlConnection conn = Conector.crearInstancia().crearConexion();
-            MySqlCommand cmd;
-            string cmdstr;
-            TipoRol resultado;
-
-            try
-            {
-                conn.Open();
-
-                cmdstr = "SELECT Tipo FROM ( " +
-                    "SELECT 'Alumno' AS Tipo FROM usuario_alumno WHERE CI_Alumno = @CI " +
-                    "UNION ALL " +
-                    "SELECT 'Docente' AS Tipo FROM usuario_docente WHERE CI_Docente = @CI " +
-                    "UNION ALL " +
-                    "SELECT CASE WHEN Tipo = 1 THEN 'Administrador' ELSE 'Operador' END AS Tipo FROM usuario_funcionario WHERE CI_Funcionario = @CI " +
-                    ") t";
-                cmd = new MySqlCommand(cmdstr, conn);
-                cmd.Parameters.AddWithValue("@CI", ci);
-
-                var tipo = cmd.ExecuteScalar();
-                if (tipo != null)
-                {
-                    string rol = tipo.ToString();
-                    switch (rol)
-                    {
-                        case "Alumno":
-                            resultado = TipoRol.Alumno;
-                            break;
-                        case "Docente":
-                            resultado = TipoRol.Docente;
-                            break;
-                        case "Operador":
-                            resultado = TipoRol.Operador;
-                            break;
-                        case "Administrador":
-                            resultado = TipoRol.Administrador;
-                            break;
-                        default:
-                            resultado = TipoRol.Default;
-                            break;
-                    }
-                }
-                else
-                {
-                    resultado = TipoRol.Default;
-                }
-
-                return resultado;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-            }
-        }
-        public string buscarCiRetornaNombreTipo(int ci, TipoRol rol)
-        {
-            string res = "";
-            string cmdstr;
-
-            MySqlConnection conn = Conector.crearInstancia().crearConexion();
-
-            try
-            {
-                conn.Open();
-                MySqlCommand cmd = null;
-
-                switch (rol)
-                {
-                    case TipoRol.Alumno:
-                        cmdstr = "SELECT usuario.Nombre, 'Alumn@' AS Tipo FROM usuario JOIN alumno ON usuario.CI = alumno.CI_Alumno WHERE usuario.CI = @CI;";
-                        break;
-                    case TipoRol.Docente:
-                        cmdstr = "SELECT usuario.Nombre, 'Docente' AS Tipo FROM usuario JOIN docente ON usuario.CI = docente.CI_Docente WHERE usuario.CI = @CI;";
-                        break;
-                    case TipoRol.Operador:
-                    case TipoRol.Administrador:
-                        cmdstr = "SELECT usuario.Nombre, CASE WHEN funcionario.Tipo = 1 THEN 'Administrador(a)' ELSE 'Operador(a)' END AS Tipo FROM usuario JOIN funcionario ON usuario.CI = funcionario.CI_Funcionario WHERE usuario.CI = @CI;";
-                        break;
-                    default:
-                        throw new ArgumentException("Rol no válido");
-                }
-
-                cmd = new MySqlCommand(cmdstr, conn);
-                cmd.Parameters.AddWithValue("@CI", ci);
-                MySqlDataReader dr = cmd.ExecuteReader();
-
-                if (dr.Read())
-                {
-                    string nombre = dr.GetString("Nombre");
-                    string tipo = dr.GetString("Tipo");
-                    res = $"{nombre} - {tipo}";
-                    Sesion sesion = new Sesion();
-                    sesion.SetName(nombre);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-            }
-            return res;
-        }
-
         public RetornoValidacion IntentarLogIn(string ci, string pin)
         {
             //Variables
@@ -2082,6 +1910,42 @@ namespace CapaDatos
                     respuesta = RetornoValidacion.NoExiste;
                     return respuesta;
                 }
+            }
+            catch (Exception ex)// En caso de excepcion throwea esta
+            {
+                throw ex;
+            }
+            finally//Al final haya excepcion o no cierra la base de datos
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close(); //Cerramos la conexión en caso de que esté abierta
+                }
+            }
+        }
+        public RetornoValidacion ActualizarPin(string pin)
+        {
+            //Variables
+            RetornoValidacion respuesta;
+            string cmdstr;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
+            MySqlCommand cmd;
+
+            cmdstr = "UPDATE usuario SET PIN = @Pin WHERE CI = @Ci;";
+
+            //Agrega los parametros al comando
+            cmd = new MySqlCommand(cmdstr, conn);
+
+            cmd.Parameters.Add("@CI", MySqlDbType.Int32).Value = Convert.ToInt32(Sesion.LoggedCi);
+            cmd.Parameters.Add("@Pin", MySqlDbType.Int32).Value = Convert.ToInt32(pin);
+
+            //Ejecuta la consulta
+            try
+            {
+                conn.Open(); //Abro la conexión
+
+                respuesta = cmd.ExecuteNonQuery() == 1 ? RetornoValidacion.OK : RetornoValidacion.ErrorInesperadoBD;
+                return respuesta;
             }
             catch (Exception ex)// En caso de excepcion throwea esta
             {
@@ -2458,43 +2322,6 @@ namespace CapaDatos
             return respuesta;
         }
         #endregion
-
-        /* public List<TipoLugar> ObtenerTiposDeLugar()
-         {
-             MySqlConnection conn = new MySqlConnection();
-             List<TipoLugar> tiposLugar = new List<TipoLugar>();
-
-             try
-             {
-                 conn = Conector.crearInstancia().crearConexion();
-
-                 MySqlCommand cmd = new MySqlCommand(SELECT Tipo, Nombre_Tipo FROM Tipo_Lugar, conn);
-
-                 MySqlDataReader reader = cmd.ExecuteReader();
-
-                     while (reader.Read())
-                     {
-                         TipoLugar tipoLugar = new TipoLugar
-                         {
-                             Tipo = reader.GetByte("Tipo"),
-                             Nombre = reader.GetString("Nombre_Tipo")
-                         };
-                         tiposLugar.Add(tipoLugar);
-                     }
-
-             }
-             catch (MySqlException ex)
-             {
-                 // Manejo de excepciones
-                 Console.WriteLine("Error: " + ex.Message);
-             }
-             finally
-             {
-                 connection.Close();
-             }
-
-             return tiposLugar;
-         }*/
     }
 
 }

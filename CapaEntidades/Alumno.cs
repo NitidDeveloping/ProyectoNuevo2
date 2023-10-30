@@ -9,10 +9,8 @@ namespace CapaEntidades
     public class Alumno : Usuario
     {
         private string strgrupos;
-        private List<Grupo> grupos;
 
         public string Strgrupos { get => strgrupos; }
-        public List<Grupo> Grupos { get => grupos; }
 
         public Alumno(string nombre, string apellido, int ci, short pin) : base(nombre, apellido, ci, pin)
         {

@@ -29,39 +29,39 @@
         private void InitializeComponent()
         {
             this.richTxt = new System.Windows.Forms.RichTextBox();
-            this.btnVolver = new System.Windows.Forms.Button();
+            this.btnCerrar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTxt
             // 
-            this.richTxt.Location = new System.Drawing.Point(324, 12);
+            this.richTxt.Location = new System.Drawing.Point(12, 12);
             this.richTxt.Name = "richTxt";
             this.richTxt.ReadOnly = true;
             this.richTxt.Size = new System.Drawing.Size(794, 850);
             this.richTxt.TabIndex = 0;
             this.richTxt.Text = "";
+            this.richTxt.VScroll += new System.EventHandler(this.richTxt_VScroll);
             // 
-            // btnVolver
+            // btnCerrar
             // 
-            this.btnVolver.BackColor = System.Drawing.Color.Red;
-            this.btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnVolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVolver.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnVolver.Location = new System.Drawing.Point(1300, 383);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(206, 90);
-            this.btnVolver.TabIndex = 1;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = false;
-            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            this.btnCerrar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCerrar.Location = new System.Drawing.Point(824, 23);
+            this.btnCerrar.Name = "btnCerrar";
+            this.btnCerrar.Size = new System.Drawing.Size(62, 61);
+            this.btnCerrar.TabIndex = 1;
+            this.btnCerrar.Text = "X";
+            this.btnCerrar.UseVisualStyleBackColor = true;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
             // ManualDeUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1585, 880);
-            this.Controls.Add(this.btnVolver);
+            this.ClientSize = new System.Drawing.Size(898, 887);
+            this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.richTxt);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ManualDeUsuario";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.ManualDeUsuario_Load);
@@ -72,6 +72,6 @@
         #endregion
 
         private System.Windows.Forms.RichTextBox richTxt;
-        private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.Button btnCerrar;
     }
 }

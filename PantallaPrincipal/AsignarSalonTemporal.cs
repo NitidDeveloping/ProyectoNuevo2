@@ -12,7 +12,7 @@ namespace Proyecto
 {
     public partial class AsignarSalonTemporal : Form
     {
-        Horario horarioDestino;
+        private Horario horarioDestino;
         public AsignarSalonTemporal(Horario horarioDestino)
         {
             InitializeComponent();

@@ -33,11 +33,6 @@ namespace CapaNegocio
             return txt.Trim() == string.Empty;
         }
 
-        /*  public bool ValidadNombreNuevo(TipoReferencia referencia, string nombre)
-          {
-              Datos datos = new Datos();
-          }*/
-
         public bool ValidarAnio(short anio)
         {
             if (anio > DateTime.Now.Year + 2 || anio < DateTime.Now.Year)
@@ -47,10 +42,6 @@ namespace CapaNegocio
             return true;
         }
 
-        /*public bool ValidarHoraInicioYFin()
-        {
-            return true;
-        }*/
 
     }
 }

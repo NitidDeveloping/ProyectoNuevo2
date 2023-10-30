@@ -28,7 +28,7 @@ namespace Proyecto
             this.materia = materia;
         }
 
-        private void ConsultaGrupo_Load(object sender, EventArgs e)
+        private void AgregarAlumnoDocenteAGrupo_Load(object sender, EventArgs e)
         {
             bool isAgregarDocente = materia != null;
             //Setea los labels con los valores del grupo
@@ -78,26 +78,35 @@ namespace Proyecto
                 }
                 else
                 {
-                    consulta = isAgregarDocente ? negocio.ConsultarAlumnosDocentes(TipoReferencia.Docente, ci) : negocio.ConsultarAlumnosDocentes(TipoReferencia.Alumno, ci);
+                    try
+                    {
+                        consulta = isAgregarDocente ? negocio.ConsultarAlumnosDocentes(TipoReferencia.Docente, ci) : negocio.ConsultarAlumnosDocentes(TipoReferencia.Alumno, ci);
 
-                    if (consulta == null)
-                    {
-                        auxMensaje = isAgregarDocente ? "No se encontraron docentes con esa cedula" : "No se encontraron alumnos con esa cedula";
+                        if (consulta == null)
+                        {
+                            auxMensaje = isAgregarDocente ? "No se encontraron docentes con esa cedula" : "No se encontraron alumnos con esa cedula";
+                        }
+                        else if (!isAgregarDocente && negocio.ConsultarAlumnoEnGrupo(ci, grupoConsulta.Nombre)) //Si se esta agregando un alumno y se encuentra que ya esta ingresado en el grupo muestra un mensaje de error
+                        {
+                            auxMensaje = "El alumno que intenta ingresar ya esta inscrito en este grupo";
+                        }
+                        else if (isAgregarDocente && negocio.ConsultarDocenteEnGrupoMateria(ci, grupoConsulta.Nombre, materia.Id))
+                        {
+                            auxMensaje = "El docente que intenta ingresar ya esta inscrito en esta materia en este grupo";
+                        }
+                        else
+                        {
+                            txtApellido.Text = consulta.Apellido;
+                            txtNombre.Text = consulta.Nombre;
+                            btnAceptar.Enabled = true;
+                        }
                     }
-                    else if (!isAgregarDocente && negocio.ConsultarAlumnoEnGrupo(ci, grupoConsulta.Nombre)) //Si se esta agregando un alumno y se encuentra que ya esta ingresado en el grupo muestra un mensaje de error
+                    catch (Exception ex)
                     {
-                        auxMensaje = "El alumno que intenta ingresar ya esta inscrito en este grupo";
+                        MsgBox mensajeDeError = new MsgBox("error", ex.Message);
+                        mensajeDeError.ShowDialog();
                     }
-                    else if (isAgregarDocente && negocio.ConsultarDocenteEnGrupoMateria(ci, grupoConsulta.Nombre, materia.Id))
-                    {
-                       auxMensaje = "El docente que intenta ingresar ya esta inscrito en esta materia en este grupo";
-                    }
-                    else
-                    {
-                        txtApellido.Text = consulta.Apellido;
-                        txtNombre.Text = consulta.Nombre;
-                        btnAceptar.Enabled = true;
-                    }
+                    
                 }
 
 
@@ -137,7 +146,7 @@ namespace Proyecto
                 {
                     msg = new MsgBox("exito", isAgregarDocente ? "Se ha asignado el docente satisfactoriamente" : "Se ha asignado el alumno en el grupo satisfactoriamente");
 
-                    //Si se esta agregando un docente cierra la ventana para que no agrege mas de un docente a una materia
+                    //Si se esta agregando un docente cierra la ventana para que no agregue mas de un docente a una materia
                     //Sino vacia los campos para que siga inscribiendo alumnos si quiere
                     if (isAgregarDocente)
                     {
