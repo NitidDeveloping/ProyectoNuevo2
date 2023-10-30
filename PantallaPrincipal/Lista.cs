@@ -150,7 +150,7 @@ namespace Proyecto
                 {
                     try
                     {
-                   
+
                         if (tipoIdPadre != null)
                         {
                             respuesta = negocio.Eliminar(Sesion.ReferenciaActual, byte.Parse(id), byte.Parse(idPadre));
@@ -181,13 +181,13 @@ namespace Proyecto
                             msg = new MsgBox("error", "Ha surgido un error inesperado al intentar eliminar al " + Sesion.ReferenciaActual + ", intente de nuevo o contacte con un administrador");
                             msg.ShowDialog();
                         }
-                      }
+                    }
                     catch (Exception ex)
                     {
                         msg = new MsgBox("error", ex.Message);
                         msg.ShowDialog();
                     }
-                  
+
                 }
             }
             //Eliminar horario

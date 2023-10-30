@@ -1807,7 +1807,7 @@ namespace CapaDatos
             MySqlConnection conn = Conector.crearInstancia().crearConexion();
             MySqlCommand cmd;
 
-            cmdstr = "DELETE from grupo_alumno where grupo_alumno.ID_Grupo = @IdGrupo AND grupo_alumno.CI_Alumno = @CiAlumno;";
+            cmdstr = "DELETE FROM Grupo_Alumno WHERE Grupo_Alumno.ID_Grupo = @IdGrupo AND Grupo_Alumno.CI_Alumno = @CiAlumno;";
 
             cmd = new MySqlCommand(cmdstr, conn);
 

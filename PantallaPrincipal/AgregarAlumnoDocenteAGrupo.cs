@@ -106,7 +106,6 @@ namespace Proyecto
                         MsgBox mensajeDeError = new MsgBox("error", ex.Message);
                         mensajeDeError.ShowDialog();
                     }
-                    
                 }
 
 
