@@ -2201,7 +2201,7 @@ namespace CapaDatos
             MySqlDataReader dr;
 
 
-            cmdstr = "SELECT IdGrupo, CONCAT(NombreDocente, ' ', ApellidoDocente) AS NCDocente, Inicio, Fin, NombreDiaSemana FROM listahorarios" +
+            cmdstr = "SELECT IdGrupo, CONCAT(NombreDocente, ' ', ApellidoDocente) AS NCDocente, Inicio, Fin, NombreDiaSemana FROM ListaHorarios" +
                 "\r\n WHERE NOT (@HNInicio >= Fin) -- Si el horario nuevo inicia antes del fin del original no devuelve nada" +
                 "\r\n  AND NOT (@HNFin <= Inicio) -- Si el horario nuevo termina antes del inicio del original no devuelve nada" +
                 "\r\n  AND ((@HNInicio <= Fin AND @HNInicio >= Inicio) OR (Inicio >= @HNInicio AND Fin <= @HNFin)) -- " +
