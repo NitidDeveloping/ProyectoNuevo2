@@ -355,6 +355,9 @@
     <None Include="Resources\VOLVER.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Help.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\piso 1.png" />
   </ItemGroup>
   <ItemGroup>
@@ -362,9 +365,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\planta baja.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Help.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

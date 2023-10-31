@@ -93,16 +93,6 @@ namespace Proyecto.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Book {
-            get {
-                object obj = ResourceManager.GetObject("Book", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap cancelar {
             get {
                 object obj = ResourceManager.GetObject("cancelar", resourceCulture);
@@ -223,16 +213,6 @@ namespace Proyecto.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap HourYearSubject {
-            get {
-                object obj = ResourceManager.GetObject("HourYearSubject", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap ITS_500_322 {
             get {
                 object obj = ResourceManager.GetObject("ITS 500 322", resourceCulture);
@@ -285,7 +265,7 @@ namespace Proyecto.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap piso_1 {
             get {
-                object obj = ResourceManager.GetObject("piso 1", resourceCulture);
+                object obj = ResourceManager.GetObject("piso_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -326,26 +306,6 @@ namespace Proyecto.Properties {
         internal static System.Drawing.Bitmap Plus_1_Year {
             get {
                 object obj = ResourceManager.GetObject("Plus 1 Year", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Plus_1_Year1 {
-            get {
-                object obj = ResourceManager.GetObject("Plus 1 Year1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Provisional {
-            get {
-                object obj = ResourceManager.GetObject("Provisional", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

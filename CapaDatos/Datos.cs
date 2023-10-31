@@ -295,7 +295,6 @@ namespace CapaDatos
                 }
             }
         }
-
         public RetornoValidacion Eliminar(TipoReferencia referencia, string idObjetivo)
         {
             RetornoValidacion respuesta;
@@ -449,7 +448,6 @@ namespace CapaDatos
             return respuesta;
 
         }
-
         public RetornoValidacion Agregar(TipoReferencia referencia, object item)
         {
             //Variables
@@ -791,7 +789,6 @@ namespace CapaDatos
             }
             return respuesta;
         }
-
         public object Consultar(TipoReferencia referencia, string idObjetivo)
         {
             //Variables
@@ -1007,7 +1004,6 @@ namespace CapaDatos
                 }
             }
         }
-
         public int GenerarIdAutomatico(TipoReferencia referencia) //Metodo para generar un id automatico para las tablas a las que el usuario no les asigna uno
                                                                   //Segun la referencia devuelve el id mas alto de una tabla mas uno
         {
@@ -1053,7 +1049,6 @@ namespace CapaDatos
             }
             return respuesta;
         }
-
         public bool VerificarNombreNuevo(TipoReferencia referencia, string nombre)
         {
             bool respuesta;
@@ -1911,7 +1906,7 @@ namespace CapaDatos
                     return respuesta;
                 }
             }
-            catch (Exception ex)// En caso de excepcion throwea esta
+            catch (Exception ex)//En caso de excepcion throwea esta
             {
                 throw ex;
             }
@@ -1969,7 +1964,7 @@ namespace CapaDatos
             RetornoValidacion respuesta = RetornoValidacion.OK;
             string cmdstr1;
             string cmdstr2;
-            MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
             List<(MySqlCommand cmd1, MySqlCommand cmd2)> listacmds = new List<(MySqlCommand, MySqlCommand)>();
             MySqlCommand auxcmd1;
             MySqlCommand auxcmd2;
@@ -2322,6 +2317,50 @@ namespace CapaDatos
             return respuesta;
         }
         #endregion
+
+
+        public string ObtenerUbicacionGrupo(int ciAlumno)
+        {
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
+            MySqlCommand cmd = new MySqlCommand(
+                "SELECT Lugar.Nombre AS UbicacionActual " +
+                "FROM Grupo_Alumno " +
+                "JOIN Grupo ON Grupo_Alumno.ID_Grupo = Grupo.ID_Grupo " +
+                "JOIN Grupo_Materia_Horario_Clase ON Grupo.ID_Grupo = Grupo_Materia_Horario_Clase.ID_Grupo " +
+                "JOIN Lugar ON Grupo_Materia_Horario_Clase.ID_Clase = Lugar.ID " +
+                "JOIN Dia_Semana ON Grupo_Materia_Horario_Clase.Dia_Semana = Dia_Semana.Dia_Semana " +
+                "JOIN Horario ON Grupo_Materia_Horario_Clase.ID_Horario = Horario.ID_Horario AND Grupo_Materia_Horario_Clase.Turno = Horario.Turno " +
+                "WHERE Grupo_Alumno.CI_Alumno = @CI " +
+                "AND Asignado_Temporal IS NULL " +
+                "AND DAYOFWEEK(CURDATE()) = Dia_Semana.Dia_Semana " +
+                "AND CURTIME() BETWEEN Horario.Hora_Inicio AND Horario.Hora_Fin;",
+                conn);
+
+            cmd.Parameters.AddWithValue("@CI", ciAlumno);
+            string ubicacion = string.Empty;
+
+            try
+            {
+                conn.Open();
+
+                ubicacion = cmd.ExecuteScalar().ToString();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+
+            return ubicacion;
+        }
+
     }
 
 }

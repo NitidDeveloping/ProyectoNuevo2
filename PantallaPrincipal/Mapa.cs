@@ -1,28 +1,28 @@
 ﻿using CapaEntidades;
-using CapaNegocio;
 using Proyecto.Properties;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 
 namespace Proyecto
 {
     public partial class Mapa : Form
     {
-        public static Mapa CurrentMapa { get; set; }
+        public static Mapa CurrentMapa { get; private set; }
+        public int MapaActual { get; private set; }
+        public int CurrentPiso { get; private set; }
 
         public int SelectedX { get; private set; }
         public int SelectedY { get; private set; }
+
+        //Leer las coordenadas desde el archivo de texto
+        string[] coordenadasPlantaBaja = File.ReadAllLines("CoordPB.txt");
+
         public bool MapaClick = false;
 
 
@@ -34,7 +34,7 @@ namespace Proyecto
 
         private const int GridSize = 2;
         private Node[,] grid;
-        private Node startNode;
+        public Node startNode;
         private Node endNode;
 
         public Mapa()
@@ -42,15 +42,14 @@ namespace Proyecto
             InitializeComponent();
             originalBackgroundImage = new Bitmap(BackgroundImage);
             InitializeGrid();
-            InitializeMap();
+            InitializeMap(0);
             IdentifyWalls();
             BackgroundImage = null;
             CurrentMapa = this;
             DoubleBuffered = true;
         }
 
-
-        public void InitializeMap()
+        public void InitializeMap(int mapaSeleccionado)
         {
             if (BackgroundImage != null)
             {
@@ -69,9 +68,11 @@ namespace Proyecto
 
                         if (pixelColor.ToArgb() == Color.Black.ToArgb())
                         {
-                            grid[x, y] = new Node(x, y);
-                            grid[x, y].IsWall = true;
-                            grid[x, y].IsUnwalkableFloor = true;
+                            grid[x, y] = new Node(x, y)
+                            {
+                                IsWall = true,
+                                IsUnwalkableFloor = true
+                            };
                         }
                         else
                         {
@@ -80,9 +81,26 @@ namespace Proyecto
                     }
                 }
             }
-
-            startNode = grid[408 / GridSize, 541 / GridSize];
+            if (mapaSeleccionado == 0)
+            {
+                if (coordenadasPlantaBaja.Length == 2)
+                {
+                    int cX = int.Parse(coordenadasPlantaBaja[0]); //Coordenadas para la planta baja
+                    int cY = int.Parse(coordenadasPlantaBaja[1]);
+                    startNode = grid[cX / GridSize, cY / GridSize];
+                }
+            }
+            else if (mapaSeleccionado == 1)
+            {
+                startNode = grid[409 / GridSize, 548 / GridSize]; //Coordenadas para el piso 1
+            }
+            else if (mapaSeleccionado == 2)
+            {
+                startNode = grid[329 / GridSize, 667 / GridSize]; //Coordenadas para el piso 2
+            }
         }
+
+
         private void IdentifyWalls()
         {
             if (BackgroundImage != null)
@@ -114,10 +132,8 @@ namespace Proyecto
                         }
                     }
                 }
-
                 BackgroundImage = bitmap;
             }
-
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -262,10 +278,17 @@ namespace Proyecto
 
         private int GetDistance(Node a, Node b)
         {
-            int distanceX = Math.Abs(a.X - b.X);
-            int distanceY = Math.Abs(a.Y - b.Y);
+            if (a != null && b != null)
+            {
+                int distanceX = Math.Abs(a.X - b.X);
+                int distanceY = Math.Abs(a.Y - b.Y);
 
-            return distanceX + distanceY;
+                return distanceX + distanceY;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         private void ReconstructPath(Node endNode)
@@ -288,15 +311,11 @@ namespace Proyecto
             }
         }
 
-        private void btnFindPath_Click(object sender, EventArgs e)
-        {
-            FindPath();
-            Invalidate();
-        }
-
         private void Mapa_MouseClick(object sender, MouseEventArgs e)
         {
             MapaClick = true;
+
+
             /*string coordenada = $"{e.X}, {e.Y}";
 
              try
@@ -323,9 +342,9 @@ namespace Proyecto
 
                 if (endPoint == Point.Empty)
                 {
-                    endPoint = new Point(x, y);
+                    //endPoint = new Point(x, y);
                     endNode = grid[x, y];
-                    DrawPoint(new Point(x * GridSize, y * GridSize), Color.Red);
+                    // DrawPoint(new Point(x * GridSize, y * GridSize), Color.Red);
                     Invalidate();
 
                 }
@@ -337,10 +356,8 @@ namespace Proyecto
                     DrawPoint(new Point(x * GridSize, y * GridSize), Color.Red);
                     Invalidate();
                 }
-
                 SelectedX = x;
                 SelectedY = y;
-
             }
         }
         public void ClearPoints()
@@ -354,37 +371,121 @@ namespace Proyecto
 
         public void CambiarMapa(int mapaSeleccionado)
         {
-
-            // Determinar qué mapa seleccionar según el valor de mapaSeleccionado
             switch (mapaSeleccionado)
             {
                 case 0:
                     BackgroundImage = Resources.planta_baja;
+                    CurrentPiso = 0;
+                    MapaActual = 0;
                     break;
                 case 1:
                     BackgroundImage = Resources.piso_1;
+                    CurrentPiso = 1;
+                    MapaActual = 1;
                     break;
                 case 2:
                     BackgroundImage = Resources.piso_2;
+                    CurrentPiso = 2;
+                    MapaActual = 2;
                     break;
                 default:
                     BackgroundImage = Resources.planta_baja;
+                    CurrentPiso = 0;
+                    MapaActual = 0;
                     break;
             }
+
             InitializeGrid();
-            InitializeMap();
+            InitializeMap(mapaSeleccionado);
             IdentifyWalls();
             Invalidate();
             BackgroundImage = null;
+            CurrentPiso = mapaSeleccionado;
+            MapaActual = mapaSeleccionado;
             CurrentMapa = this;
         }
 
-        public void SetNodoFinal(int x, int y)
+
+        public void SetNodoFinal(int x, int y, int piso)
         {
-            cX = x;
-            cY = y;
-            endNode = grid[cX, cY];
-            Invalidate();
+            int X = int.Parse(coordenadasPlantaBaja[0]); //Coordenadas para la planta baja
+            int Y = int.Parse(coordenadasPlantaBaja[1]);
+
+            if (piso == CurrentPiso)
+            {
+                cX = x;
+                cY = y;
+                endNode = grid[cX, cY];
+                Invalidate();
+            }
+            else
+            {
+                int diferenciaPisos = Math.Abs(piso - CurrentPiso);
+                string mensaje;
+                if (piso > CurrentPiso)
+                {
+                    mensaje = $"suba {diferenciaPisos} piso(s)";
+                }
+                else
+                {
+                    mensaje = $"baje {diferenciaPisos} piso(s)";
+                }
+                MsgBox msg = new MsgBox("aviso", $"Diríjase a las escaleras más cercanas, {mensaje} y haga el siguiente recorrido (a partir del tótem)");
+                if (msg.ShowDialog() == DialogResult.OK)
+                {
+                    CurrentMapa.CurrentPiso = piso;
+                    CambiarMapa(piso);
+
+                    // Establecer el punto de inicio en la ubicación actual del usuario
+                    if (piso == 0)
+                    {
+                        cX = x;
+                        cY = y;
+                        if (X > 700)
+                        {
+                            startNode = grid[622 / GridSize, 576 / GridSize];
+                        }
+                        else
+                        {
+                            startNode = grid[965 / GridSize, 549 / GridSize];
+                        }
+                        endNode = grid[cX, cY];
+                        Invalidate();
+                    }
+                    else if (piso == 1)
+                    {
+                        cX = x;
+                        cY = y;
+                        if (X > 700)
+                        {
+                            startNode = grid[926 / GridSize, 517 / GridSize];
+                        }
+                        else
+                        {
+                            startNode = grid[388 / GridSize, 566 / GridSize];
+                        }
+                        endNode = grid[cX, cY];
+                        Invalidate();
+                    }
+                    else if (piso == 2)
+                    {
+                        cX = x;
+                        cY = y;
+                        if (X > 700)
+                        {
+                            startNode = grid[888 / GridSize, 547 / GridSize];
+                        }
+                        else
+                        {
+                            startNode = grid[303 / GridSize, 614 / GridSize];
+                        }
+                        endNode = grid[cX, cY];
+                        Invalidate();
+                    }
+
+                    FindPath();
+                }
+            }
         }
     }
 }

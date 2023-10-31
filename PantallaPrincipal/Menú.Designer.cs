@@ -297,7 +297,7 @@
             this.btnMaterias.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMaterias.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMaterias.ForeColor = System.Drawing.Color.Black;
-            this.btnMaterias.Image = global::Proyecto.Properties.Resources.Book;
+            this.btnMaterias.Image = global::Proyecto.Properties.Resources.Subjects;
             this.btnMaterias.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnMaterias.Location = new System.Drawing.Point(0, 199);
             this.btnMaterias.Name = "btnMaterias";
@@ -562,7 +562,6 @@
             // 
             // plForms
             // 
-            this.plForms.BackgroundImage = global::Proyecto.Properties.Resources.menu_fondo;
             this.plForms.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.plForms.Controls.Add(this.plPisos);
             this.plForms.Controls.Add(this.flowLayoutPanel1);
@@ -574,7 +573,7 @@
             // 
             // plPisos
             // 
-            this.plPisos.Location = new System.Drawing.Point(886, 39);
+            this.plPisos.Location = new System.Drawing.Point(927, 36);
             this.plPisos.Name = "plPisos";
             this.plPisos.Size = new System.Drawing.Size(454, 76);
             this.plPisos.TabIndex = 3;
