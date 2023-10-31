@@ -4,41 +4,54 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using static CustomControls;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using RadioButton = System.Windows.Forms.RadioButton;
 
 namespace Proyecto
 {
     public partial class Menú : Form
     {
         private readonly CustomControls customControls;
+        private int mapaActual = 0;
+
+        CustomRadioButton rbPB = new CustomRadioButton
+        {
+            Text = "Planta Baja",
+            Font = new Font("MADE INFINITY PERSONAL USE", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0),
+            MinimumSize = new Size(170, 50),
+            Location = new Point(10, 10),
+            Checked = true
+        };
+
+
+        CustomRadioButton rbP1 = new CustomRadioButton
+        {
+            Text = "Piso 1",
+            Location = new Point(200, 11),
+            Font = new Font("MADE INFINITY PERSONAL USE", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0),
+        };
+
+        CustomRadioButton rbP2 = new CustomRadioButton
+        {
+            Text = "Piso 2",
+            Location = new Point(330, 11),
+            Font = new Font("MADE INFINITY PERSONAL USE", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        };
+
+        public RadioButton RbPlantaBaja => rbPB;
+
+        public RadioButton RbPiso1 => rbP1;
+
+        public RadioButton RbPiso2 => rbP2;
+
         public Menú()
         {
             InitializeComponent();
             customControls = new CustomControls(plLateral);
-            CustomRadioButton rbPB = new CustomRadioButton
-            {
-                Text = "Planta Baja",
-                Font = new Font("MADE INFINITY PERSONAL USE", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0),
-                MinimumSize = new Size(170, 50),
-                Location = new Point(10, 10)
-            };
 
-
-            CustomRadioButton rbP1 = new CustomRadioButton
-            {
-                Text = "Piso 1",
-                Location = new Point(200, 11),
-                Font = new Font("MADE INFINITY PERSONAL USE", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0),
-            };
-
-            CustomRadioButton rbP2 = new CustomRadioButton
-            {
-                Text = "Piso 2",
-                Location = new Point(330, 11),
-                Font = new Font("MADE INFINITY PERSONAL USE", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0)
-            };
+            rbPB.Tag = 0;
+            rbP1.Tag = 1;
+            rbP2.Tag = 2;
 
             rbPB.CheckedChanged += MapaRadioButton_CheckedChanged;
             rbP1.CheckedChanged += MapaRadioButton_CheckedChanged;
@@ -47,6 +60,7 @@ namespace Proyecto
             plPisos.Controls.Add(rbPB);
             plPisos.Controls.Add(rbP1);
             plPisos.Controls.Add(rbP2);
+
         }
 
         private void Menú_Load(object sender, EventArgs e)
@@ -256,7 +270,7 @@ namespace Proyecto
                     break;
 
                 default:
-                    throw new ArgumentException("Error, no se ha implementado esa referencia aun, capa presentacion, Menu.AbrirLita()");
+                    throw new ArgumentException("Error, no se ha implementado esa referencia aún, capa presentaciín, Menu.AbrirLista()");
             }
             lblTitulo.Text = "Gestionar " + titulo;
             Sesion sesion = new Sesion();
@@ -264,7 +278,6 @@ namespace Proyecto
             Lista lista = new Lista();//Almacenamos la instancia del formulario menú
             Metodos.OpenChildForm(lista, plForms);
         }
-
         private void btnABMAlumnos_Click(object sender, EventArgs e)
         {
             AbrirLista(TipoReferencia.Alumno);
@@ -316,11 +329,14 @@ namespace Proyecto
         #region
         private void pbMapa_Click(object sender, EventArgs e)
         {
+            Metodos metodos = new Metodos();
+            metodos.ResetTimerCierreSesion();
             cbxLugares.SelectedIndexChanged -= cbxLugares_SelectedIndexChanged;
             Mapa mapa = new Mapa();
             Metodos.OpenChildForm(mapa, plMapa);
             Negocio negocio = new Negocio();
             lblTitulo.Text = "Mapa";
+            rbPB.Checked = true;
 
             // Asignar el DataTable al ComboBox
             cbxLugares.DataSource = negocio.Listar(TipoReferencia.Lugar, null, null);
@@ -334,58 +350,92 @@ namespace Proyecto
         private void cbxLugares_SelectedIndexChanged(object sender, EventArgs e)
         {
             Metodos metodos = new Metodos();
-            metodos.ResetTimerCierreSesion(); //Reinicia el timer de cierre de sesion
+            metodos.ResetTimerCierreSesion();
 
-            /*
-            DataRowView row = cbxLugares.SelectedItem as DataRowView;
-            if (row != null)
+            if (cbxLugares.SelectedItem is DataRowView row)
             {
-                if (row.Row.Table.Columns.Contains("Coordenada_X") && row.Row.Table.Columns.Contains("Coordenada_Y"))
+                if (row.Row.Table.Columns.Contains("Coordenada_X") && row.Row.Table.Columns.Contains("Coordenada_Y") && row.Row.Table.Columns.Contains("Piso"))
                 {
                     int coordenadaX = Convert.ToInt32(row["Coordenada_X"]);
                     int coordenadaY = Convert.ToInt32(row["Coordenada_Y"]);
-
-                    Mapa.CurrentMapa.SetNodoFinal(coordenadaX, coordenadaY);
+                    int piso = Convert.ToInt32(row["Piso"]);
+                    Mapa.CurrentMapa.SetNodoFinal(coordenadaX, coordenadaY, piso);
                     Mapa.CurrentMapa.FindPath();
                 }
             }
             else
             {
                 Mapa.CurrentMapa.ClearPoints();
-            }*/
+            }
         }
 
         private void MapaRadioButton_CheckedChanged(object sender, EventArgs e)
         {
+            Metodos metodos = new Metodos();
+            metodos.ResetTimerCierreSesion();
+
             if (sender is CustomRadioButton radioButton)
             {
                 if (radioButton.Checked)
                 {
                     int mapaSeleccionado = 0;
+                    Mapa.CurrentMapa.startNode.Reset();
 
                     if (radioButton.Text == "Piso 1")
                     {
+                        Mapa.CurrentMapa.startNode.Reset();
+                        mapaActual = 1;
                         mapaSeleccionado = 1;
                     }
                     else if (radioButton.Text == "Piso 2")
                     {
+                        Mapa.CurrentMapa.startNode.Reset();
                         mapaSeleccionado = 2;
+                        mapaActual = 2;
                     }
-
                     Mapa.CurrentMapa.CambiarMapa(mapaSeleccionado);
+                    ActualizarRadioButtons();
                 }
             }
+        }
+
+        private void ActualizarRadioButtons()
+        {
+
+            int mapaActual = Mapa.CurrentMapa.MapaActual;
+
+            // Lógica para marcar los radio buttons según el mapa actual
+            if (mapaActual == 0)
+            {
+                RbPlantaBaja.Checked = true;
+
+            }
+            else if (mapaActual == 1)
+            {
+                // Marca el radio button de Piso 1
+                RbPiso1.Checked = true;
+            }
+            else if (mapaActual == 2)
+            {
+                // Marca el radio button de Piso 2
+                RbPiso2.Checked = true;
+            }
+
         }
         private void btnClase_Click(object sender, EventArgs e)
         {
             Metodos metodos = new Metodos();
-            metodos.ResetTimerCierreSesion(); // Reinicia el timer de cierre de sesion
+            metodos.ResetTimerCierreSesion();
+            Negocio negocio = new Negocio();
+            string caca;
+            caca = negocio.ObtenerSalonAlumno(Sesion.LoggedCi);
+            MessageBox.Show($"{caca}");
         }
 
         private void btnGrupo_Click(object sender, EventArgs e)
         {
             Metodos metodos = new Metodos();
-            metodos.ResetTimerCierreSesion(); // Reinicia el timer de cierre de sesion
+            metodos.ResetTimerCierreSesion();
         }
         #endregion
 

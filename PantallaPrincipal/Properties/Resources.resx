@@ -121,9 +121,6 @@
   <data name="Place Marker" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Place Marker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="piso 1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\piso 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Logout" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Logout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -175,17 +172,11 @@
   <data name="Teacher" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Teacher.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="piso_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\piso 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Subjects" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Subjects.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Done" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Done.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HourYearSubject" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sin título-aa1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cancelar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cancelar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -208,20 +199,8 @@
   <data name="Plus 1 Year" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Plus 1 Year.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Book" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Book.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Plus 1 Year1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Plus 1 Year1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planta_baja" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planta baja.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="menu fondo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menu fondo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Provisional" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Provisional.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Graduation Cap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Graduation Cap.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -231,5 +210,14 @@
   </data>
   <data name="Help" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Help.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="piso_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\piso 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="piso_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\piso 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="planta_baja" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planta baja.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

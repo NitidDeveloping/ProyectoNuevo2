@@ -74,7 +74,7 @@ namespace Proyecto
                 else if (!validaciones.ValidarCI(ci))
                 {
                     lblSubCi.BackColor = Color.Red;
-                    MsgBox msg = new MsgBox("error", "Cédula no válida."); //Personalizo el mensaje y declaro qué tipo de error me muestra
+                    MsgBox msg = new MsgBox("error", "Cédula no válida, debe ser de 8 digitos."); //Personalizo el mensaje y declaro qué tipo de error me muestra
                     msg.ShowDialog();
                 }
             }
@@ -163,7 +163,7 @@ namespace Proyecto
             }
             else if (!validaciones.ValidarCI(ci) || !validaciones.ValidarPIN(pin))
             {
-                msg = new MsgBox("error", "Formatos no validos");
+                msg = new MsgBox("error", "Formatos no válidos");
                 msg.ShowDialog();
 
             }
@@ -178,7 +178,7 @@ namespace Proyecto
                 }
                 else
                 {
-                    msg = new MsgBox("error", "Ci o Pin no validos");
+                    msg = new MsgBox("error", "CI o PIN no válidos");
                     txtPIN.Text = string.Empty;
                     txtPIN.Enabled = false;
                     msg.ShowDialog();

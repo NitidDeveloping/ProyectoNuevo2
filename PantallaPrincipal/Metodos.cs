@@ -13,7 +13,7 @@ namespace Proyecto
         public static AgregarEditar AgregarForm = null;
 
         //Cierre de sesion automatico
-        public Timer timerCierreSesion;
+        public static Timer timerCierreSesion;
         private const int tiempoInactividadEnSegundos = 5 * 60; //5 minutos
 
         //Metodos para el timer cierre de sesion automatico

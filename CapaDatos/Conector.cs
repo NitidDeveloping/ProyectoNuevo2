@@ -35,7 +35,7 @@ namespace CapaDatos
             database = "nitid"; //Establecemos los valores en el constructor.
             server = "localhost";
             uid = "root";
-            pwd = "1234";
+            pwd = "root";
 
             /*switch (Sesion.LoggedRol)
             {

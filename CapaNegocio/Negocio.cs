@@ -803,5 +803,13 @@ namespace CapaNegocio
         }
 
         #endregion
+
+
+        public string ObtenerSalonAlumno(int CI)
+        {
+            Datos datos = new Datos();
+            return datos.ObtenerUbicacionGrupo(CI);
+
+        }
     }
 }
