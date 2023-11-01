@@ -108,7 +108,6 @@
             // 
             this.cbxMateria.DropDownHeight = 750;
             this.cbxMateria.Font = new System.Drawing.Font("Verdana", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxMateria.FormattingEnabled = true;
             this.cbxMateria.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.cbxMateria.IntegralHeight = false;
             this.cbxMateria.Items.AddRange(new object[] {
@@ -117,6 +116,7 @@
             "Vespertino"});
             this.cbxMateria.Location = new System.Drawing.Point(297, 399);
             this.cbxMateria.MaxDropDownItems = 25;
+            this.cbxMateria.MaxLength = 45;
             this.cbxMateria.Name = "cbxMateria";
             this.cbxMateria.Size = new System.Drawing.Size(737, 67);
             this.cbxMateria.TabIndex = 75;

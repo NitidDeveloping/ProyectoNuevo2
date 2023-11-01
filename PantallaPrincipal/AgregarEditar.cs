@@ -283,7 +283,7 @@ namespace Proyecto
                     case TipoReferencia.Anio:
 
                         plPIN.Visible = true;
-
+                        lblPIN.Text = "Año";
                         txtPIN.MaxLength = 4;
 
                         break;

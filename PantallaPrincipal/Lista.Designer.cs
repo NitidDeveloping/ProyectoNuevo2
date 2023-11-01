@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DGV = new System.Windows.Forms.DataGridView();
             this.lblSearch = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -57,23 +57,23 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGV.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.RaisedHorizontal;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DGV.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DGV.DefaultCellStyle = dataGridViewCellStyle2;
             this.DGV.Location = new System.Drawing.Point(75, 223);
             this.DGV.MultiSelect = false;
             this.DGV.Name = "DGV";
@@ -142,7 +142,7 @@
             "Matutino",
             "Vespertino",
             "Nocturno"});
-            this.comboSearch.Location = new System.Drawing.Point(73, 121);
+            this.comboSearch.Location = new System.Drawing.Point(75, 124);
             this.comboSearch.MaxDropDownItems = 25;
             this.comboSearch.Name = "comboSearch";
             this.comboSearch.Size = new System.Drawing.Size(521, 50);
@@ -153,7 +153,7 @@
             // 
             this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSearch.Font = new System.Drawing.Font("Verdana", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch.Location = new System.Drawing.Point(75, 124);
+            this.txtSearch.Location = new System.Drawing.Point(73, 124);
             this.txtSearch.MaxLength = 50;
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(601, 59);
@@ -168,7 +168,7 @@
             this.chkSearch.Name = "chkSearch";
             this.chkSearch.Size = new System.Drawing.Size(122, 67);
             this.chkSearch.TabIndex = 80;
-            this.chkSearch.Text = "Search";
+            this.chkSearch.Text = "Estado";
             this.chkSearch.UseVisualStyleBackColor = true;
             this.chkSearch.Visible = false;
             // 
@@ -190,7 +190,7 @@
             this.datePickerSearch.CustomFormat = "yyyy-MM-dd";
             this.datePickerSearch.Font = new System.Drawing.Font("Verdana", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.datePickerSearch.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datePickerSearch.Location = new System.Drawing.Point(75, 121);
+            this.datePickerSearch.Location = new System.Drawing.Point(73, 124);
             this.datePickerSearch.Name = "datePickerSearch";
             this.datePickerSearch.Size = new System.Drawing.Size(331, 46);
             this.datePickerSearch.TabIndex = 82;
@@ -201,7 +201,7 @@
             this.timePickerSearch.CustomFormat = "HH:mm";
             this.timePickerSearch.Font = new System.Drawing.Font("Verdana", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timePickerSearch.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.timePickerSearch.Location = new System.Drawing.Point(73, 121);
+            this.timePickerSearch.Location = new System.Drawing.Point(73, 124);
             this.timePickerSearch.Name = "timePickerSearch";
             this.timePickerSearch.ShowUpDown = true;
             this.timePickerSearch.Size = new System.Drawing.Size(200, 46);

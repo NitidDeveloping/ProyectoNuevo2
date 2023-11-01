@@ -436,6 +436,59 @@ namespace CapaDatos
             }
             catch (Exception ex)
             {
+                string mensaje = ex.Message;
+                Exception exceptionPersonalizada;
+
+                if (mensaje.Contains("CONSTRAINT `fk_GrupoMateriaDocente_CIDOCENTE"))
+                {
+                    exceptionPersonalizada = new Exception("Este docente se encuentra asignado a una o mas materias en uno o mas grupos. Desasigne este docente de las materias a las que este asignado antes de eliminarlo.");
+                    throw exceptionPersonalizada;
+                }
+
+                if (mensaje.Contains("CONSTRAINT `fk_Orientacion_Grupo` "))
+                {
+                    exceptionPersonalizada = new Exception("Esta orientacion se encuentra asignada a uno o mas grupos. Desasigne esta orientacion de los grupos a los que se encuentre asignada antes de eliminarla.");
+                    throw exceptionPersonalizada;
+                }
+
+                if (mensaje.Contains("CONSTRAINT `fk_Anio`"))
+                {
+                    exceptionPersonalizada = new Exception("Este año se encuentra asignado a uno o mas grupos. Desasigne este año de los grupos a los que se encuentre asignado antes de eliminarlo.");
+                    throw exceptionPersonalizada;
+                }
+
+                if (mensaje.Contains("CONSTRAINT `fk_Turno_Grupo`"))
+                {
+                    exceptionPersonalizada = new Exception("Este turno se encuentra asignado a uno o mas grupos. Desasigne este turno de los grupos a los que se encuentre asignado antes de eliminarlo.");
+                    throw exceptionPersonalizada;
+                }
+
+                if (mensaje.Contains("`grupo_materia`, CONSTRAINT `fk_GrupoMateria_IDMATERIA` "))
+                {
+                    exceptionPersonalizada = new Exception("Esta materia se encuentra asignada a uno o mas grupos. Desasigne esta materia de los grupos a los que se encuentre asignada antes de eliminarla.");
+                    throw exceptionPersonalizada;
+                }
+
+                if (mensaje.Contains("`.`grupo_alumno`, CONSTRAINT `fk_GrupoAlumno_IDGRUPO` "))
+                {
+                    exceptionPersonalizada = new Exception("Este grupo tiene alumnos asignados. Desasigne todos los alumnos de este grupo antes de eliminarlo.");
+                    throw exceptionPersonalizada;
+                }
+
+                if (mensaje.Contains("`.`grupo_materia`, CONSTRAINT `fk_GrupoMateria_IDGRUPO`"))
+                {
+                    exceptionPersonalizada = new Exception("Este grupo tiene materias asignadas. Desasigne todas las materias asignadas a este grupo antes de eliminarlo.");
+                    throw exceptionPersonalizada;
+                }
+
+                if (mensaje.Contains("`.`grupo_materia`, CONSTRAINT `fk_GrupoMateria_IDGRUPO`"))
+                {
+                    exceptionPersonalizada = new Exception("Este grupo tiene materias asignadas. Desasigne todas las materias asignadas a este grupo antes de eliminarlo.");
+                    throw exceptionPersonalizada;
+                }
+
+
+
                 throw ex; //esto lo manejamos con un try catch en la presentación
             }
             finally
@@ -1183,6 +1236,14 @@ namespace CapaDatos
             }
             catch (Exception ex)
             {
+                string mensaje = ex.Message;
+                Exception exceptionPersonalizada;
+
+                if (mensaje.Contains("CONSTRAINT `fk_GrupoMateriaHorario_IDHORARIO_TURNO"))
+                {
+                    exceptionPersonalizada = new Exception("Esta hora se encuentra asignada en uno o mas horarios. Elimine los horarios a los que esta hora este asignada antes de eliminarla.");
+                }
+
                 throw ex; //esto lo manejamos con un try catch en la presentación
             }
             finally
