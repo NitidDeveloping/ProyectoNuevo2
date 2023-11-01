@@ -103,19 +103,26 @@ namespace Proyecto
             metodos.InitializeTimer();
 
             cbxLugares.SelectedIndexChanged -= cbxLugares_SelectedIndexChanged;
-            Mapa mapa = new Mapa();
+            //Mapa mapa = new Mapa();
             Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
-            Metodos.OpenChildForm(mapa, plMapa);
+            //Metodos.OpenChildForm(mapa, plMapa);
             Negocio negocio = new Negocio();
 
 
             // Asignar el DataTable al ComboBox
-            cbxLugares.DataSource = negocio.Listar(TipoReferencia.Lugar, null, null);
-            cbxLugares.DisplayMember = "Nombre";
-            cbxLugares.ValueMember = "Nombre";
-            cbxLugares.SelectedIndex = -1;
-            cbxLugares.SelectedIndexChanged += cbxLugares_SelectedIndexChanged;
+            try
+            {
 
+                cbxLugares.DataSource = negocio.Listar(TipoReferencia.Lugar, null, null);
+                cbxLugares.DisplayMember = "Nombre";
+                cbxLugares.ValueMember = "Nombre";
+                cbxLugares.SelectedIndex = -1;
+                cbxLugares.SelectedIndexChanged += cbxLugares_SelectedIndexChanged;
+            }
+            catch (Exception ex)
+            {
+                MsgBox excepcion = new MsgBox("error", ex.Message);
+            }
         }
 
         //Timer del reloj
@@ -430,12 +437,14 @@ namespace Proyecto
             string caca;
             caca = negocio.ObtenerSalonAlumno(Sesion.LoggedCi);
             MessageBox.Show($"{caca}");
+
         }
 
         private void btnGrupo_Click(object sender, EventArgs e)
         {
             Metodos metodos = new Metodos();
             metodos.ResetTimerCierreSesion();
+
         }
         #endregion
 

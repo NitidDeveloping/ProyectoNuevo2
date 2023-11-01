@@ -29,7 +29,7 @@ namespace Proyecto
             if (txtNewPIN.Enabled == false)
             {
                 txtOldPIN.Text += numero;           //Si txtPIN está desactivado, va a escribir el número clickeado de forma acumulada en txtCI,
-                                                //sino lo hará en txtPIN
+                                                    //sino lo hará en txtPIN
             }
             else if (txtNewPIN2.Enabled == false)
             {
@@ -71,13 +71,14 @@ namespace Proyecto
         {
             Metodos metodos = new Metodos();
             metodos.ResetTimerCierreSesion(); // Reinicia el timer de cierre de sesion
+            MsgBox msg;
 
             Validaciones validaciones = new Validaciones();
             if (txtNewPIN.Enabled == false)
             {
                 if (txtOldPIN.Text != Sesion.LoggedPin.ToString())
                 {
-                    MsgBox msg = new MsgBox("error", "Pin incorrecto.");
+                    msg = new MsgBox("error", "Pin incorrecto, no coincide con el pin de esta cuenta.");
                     intentosFallidos++;
 
                     if (intentosFallidos >= 5)
@@ -106,7 +107,7 @@ namespace Proyecto
                 }
                 else
                 {
-                    MsgBox msg = new MsgBox("error", "Debe ingresar un pin de 4 digitos"); //Personalizo el mensaje y declaro qué tipo de error me muestra
+                    msg = new MsgBox("error", "Debe ingresar un pin de 4 digitos"); //Personalizo el mensaje y declaro qué tipo de error me muestra
                     msg.ShowDialog();
                 }
             }
@@ -121,7 +122,7 @@ namespace Proyecto
                 {
                     txtNewPIN2.Text = string.Empty;
                     txtNewPIN2.Enabled = false;
-                    MsgBox msg = new MsgBox("error", "Los pins no coinciden entre si."); //Personalizo el mensaje y declaro qué tipo de error me muestra
+                    msg = new MsgBox("error", "El pin nuevo y la repeticion deben ser iguales (no coinciden entre si)."); //Personalizo el mensaje y declaro qué tipo de error me muestra
                     msg.ShowDialog();
                 }
             }

@@ -84,6 +84,12 @@ namespace Proyecto
 
         private void btnEliminarAlumno_Click(object sender, EventArgs e)
         {
+            if (DGVMateriasDocentes.SelectedRows.Count <= 0)
+            {
+                MsgBox error = new MsgBox("error", "Debe seleccionar un alumno antes de eliminar");
+                error.ShowDialog();
+                return;
+            }
             string ciAlumno;
             MsgBox msg; //Mensaje de respuesta
             MsgBox confirm; //Mensaje de confirmacion
@@ -128,6 +134,13 @@ namespace Proyecto
 
         private void btnDesasignarDocenteAMateria_Click(object sender, EventArgs e)
         {
+            if (DGVMateriasDocentes.SelectedRows.Count <= 0)
+            {
+                MsgBox error = new MsgBox("error", "Debe seleccionar una materia con un docente asignado antes de eliminar");
+                error.ShowDialog();
+                return;
+            }
+
             string ciDocente;
             string idMateria;
             MsgBox msg; //Mensaje de respuesta
@@ -181,6 +194,13 @@ namespace Proyecto
 
         private void btnDesasignarMateria_Click(object sender, EventArgs e)
         {
+            if (DGVMateriasDocentes.SelectedRows.Count <= 0)
+            {
+                MsgBox error = new MsgBox("error", "Debe seleccionar una materia antes de eliminar");
+                error.ShowDialog();
+                return;
+            }
+
             string idMateria;
             MsgBox msg; //Mensaje de respuesta
             MsgBox confirm; //Mensaje de confirmacion

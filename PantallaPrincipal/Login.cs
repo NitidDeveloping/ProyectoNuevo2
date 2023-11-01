@@ -2,6 +2,7 @@
 using CapaNegocio;
 using System;
 using System.Drawing;
+using System.Linq.Expressions;
 using System.Windows.Forms;
 
 namespace Proyecto
@@ -20,7 +21,7 @@ namespace Proyecto
         private void NumeroButton_Click(object sender, EventArgs e)
         {
             Button boton = (Button)sender;
-        string numero = boton.Text;
+            string numero = boton.Text;
 
             if (txtPIN.Enabled == false)
             {
@@ -40,28 +41,28 @@ namespace Proyecto
                                                                                         // en el txtCI, sino borra en el txtPIN.
                 {
                     txtCI.Text = txtCI.Text.Substring(0, txtCI.Text.Length - 1);
+                    pbOk.Visible = false;
                 }
             }
             else
                 if (txtPIN.Text.Length > 0)
             {
                 txtPIN.Text = txtPIN.Text.Substring(0, txtPIN.Text.Length - 1);
+                pbOk1.Visible = false;
             }
 
         }
         private void btnSig_Click(object sender, EventArgs e)
         {
             string ci = txtCI.Text;
+            MsgBox msg;
 
-
-
-            Negocio negocio = new Negocio();
             Validaciones validaciones = new Validaciones();
             if (txtPIN.Enabled == false)
             {
                 if (txtCI.Text == "")
                 {
-                    MsgBox msg = new MsgBox("error", "Ingrese una cédula."); //Personalizo el mensaje y declaro qué tipo de error me muestra
+                    msg = new MsgBox("error", "Ingrese su cédula."); //Personalizo el mensaje y declaro qué tipo de error me muestra
                     msg.ShowDialog();
                 }
                 else
@@ -74,7 +75,7 @@ namespace Proyecto
                 else if (!validaciones.ValidarCI(ci))
                 {
                     lblSubCi.BackColor = Color.Red;
-                    MsgBox msg = new MsgBox("error", "Cédula no válida, debe ser de 8 digitos."); //Personalizo el mensaje y declaro qué tipo de error me muestra
+                    msg = new MsgBox("error", "Cédula no válida, debe ser un numero de 8 digitos."); //Personalizo el mensaje y declaro qué tipo de error me muestra
                     msg.ShowDialog();
                 }
             }
@@ -90,7 +91,7 @@ namespace Proyecto
                 }
                 else
                 {
-                    MsgBox msg = new MsgBox("error", "PIN no válido."); //Personalizo el mensaje y declaro qué tipo de error me muestra
+                    msg = new MsgBox("error", "PIN no válido. Debe ingresar un numero de 4 cifras."); //Personalizo el mensaje y declaro qué tipo de error me muestra
                     msg.ShowDialog();
                 }
             }
@@ -163,25 +164,34 @@ namespace Proyecto
             }
             else if (!validaciones.ValidarCI(ci) || !validaciones.ValidarPIN(pin))
             {
-                msg = new MsgBox("error", "Formatos no válidos");
+                msg = new MsgBox("error", "Formatos no válidos. La cedula debe ser un numero de 8 digitos y el PIN un numero de 4 digitos.");
                 msg.ShowDialog();
 
             }
             else
             {
-                RetornoValidacion intentologin = negocio.IntentarLogIn(ci, pin);
+                try
+                {
+                    RetornoValidacion intentologin = negocio.IntentarLogIn(ci, pin);
 
-                if (intentologin == RetornoValidacion.OK)
-                {
-                    menu.ShowDialog();
-                    this.Close();
+                    if (intentologin == RetornoValidacion.OK)
+                    {
+                        menu.ShowDialog();
+                        this.Close();
+                    }
+                    else
+                    {
+                        msg = new MsgBox("error", "No se encontro ningun usuario con ese CI y PIN, intentelo de nuevo.");
+                        txtPIN.Text = string.Empty;
+                        txtPIN.Enabled = false;
+                        pbOk1.Visible = false;
+                        msg.ShowDialog();
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    msg = new MsgBox("error", "CI o PIN no válidos");
-                    txtPIN.Text = string.Empty;
-                    txtPIN.Enabled = false;
-                    msg.ShowDialog();
+                    MsgBox excepcion = new MsgBox("error", ex.Message);
+                    excepcion.ShowDialog();
                 }
             }
         }

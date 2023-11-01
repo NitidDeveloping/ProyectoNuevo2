@@ -536,6 +536,19 @@ namespace CapaNegocio
                 return datos.Eliminar(referencia, idObjetivo);
             }
 
+            //Si la referencia es alumno primero intenta eliminar el alumno de los grupos en los que se encuentre y despues sigue
+            if (referencia == TipoReferencia.Alumno)
+            {
+                List<Grupo> grupos = datos.ConsultarGruposAlumno(int.Parse(idObjetivo));
+
+                if (grupos.Count > 0)
+                {
+                    foreach (Grupo grupo in grupos)
+                    {
+                        datos.EliminarAlumnoDeGrupo(idObjetivo, grupo.Nombre);
+                    }
+                }
+            }
             // Si es alguno de esos elimina el alumno y despues el usuario
             RetornoValidacion eliminarDeCategorizacion = datos.Eliminar(referencia, idObjetivo);
 

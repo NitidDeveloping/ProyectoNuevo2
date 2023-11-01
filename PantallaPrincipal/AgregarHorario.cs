@@ -92,9 +92,6 @@ namespace Proyecto
                     horas.Add(auxHora);
                 }
 
-                //Salon
-                //Si elige un salon valida si esta ocupado primero
-                //y segun lo que el usuario decida sigue con la operacion o cancela
                 ushort idSalon = (ushort)cbxClase.SelectedValue;
 
                 MensajeSalonOcupado mslo = negocio.ConsultarSalonOcupado(idSalon, horas[0].Inicio, horas[horas.Count - 1].Fin, dia.Id);
