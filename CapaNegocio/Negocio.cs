@@ -818,7 +818,14 @@ namespace CapaNegocio
         #endregion
 
 
-        public string ObtenerSalonAlumno(int CI)
+        public UbicacionClase ObtenerSalonAlumno(int CI)
+        {
+            Datos datos = new Datos();
+            return datos.ObtenerUbicacionClase(CI);
+
+        }
+
+        public UbicacionGrupo ObtenerSalonClase(int CI)
         {
             Datos datos = new Datos();
             return datos.ObtenerUbicacionGrupo(CI);

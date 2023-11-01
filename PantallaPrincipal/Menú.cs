@@ -82,7 +82,7 @@ namespace Proyecto
                 case TipoRol.Docente:
                     this.btnDatos.Visible = false;
                     this.btnUsuarios.Visible = false;
-                    this.btnGrupo.Visible = false;
+                    this.btnGrupo.Visible = true;
                     break;
 
                 case TipoRol.Visitante:
@@ -103,16 +103,15 @@ namespace Proyecto
             metodos.InitializeTimer();
 
             cbxLugares.SelectedIndexChanged -= cbxLugares_SelectedIndexChanged;
-            //Mapa mapa = new Mapa();
+            Mapa mapa = new Mapa();
             Metodos.SetMenuForm(this); //Almacenamos la instancia del formulario menú
-            //Metodos.OpenChildForm(mapa, plMapa);
+            Metodos.OpenChildForm(mapa, plMapa);
             Negocio negocio = new Negocio();
 
 
             // Asignar el DataTable al ComboBox
             try
             {
-
                 cbxLugares.DataSource = negocio.Listar(TipoReferencia.Lugar, null, null);
                 cbxLugares.DisplayMember = "Nombre";
                 cbxLugares.ValueMember = "Nombre";
@@ -434,16 +433,51 @@ namespace Proyecto
             Metodos metodos = new Metodos();
             metodos.ResetTimerCierreSesion();
             Negocio negocio = new Negocio();
-            string caca;
-            caca = negocio.ObtenerSalonAlumno(Sesion.LoggedCi);
-            MessageBox.Show($"{caca}");
+            UbicacionClase ubicacionClase = negocio.ObtenerSalonAlumno(Sesion.LoggedCi);
 
+            if (ubicacionClase.Nombre != null)
+            {
+                MsgBox msg = new MsgBox("aviso", $"Tienes clase en: {ubicacionClase.Nombre}");
+                msg.ShowDialog();
+
+                int coordX = ubicacionClase.CoordenadaX;
+                int coordY = ubicacionClase.CoordenadaY;
+                int piso = ubicacionClase.Piso;
+
+                Mapa.CurrentMapa.SetNodoFinal(coordX, coordY, piso);
+                Mapa.CurrentMapa.FindPath();
+            }
+            else
+            {
+                MsgBox msg = new MsgBox("aviso", $"No tienes clases en el horario actual.");
+                msg.ShowDialog();
+            }
         }
 
         private void btnGrupo_Click(object sender, EventArgs e)
         {
             Metodos metodos = new Metodos();
             metodos.ResetTimerCierreSesion();
+            Negocio negocio = new Negocio();
+            UbicacionGrupo ubicacionGrupo = negocio.ObtenerSalonClase(Sesion.LoggedCi);
+
+            if (ubicacionGrupo.Salon != null)
+            {
+                MsgBox msg = new MsgBox("aviso", $"Tienes clase en: {ubicacionGrupo.Salon}\nGrupo: {ubicacionGrupo.Grupo}\nMateria: {ubicacionGrupo.Materia}");
+                msg.ShowDialog();
+
+                int coordX = ubicacionGrupo.CoordenadaX;
+                int coordY = ubicacionGrupo.CoordenadaY;
+                int piso = ubicacionGrupo.Piso;
+
+                Mapa.CurrentMapa.SetNodoFinal(coordX, coordY, piso);
+                Mapa.CurrentMapa.FindPath();
+            }
+            else
+            {
+                MsgBox msg = new MsgBox("aviso", $"No tienes clases a dictar en el horario actual.");
+                msg.ShowDialog();
+            }
 
         }
         #endregion

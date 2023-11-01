@@ -83,6 +83,8 @@
     <Compile Include="Sesion.cs" />
     <Compile Include="Docente.cs" />
     <Compile Include="Funcionario.cs" />
+    <Compile Include="UbicacionClase.cs" />
+    <Compile Include="UbicacionGrupo.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
