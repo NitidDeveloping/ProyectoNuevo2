@@ -1239,9 +1239,10 @@ namespace CapaDatos
                 string mensaje = ex.Message;
                 Exception exceptionPersonalizada;
 
-                if (mensaje.Contains("CONSTRAINT `fk_GrupoMateriaHorario_IDHORARIO_TURNO"))
+                if (mensaje.Contains("CONSTRAINT `fk_GrupoMateriaHorario_IDHORARIO_TURNO`"))
                 {
                     exceptionPersonalizada = new Exception("Esta hora se encuentra asignada en uno o mas horarios. Elimine los horarios a los que esta hora este asignada antes de eliminarla.");
+                    throw exceptionPersonalizada;
                 }
 
                 throw ex; //esto lo manejamos con un try catch en la presentación

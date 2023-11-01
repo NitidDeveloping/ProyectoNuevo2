@@ -428,13 +428,13 @@ namespace Proyecto
             }
             else
             {
-                Metodos.SoloLetras(e);
+                Metodos.SoloLetrasYEspacio(e);
             }
         }
 
         private void txtApellido_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Metodos.SoloLetras(e);
+            Metodos.SoloLetrasYEspacio(e);
         }
 
         private void txtCI_KeyPress(object sender, KeyPressEventArgs e)
