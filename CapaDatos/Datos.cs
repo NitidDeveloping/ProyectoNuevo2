@@ -2379,33 +2379,34 @@ namespace CapaDatos
         }
         #endregion
 
-
-        public string ObtenerUbicacionGrupo(int ciAlumno)
+        //Métodos para lugares de clase
+        #region
+        public UbicacionClase ObtenerUbicacionClase(int ciAlumno)
         {
             MySqlConnection conn = Conector.crearInstancia().crearConexion();
+            MySqlDataReader dr;
             MySqlCommand cmd = new MySqlCommand(
-                "SELECT Lugar.Nombre AS UbicacionActual " +
-                "FROM Grupo_Alumno " +
-                "JOIN Grupo ON Grupo_Alumno.ID_Grupo = Grupo.ID_Grupo " +
-                "JOIN Grupo_Materia_Horario_Clase ON Grupo.ID_Grupo = Grupo_Materia_Horario_Clase.ID_Grupo " +
-                "JOIN Lugar ON Grupo_Materia_Horario_Clase.ID_Clase = Lugar.ID " +
-                "JOIN Dia_Semana ON Grupo_Materia_Horario_Clase.Dia_Semana = Dia_Semana.Dia_Semana " +
-                "JOIN Horario ON Grupo_Materia_Horario_Clase.ID_Horario = Horario.ID_Horario AND Grupo_Materia_Horario_Clase.Turno = Horario.Turno " +
-                "WHERE Grupo_Alumno.CI_Alumno = @CI " +
-                "AND Asignado_Temporal IS NULL " +
-                "AND DAYOFWEEK(CURDATE()) = Dia_Semana.Dia_Semana " +
-                "AND CURTIME() BETWEEN Horario.Hora_Inicio AND Horario.Hora_Fin;",
+                "SELECT Lugar.Nombre AS Nombre, Lugar.Coordenada_X AS Coordenada_X, Lugar.Coordenada_Y AS Coordenada_Y, Lugar.Piso AS Piso FROM Grupo_Alumno JOIN Grupo " +
+                "ON Grupo_Alumno.ID_Grupo = Grupo.ID_Grupo JOIN Grupo_Materia_Horario_Clase ON Grupo.ID_Grupo = Grupo_Materia_Horario_Clase.ID_Grupo JOIN Lugar " +
+                "ON Grupo_Materia_Horario_Clase.ID_Clase = Lugar.ID JOIN Dia_Semana ON Grupo_Materia_Horario_Clase.Dia_Semana = Dia_Semana.Dia_Semana JOIN Horario " +
+                "ON Grupo_Materia_Horario_Clase.ID_Horario = Horario.ID_Horario AND Grupo_Materia_Horario_Clase.Turno = Horario.Turno WHERE Grupo_Alumno.CI_Alumno = @CI " +
+                "AND Asignado_Temporal IS NULL AND DAYOFWEEK(CURDATE()) = Dia_Semana.Dia_Semana AND CURTIME() BETWEEN Horario.Hora_Inicio AND Horario.Hora_Fin;",
                 conn);
 
             cmd.Parameters.AddWithValue("@CI", ciAlumno);
-            string ubicacion = string.Empty;
+            conn.Open();
+            dr = cmd.ExecuteReader();
+            UbicacionClase ubicacionClase = new UbicacionClase();
 
             try
             {
-                conn.Open();
-
-                ubicacion = cmd.ExecuteScalar().ToString();
-
+                if (dr.Read())
+                {
+                    ubicacionClase.Nombre = dr["Nombre"].ToString();
+                    ubicacionClase.CoordenadaX = Convert.ToInt32(dr["Coordenada_X"]);
+                    ubicacionClase.CoordenadaY = Convert.ToInt32(dr["Coordenada_Y"]);
+                    ubicacionClase.Piso = Convert.ToInt32(dr["Piso"]);
+                }
             }
             catch (Exception ex)
             {
@@ -2419,9 +2420,56 @@ namespace CapaDatos
                 }
             }
 
-            return ubicacion;
+            return ubicacionClase;
         }
 
+        public UbicacionGrupo ObtenerUbicacionGrupo(int ciDocente)
+        {
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
+            MySqlDataReader dr;
+            MySqlCommand cmd = new MySqlCommand(
+                "SELECT L.Nombre AS Salón, L.Coordenada_X, L.Coordenada_Y, L.Piso, G.ID_Grupo AS Grupo, M.Nombre AS Materia FROM usuario_docente AS UD " +
+                "JOIN Grupo_Materia_Docente AS GMD ON UD.CI_Docente = GMD.CI_Docente JOIN Grupo AS G ON GMD.ID_Grupo = G.ID_Grupo " +
+                "JOIN Grupo_Materia AS GM ON G.ID_Grupo = GM.ID_Grupo JOIN Materia AS M ON GM.ID_Materia = M.ID_Materia JOIN Grupo_Materia_Horario AS GMH " +
+                "ON GM.ID_Grupo = GMH.ID_Grupo AND GM.ID_Materia = GMH.ID_Materia JOIN Horario AS H ON GMH.ID_Horario = H.ID_Horario AND GMH.Turno = H.Turno " +
+                "JOIN Dia_Semana AS DS ON GMH.Dia_Semana = DS.Dia_Semana LEFT JOIN Grupo_Materia_Horario_Clase AS GMHC ON GMH.ID_Grupo = GMHC.ID_Grupo " +
+                "AND GMH.ID_Materia = GMHC.ID_Materia AND GMH.ID_Horario = GMHC.ID_Horario AND GMH.Turno = GMHC.Turno AND GMH.Dia_Semana = GMHC.Dia_Semana " +
+                "LEFT JOIN Clase AS C ON GMHC.ID_Clase = C.ID_Clase LEFT JOIN Lugar AS L ON C.ID_Clase = L.ID WHERE UD.CI_Docente = @CI " +
+                "AND CURTIME() BETWEEN H.Hora_Inicio AND H.Hora_Fin AND DAYOFWEEK(CURDATE()) = DS.Dia_Semana;",
+                conn);
+
+            cmd.Parameters.AddWithValue("@CI", ciDocente);
+            conn.Open();
+            dr = cmd.ExecuteReader();
+            UbicacionGrupo ubicacionGrupo = new UbicacionGrupo();
+
+            try
+            {
+                if (dr.Read())
+                {
+                    ubicacionGrupo.Salon = dr["Salón"].ToString();
+                    ubicacionGrupo.Grupo = dr["Grupo"].ToString();
+                    ubicacionGrupo.Materia = dr["Materia"].ToString();
+                    ubicacionGrupo.CoordenadaX = Convert.ToInt32(dr["Coordenada_X"]);
+                    ubicacionGrupo.CoordenadaY = Convert.ToInt32(dr["Coordenada_Y"]);
+                    ubicacionGrupo.Piso = Convert.ToInt32(dr["Piso"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+
+            return ubicacionGrupo;
+        }
+        #endregion
     }
 
 }
