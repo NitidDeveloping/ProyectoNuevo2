@@ -1,6 +1,7 @@
 ﻿using CapaEntidades;
 using MySqlConnector;
 using System;
+using System.IO;
 using System.Data;
 
 namespace CapaDatos
@@ -17,53 +18,61 @@ namespace CapaDatos
 
         /*============= USUARIOS DE LA BD =============*/
 
-        /*CREATE USER 'Visitante' IDENTIFIED BY 'b+ygCVepakZpste+%+yeC%NoDD9L_KwQx*`bZbhn=xr@w';
-
-        CREATE USER 'Alumno' IDENTIFIED BY 'uVn5`rxeA/A92ZFgnG99qhSoi43`Wq/SACoenG^G6~~+i';
+        /*CREATE USER 'Alumno' IDENTIFIED BY 'uVn5rxeA/A92ZFgnG99qhSoi43`Wq/SACoenG^G6~~+i';
 
         CREATE USER 'Docente' IDENTIFIED BY 'TcdiyM~ikDgd&VyFfjtPd74B=V^7D-Von%hKc^T/jnx-G';
 
-        CREATE USER 'Default_User' IDENTIFIED BY '';
+        CREATE USER 'Default' IDENTIFIED BY '';
 
-        CREATE USER 'OperadorEjemplo' IDENTIFIED BY 'contraseñaOperador';
-
-        CREATE USER 'AdministradorEjemplo' IDENTIFIED BY 'contraseñaAdmin'; */
+        CREATE USER 'Operador' IDENTIFIED BY 'erñqg{er{gqe{43{r{ñt3.23{g.hy4{ñ5mh.-,9';
+ 
+        CREATE USER 'Administrador' IDENTIFIED BY 'qefqweflmrgqelkvm4325.54ñ{-4{ñ´+,,.'; */
 
 
         private Conector()  //Metodo en private para que no se tenga acceso al constructor
         {
-            database = "nitid"; //Establecemos los valores en el constructor.
-            server = "localhost";
-            uid = "root";
-            pwd = "1234";
+            /* uid = "root";
+             server = "localhost";
+             pwd = "1234";
+             database = "nitid";
+            */
 
-            /*switch (Sesion.LoggedRol)
+            string[] lineasDeDocumentoDeConexionABD = File.ReadAllLines("Conexion a bd.txt");
+            database = lineasDeDocumentoDeConexionABD[1]; //Segunda linea del documento para el nombre de la base de datos
+            server = lineasDeDocumentoDeConexionABD[3]; //Cuarta linea del documento para la ip del servidor
+
+            //Asignacion de nombres de usuario y pins
+            switch (Sesion.LoggedRol)
             {
-                case TipoRol.Administrador:
-                    uid = "mgilino";
-                    pwd = "54828274";
-                    break;
+                //Usuarios espefcificos para administradores y operadores.
                 case TipoRol.Operador:
-                    uid = "ngarcia";
-                    pwd = "59556020";
+                    uid = "Operador";
+                    pwd = "Operador1";
                     break;
+                case TipoRol.Administrador:
+                    uid = "Administrador";
+                    pwd = "Administrador1";
+                    break;
+
+                //Usuarios genericos
                 case TipoRol.Docente:
-                    uid = "lleyton";
-                    pwd = "53618088";
+                    uid = "Docente";
+                    pwd = "Docente1";
                     break;
                 case TipoRol.Alumno:
-                    uid = "acisnero";
-                    pwd = "54819065";
+                    uid = "Alumno";
+                    pwd = "Alumno1";
                     break;
                 case TipoRol.Default:
-                    uid = "";
-                    pwd = "";
+                    uid = "Default";
+                    pwd = "Default1";
                     break;
                 case TipoRol.Visitante:
-                    uid = "";
-                    pwd = "";
+                    uid = "Visitante";
+                    pwd = "Visitante1"; //Contrasenia del usuario visitante
                     break;
-            }*/
+            }
+
         }
 
         //Método público para devolver string de conexión
@@ -92,10 +101,9 @@ namespace CapaDatos
 
         public static Conector crearInstancia() //Al crear este método automáticamente le asigna los valores a las variables privadas.
         {
-            if (conn == null)
-            {
-                conn = new Conector(); //Crea la conexión en caso de que no exista
-            }
+
+            conn = new Conector(); //Crea la conexión en caso de que no exista
+
             return conn; //Sino simplemente la devuelve
 
         }

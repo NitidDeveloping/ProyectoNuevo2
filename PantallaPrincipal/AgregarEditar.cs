@@ -891,7 +891,6 @@ namespace Proyecto
                                     msg = new MsgBox("exito", "Lugar cargado exitosamente");
                                     Mapa.CurrentMapa.MapaClick = false;
                                     Limpiar();
-                                    btnCancelar_Click(sender, e);
                                     break;
 
                                 case RetornoValidacion.YaExisteNombre:
@@ -906,7 +905,9 @@ namespace Proyecto
                                     msg = new MsgBox("error", "Ha sucedido un error inesperado, intentelo de nuevo, si el error perdurase contacte con un administrador del sistema");
                                     break;
                             }
-                            cerrarFormSiSeEdito();
+                            Lista lista = new Lista();
+                            Close();
+                            Metodos.OpenChildForm(lista, Metodos.menuForm.plForms);
                         }
                         break;
 

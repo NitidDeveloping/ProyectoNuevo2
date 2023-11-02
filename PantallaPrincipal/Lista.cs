@@ -17,6 +17,7 @@ namespace Proyecto
         public Lista()
         {
             InitializeComponent();
+
         }
         private void Lista_Load(object sender, EventArgs e)
         {
@@ -144,7 +145,6 @@ namespace Proyecto
                 id = DGV.SelectedRows[0].Cells[tipoId].Value.ToString();
 
                 confirm = new MsgBox("pregunta", "Se eliminará el elemento ¿Está seguro que desea continuar?.");
-                confirm.label3.Visible = true;
 
                 if (confirm.ShowDialog() == DialogResult.Yes)
                 {
@@ -236,7 +236,6 @@ namespace Proyecto
                     #endregion
 
                     confirm = new MsgBox("pregunta", "Se eliminará el horario ¿Está seguro que desea continuar?.");
-                    confirm.label3.Visible = true;
 
                     if (confirm.ShowDialog() == DialogResult.Yes)
                     {

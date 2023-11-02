@@ -1,6 +1,7 @@
 ﻿using CapaEntidades;
 using CapaNegocio;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -433,23 +434,77 @@ namespace Proyecto
             Metodos metodos = new Metodos();
             metodos.ResetTimerCierreSesion();
             Negocio negocio = new Negocio();
-            UbicacionClase ubicacionClase = negocio.ObtenerSalonAlumno(Sesion.LoggedCi);
+            List<string> gruposDelAlumno = negocio.ObtenerGruposDelAlumno(Sesion.LoggedCi);
 
-            if (ubicacionClase.Nombre != null)
+            if (gruposDelAlumno.Count == 1)
             {
-                MsgBox msg = new MsgBox("aviso", $"Tienes clase en: {ubicacionClase.Nombre}");
+                // El alumno pertenece a un solo grupo, muestra la ubicación de ese grupo
+                UbicacionClase ubicacionClase = negocio.ObtenerUbicacion(Sesion.LoggedCi, Sesion.LoggedRol, null);
+                if (ubicacionClase.Salon != null)
+                {
+                    MsgBox msg = new MsgBox("aviso", $"Grupo: {ubicacionClase.Grupo}\nSalón: {ubicacionClase.Salon}\nMateria: {ubicacionClase.Materia}");
+                    msg.ShowDialog();
+
+                    int coordX = ubicacionClase.CoordenadaX;
+                    int coordY = ubicacionClase.CoordenadaY;
+                    int piso = ubicacionClase.Piso;
+
+                    Mapa.CurrentMapa.SetNodoFinal(coordX, coordY, piso);
+                    Mapa.CurrentMapa.FindPath();
+                }
+                else
+                {
+                    MsgBox msg = new MsgBox("aviso", "No tienes clases en el horario actual.");
+                    msg.ShowDialog();
+                }
+            }
+            else if (gruposDelAlumno.Count > 1)
+            {
+                // El alumno pertenece a varios grupos, muestra el MsgBox con los RadioButton
+                MsgBox msg = new MsgBox("aviso", "Selecciona un grupo:");
+                msg.rbGrupo1.Visible = true;
+                msg.rbGrupo2.Visible = true;
+                msg.rbGrupo1.Text = gruposDelAlumno[0];
+                msg.rbGrupo2.Text = gruposDelAlumno[1];
                 msg.ShowDialog();
 
-                int coordX = ubicacionClase.CoordenadaX;
-                int coordY = ubicacionClase.CoordenadaY;
-                int piso = ubicacionClase.Piso;
+                // Obtener el grupo seleccionado
+                string grupoSeleccionado = string.Empty;
+                if (msg.rbGrupo1.Checked)
+                {
+                    grupoSeleccionado = msg.rbGrupo1.Text;
+                }
+                else if (msg.rbGrupo2.Checked)
+                {
+                    grupoSeleccionado = msg.rbGrupo2.Text;
+                }
 
-                Mapa.CurrentMapa.SetNodoFinal(coordX, coordY, piso);
-                Mapa.CurrentMapa.FindPath();
+                UbicacionClase ubicacionClase = negocio.ObtenerUbicacion(Sesion.LoggedCi, Sesion.LoggedRol, grupoSeleccionado);
+
+                if (ubicacionClase.Salon != null)
+                {
+                    ubicacionClase.Grupo = grupoSeleccionado;
+
+                    MsgBox msgb = new MsgBox("aviso", $"Grupo: {ubicacionClase.Grupo}\nSalón: {ubicacionClase.Salon}\nMateria: {ubicacionClase.Materia}");
+                    msgb.ShowDialog();
+
+                    int coordX = ubicacionClase.CoordenadaX;
+                    int coordY = ubicacionClase.CoordenadaY;
+                    int piso = ubicacionClase.Piso;
+
+                    Mapa.CurrentMapa.SetNodoFinal(coordX, coordY, piso);
+                    Mapa.CurrentMapa.FindPath();
+                }
+                else
+                {
+                    MsgBox msgb = new MsgBox("aviso", "No tienes clases en el horario actual.");
+                    msgb.ShowDialog();
+                }
             }
             else
             {
-                MsgBox msg = new MsgBox("aviso", $"No tienes clases en el horario actual.");
+                // El alumno no pertenece a ningún grupo
+                MsgBox msg = new MsgBox("error", "No estás en ningún grupo.");
                 msg.ShowDialog();
             }
         }
@@ -459,7 +514,7 @@ namespace Proyecto
             Metodos metodos = new Metodos();
             metodos.ResetTimerCierreSesion();
             Negocio negocio = new Negocio();
-            UbicacionGrupo ubicacionGrupo = negocio.ObtenerSalonClase(Sesion.LoggedCi);
+            UbicacionClase ubicacionGrupo = negocio.ObtenerUbicacion(Sesion.LoggedCi, Sesion.LoggedRol, null);
 
             if (ubicacionGrupo.Salon != null)
             {
@@ -478,7 +533,6 @@ namespace Proyecto
                 MsgBox msg = new MsgBox("aviso", $"No tienes clases a dictar en el horario actual.");
                 msg.ShowDialog();
             }
-
         }
         #endregion
 

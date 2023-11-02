@@ -11,10 +11,10 @@ namespace CapaEntidades
     public class Sesion
     {
         //Clase para controlar quien esta logueado en este momento
-        private static int loggedCi = 0;
-        private static int loggedPin = 0;
-        private static string loggedNombre = "default";
-        private static TipoRol loggedRol = TipoRol.Administrador;
+        private static int loggedCi;
+        private static int loggedPin;
+        private static string loggedNombre;
+        private static TipoRol loggedRol;
         private static TipoReferencia referenciaActual;
 
         public static string LoggedNombre { get { return loggedNombre; } }

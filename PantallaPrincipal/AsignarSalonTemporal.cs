@@ -54,7 +54,6 @@ namespace Proyecto
                 if (mslo != null)
                 {
                     MsgBox msgMslo = new MsgBox("pregunta", "Este salón ya se encuentra ocupado por el grupo (" + mslo.NombreGrupo + ") durante el horario (" + mslo.HoraInicio + ") - (" + mslo.HoraFin + ") en el dia (" + mslo.NombreDia + ") con el profesor (" + mslo.NombreDocente + ") ¿Desea continuar de todos modos?");
-                    msgMslo.label3.Visible = true;
 
                     //Si el usuario decide que no quiere continuar se cierra el metodo y no se hace la operacion
                     if (msgMslo.ShowDialog() == DialogResult.No)

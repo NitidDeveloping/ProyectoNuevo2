@@ -87,7 +87,7 @@
             this.txtDocente.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDocente.Enabled = false;
             this.txtDocente.Font = new System.Drawing.Font("Verdana", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDocente.Location = new System.Drawing.Point(22, 79);
+            this.txtDocente.Location = new System.Drawing.Point(21, 82);
             this.txtDocente.MaxLength = 50;
             this.txtDocente.Name = "txtDocente";
             this.txtDocente.Size = new System.Drawing.Size(339, 59);
@@ -97,7 +97,7 @@
             // lblSubDocente
             // 
             this.lblSubDocente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(8)))), ((int)(((byte)(55)))));
-            this.lblSubDocente.Location = new System.Drawing.Point(19, 142);
+            this.lblSubDocente.Location = new System.Drawing.Point(19, 151);
             this.lblSubDocente.Name = "lblSubDocente";
             this.lblSubDocente.Size = new System.Drawing.Size(342, 5);
             this.lblSubDocente.TabIndex = 58;
@@ -176,17 +176,17 @@
             // 
             this.cbxMateria.DropDownHeight = 750;
             this.cbxMateria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxMateria.Font = new System.Drawing.Font("Verdana", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxMateria.Font = new System.Drawing.Font("Verdana", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxMateria.FormattingEnabled = true;
             this.cbxMateria.IntegralHeight = false;
             this.cbxMateria.Items.AddRange(new object[] {
             "Matutino",
             "Nocturno",
             "Vespertino"});
-            this.cbxMateria.Location = new System.Drawing.Point(22, 99);
+            this.cbxMateria.Location = new System.Drawing.Point(21, 79);
             this.cbxMateria.MaxDropDownItems = 25;
             this.cbxMateria.Name = "cbxMateria";
-            this.cbxMateria.Size = new System.Drawing.Size(339, 43);
+            this.cbxMateria.Size = new System.Drawing.Size(339, 67);
             this.cbxMateria.TabIndex = 74;
             this.cbxMateria.SelectedIndexChanged += new System.EventHandler(this.cbxMateria_SelectedIndexChanged);
             // 

@@ -2,15 +2,27 @@
 {
     public class UbicacionClase
     {
-        private string nombre = null;
+        private string grupo = null;
+        private string salon = null;
+        private string materia = null;
         private int coordenadaX = 0;
         private int coordenadaY = 0;
         private int piso = 0;
 
-        public string Nombre
+        public string Grupo
         {
-            get { return nombre; }
-            set { nombre = value; }
+            get { return grupo; }
+            set { grupo = value; }
+        }
+        public string Salon
+        {
+            get { return salon; }
+            set { salon = value; }
+        }
+        public string Materia
+        {
+            get { return materia; }
+            set { materia = value; }
         }
 
         public int CoordenadaX
