@@ -12,6 +12,8 @@ namespace Proyecto
     {
         public Login()
         {
+            Sesion sesion = new Sesion();
+            sesion.LogOut();
             InitializeComponent();
 
         }
