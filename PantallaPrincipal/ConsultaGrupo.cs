@@ -98,7 +98,6 @@ namespace Proyecto
             ciAlumno = DGVAlumnos.SelectedRows[0].Cells["CI"].Value.ToString();
 
             confirm = new MsgBox("pregunta", "Se eliminará el alumno del grupo ¿Está seguro que desea continuar?.");
-            confirm.label3.Visible = true;
 
             if (confirm.ShowDialog() == DialogResult.Yes)
             {
@@ -158,7 +157,6 @@ namespace Proyecto
             }
 
             confirm = new MsgBox("pregunta", "Se desasignara el docente de la materia ¿Está seguro que desea continuar?.");
-            confirm.label3.Visible = true;
 
             if (confirm.ShowDialog() == DialogResult.Yes)
             {
@@ -209,7 +207,6 @@ namespace Proyecto
             idMateria = DGVMateriasDocentes.SelectedRows[0].Cells["ID_Materia"].Value.ToString();
 
             confirm = new MsgBox("pregunta", "Se desasignara la materia del grupo ¿Está seguro que desea continuar?.");
-            confirm.label3.Visible = true;
 
             if (confirm.ShowDialog() == DialogResult.Yes)
             {

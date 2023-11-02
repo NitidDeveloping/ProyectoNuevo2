@@ -51,23 +51,23 @@
             // pL1
             // 
             this.pL1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.pL1.Location = new System.Drawing.Point(0, 64);
+            this.pL1.Location = new System.Drawing.Point(4, 64);
             this.pL1.Name = "pL1";
-            this.pL1.Size = new System.Drawing.Size(481, 4);
+            this.pL1.Size = new System.Drawing.Size(475, 4);
             this.pL1.TabIndex = 0;
             // 
             // pL2
             // 
             this.pL2.BackColor = System.Drawing.Color.Silver;
-            this.pL2.Location = new System.Drawing.Point(0, 191);
+            this.pL2.Location = new System.Drawing.Point(5, 191);
             this.pL2.Name = "pL2";
-            this.pL2.Size = new System.Drawing.Size(481, 4);
+            this.pL2.Size = new System.Drawing.Size(475, 4);
             this.pL2.TabIndex = 1;
             // 
             // lblMsg
             // 
             this.lblMsg.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMsg.Location = new System.Drawing.Point(13, 76);
+            this.lblMsg.Location = new System.Drawing.Point(11, 74);
             this.lblMsg.Name = "lblMsg";
             this.lblMsg.Size = new System.Drawing.Size(463, 112);
             this.lblMsg.TabIndex = 3;
@@ -218,6 +218,7 @@
             this.Name = "MsgBox";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Error";
+            this.Load += new System.EventHandler(this.MsgBox_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbExito)).EndInit();
