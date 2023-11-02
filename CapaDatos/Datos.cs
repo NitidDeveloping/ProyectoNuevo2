@@ -349,7 +349,7 @@ namespace CapaDatos
                     break;
 
                 case TipoReferencia.Lugar:
-                    cmdstr = "DELETE from Lugar where ID=@ID";
+                    cmdstr = "DELETE from Lugar WHERE ID = @ID";
                     break;
 
                 case TipoReferencia.Funcionario:
@@ -734,7 +734,7 @@ namespace CapaDatos
                     break;
 
                 case TipoReferencia.Lugar:
-                    cmdstr = "UPDATE Lugar SET Nombre=@Nombre, Tipo=@Tipo, WHERE ID=@ID;";
+                    cmdstr = "UPDATE Lugar SET Nombre=@Nombre, Tipo=@Tipo WHERE ID=@ID;";
                     break;
 
                 case TipoReferencia.Funcionario:
@@ -1902,7 +1902,7 @@ namespace CapaDatos
             //Variables
             RetornoValidacion respuesta;
             string cmdstr;
-            MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
+            MySqlConnection conn = Conector.crearInstancia().crearConexion();
             MySqlCommand cmd;
             MySqlDataReader dr;
 
@@ -1927,8 +1927,13 @@ namespace CapaDatos
                     int ciLog = dr.GetInt32(0);
                     string nombreLog = dr.GetString(1);
                     int pinLog = dr.GetInt32(2);
+                    int auxRol = dr.GetInt32(3);
                     TipoRol rolLog;
-                    byte auxRol = dr.GetByte(3);
+
+                    if (auxRol == 2)
+                    {
+                        rolLog = TipoRol.Docente;
+                    }
 
                     switch (auxRol)
                     {

@@ -10,8 +10,10 @@ namespace Proyecto
         public Principal()
         {
             InitializeComponent();
-            Menú menú = new Menú();
-            menú.ShowDialog();
+            Sesion sesion = new Sesion();
+            sesion.LogOut();
+           // Menú menú = new Menú();
+           // menú.ShowDialog();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)

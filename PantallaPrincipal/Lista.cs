@@ -17,6 +17,7 @@ namespace Proyecto
         public Lista()
         {
             InitializeComponent();
+
         }
         private void Lista_Load(object sender, EventArgs e)
         {
