@@ -1064,14 +1064,14 @@ namespace Proyecto
             {
                 if (validaciones.ValidarVacio(txtCI.Text))
                 {
-                    msg = new MsgBox("error", "Debe completar el campo de CI");
+                    msg = new MsgBox("error", "Debe completar el campo de CI.");
                     msg.ShowDialog();
                     txtCI.Focus();
                     respuesta = RetornoValidacion.ErrorDeFormato;
                 }
                 else if (validaciones.ValidarVacio(txtPIN.Text))
                 {
-                    msg = new MsgBox("error", "Debe completar el campo de PIN");
+                    msg = new MsgBox("error", "Debe completar el campo de PIN.");
                     msg.ShowDialog();
                     txtPIN.Focus();
                     respuesta = RetornoValidacion.ErrorDeFormato;
@@ -1079,14 +1079,14 @@ namespace Proyecto
                 else if (!validaciones.ValidarCI(txtCI.Text))// Validar la cédula
                 {
                     txtCI.Focus();
-                    msg = new MsgBox("error", "Cédula no válida. Debe ingresar un numero de 8 cifras");
+                    msg = new MsgBox("error", "Cédula no válida. Debe ingresar un número de 8 cifras.");
                     msg.ShowDialog();
                     respuesta = RetornoValidacion.ErrorDeFormato;
                 }
                 else if (!validaciones.ValidarPIN(txtPIN.Text))// Validar el PIN
                 {
                     txtPIN.Focus();
-                    msg = new MsgBox("error", "PIN no válido. Debe ingresar un numero de 4 cifras.");
+                    msg = new MsgBox("error", "PIN no válido. Debe ingresar un número de 4 cifras.");
                     msg.ShowDialog();
                     respuesta = RetornoValidacion.ErrorDeFormato;
                 }
@@ -1094,14 +1094,14 @@ namespace Proyecto
 
             if (validaciones.ValidarVacio(txtNombre.Text))
             {
-                msg = new MsgBox("error", "Debe completar el campo de Nombre");
+                msg = new MsgBox("error", "Debe completar el campo de Nombre.");
                 msg.ShowDialog();
                 txtNombre.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
             }
             else if (validaciones.ValidarVacio(txtApellido.Text))
             {
-                msg = new MsgBox("error", "Debe completar el campo de Apellido");
+                msg = new MsgBox("error", "Debe completar el campo de Apellido.");
                 msg.ShowDialog();
                 txtApellido.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
@@ -1132,14 +1132,14 @@ namespace Proyecto
             //Validar vacio
             if (validaciones.ValidarVacio(txtPIN.Text))
             {
-                MsgBox msg = new MsgBox("error", "Debe completar el campo de Año antes de continuar");
+                MsgBox msg = new MsgBox("error", "Debe completar el campo de Año antes de continuar.");
                 msg.ShowDialog();
                 txtPIN.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
             }
             else if (!validaciones.ValidarAnio(short.Parse(txtPIN.Text)))
             {
-                MsgBox msg = new MsgBox("error", "El año no puede ser mayor que el año actual + dos ni anterior a este");
+                MsgBox msg = new MsgBox("error", "El año no puede ser mayor que el año actual + 2. Tampoco puede ser anterior a este.");
                 msg.ShowDialog();
                 txtPIN.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
@@ -1173,7 +1173,7 @@ namespace Proyecto
             }
             else if (cbx1.SelectedIndex == -1)
             {
-                MsgBox msg = new MsgBox("error", "Debe seleccionar un cargo");
+                MsgBox msg = new MsgBox("error", "Debe seleccionar un cargo.");
                 msg.ShowDialog();
                 cbx1.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
@@ -1192,7 +1192,7 @@ namespace Proyecto
             {
                 if (validaciones.ValidarVacio(txtNombre.Text))
                 {
-                    MsgBox msg = new MsgBox("error", "Debe completar el campo de Nombre");
+                    MsgBox msg = new MsgBox("error", "Debe completar el campo de Nombre.");
                     msg.ShowDialog();
                     txtNombre.Focus();
                     respuesta = RetornoValidacion.ErrorDeFormato;
@@ -1201,7 +1201,7 @@ namespace Proyecto
 
             if (cbx1.SelectedIndex == -1)
             {
-                MsgBox msg = new MsgBox("error", "Debe seleccionar una orientacion");
+                MsgBox msg = new MsgBox("error", "Debe seleccionar una orientación.");
                 msg.ShowDialog();
                 cbx1.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
@@ -1235,14 +1235,14 @@ namespace Proyecto
             {
                 if (validaciones.ValidarVacio(txtCI.Text))
                 {
-                    MsgBox msg = new MsgBox("error", "Debe ingresar un numero de hora");
+                    MsgBox msg = new MsgBox("error", "Debe ingresar un número de hora.");
                     msg.ShowDialog();
                     txtCI.Focus();
                     respuesta = RetornoValidacion.ErrorDeFormato;
                 }
                 else if (cbx1.SelectedIndex == -1)
                 {
-                    MsgBox msg = new MsgBox("error", "Debe seleccionar un turno");
+                    MsgBox msg = new MsgBox("error", "Debe seleccionar un turno.");
                     msg.ShowDialog();
                     cbx1.Focus();
                     respuesta = RetornoValidacion.ErrorDeFormato;
@@ -1251,7 +1251,7 @@ namespace Proyecto
 
             if (dtpInicio.Value > dtpFin.Value)
             {
-                MsgBox msg = new MsgBox("error", "La hora inicial no puede ser mayor a la hora final");
+                MsgBox msg = new MsgBox("error", "La hora inicial no puede ser mayor a la hora final.");
                 msg.ShowDialog();
                 dtpInicio.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
@@ -1270,14 +1270,14 @@ namespace Proyecto
             //Validar vacio
             if (validaciones.ValidarVacio(txtNombre.Text))
             {
-                msg = new MsgBox("error", "Debe ingresar un nombre");
+                msg = new MsgBox("error", "Debe ingresar un nombre.");
                 msg.ShowDialog();
                 txtNombre.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
             }
             else if (cbx1.SelectedIndex == -1)
             {
-                msg = new MsgBox("error", "Debe seleccionar un tipo de lugar");
+                msg = new MsgBox("error", "Debe seleccionar un tipo de lugar.");
                 msg.ShowDialog();
                 cbx1.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
@@ -1287,13 +1287,13 @@ namespace Proyecto
             {
                 if (!Mapa.CurrentMapa.MapaClick)
                 {
-                    msg = new MsgBox("error", "Debe seleccionar el lugar en el mapa");
+                    msg = new MsgBox("error", "Debe seleccionar un lugar en el mapa.");
                     msg.ShowDialog();
                     respuesta = RetornoValidacion.ErrorDeFormato;
                 }
                 else if (cbx2.SelectedIndex == -1)
                 {
-                    msg = new MsgBox("error", "Debe seleccionar un piso");
+                    msg = new MsgBox("error", "Debe seleccionar un piso.");
                     msg.ShowDialog();
                     cbx1.Focus();
                     respuesta = RetornoValidacion.ErrorDeFormato;
@@ -1312,7 +1312,7 @@ namespace Proyecto
             //Validar vacio
             if (validaciones.ValidarVacio(txtNombre.Text))
             {
-                MsgBox msg = new MsgBox("error", "Debe completar ingresar un nombre antes de continuar");
+                MsgBox msg = new MsgBox("error", "Debe ingresar un nombre antes de continuar.");
                 msg.ShowDialog();
                 txtNombre.Focus();
                 respuesta = RetornoValidacion.ErrorDeFormato;
@@ -1339,7 +1339,7 @@ namespace Proyecto
         {
             if (cbx2.SelectedIndex == -1)
             {
-                MsgBox msg = new MsgBox("error", "Seleccione un piso antes de elegir las coordenadas");
+                MsgBox msg = new MsgBox("error", "Seleccione un piso antes de elegir las coordenadas.");
                 msg.ShowDialog();
             }
             else
