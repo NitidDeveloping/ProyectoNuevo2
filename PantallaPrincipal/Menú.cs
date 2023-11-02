@@ -23,7 +23,6 @@ namespace Proyecto
             Checked = true
         };
 
-
         public static CustomRadioButton rbP1 = new CustomRadioButton
         {
             Text = "Piso 1",
@@ -71,6 +70,7 @@ namespace Proyecto
             {
                 case TipoRol.Operador:
                     this.btnABMOp.Visible = false;
+                    this.plABMSubMenu.Size = new Size(319, 127);
                     break;
 
                 case TipoRol.Alumno:

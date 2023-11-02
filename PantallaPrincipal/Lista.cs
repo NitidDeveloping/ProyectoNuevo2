@@ -97,6 +97,10 @@ namespace Proyecto
             string tipoId = string.Empty; // Nombre de la columna por el que se va a buscar el id en el datatable
             string tipoIdPadre = null; // Nombre de la columna para el id padre
 
+            //Variables para usar cuando se elimina un lugar
+            bool isClase;
+            bool isUsoComun;
+
             Negocio negocio = new Negocio();
             MsgBox confirm; //Solicita confirmacion antes de eliminar
 
@@ -148,45 +152,56 @@ namespace Proyecto
 
                 if (confirm.ShowDialog() == DialogResult.Yes)
                 {
-                    try
-                    {
+                    // try
+                    // {
 
-                        if (tipoIdPadre != null)
-                        {
-                            respuesta = negocio.Eliminar(Sesion.ReferenciaActual, byte.Parse(id), byte.Parse(idPadre));
-                        }
-                        else
+                    if (tipoIdPadre != null)
+                    {
+                        respuesta = negocio.Eliminar(Sesion.ReferenciaActual, byte.Parse(id), byte.Parse(idPadre));
+                    }
+                    else
+                    {
+                        if (Sesion.ReferenciaActual != TipoReferencia.Lugar)
                         {
                             respuesta = negocio.Eliminar(Sesion.ReferenciaActual, id);
                         }
+                        else
+                        {
 
-                        if (respuesta == RetornoValidacion.OK)
-                        {
-                            msg = new MsgBox("exito", "Elemento eliminado correctamente.");
-                            msg.ShowDialog();
-                            backgroundWorker1.RunWorkerAsync();
-                        }
-                        else if (respuesta == RetornoValidacion.NoExiste)
-                        {
-                            msg = new MsgBox("error", "No se ha podido encontrar el elemento en la base de datos.");
-                            msg.ShowDialog();
-                        }
-                        else if (respuesta == RetornoValidacion.ErrorInesperadoBD)
-                        {
-                            msg = new MsgBox("error", "Ha surgido un error inesperado, intente de nuevo, en caso de que el problema persista contacte con un tecnico.");
-                            msg.ShowDialog();
-                        }
-                        else if (respuesta == RetornoValidacion.ErrorInesperadoBDCategorizacion)
-                        {
-                            msg = new MsgBox("error", "Ha surgido un error inesperado al intentar eliminar al " + Sesion.ReferenciaActual + ", intente de nuevo o contacte con un administrador");
-                            msg.ShowDialog();
+                            isClase = (bool)DGV.SelectedRows[0].Cells["Clase"].Value;
+                            isUsoComun = (bool)DGV.SelectedRows[0].Cells["Uso común"].Value;
+                            respuesta = negocio.EliminarLugar(id, isClase, isUsoComun);
                         }
                     }
-                    catch (Exception ex)
+
+                    if (respuesta == RetornoValidacion.OK)
                     {
-                        msg = new MsgBox("error", ex.Message);
+                        msg = new MsgBox("exito", "Elemento eliminado correctamente.");
+                        msg.ShowDialog();
+                        backgroundWorker1.RunWorkerAsync();
+                    }
+                    else if (respuesta == RetornoValidacion.NoExiste)
+                    {
+                        msg = new MsgBox("error", "No se ha podido encontrar el elemento en la base de datos.");
                         msg.ShowDialog();
                     }
+                    else if (respuesta == RetornoValidacion.ErrorInesperadoBD)
+                    {
+                        msg = new MsgBox("error", "Ha surgido un error inesperado, intente de nuevo, en caso de que el problema persista contacte con un tecnico.");
+                        msg.ShowDialog();
+                    }
+                    else if (respuesta == RetornoValidacion.ErrorInesperadoBDCategorizacion)
+                    {
+                        msg = new MsgBox("error", "Ha surgido un error inesperado al intentar eliminar al " + Sesion.ReferenciaActual + ", intente de nuevo o contacte con un administrador");
+                        msg.ShowDialog();
+                    }
+                    /*    }
+                        catch (Exception ex)
+                        {
+                            msg = new MsgBox("error", ex.Message);
+                            msg.ShowDialog();
+                        }
+                    */
 
                 }
             }
