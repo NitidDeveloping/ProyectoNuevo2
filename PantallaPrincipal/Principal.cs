@@ -6,7 +6,6 @@ namespace Proyecto
 {
     public partial class Principal : Form
     {
-        Metodos metodos = new Metodos(); //Invoco la clase metodos
         public Principal()
         {
             InitializeComponent();
