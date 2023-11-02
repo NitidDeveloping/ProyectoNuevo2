@@ -1194,7 +1194,6 @@ namespace CapaDatos
             return respuesta;
         }
 
-
         //Sobrecargas de operaciones basicas para entidades con debilidad (programado solo para horas ya que son la unica entidad debil que tenemos)
         #region
         public RetornoValidacion Eliminar(TipoReferencia referencia, byte idObjetivo, byte idPadre)
@@ -2387,11 +2386,32 @@ namespace CapaDatos
             MySqlConnection conn = Conector.crearInstancia().crearConexion();
             MySqlDataReader dr;
             MySqlCommand cmd = new MySqlCommand(
-                "SELECT Lugar.Nombre AS Nombre, Lugar.Coordenada_X AS Coordenada_X, Lugar.Coordenada_Y AS Coordenada_Y, Lugar.Piso AS Piso FROM Grupo_Alumno JOIN Grupo " +
-                "ON Grupo_Alumno.ID_Grupo = Grupo.ID_Grupo JOIN Grupo_Materia_Horario_Clase ON Grupo.ID_Grupo = Grupo_Materia_Horario_Clase.ID_Grupo JOIN Lugar " +
-                "ON Grupo_Materia_Horario_Clase.ID_Clase = Lugar.ID JOIN Dia_Semana ON Grupo_Materia_Horario_Clase.Dia_Semana = Dia_Semana.Dia_Semana JOIN Horario " +
-                "ON Grupo_Materia_Horario_Clase.ID_Horario = Horario.ID_Horario AND Grupo_Materia_Horario_Clase.Turno = Horario.Turno WHERE Grupo_Alumno.CI_Alumno = @CI " +
-                "AND Asignado_Temporal IS NULL AND DAYOFWEEK(CURDATE()) = Dia_Semana.Dia_Semana AND CURTIME() BETWEEN Horario.Hora_Inicio AND Horario.Hora_Fin;",
+                "SELECT " +
+                " l.Nombre AS Nombre," +
+                " l.Coordenada_X AS Coordenada_X," +
+                " l.Coordenada_Y AS Coordenada_Y, " +
+                " l.Piso AS Piso " +
+                " FROM " +
+                " Grupo_Alumno ga" +
+                " JOIN " +
+                " Grupo g ON ga.ID_Grupo = g.ID_Grupo " +
+                " JOIN " +
+                " Grupo_Materia_Horario_Clase gmhc ON g.ID_Grupo = gmhc.ID_Grupo " +
+                " JOIN " +
+                " Lugar l ON " +
+                " (gmhc.Asignado_Temporal IS NOT NULL AND gmhc.Asignado_Temporal = l.ID)" +
+                " OR " +
+                " (gmhc.Asignado_Temporal IS NULL AND gmhc.ID_Clase = l.ID)" +
+                " JOIN " +
+                " Dia_Semana ds ON gmhc.Dia_Semana = ds.Dia_Semana " +
+                " JOIN " +
+                " Horario h ON gmhc.ID_Horario = h.ID_Horario " +
+                " AND gmhc.Turno = h.Turno " +
+                " WHERE " +
+                " ga.CI_Alumno = 51402577 " +
+                " AND DAYOFWEEK(CURDATE()) = ds.Dia_Semana " +
+                " AND CURTIME() BETWEEN h.Hora_Inicio " +
+                " AND h.Hora_Fin;",
                 conn);
 
             cmd.Parameters.AddWithValue("@CI", ciAlumno);

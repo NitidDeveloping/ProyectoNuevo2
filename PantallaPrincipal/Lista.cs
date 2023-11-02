@@ -537,7 +537,7 @@ namespace Proyecto
             //Si hace doble click sobre un elemento de la lista y la referencia actual es grupo abre la consulta de grupo con el grupo que haya seleccionado
             if (Sesion.ReferenciaActual == TipoReferencia.Grupo)
             {
-                if (DGV.SelectedRows.Count <= 0)
+                if (DGV.SelectedRows.Count <= 0 || e.RowIndex < 0)
                 {
                     MsgBox error = new MsgBox("error", "Debe seleccionar una fila en la lista para ver los datos del grupo. Para ello haga click sobre la fila que desee eliminar y luego presione el boton.");
                     error.ShowDialog();

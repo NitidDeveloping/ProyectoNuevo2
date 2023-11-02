@@ -84,7 +84,7 @@ namespace Proyecto
 
         private void btnEliminarAlumno_Click(object sender, EventArgs e)
         {
-            if (DGVMateriasDocentes.SelectedRows.Count <= 0)
+            if (DGVAlumnos.SelectedRows.Count <= 0)
             {
                 MsgBox error = new MsgBox("error", "Debe seleccionar un alumno antes de eliminar");
                 error.ShowDialog();

@@ -89,6 +89,7 @@
             this.txtPIN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPIN.UseSystemPasswordChar = true;
             this.txtPIN.TextChanged += new System.EventHandler(this.txtPIN_TextChanged);
+            this.txtPIN.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPIN_KeyPress);
             // 
             // lblSubCi
             // 
@@ -286,6 +287,7 @@
             this.txtCI.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCI.Click += new System.EventHandler(this.txtCI_Click);
             this.txtCI.TextChanged += new System.EventHandler(this.txtCI_TextChanged);
+            this.txtCI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCI_KeyPress);
             // 
             // btnExit
             // 

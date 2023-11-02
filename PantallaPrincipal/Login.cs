@@ -200,6 +200,14 @@ namespace Proyecto
             Close(); //Cierro el login
         }
 
+        private void txtCI_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Metodos.SoloNumeros(e);
+        }
 
+        private void txtPIN_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Metodos.SoloNumeros(e);
+        }
     }
 }
