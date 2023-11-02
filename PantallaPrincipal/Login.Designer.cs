@@ -1,4 +1,4 @@
-﻿namespace Proyecto
+﻿namespace AulaGO
 {
     partial class Login
     {
@@ -306,7 +306,7 @@
             // 
             // pbOk
             // 
-            this.pbOk.Image = global::Proyecto.Properties.Resources.Done;
+            this.pbOk.Image = global::AulaGO.Properties.Resources.Done;
             this.pbOk.Location = new System.Drawing.Point(676, 121);
             this.pbOk.Name = "pbOk";
             this.pbOk.Size = new System.Drawing.Size(50, 50);
@@ -317,7 +317,7 @@
             // 
             // pbOk1
             // 
-            this.pbOk1.Image = global::Proyecto.Properties.Resources.Done;
+            this.pbOk1.Image = global::AulaGO.Properties.Resources.Done;
             this.pbOk1.Location = new System.Drawing.Point(676, 267);
             this.pbOk1.Name = "pbOk1";
             this.pbOk1.Size = new System.Drawing.Size(50, 50);

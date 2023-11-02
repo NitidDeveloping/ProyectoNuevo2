@@ -1,5 +1,5 @@
 ﻿using CapaEntidades;
-using Proyecto.Properties;
+using AulaGO.Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Windows.Forms;
 
 
-namespace Proyecto
+namespace AulaGO
 {
     public partial class Mapa : Form
     {

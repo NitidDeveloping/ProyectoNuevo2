@@ -1,4 +1,4 @@
-﻿namespace Proyecto
+﻿namespace AulaGO
 {
     partial class Mapa
     {
@@ -34,7 +34,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::Proyecto.Properties.Resources.planta_baja;
+            this.BackgroundImage = global::AulaGO.Properties.Resources.planta_baja;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1601, 919);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

@@ -1,12 +1,12 @@
 ﻿using CapaEntidades;
 using CapaNegocio;
-using Proyecto.Properties;
+using AulaGO.Properties;
 using System;
 using System.Data;
 using System.Windows.Forms;
 
 
-namespace Proyecto
+namespace AulaGO
 {
     public partial class AgregarEditar : Form
     {

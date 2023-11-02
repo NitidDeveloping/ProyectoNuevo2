@@ -1,4 +1,4 @@
-﻿namespace Proyecto
+﻿namespace AulaGO
 {
     partial class Menú
     {
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menú));
             this.lblBienvenido = new System.Windows.Forms.Label();
             this.lblPersona = new System.Windows.Forms.Label();
             this.plLateral = new System.Windows.Forms.Panel();
@@ -135,7 +136,7 @@
             this.btnModPIN.FlatAppearance.BorderSize = 0;
             this.btnModPIN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnModPIN.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModPIN.Image = global::Proyecto.Properties.Resources.Pin_Pad;
+            this.btnModPIN.Image = global::AulaGO.Properties.Resources.Pin_Pad;
             this.btnModPIN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnModPIN.Location = new System.Drawing.Point(3, 3);
             this.btnModPIN.Name = "btnModPIN";
@@ -152,7 +153,7 @@
             this.btnAyuda.FlatAppearance.BorderSize = 0;
             this.btnAyuda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAyuda.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAyuda.Image = global::Proyecto.Properties.Resources.Help;
+            this.btnAyuda.Image = global::AulaGO.Properties.Resources.Help;
             this.btnAyuda.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAyuda.Location = new System.Drawing.Point(3, 75);
             this.btnAyuda.Name = "btnAyuda";
@@ -169,7 +170,7 @@
             this.btnLogout.FlatAppearance.BorderSize = 0;
             this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLogout.Image = global::Proyecto.Properties.Resources.Logout;
+            this.btnLogout.Image = global::AulaGO.Properties.Resources.Logout;
             this.btnLogout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLogout.Location = new System.Drawing.Point(3, 147);
             this.btnLogout.Name = "btnLogout";
@@ -215,7 +216,7 @@
             this.btnHoras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHoras.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHoras.ForeColor = System.Drawing.Color.Black;
-            this.btnHoras.Image = global::Proyecto.Properties.Resources.Clock_Add;
+            this.btnHoras.Image = global::AulaGO.Properties.Resources.Clock_Add;
             this.btnHoras.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnHoras.Location = new System.Drawing.Point(0, 505);
             this.btnHoras.Name = "btnHoras";
@@ -236,7 +237,7 @@
             this.btnOrientacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOrientacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOrientacion.ForeColor = System.Drawing.Color.Black;
-            this.btnOrientacion.Image = global::Proyecto.Properties.Resources.Diploma;
+            this.btnOrientacion.Image = global::AulaGO.Properties.Resources.Diploma;
             this.btnOrientacion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnOrientacion.Location = new System.Drawing.Point(0, 424);
             this.btnOrientacion.Name = "btnOrientacion";
@@ -257,7 +258,7 @@
             this.btnAnios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAnios.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAnios.ForeColor = System.Drawing.Color.Black;
-            this.btnAnios.Image = global::Proyecto.Properties.Resources.Plus_1_Year;
+            this.btnAnios.Image = global::AulaGO.Properties.Resources.Plus_1_Year;
             this.btnAnios.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAnios.Location = new System.Drawing.Point(0, 343);
             this.btnAnios.Name = "btnAnios";
@@ -278,7 +279,7 @@
             this.btnTurnos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTurnos.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTurnos.ForeColor = System.Drawing.Color.Black;
-            this.btnTurnos.Image = global::Proyecto.Properties.Resources.Day_and_Night;
+            this.btnTurnos.Image = global::AulaGO.Properties.Resources.Day_and_Night;
             this.btnTurnos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTurnos.Location = new System.Drawing.Point(0, 262);
             this.btnTurnos.Name = "btnTurnos";
@@ -299,7 +300,7 @@
             this.btnMaterias.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMaterias.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMaterias.ForeColor = System.Drawing.Color.Black;
-            this.btnMaterias.Image = global::Proyecto.Properties.Resources.Subjects;
+            this.btnMaterias.Image = global::AulaGO.Properties.Resources.Subjects;
             this.btnMaterias.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnMaterias.Location = new System.Drawing.Point(0, 199);
             this.btnMaterias.Name = "btnMaterias";
@@ -320,7 +321,7 @@
             this.btnGrupos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGrupos.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGrupos.ForeColor = System.Drawing.Color.Black;
-            this.btnGrupos.Image = global::Proyecto.Properties.Resources.Groups;
+            this.btnGrupos.Image = global::AulaGO.Properties.Resources.Groups;
             this.btnGrupos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGrupos.Location = new System.Drawing.Point(0, 126);
             this.btnGrupos.Name = "btnGrupos";
@@ -341,7 +342,7 @@
             this.btnLugares.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLugares.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLugares.ForeColor = System.Drawing.Color.Black;
-            this.btnLugares.Image = global::Proyecto.Properties.Resources.Place_Marker;
+            this.btnLugares.Image = global::AulaGO.Properties.Resources.Place_Marker;
             this.btnLugares.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLugares.Location = new System.Drawing.Point(0, 63);
             this.btnLugares.Name = "btnLugares";
@@ -362,7 +363,7 @@
             this.btnHorarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHorarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHorarios.ForeColor = System.Drawing.Color.Black;
-            this.btnHorarios.Image = global::Proyecto.Properties.Resources.Schedule;
+            this.btnHorarios.Image = global::AulaGO.Properties.Resources.Schedule;
             this.btnHorarios.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnHorarios.Location = new System.Drawing.Point(0, 0);
             this.btnHorarios.Name = "btnHorarios";
@@ -414,7 +415,7 @@
             this.btnABMOp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnABMOp.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnABMOp.ForeColor = System.Drawing.Color.Black;
-            this.btnABMOp.Image = global::Proyecto.Properties.Resources.Settings;
+            this.btnABMOp.Image = global::AulaGO.Properties.Resources.Settings;
             this.btnABMOp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnABMOp.Location = new System.Drawing.Point(0, 126);
             this.btnABMOp.Name = "btnABMOp";
@@ -435,7 +436,7 @@
             this.btnABMDocentes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnABMDocentes.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnABMDocentes.ForeColor = System.Drawing.Color.Black;
-            this.btnABMDocentes.Image = global::Proyecto.Properties.Resources.Teacher;
+            this.btnABMDocentes.Image = global::AulaGO.Properties.Resources.Teacher;
             this.btnABMDocentes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnABMDocentes.Location = new System.Drawing.Point(0, 63);
             this.btnABMDocentes.Name = "btnABMDocentes";
@@ -456,7 +457,7 @@
             this.btnABMAlumnos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnABMAlumnos.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnABMAlumnos.ForeColor = System.Drawing.Color.Black;
-            this.btnABMAlumnos.Image = global::Proyecto.Properties.Resources.Graduation_Cap;
+            this.btnABMAlumnos.Image = global::AulaGO.Properties.Resources.Graduation_Cap;
             this.btnABMAlumnos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnABMAlumnos.Location = new System.Drawing.Point(0, 0);
             this.btnABMAlumnos.Name = "btnABMAlumnos";
@@ -498,7 +499,7 @@
             // 
             // pbMapa
             // 
-            this.pbMapa.Image = global::Proyecto.Properties.Resources.ITS_500_322;
+            this.pbMapa.Image = global::AulaGO.Properties.Resources.ITS_500_322;
             this.pbMapa.Location = new System.Drawing.Point(15, 6);
             this.pbMapa.Name = "pbMapa";
             this.pbMapa.Size = new System.Drawing.Size(289, 178);
@@ -654,9 +655,10 @@
             this.Controls.Add(this.plLateral);
             this.Controls.Add(this.plForms);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Menú";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Menú";
+            this.Text = "AulaGO";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Menú_Load);
             this.plLateral.ResumeLayout(false);

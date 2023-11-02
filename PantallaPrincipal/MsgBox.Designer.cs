@@ -1,4 +1,4 @@
-﻿namespace Proyecto
+﻿namespace AulaGO
 {
     partial class MsgBox
     {
@@ -165,7 +165,7 @@
             // 
             // pbExito
             // 
-            this.pbExito.Image = global::Proyecto.Properties.Resources.Exclamation;
+            this.pbExito.Image = global::AulaGO.Properties.Resources.Exclamation;
             this.pbExito.Location = new System.Drawing.Point(13, 10);
             this.pbExito.Name = "pbExito";
             this.pbExito.Size = new System.Drawing.Size(50, 50);
@@ -176,7 +176,7 @@
             // 
             // pbQuest
             // 
-            this.pbQuest.Image = global::Proyecto.Properties.Resources.Question;
+            this.pbQuest.Image = global::AulaGO.Properties.Resources.Question;
             this.pbQuest.Location = new System.Drawing.Point(13, 10);
             this.pbQuest.Name = "pbQuest";
             this.pbQuest.Size = new System.Drawing.Size(50, 50);
@@ -187,7 +187,7 @@
             // 
             // pbWar
             // 
-            this.pbWar.Image = global::Proyecto.Properties.Resources.Warning;
+            this.pbWar.Image = global::AulaGO.Properties.Resources.Warning;
             this.pbWar.Location = new System.Drawing.Point(13, 10);
             this.pbWar.Name = "pbWar";
             this.pbWar.Size = new System.Drawing.Size(50, 50);
@@ -198,7 +198,7 @@
             // 
             // pbError
             // 
-            this.pbError.Image = global::Proyecto.Properties.Resources.Error;
+            this.pbError.Image = global::AulaGO.Properties.Resources.Error;
             this.pbError.Location = new System.Drawing.Point(13, 10);
             this.pbError.Name = "pbError";
             this.pbError.Size = new System.Drawing.Size(50, 50);

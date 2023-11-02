@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using CapaEntidades;
 using MySqlConnector;
 
-namespace Proyecto
+namespace AulaGO
 {
     public class Metodos
     {

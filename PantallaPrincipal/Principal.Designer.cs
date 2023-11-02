@@ -1,4 +1,4 @@
-﻿namespace Proyecto
+﻿namespace AulaGO
 {
     partial class Principal
     {
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnGuest = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -67,14 +68,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
-            this.BackgroundImage = global::Proyecto.Properties.Resources.login;
+            this.BackgroundImage = global::AulaGO.Properties.Resources.login;
             this.ClientSize = new System.Drawing.Size(1920, 1080);
             this.Controls.Add(this.btnGuest);
             this.Controls.Add(this.btnLogin);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Principal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "AulaGO";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
 

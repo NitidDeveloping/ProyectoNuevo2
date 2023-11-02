@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Linq.Expressions;
 using System.Windows.Forms;
 
-namespace Proyecto
+namespace AulaGO
 {
 
     public partial class Login : Form
@@ -15,7 +15,6 @@ namespace Proyecto
             Sesion sesion = new Sesion();
             sesion.LogOut();
             InitializeComponent();
-
         }
 
         //Botones del numpad
@@ -146,9 +145,8 @@ namespace Proyecto
         private void txtCI_Click(object sender, EventArgs e)
         {
             Location = new Point(300, 267);
-            ClientSize = new Size(1243, 505);              //Al seleccionar txtCI se mostrará el numpad                              
+            ClientSize = new Size(1243, 505); //Al seleccionar txtCI se mostrará el numpad                              
         }
-
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             Negocio negocio = new Negocio();
@@ -172,14 +170,14 @@ namespace Proyecto
             }
             else
             {
-               // try
-               // {
+                try
+                {
                     RetornoValidacion intentologin = negocio.IntentarLogIn(ci, pin);
 
                     if (intentologin == RetornoValidacion.OK)
                     {
-                        menu.ShowDialog();
-                        this.Close();
+                        menu.Show();
+                        Close();
                     }
                     else
                     {
@@ -189,13 +187,13 @@ namespace Proyecto
                         pbOk1.Visible = false;
                         msg.ShowDialog();
                     }
-            /*    }
+                }
                 catch (Exception ex)
                 {
                     MsgBox excepcion = new MsgBox("error", ex.Message);
                     excepcion.ShowDialog();
                 }
-            */
+
             }
         }
         private void btnExit_Click(object sender, EventArgs e)

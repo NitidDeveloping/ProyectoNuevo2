@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace Proyecto
+namespace AulaGO
 {
     public partial class AsignarSalonTemporal : Form
     {

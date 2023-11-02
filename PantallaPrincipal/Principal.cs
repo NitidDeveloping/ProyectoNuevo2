@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Proyecto
+namespace AulaGO
 {
     public partial class Principal : Form
     {
@@ -16,7 +16,7 @@ namespace Proyecto
         private void btnLogin_Click(object sender, EventArgs e)
         {
             Login login = new Login(); //Llamar al form
-            login.ShowDialog();    //Mostrar el form       
+            login.Show();    //Mostrar el form       
         }
 
         private void btnGuest_Click(object sender, EventArgs e)

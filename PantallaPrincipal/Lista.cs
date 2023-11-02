@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Menu;
 
-namespace Proyecto
+namespace AulaGO
 {
     public partial class Lista : Form
     {

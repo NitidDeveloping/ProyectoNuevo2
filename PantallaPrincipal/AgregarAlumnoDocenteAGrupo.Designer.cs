@@ -1,4 +1,4 @@
-﻿namespace Proyecto
+﻿namespace AulaGO
 {
     partial class AgregarAlumnoDocenteAGrupo
     {
@@ -184,7 +184,7 @@
             this.btnAceptar.FlatAppearance.BorderSize = 0;
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAceptar.Image = global::Proyecto.Properties.Resources.ACEOPTAR;
+            this.btnAceptar.Image = global::AulaGO.Properties.Resources.ACEOPTAR;
             this.btnAceptar.Location = new System.Drawing.Point(1287, 362);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(233, 94);
@@ -197,7 +197,7 @@
             this.btnCancelar.FlatAppearance.BorderSize = 0;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Image = global::Proyecto.Properties.Resources.cancelar;
+            this.btnCancelar.Image = global::AulaGO.Properties.Resources.cancelar;
             this.btnCancelar.Location = new System.Drawing.Point(1287, 462);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(233, 95);

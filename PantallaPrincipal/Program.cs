@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Proyecto
+namespace AulaGO
 {
     internal static class Program
     {

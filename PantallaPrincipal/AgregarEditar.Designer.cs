@@ -1,4 +1,4 @@
-﻿namespace Proyecto
+﻿namespace AulaGO
 {
     partial class AgregarEditar
     {
@@ -626,7 +626,7 @@
             this.btnSiguiente.FlatAppearance.BorderSize = 0;
             this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSiguiente.Image = global::Proyecto.Properties.Resources.siguiente;
+            this.btnSiguiente.Image = global::AulaGO.Properties.Resources.siguiente;
             this.btnSiguiente.Location = new System.Drawing.Point(1252, 574);
             this.btnSiguiente.Name = "btnSiguiente";
             this.btnSiguiente.Size = new System.Drawing.Size(227, 90);
@@ -640,7 +640,7 @@
             this.btnAceptar.FlatAppearance.BorderSize = 0;
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAceptar.Image = global::Proyecto.Properties.Resources.ACEOPTAR;
+            this.btnAceptar.Image = global::AulaGO.Properties.Resources.ACEOPTAR;
             this.btnAceptar.Location = new System.Drawing.Point(1252, 361);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(227, 90);
@@ -653,7 +653,7 @@
             this.btnCancelar.FlatAppearance.BorderSize = 0;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Image = global::Proyecto.Properties.Resources.cancelar;
+            this.btnCancelar.Image = global::AulaGO.Properties.Resources.cancelar;
             this.btnCancelar.Location = new System.Drawing.Point(1252, 467);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(227, 90);

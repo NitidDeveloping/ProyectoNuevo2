@@ -1,4 +1,4 @@
-﻿namespace Proyecto
+﻿namespace AulaGO
 {
     partial class PIN
     {
@@ -315,7 +315,7 @@
             // 
             // pbOk
             // 
-            this.pbOk.Image = global::Proyecto.Properties.Resources.Done;
+            this.pbOk.Image = global::AulaGO.Properties.Resources.Done;
             this.pbOk.Location = new System.Drawing.Point(783, 99);
             this.pbOk.Name = "pbOk";
             this.pbOk.Size = new System.Drawing.Size(50, 50);
@@ -326,7 +326,7 @@
             // 
             // pbOk1
             // 
-            this.pbOk1.Image = global::Proyecto.Properties.Resources.Done;
+            this.pbOk1.Image = global::AulaGO.Properties.Resources.Done;
             this.pbOk1.Location = new System.Drawing.Point(783, 222);
             this.pbOk1.Name = "pbOk1";
             this.pbOk1.Size = new System.Drawing.Size(50, 50);
@@ -369,7 +369,7 @@
             // 
             // pbOk2
             // 
-            this.pbOk2.Image = global::Proyecto.Properties.Resources.Done;
+            this.pbOk2.Image = global::AulaGO.Properties.Resources.Done;
             this.pbOk2.Location = new System.Drawing.Point(783, 336);
             this.pbOk2.Name = "pbOk2";
             this.pbOk2.Size = new System.Drawing.Size(50, 50);

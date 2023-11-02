@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using static CustomControls;
 
-namespace Proyecto
+namespace AulaGO
 {
     public partial class MsgBox : Form
     {

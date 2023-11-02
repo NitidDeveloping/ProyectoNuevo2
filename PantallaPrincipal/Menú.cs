@@ -1,5 +1,6 @@
 ﻿using CapaEntidades;
 using CapaNegocio;
+using PdfiumViewer;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,7 +9,7 @@ using System.Windows.Forms;
 using static CustomControls;
 using RadioButton = System.Windows.Forms.RadioButton;
 
-namespace Proyecto
+namespace AulaGO
 {
     public partial class Menú : Form
     {
@@ -514,6 +515,8 @@ namespace Proyecto
             //Abre el manual
             ManualDeUsuario manual = new ManualDeUsuario();
             manual.ShowDialog();
+
+            
         }
 
         #endregion

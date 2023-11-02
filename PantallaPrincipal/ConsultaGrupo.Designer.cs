@@ -1,4 +1,4 @@
-﻿namespace Proyecto
+﻿namespace AulaGO
 {
     partial class ConsultaGrupo
     {
@@ -288,7 +288,7 @@
             this.btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolver.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.btnVolver.Image = global::Proyecto.Properties.Resources.VOLVER;
+            this.btnVolver.Image = global::AulaGO.Properties.Resources.VOLVER;
             this.btnVolver.Location = new System.Drawing.Point(1356, 798);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(233, 95);

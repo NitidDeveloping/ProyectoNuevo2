@@ -1,4 +1,4 @@
-﻿namespace Proyecto
+﻿namespace AulaGO
 {
     partial class ManualDeUsuario
     {
@@ -28,19 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.richTxt = new System.Windows.Forms.RichTextBox();
             this.btnCerrar = new System.Windows.Forms.Button();
+            this.pdfViewer1 = new PdfiumViewer.PdfViewer();
             this.SuspendLayout();
-            // 
-            // richTxt
-            // 
-            this.richTxt.Location = new System.Drawing.Point(12, 12);
-            this.richTxt.Name = "richTxt";
-            this.richTxt.ReadOnly = true;
-            this.richTxt.Size = new System.Drawing.Size(794, 850);
-            this.richTxt.TabIndex = 0;
-            this.richTxt.Text = "";
-            this.richTxt.VScroll += new System.EventHandler(this.richTxt_VScroll);
             // 
             // btnCerrar
             // 
@@ -54,15 +44,25 @@
             this.btnCerrar.UseVisualStyleBackColor = true;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
+            // pdfViewer1
+            // 
+            this.pdfViewer1.Location = new System.Drawing.Point(12, 12);
+            this.pdfViewer1.Name = "pdfViewer1";
+            this.pdfViewer1.ShowBookmarks = false;
+            this.pdfViewer1.ShowToolbar = false;
+            this.pdfViewer1.Size = new System.Drawing.Size(794, 850);
+            this.pdfViewer1.TabIndex = 2;
+            // 
             // ManualDeUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(898, 887);
+            this.Controls.Add(this.pdfViewer1);
             this.Controls.Add(this.btnCerrar);
-            this.Controls.Add(this.richTxt);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ManualDeUsuario";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.ManualDeUsuario_Load);
             this.ResumeLayout(false);
@@ -70,8 +70,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.RichTextBox richTxt;
         private System.Windows.Forms.Button btnCerrar;
+        public PdfiumViewer.PdfViewer pdfViewer1;
     }
 }

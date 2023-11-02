@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Proyecto.Properties {
+namespace AulaGO.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
