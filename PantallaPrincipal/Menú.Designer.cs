@@ -84,7 +84,7 @@
             // 
             this.lblBienvenido.AutoSize = true;
             this.lblBienvenido.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBienvenido.Location = new System.Drawing.Point(73, 775);
+            this.lblBienvenido.Location = new System.Drawing.Point(73, 733);
             this.lblBienvenido.Name = "lblBienvenido";
             this.lblBienvenido.Size = new System.Drawing.Size(168, 31);
             this.lblBienvenido.TabIndex = 4;
@@ -124,13 +124,14 @@
             this.flowLayoutPanel2.Controls.Add(this.btnModPIN);
             this.flowLayoutPanel2.Controls.Add(this.btnAyuda);
             this.flowLayoutPanel2.Controls.Add(this.btnLogout);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(30, 870);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(30, 829);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(259, 198);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(259, 222);
             this.flowLayoutPanel2.TabIndex = 14;
             // 
             // btnModPIN
             // 
+            this.btnModPIN.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnModPIN.FlatAppearance.BorderSize = 0;
             this.btnModPIN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnModPIN.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -147,6 +148,7 @@
             // 
             // btnAyuda
             // 
+            this.btnAyuda.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnAyuda.FlatAppearance.BorderSize = 0;
             this.btnAyuda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAyuda.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -154,7 +156,7 @@
             this.btnAyuda.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAyuda.Location = new System.Drawing.Point(3, 75);
             this.btnAyuda.Name = "btnAyuda";
-            this.btnAyuda.Size = new System.Drawing.Size(231, 53);
+            this.btnAyuda.Size = new System.Drawing.Size(231, 66);
             this.btnAyuda.TabIndex = 3;
             this.btnAyuda.Text = "AYUDA";
             this.btnAyuda.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -169,7 +171,7 @@
             this.btnLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogout.Image = global::Proyecto.Properties.Resources.Logout;
             this.btnLogout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLogout.Location = new System.Drawing.Point(3, 134);
+            this.btnLogout.Location = new System.Drawing.Point(3, 147);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(244, 64);
             this.btnLogout.TabIndex = 2;
@@ -181,7 +183,7 @@
             // plPersona
             // 
             this.plPersona.Controls.Add(this.lblPersona);
-            this.plPersona.Location = new System.Drawing.Point(0, 819);
+            this.plPersona.Location = new System.Drawing.Point(0, 777);
             this.plPersona.Name = "plPersona";
             this.plPersona.Size = new System.Drawing.Size(319, 42);
             this.plPersona.TabIndex = 13;

@@ -13,9 +13,8 @@ namespace Proyecto
     public partial class Menú : Form
     {
         private readonly CustomControls customControls;
-        private int mapaActual = 0;
 
-        CustomRadioButton rbPB = new CustomRadioButton
+        public static CustomRadioButton rbPB = new CustomRadioButton
         {
             Text = "Planta Baja",
             Font = new Font("MADE INFINITY PERSONAL USE", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0),
@@ -25,14 +24,14 @@ namespace Proyecto
         };
 
 
-        CustomRadioButton rbP1 = new CustomRadioButton
+        public static CustomRadioButton rbP1 = new CustomRadioButton
         {
             Text = "Piso 1",
             Location = new Point(200, 11),
             Font = new Font("MADE INFINITY PERSONAL USE", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0),
         };
 
-        CustomRadioButton rbP2 = new CustomRadioButton
+        public static CustomRadioButton rbP2 = new CustomRadioButton
         {
             Text = "Piso 2",
             Location = new Point(330, 11),
@@ -138,7 +137,7 @@ namespace Proyecto
         #region
         private void CerrarSesion()  //Creo el método para confirmar el cierre de sesión
         {
-            MsgBox msg = new MsgBox("pregunta", "¿Desea cerrar sesión?"); //Hago la pregunta"
+            MsgBox msg = new MsgBox("pregunta", "¿Desefda cerrar sesión?"); //Hago la pregunta"
             msg.ShowDialog(); //Luego de asignar las funciones de cada botón, muestro el form con las modificaciones realizadas previamente
 
             if (msg.DialogResult == DialogResult.Yes)
@@ -148,7 +147,6 @@ namespace Proyecto
                 this.Close(); //Cierro el menú
             }
         }
-
         private void BtnLogout_Click(object sender, EventArgs e)
         {
             CerrarSesion(); //Invoco el método "CerrarSesion()" para que se muestre al apretar el botón de cerrar sesión
@@ -353,7 +351,6 @@ namespace Proyecto
             cbxLugares.SelectedIndexChanged += cbxLugares_SelectedIndexChanged;
 
         }
-
         private void cbxLugares_SelectedIndexChanged(object sender, EventArgs e)
         {
             Metodos metodos = new Metodos();
@@ -375,7 +372,6 @@ namespace Proyecto
                 Mapa.CurrentMapa.ClearPoints();
             }
         }
-
         private void MapaRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             Metodos metodos = new Metodos();
@@ -390,44 +386,17 @@ namespace Proyecto
 
                     if (radioButton.Text == "Piso 1")
                     {
-                        Mapa.CurrentMapa.startNode.Reset();
-                        mapaActual = 1;
                         mapaSeleccionado = 1;
+                        Mapa.CurrentMapa.startNode.Reset();
                     }
                     else if (radioButton.Text == "Piso 2")
                     {
-                        Mapa.CurrentMapa.startNode.Reset();
                         mapaSeleccionado = 2;
-                        mapaActual = 2;
+                        Mapa.CurrentMapa.startNode.Reset();
                     }
                     Mapa.CurrentMapa.CambiarMapa(mapaSeleccionado);
-                    ActualizarRadioButtons();
                 }
             }
-        }
-
-        private void ActualizarRadioButtons()
-        {
-
-            int mapaActual = Mapa.CurrentMapa.MapaActual;
-
-            // Lógica para marcar los radio buttons según el mapa actual
-            if (mapaActual == 0)
-            {
-                RbPlantaBaja.Checked = true;
-
-            }
-            else if (mapaActual == 1)
-            {
-                // Marca el radio button de Piso 1
-                RbPiso1.Checked = true;
-            }
-            else if (mapaActual == 2)
-            {
-                // Marca el radio button de Piso 2
-                RbPiso2.Checked = true;
-            }
-
         }
         private void btnClase_Click(object sender, EventArgs e)
         {
@@ -508,7 +477,6 @@ namespace Proyecto
                 msg.ShowDialog();
             }
         }
-
         private void btnGrupo_Click(object sender, EventArgs e)
         {
             Metodos metodos = new Metodos();
@@ -518,7 +486,7 @@ namespace Proyecto
 
             if (ubicacionGrupo.Salon != null)
             {
-                MsgBox msg = new MsgBox("aviso", $"Tienes clase en: {ubicacionGrupo.Salon}\nGrupo: {ubicacionGrupo.Grupo}\nMateria: {ubicacionGrupo.Materia}");
+                MsgBox msg = new MsgBox("aviso", $"Grupo: {ubicacionGrupo.Grupo}\nSalón: {ubicacionGrupo.Salon}\nMateria: {ubicacionGrupo.Materia}");
                 msg.ShowDialog();
 
                 int coordX = ubicacionGrupo.CoordenadaX;

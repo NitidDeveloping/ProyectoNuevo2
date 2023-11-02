@@ -14,17 +14,15 @@ namespace Proyecto
     public partial class Mapa : Form
     {
         public static Mapa CurrentMapa { get; private set; }
-        public int MapaActual { get; private set; }
         public int CurrentPiso { get; private set; }
 
         public int SelectedX { get; private set; }
         public int SelectedY { get; private set; }
 
         //Leer las coordenadas desde el archivo de texto
-        string[] coordenadasPlantaBaja = File.ReadAllLines("CoordPB.txt");
+        private readonly string[] coordenadasPlantaBaja = File.ReadAllLines("CoordPB.txt");
 
         public bool MapaClick = false;
-
 
         private Point startPoint = Point.Empty;
         private Point endPoint = Point.Empty;
@@ -46,9 +44,9 @@ namespace Proyecto
             IdentifyWalls();
             BackgroundImage = null;
             CurrentMapa = this;
+            CurrentMapa.CurrentPiso = 0;
             DoubleBuffered = true;
         }
-
         public void InitializeMap(int mapaSeleccionado)
         {
             if (BackgroundImage != null)
@@ -88,19 +86,20 @@ namespace Proyecto
                     int cX = int.Parse(coordenadasPlantaBaja[0]); //Coordenadas para la planta baja
                     int cY = int.Parse(coordenadasPlantaBaja[1]);
                     startNode = grid[cX / GridSize, cY / GridSize];
+                    Menú.rbPB.Checked = true;
                 }
             }
             else if (mapaSeleccionado == 1)
             {
                 startNode = grid[409 / GridSize, 548 / GridSize]; //Coordenadas para el piso 1
+                Menú.rbP1.Checked = true;
             }
             else if (mapaSeleccionado == 2)
             {
                 startNode = grid[329 / GridSize, 667 / GridSize]; //Coordenadas para el piso 2
+                Menú.rbP2.Checked = true;
             }
         }
-
-
         private void IdentifyWalls()
         {
             if (BackgroundImage != null)
@@ -135,13 +134,11 @@ namespace Proyecto
                 BackgroundImage = bitmap;
             }
         }
-
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
             DrawGrid(e.Graphics);
         }
-
         private void DrawPoint(Point point, Color color)
         {
             if (BackgroundImage != null)
@@ -191,7 +188,6 @@ namespace Proyecto
                 }
             }
         }
-
         private void InitializeGrid()
         {
             grid = new Node[ClientSize.Width, ClientSize.Height];
@@ -204,7 +200,6 @@ namespace Proyecto
                 }
             }
         }
-
         public void FindPath()
         {
             foreach (Node node in grid)
@@ -256,7 +251,6 @@ namespace Proyecto
             ReconstructPath(endNode);
             Invalidate();
         }
-
         private List<Node> GetNeighbors(Node node)
         {
             List<Node> neighbors = new List<Node>();
@@ -275,7 +269,6 @@ namespace Proyecto
 
             return neighbors;
         }
-
         private int GetDistance(Node a, Node b)
         {
             if (a != null && b != null)
@@ -290,7 +283,6 @@ namespace Proyecto
                 return 0;
             }
         }
-
         private void ReconstructPath(Node endNode)
         {
             List<Node> path = new List<Node>();
@@ -310,30 +302,9 @@ namespace Proyecto
                     node.IsPath = true;
             }
         }
-
         private void Mapa_MouseClick(object sender, MouseEventArgs e)
         {
             MapaClick = true;
-
-
-            /*string coordenada = $"{e.X}, {e.Y}";
-
-             try
-             {
-                 // Abre o crea un archivo de texto
-                 string rutaArchivo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "coordenadas.txt");
-
-                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(rutaArchivo, true))
-                 {
-                     // Escribe la coordenada en el archivo
-                     file.WriteLine(coordenada);
-                 }
-             }
-             catch (Exception ex)
-             {
-                 // Maneja cualquier excepción que pueda ocurrir al escribir en el archivo
-                 MessageBox.Show("Error al escribir en el archivo: " + ex.Message);
-             }*/
 
             if (e != null)
             {
@@ -368,30 +339,21 @@ namespace Proyecto
                 endNode = null;
             }
         }
-
         public void CambiarMapa(int mapaSeleccionado)
         {
             switch (mapaSeleccionado)
             {
                 case 0:
                     BackgroundImage = Resources.planta_baja;
-                    CurrentPiso = 0;
-                    MapaActual = 0;
                     break;
                 case 1:
                     BackgroundImage = Resources.piso_1;
-                    CurrentPiso = 1;
-                    MapaActual = 1;
                     break;
                 case 2:
                     BackgroundImage = Resources.piso_2;
-                    CurrentPiso = 2;
-                    MapaActual = 2;
                     break;
                 default:
                     BackgroundImage = Resources.planta_baja;
-                    CurrentPiso = 0;
-                    MapaActual = 0;
                     break;
             }
 
@@ -401,17 +363,14 @@ namespace Proyecto
             Invalidate();
             BackgroundImage = null;
             CurrentPiso = mapaSeleccionado;
-            MapaActual = mapaSeleccionado;
             CurrentMapa = this;
-        }
-
-
+        }      
         public void SetNodoFinal(int x, int y, int piso)
         {
             int X = int.Parse(coordenadasPlantaBaja[0]); //Coordenadas para la planta baja
             int Y = int.Parse(coordenadasPlantaBaja[1]);
 
-            if (piso == CurrentPiso)
+            if (piso == CurrentMapa.CurrentPiso)
             {
                 cX = x;
                 cY = y;
@@ -421,15 +380,7 @@ namespace Proyecto
             else
             {
                 int diferenciaPisos = Math.Abs(piso - CurrentPiso);
-                string mensaje;
-                if (piso > CurrentPiso)
-                {
-                    mensaje = $"suba {diferenciaPisos} piso(s)";
-                }
-                else
-                {
-                    mensaje = $"baje {diferenciaPisos} piso(s)";
-                }
+                string mensaje = piso > CurrentPiso ? $"suba {diferenciaPisos} piso(s)" : $"baje {diferenciaPisos} piso(s)";
                 MsgBox msg = new MsgBox("aviso", $"Diríjase a las escaleras más cercanas, {mensaje} y haga el siguiente recorrido (a partir del tótem)");
                 if (msg.ShowDialog() == DialogResult.OK)
                 {
@@ -441,47 +392,50 @@ namespace Proyecto
                     {
                         cX = x;
                         cY = y;
-                        if (X > 700)
-                        {
-                            startNode = grid[622 / GridSize, 576 / GridSize];
-                        }
-                        else
-                        {
-                            startNode = grid[965 / GridSize, 549 / GridSize];
-                        }
+
+                        startNode = grid[622 / GridSize, 576 / GridSize];
                         endNode = grid[cX, cY];
                         Invalidate();
                     }
-                    else if (piso == 1)
+                    if (piso == 1 && X == 896 && Menú.rbP1.Checked)
                     {
                         cX = x;
                         cY = y;
-                        if (X > 700)
-                        {
-                            startNode = grid[926 / GridSize, 517 / GridSize];
-                        }
-                        else
-                        {
-                            startNode = grid[388 / GridSize, 566 / GridSize];
-                        }
+
+                        startNode = grid[926 / GridSize, 517 / GridSize];
                         endNode = grid[cX, cY];
                         Invalidate();
                     }
-                    else if (piso == 2)
+                    if (piso == 1 && X == 609 && Menú.rbP1.Checked)
+                     {
+                        cX = x;
+                        cY = y;
+
+                        startNode = grid[388 / GridSize, 566 / GridSize];
+                        endNode = grid[cX, cY];
+                        Invalidate();
+                     }
+
+
+                    if (piso == 2 && X == 896)
                     {
                         cX = x;
                         cY = y;
-                        if (X > 700)
-                        {
-                            startNode = grid[888 / GridSize, 547 / GridSize];
-                        }
-                        else
-                        {
-                            startNode = grid[303 / GridSize, 614 / GridSize];
-                        }
+
+                        startNode = grid[888 / GridSize, 547 / GridSize];
                         endNode = grid[cX, cY];
                         Invalidate();
                     }
+                    if (piso == 2 && X == 609)
+                    {
+                        cX = x;
+                        cY = y;
+
+                        startNode = grid[303 / GridSize, 614 / GridSize];
+                        endNode = grid[cX, cY];
+                        Invalidate();
+                    }
+
 
                     FindPath();
                 }

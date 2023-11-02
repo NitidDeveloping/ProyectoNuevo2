@@ -11,8 +11,6 @@ namespace Proyecto
             InitializeComponent();
             Sesion sesion = new Sesion();
             sesion.LogOut();
-           // Menú menú = new Menú();
-           // menú.ShowDialog();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -27,6 +25,7 @@ namespace Proyecto
             Sesion sesion = new Sesion();
             sesion.LogIn();
             menu.Show();
+            menu.btnModPIN.Visible = false;
         }
     }
 }
