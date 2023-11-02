@@ -336,7 +336,7 @@ namespace CapaDatos
                     cmdstr = "DELETE from Horario where ID_Horario=@ID_Horario";
                     break;
 
-                case TipoReferencia.Horario: //esto esta mal creo, creo q habia q hacer un metodo especial para horario (grupo_materia_horario_clase)
+                case TipoReferencia.Horario:
                     cmdstr = "DELETE from Grupo_Materia_Horario_Clase where ID_Grupo=@ID_Grupo AND ID_Materia=@ID_Materia AND ID_Horario=@ID_Horario AND Turno=@Turno AND Dia_Semana=@Dia_Semana";
                     break;
 
@@ -401,14 +401,6 @@ namespace CapaDatos
                     cmd.Parameters.Add("@ID_Horario", MySqlDbType.Int16).Value = Convert.ToInt16(idObjetivo);
                     break;
 
-                /*case TipoReferencia.Horario: //esto esta mal creo, creo q habia q hacer un metodo especial para horario (grupo_materia_horario_clase)
-                    cmd.Parameters.Add("@ID_Grupo", MySqlDbType.VarChar).Value = Convert.ToString(idObjetivo);
-                    cmd.Parameters.Add("@ID_Materia", MySqlDbType.Int16).Value = Convert.ToInt16(idObjetivo);
-                    cmd.Parameters.Add("@ID_Horario", MySqlDbType.Int16).Value = Convert.ToInt16(idObjetivo);
-                    cmd.Parameters.Add("@Dia_Semana", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
-                    cmd.Parameters.Add("@Turno", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
-                    break;*/
-
                 case TipoReferencia.Anio:
                     cmd.Parameters.Add("@Anio", MySqlDbType.Year).Value = Convert.ToInt32(idObjetivo);
                     break;
@@ -463,25 +455,25 @@ namespace CapaDatos
                     throw exceptionPersonalizada;
                 }
 
-                if (mensaje.Contains("`grupo_materia`, CONSTRAINT `fk_GrupoMateria_IDMATERIA` "))
+                if (mensaje.Contains("`Grupo_Materia`, CONSTRAINT `fk_GrupoMateria_IDMATERIA` "))
                 {
                     exceptionPersonalizada = new Exception("Esta materia se encuentra asignada a uno o mas grupos. Desasigne esta materia de los grupos a los que se encuentre asignada antes de eliminarla.");
                     throw exceptionPersonalizada;
                 }
 
-                if (mensaje.Contains("`.`grupo_alumno`, CONSTRAINT `fk_GrupoAlumno_IDGRUPO` "))
+                if (mensaje.Contains("`.`Grupo_Alumno`, CONSTRAINT `fk_GrupoAlumno_IDGRUPO` "))
                 {
                     exceptionPersonalizada = new Exception("Este grupo tiene alumnos asignados. Desasigne todos los alumnos de este grupo antes de eliminarlo.");
                     throw exceptionPersonalizada;
                 }
 
-                if (mensaje.Contains("`.`grupo_materia`, CONSTRAINT `fk_GrupoMateria_IDGRUPO`"))
+                if (mensaje.Contains("`.`Grupo_Materia`, CONSTRAINT `fk_GrupoMateria_IDGRUPO`"))
                 {
                     exceptionPersonalizada = new Exception("Este grupo tiene materias asignadas. Desasigne todas las materias asignadas a este grupo antes de eliminarlo.");
                     throw exceptionPersonalizada;
                 }
 
-                if (mensaje.Contains("`.`grupo_materia`, CONSTRAINT `fk_GrupoMateria_IDGRUPO`"))
+                if (mensaje.Contains("`.`Grupo_Materia`, CONSTRAINT `fk_GrupoMateria_IDGRUPO`"))
                 {
                     exceptionPersonalizada = new Exception("Este grupo tiene materias asignadas. Desasigne todas las materias asignadas a este grupo antes de eliminarlo.");
                     throw exceptionPersonalizada;
@@ -880,8 +872,6 @@ namespace CapaDatos
                 case TipoReferencia.Orientacion:
                     cmdstr = "SELECT Orientacion, Nombre_Orientacion FROM Orientacion WHERE Orientacion=@Orientacion;";
                     break;
-
-                //HORARIO (grupo materia horario clase)
 
                 case TipoReferencia.Hora:
                     cmdstr = "SELECT ID_Horario, Turno, Nombre_Turno, Hora_Inicio, Hora_Fin FROM Lista_Horas WHERE ID_Horario=@ID_Horario;";
@@ -1512,10 +1502,10 @@ namespace CapaDatos
 
             //Asiganmos el valor de la consulta
             cmdstr = "SELECT ga.CI_Alumno, u.Nombre, u.Apellido" +
-                "\r\n FROM grupo grp" +
-                "\r\n JOIN grupo_alumno ga ON grp.ID_Grupo = ga.ID_Grupo" +
-                "\r\n JOIN alumno a ON ga.CI_Alumno = a.CI_Alumno" +
-                "\r\n JOIN usuario u ON a.CI_Alumno = u.CI" +
+                "\r\n FROM Grupo grp" +
+                "\r\n JOIN Grupo_Alumno ga ON grp.ID_Grupo = ga.ID_Grupo" +
+                "\r\n JOIN Alumno a ON ga.CI_Alumno = a.CI_Alumno" +
+                "\r\n JOIN Usuario u ON a.CI_Alumno = u.CI" +
                 "\r\n WHERE grp.ID_Grupo = @IdGrupo;";
 
 
@@ -1565,10 +1555,10 @@ namespace CapaDatos
 
             //Asiganmos el valor de la consulta
             cmdstr = "SELECT COUNT(u.CI)" +
-                "\r\n FROM grupo g " +
-                "\r\n JOIN grupo_alumno ga ON g.ID_Grupo = ga.ID_Grupo" +
-                "\r\n JOIN alumno a ON ga.CI_Alumno = a.CI_Alumno " +
-                "\r\n JOIN usuario u ON a.CI_Alumno = u.CI" +
+                "\r\n FROM Grupo g " +
+                "\r\n JOIN Grupo_Alumno ga ON g.ID_Grupo = ga.ID_Grupo" +
+                "\r\n JOIN Alumno a ON ga.CI_Alumno = a.CI_Alumno " +
+                "\r\n JOIN Usuario u ON a.CI_Alumno = u.CI" +
                 "\r\n WHERE g.ID_Grupo = @ID_Grupo AND a.CI_Alumno = @CI_Alumno;";
 
 
@@ -1609,9 +1599,9 @@ namespace CapaDatos
 
             //Asiganmos el valor de la consulta
             cmdstr = "SELECT COUNT(m.ID_Materia) " +
-                "\r\n FROM grupo g " +
-                "\r\n JOIN grupo_materia gm ON g.ID_Grupo = gm.ID_Grupo " +
-                "\r\n JOIN materia m ON gm.ID_Materia= m.ID_Materia" +
+                "\r\n FROM Grupo g " +
+                "\r\n JOIN Grupo_Materia gm ON g.ID_Grupo = gm.ID_Grupo " +
+                "\r\n JOIN Materia m ON gm.ID_Materia= m.ID_Materia" +
                 "\r\n WHERE g.ID_Grupo = @ID_Grupo AND m.ID_Materia = @IdMateria;";
 
 
@@ -1652,11 +1642,11 @@ namespace CapaDatos
 
             //Asiganmos el valor de la consulta
             cmdstr = "SELECT COUNT(u.CI) " +
-                "\r\n FROM grupo g " +
-                "\r\n JOIN grupo_materia gm ON g.ID_Grupo = gm.ID_Grupo " +
-                "\r\n JOIN grupo_materia_docente gmd ON gm.ID_Grupo = gmd.ID_Grupo AND gm.ID_Materia = gmd.ID_Materia" +
-                "\r\n JOIN docente d ON gmd.CI_Docente = d.CI_Docente" +
-                "\r\n JOIN usuario u ON d.CI_Docente = u.CI " +
+                "\r\n FROM Grupo g " +
+                "\r\n JOIN Grupo_Materia gm ON g.ID_Grupo = gm.ID_Grupo " +
+                "\r\n JOIN Grupo_Materia_Docente gmd ON gm.ID_Grupo = gmd.ID_Grupo AND gm.ID_Materia = gmd.ID_Materia" +
+                "\r\n JOIN Docente d ON gmd.CI_Docente = d.CI_Docente" +
+                "\r\n JOIN Usuario u ON d.CI_Docente = u.CI " +
                 "\r\n WHERE g.ID_Grupo = @IdGrupo AND gm.ID_Materia = @IdMateria AND d.CI_Docente = @CiDocente;";
 
             //Inicializa y agrega los parametros al comando
@@ -1839,7 +1829,7 @@ namespace CapaDatos
             MySqlConnection conn = Conector.crearInstancia().crearConexion();
             MySqlCommand cmd;
 
-            cmdstr = "DELETE from grupo_materia where grupo_materia.ID_Grupo = @IdGrupo AND grupo_materia.ID_Materia = @IdMateria;";
+            cmdstr = "DELETE from Grupo_Materia where Grupo_Materia.ID_Grupo = @IdGrupo AND Grupo_Materia.ID_Materia = @IdMateria;";
 
             cmd = new MySqlCommand(cmdstr, conn);
 
@@ -1873,7 +1863,7 @@ namespace CapaDatos
             MySqlConnection conn = Conector.crearInstancia().crearConexion();
             MySqlCommand cmd;
 
-            cmdstr = "DELETE from grupo_materia_docente where grupo_materia_docente.ID_Grupo = @idGrupo AND grupo_materia_docente.ID_Materia = @IdMateria AND grupo_materia_docente.CI_Docente = @CiDocente;";
+            cmdstr = "DELETE from Grupo_Materia_Docente where Grupo_Materia_Docente.ID_Grupo = @idGrupo AND Grupo_Materia_Docente.ID_Materia = @IdMateria AND Grupo_Materia_Docente.CI_Docente = @CiDocente;";
 
             cmd = new MySqlCommand(cmdstr, conn);
 
@@ -1916,7 +1906,7 @@ namespace CapaDatos
             MySqlCommand cmd;
             MySqlDataReader dr;
 
-            cmdstr = "SELECT CI, Nombre, Pin, Rol FROM ConsultaLogin WHERE CI = @CI AND Pin = @Pin;";
+            cmdstr = "SELECT CI, Nombre, Pin, Rol FROM ConsultaLogIn WHERE CI = @CI AND PIN = @Pin;";
 
             //Agrega los parametros al comando
             cmd = new MySqlCommand(cmdstr, conn);
@@ -1987,7 +1977,7 @@ namespace CapaDatos
             MySqlConnection conn = Conector.crearInstancia().crearConexion(); ;
             MySqlCommand cmd;
 
-            cmdstr = "UPDATE usuario SET PIN = @Pin WHERE CI = @Ci;";
+            cmdstr = "UPDATE Usuario SET PIN = @Pin WHERE CI = @Ci;";
 
             //Agrega los parametros al comando
             cmd = new MySqlCommand(cmdstr, conn);
@@ -2449,7 +2439,7 @@ namespace CapaDatos
             MySqlConnection conn = Conector.crearInstancia().crearConexion();
             MySqlDataReader dr;
             MySqlCommand cmd = new MySqlCommand(
-                "SELECT L.Nombre AS Salón, L.Coordenada_X, L.Coordenada_Y, L.Piso, G.ID_Grupo AS Grupo, M.Nombre AS Materia FROM usuario_docente AS UD " +
+                "SELECT L.Nombre AS Salón, L.Coordenada_X, L.Coordenada_Y, L.Piso, G.ID_Grupo AS Grupo, M.Nombre AS Materia FROM Usuario_Docente AS UD " +
                 "JOIN Grupo_Materia_Docente AS GMD ON UD.CI_Docente = GMD.CI_Docente JOIN Grupo AS G ON GMD.ID_Grupo = G.ID_Grupo " +
                 "JOIN Grupo_Materia AS GM ON G.ID_Grupo = GM.ID_Grupo JOIN Materia AS M ON GM.ID_Materia = M.ID_Materia JOIN Grupo_Materia_Horario AS GMH " +
                 "ON GM.ID_Grupo = GMH.ID_Grupo AND GM.ID_Materia = GMH.ID_Materia JOIN Horario AS H ON GMH.ID_Horario = H.ID_Horario AND GMH.Turno = H.Turno " +
