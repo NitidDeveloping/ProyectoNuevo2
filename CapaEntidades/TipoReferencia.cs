@@ -23,6 +23,7 @@ namespace CapaEntidades
         Orientacion,
         TipoDeLugar,
         Turno,
+        UsoComun,
         Usuario
     }
 }
