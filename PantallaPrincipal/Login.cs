@@ -172,8 +172,8 @@ namespace Proyecto
             }
             else
             {
-                try
-                {
+               // try
+               // {
                     RetornoValidacion intentologin = negocio.IntentarLogIn(ci, pin);
 
                     if (intentologin == RetornoValidacion.OK)
@@ -189,12 +189,13 @@ namespace Proyecto
                         pbOk1.Visible = false;
                         msg.ShowDialog();
                     }
-                }
+            /*    }
                 catch (Exception ex)
                 {
                     MsgBox excepcion = new MsgBox("error", ex.Message);
                     excepcion.ShowDialog();
                 }
+            */
             }
         }
         private void btnExit_Click(object sender, EventArgs e)

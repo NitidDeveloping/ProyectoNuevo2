@@ -376,6 +376,7 @@ namespace CapaNegocio
                                     lugar.IsClase,
                                     lugar.IsUsoComun);
                             }
+
                             break;
 
                         case TipoReferencia.Materia:
@@ -413,7 +414,46 @@ namespace CapaNegocio
 
                     }
 
-                    return datos.Agregar(referencia, item);
+                    if (referencia != TipoReferencia.Lugar)
+                    {
+                        return datos.Agregar(referencia, item);
+                    }
+                    else
+                    {
+                        if (item is Lugar lugar)
+                        {
+                            RetornoValidacion resultadoAgregarAClase = RetornoValidacion.OK;
+                            RetornoValidacion resultadoAgregarAUsoComun = RetornoValidacion.OK;
+                            RetornoValidacion resultadoAgregarLugar = RetornoValidacion.OK;
+
+                            resultadoAgregarLugar = datos.Agregar(TipoReferencia.Lugar, item);
+
+                            if (resultadoAgregarLugar != RetornoValidacion.OK)
+                            {
+                                return resultadoAgregarLugar;
+                            }
+
+                            if (lugar.IsClase)
+                            {
+                                resultadoAgregarAClase = datos.Agregar(TipoReferencia.Clases, item);
+
+                                if (resultadoAgregarAClase != RetornoValidacion.OK)
+                                {
+                                    return resultadoAgregarAClase;
+                                }
+                            }
+                            if (lugar.IsUsoComun)
+                            {
+                                resultadoAgregarAUsoComun = datos.Agregar(TipoReferencia.UsoComun, item);
+                                if (resultadoAgregarAUsoComun != RetornoValidacion.OK)
+                                {
+                                    return resultadoAgregarAUsoComun;
+                                }
+                            }
+                            return resultadoAgregarLugar;
+                        }
+
+                    }
 
                 }
                 else
@@ -561,6 +601,49 @@ namespace CapaNegocio
             return datos.Eliminar(TipoReferencia.Usuario, idObjetivo);
 
 
+        }
+
+        public RetornoValidacion EliminarLugar(string idObjetivo, bool isClase, bool isUsoComun)
+        {
+            Datos datos = new Datos();
+            RetornoValidacion resultadoEliminarClase = RetornoValidacion.OK;
+            RetornoValidacion resultadoEliminarUsoComun = RetornoValidacion.OK;
+            RetornoValidacion resultadoEliminarLugar = RetornoValidacion.OK;
+
+            //Si no se encuentra el objeto devuelve que no existe
+            if (datos.Consultar(TipoReferencia.Lugar, idObjetivo) == null)
+            {
+                return RetornoValidacion.NoExiste;
+            }
+
+            if (isClase)
+            {
+                resultadoEliminarClase = datos.Eliminar(TipoReferencia.Clases, idObjetivo);
+            }
+
+            if (isUsoComun)
+            {
+                resultadoEliminarUsoComun = datos.Eliminar(TipoReferencia.UsoComun, idObjetivo);
+            }
+
+            resultadoEliminarLugar = datos.Eliminar(TipoReferencia.Lugar, idObjetivo);
+
+            if (resultadoEliminarClase != RetornoValidacion.OK)
+            {
+                return resultadoEliminarClase;
+            }
+
+            if (resultadoEliminarUsoComun != RetornoValidacion.OK)
+            {
+                return resultadoEliminarUsoComun;
+            }
+
+            if (resultadoEliminarLugar != RetornoValidacion.OK)
+            {
+                return resultadoEliminarLugar;
+            }
+
+            return resultadoEliminarLugar;
         }
 
         //Sobrecargas para horas

@@ -3,10 +3,6 @@ using CapaEntidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.CodeDom;
-using System.Windows.Forms;
-using System.Data.SqlClient;
-using System.Web;
 
 namespace CapaDatos
 {
@@ -360,6 +356,14 @@ namespace CapaDatos
                     cmdstr = "DELETE from Tipo_Lugar where Tipo=@Tipo";
                     break;
 
+                case TipoReferencia.UsoComun:
+                    cmdstr = "DELETE from Uso_Comun where ID_UsoComun=@Id";
+                    break;
+
+                case TipoReferencia.Clases:
+                    cmdstr = "DELETE from Clase where ID_Clase=@Id";
+                    break;
+
                 default:
                     throw new ArgumentException("Agrumento de eliminado invalido, contacte a un administrador si el problema persiste");
 
@@ -420,6 +424,11 @@ namespace CapaDatos
                 case TipoReferencia.TipoDeLugar:
                     cmd.Parameters.Add("@Tipo", MySqlDbType.Byte).Value = Convert.ToByte(idObjetivo);
                     break;
+
+                case TipoReferencia.Clases:
+                case TipoReferencia.UsoComun:
+                    cmd.Parameters.Add("@Id", MySqlDbType.Int32).Value = Convert.ToInt32(idObjetivo);
+                    break;
             }
             try
             {
@@ -476,6 +485,18 @@ namespace CapaDatos
                 if (mensaje.Contains("`.`Grupo_Materia`, CONSTRAINT `fk_GrupoMateria_IDGRUPO`"))
                 {
                     exceptionPersonalizada = new Exception("Este grupo tiene materias asignadas. Desasigne todas las materias asignadas a este grupo antes de eliminarlo.");
+                    throw exceptionPersonalizada;
+                }
+
+                if (mensaje.Contains("`.`grupo_materia_horario_clase`, CONSTRAINT `fk_GrupoMateriaHorarioClase_IDCLASE`"))
+                {
+                    exceptionPersonalizada = new Exception("Este lugar esta asignado como salon en uno o mas horarios. Desasigne este lugar de todos los horarios a los que pueda estar asignado antes de eliminarlo.");
+                    throw exceptionPersonalizada;
+                }
+
+                if (mensaje.Contains("`.`grupo_materia_horario_clase`, CONSTRAINT `fk_GrupoMateriaHorarioClase_ASIGNADOTEMPORAL"))
+                {
+                    exceptionPersonalizada = new Exception("Este lugar esta asignado como salon temporal en uno o mas horarios. Desasigne este lugar de todos los horarios a los que pueda estar asignado antes de eliminarlo.");
                     throw exceptionPersonalizada;
                 }
 
@@ -554,6 +575,14 @@ namespace CapaDatos
 
                 case TipoReferencia.TipoDeLugar:
                     cmdstr = "INSERT INTO Tipo_Lugar (Tipo, Nombre_Tipo) VALUES (@Tipo, @Nombre_Tipo);";
+                    break;
+
+                case TipoReferencia.Clases:
+                    cmdstr = "INSERT INTO Clase (ID_Clase) VALUES (@Id);";
+                    break;
+
+                case TipoReferencia.UsoComun:
+                    cmdstr = "INSERT INTO Uso_Comun (ID_UsoComun) VALUES (@Id);";
                     break;
 
                 default:
@@ -678,6 +707,19 @@ namespace CapaDatos
                     {
                         cmd.Parameters.Add("@Tipo", MySqlDbType.Byte).Value = tipoLugar.Id;
                         cmd.Parameters.Add("@Nombre_Tipo", MySqlDbType.VarChar).Value = tipoLugar.Nombre;
+                    }
+                    break;
+
+                case TipoReferencia.Clases:
+                    if (item is Lugar lugarAuxiliarParaClases)
+                    {
+                        cmd.Parameters.Add("@Id", MySqlDbType.Int32).Value = lugarAuxiliarParaClases.ID;
+                    }
+                    break;
+                case TipoReferencia.UsoComun:
+                    if (item is Lugar lugarAuxiliarParaUsoComun)
+                    {
+                        cmd.Parameters.Add("@Id", MySqlDbType.Int32).Value = lugarAuxiliarParaUsoComun.ID;
                     }
                     break;
             }

@@ -295,8 +295,6 @@ namespace Proyecto
 
                         plNombre.Visible = true;
                         plComboBox1.Visible = true;
-                        plCheckBox1.Visible = true;
-                        plCheckBox2.Visible = true;
 
                         lblCbx1.Text = "Tipo";
                         DataTable dtTipoLugar = negocio.Listar(TipoReferencia.TipoDeLugar, null, null);
@@ -336,6 +334,9 @@ namespace Proyecto
                             cbx2.Items.Add(0);
                             cbx2.Items.Add(1);
                             cbx2.Items.Add(2);
+
+                            plCheckBox1.Visible = true;
+                            plCheckBox2.Visible = true;
                         }
                         break;
                     #endregion
@@ -1041,12 +1042,14 @@ namespace Proyecto
                 {
                     msgsecundario.ShowDialog();
                 }
-            }
-            catch (Exception ex)
-            {
-                MsgBox excepcion = new MsgBox("error", ex.Message);
-                excepcion.ShowDialog();
-            }
+               }
+             catch (Exception ex)
+              {
+                  MsgBox excepcion = new MsgBox("error", ex.Message);
+                  excepcion.ShowDialog();
+              }
+            
+
         }
 
         #endregion
