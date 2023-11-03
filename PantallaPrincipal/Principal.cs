@@ -12,13 +12,11 @@ namespace AulaGO
             Sesion sesion = new Sesion();
             sesion.LogOut();
         }
-
         private void btnLogin_Click(object sender, EventArgs e)
         {
             Login login = new Login(); //Llamar al form
             login.ShowDialog();    //Mostrar el form
         }
-
         private void btnGuest_Click(object sender, EventArgs e)
         {
             Menú menu = new Menú();

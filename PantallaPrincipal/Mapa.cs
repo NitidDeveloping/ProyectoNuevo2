@@ -8,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-
 namespace AulaGO
 {
     public partial class Mapa : Form
@@ -435,8 +434,6 @@ namespace AulaGO
                         endNode = grid[cX, cY];
                         Invalidate();
                     }
-
-
                     FindPath();
                 }
             }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CapaEntidades //De la capa de presentación y la de negocios puedo enviar información directamente a la capa entidad
+﻿namespace CapaEntidades //De la capa de presentación y la de negocios puedo enviar información directamente a la capa entidad
                         //y esta va a estar ahí para ser obtenida cuando se necesite
 {
 

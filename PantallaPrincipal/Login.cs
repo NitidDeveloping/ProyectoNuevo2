@@ -2,12 +2,10 @@
 using CapaNegocio;
 using System;
 using System.Drawing;
-using System.Linq.Expressions;
 using System.Windows.Forms;
 
 namespace AulaGO
 {
-
     public partial class Login : Form
     {
         public Login()

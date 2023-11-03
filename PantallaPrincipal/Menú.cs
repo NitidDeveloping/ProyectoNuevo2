@@ -1,6 +1,5 @@
 ﻿using CapaEntidades;
 using CapaNegocio;
-using PdfiumViewer;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -521,10 +520,5 @@ namespace AulaGO
         }
 
         #endregion
-
-
     }
 }
-
-
-

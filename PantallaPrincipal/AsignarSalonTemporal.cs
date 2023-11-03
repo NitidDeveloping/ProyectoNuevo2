@@ -1,12 +1,8 @@
 ﻿using CapaEntidades;
 using CapaNegocio;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AulaGO
 {

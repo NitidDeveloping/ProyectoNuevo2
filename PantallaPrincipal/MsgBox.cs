@@ -7,7 +7,6 @@ namespace AulaGO
 {
     public partial class MsgBox : Form
     {
-
         public CustomRadioButton rbGrupo1 = new CustomRadioButton
         {
             Font = new Font("MADE INFINITY PERSONAL USE", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0),
@@ -15,14 +14,12 @@ namespace AulaGO
 
         };
 
-
         public CustomRadioButton rbGrupo2 = new CustomRadioButton
         {
             Location = new Point(125, 60),
             Font = new Font("MADE INFINITY PERSONAL USE", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0),
 
         };
-
         public MsgBox(string pTipo, string pMensaje)
         {
             InitializeComponent();
@@ -83,31 +80,8 @@ namespace AulaGO
 
         private void MsgBox_Load(object sender, EventArgs e)
         {
-            // rbGrupo1.CheckedChanged += RadioButton_CheckedChanged;
-            // rbGrupo2.CheckedChanged += RadioButton_CheckedChanged;
             lblMsg.Controls.Add(rbGrupo1);
             lblMsg.Controls.Add(rbGrupo2);
         }
-
-        /*private void RadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (sender is CustomRadioButton radioButton)
-            {
-                if (radioButton.Checked)
-                {
-                    if (radioButton.Text == "Piso 1")
-                    {
-
-                    }
-                    else if (radioButton.Text == "Piso 2")
-                    {
-
-                    }
-
-                }
-            }
-        }*/
-
-
     }
 }

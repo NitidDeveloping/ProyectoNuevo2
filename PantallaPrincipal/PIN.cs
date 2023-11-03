@@ -6,7 +6,6 @@ using System.Windows.Forms;
 
 namespace AulaGO
 {
-
     public partial class PIN : Form
     {
         private byte intentosFallidos = 0;
