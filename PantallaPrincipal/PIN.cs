@@ -86,7 +86,7 @@ namespace AulaGO
                         msg = new MsgBox("error", "5 intentos fallidos, cerrando sesion.");
                         Sesion sesion = new Sesion();
                         sesion.LogOut();
-                        this.Close();
+                        Close();
                         Metodos.CloseMenuForm();
 
                     }

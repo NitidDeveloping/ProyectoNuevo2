@@ -176,7 +176,7 @@ namespace AulaGO
 
                     if (intentologin == RetornoValidacion.OK)
                     {
-                        menu.Show();
+                        menu.ShowDialog();
                         Close();
                     }
                     else

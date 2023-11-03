@@ -38,9 +38,9 @@ namespace CapaEntidades
             this.docente = docente;
             this.dia = dia;
             this.salon = salon;
-            this.strhoras = horas;
+            strhoras = horas;
             this.turno = turno;
-            this.salonTemporal = salonT;
+            salonTemporal = salonT;
             this.inicio = inicio;
             this.fin = fin;
         }

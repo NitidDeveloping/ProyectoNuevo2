@@ -70,27 +70,28 @@ namespace AulaGO
             switch (Sesion.LoggedRol)
             {
                 case TipoRol.Operador:
-                    this.btnABMOp.Visible = false;
-                    this.plABMSubMenu.Size = new Size(319, 127);
+                    btnABMOp.Visible = false;
+                    plABMSubMenu.Size = new Size(319, 127);
                     break;
 
                 case TipoRol.Alumno:
-                    this.btnDatos.Visible = false;
-                    this.btnUsuarios.Visible = false;
+                    btnDatos.Visible = false;
+                    btnUsuarios.Visible = false;
                     btnClase.Visible = true;
                     break;
 
                 case TipoRol.Docente:
-                    this.btnDatos.Visible = false;
-                    this.btnUsuarios.Visible = false;
-                    this.btnGrupo.Visible = true;
+                    btnDatos.Visible = false;
+                    btnUsuarios.Visible = false;
+                    btnGrupo.Visible = true;
                     break;
 
                 case TipoRol.Visitante:
-                    this.btnDatos.Visible = false;
-                    this.btnClase.Visible = false;
-                    this.btnGrupo.Visible = false;
-                    this.btnUsuarios.Visible = false;
+                    btnDatos.Visible = false;
+                    btnClase.Visible = false;
+                    btnGrupo.Visible = false;
+                    btnUsuarios.Visible = false;
+                    btnModPIN.Visible = false;
                     break;
             }
 
@@ -145,7 +146,7 @@ namespace AulaGO
             {
                 Sesion sesion = new Sesion();
                 sesion.LogOut();
-                this.Close(); //Cierro el menú
+                Close(); //Cierro el menú
             }
         }
         private void BtnLogout_Click(object sender, EventArgs e)

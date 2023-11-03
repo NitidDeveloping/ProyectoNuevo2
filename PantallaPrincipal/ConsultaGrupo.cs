@@ -42,14 +42,14 @@ namespace AulaGO
         private void btnAgregarAlumno_Click(object sender, EventArgs e)
         {
             AgregarAlumnoDocenteAGrupo agregar = new AgregarAlumnoDocenteAGrupo(grupoConsulta);
-            this.Close();
+            Close();
             Metodos.OpenChildForm(agregar, Metodos.menuForm.plForms);
         }
 
         private void btnAsignarMateria_Click(object sender, EventArgs e)
         {
             AgregarMateriaAGrupo agregar = new AgregarMateriaAGrupo(grupoConsulta);
-            this.Close();
+            Close();
             Metodos.OpenChildForm(agregar, Metodos.menuForm.plForms);
         }
         private void btnAsignarDocenteAMateria_Click(object sender, EventArgs e)
@@ -71,7 +71,7 @@ namespace AulaGO
 
 
                     AgregarAlumnoDocenteAGrupo agregar = new AgregarAlumnoDocenteAGrupo(grupoConsulta, materia);
-                    this.Close();
+                    Close();
                     Metodos.OpenChildForm(agregar, Metodos.menuForm.plForms);
                 }
             }

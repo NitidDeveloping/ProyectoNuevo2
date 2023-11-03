@@ -18,20 +18,17 @@ namespace AulaGO
             Metodos metodos = new Metodos();
             metodos.ResetTimerCierreSesion(); // Reinicia el timer de cierre de sesion
 
-            /*string directorioAplicacion = Path.GetDirectoryName(Application.ExecutablePath);
             string ruta;
             if (Sesion.LoggedRol == TipoRol.Alumno || Sesion.LoggedRol == TipoRol.Docente || Sesion.LoggedRol == TipoRol.Visitante)
             {
-                ruta = Path.Combine(directorioAplicacion, "Nitid Developing - Redes de datos y seguridad - Segunda entrega.rtf");
+                ruta = "Nitid Developing - ADA - Manual de usuario.pdf";
             }
             else
             {
-                ruta = Path.Combine(directorioAplicacion, "Nitid Developing - Redes de datos y seguridad - Segunda entrega.rtf");
+                ruta = @"Nitid Developing - ADA - Manual de administrador.pdf";
             }
-            richTxt.LoadFile(ruta, RichTextBoxStreamType.RichText);*/
 
-            string ruta_al_archivo = @"Nitid Developing - ADA - Manual de administrador.pdf";
-            PdfDocument pdfDocument = PdfDocument.Load(ruta_al_archivo);
+            PdfDocument pdfDocument = PdfDocument.Load(ruta);
             pdfViewer1.Document = pdfDocument;
         }
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -40,11 +37,6 @@ namespace AulaGO
             metodos.ResetTimerCierreSesion(); // Reinicia el timer de cierre de sesion
 
             Close();
-        }
-        private void richTxt_VScroll(object sender, EventArgs e)
-        {
-            Metodos metodos = new Metodos();
-            metodos.ResetTimerCierreSesion();
         }
     }
 }

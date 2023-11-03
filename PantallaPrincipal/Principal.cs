@@ -16,7 +16,7 @@ namespace AulaGO
         private void btnLogin_Click(object sender, EventArgs e)
         {
             Login login = new Login(); //Llamar al form
-            login.Show();    //Mostrar el form       
+            login.ShowDialog();    //Mostrar el form
         }
 
         private void btnGuest_Click(object sender, EventArgs e)
@@ -24,8 +24,7 @@ namespace AulaGO
             Menú menu = new Menú();
             Sesion sesion = new Sesion();
             sesion.LogIn();
-            menu.Show();
-            menu.btnModPIN.Visible = false;
+            menu.ShowDialog();
         }
     }
 }

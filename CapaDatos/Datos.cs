@@ -3,6 +3,7 @@ using CapaEntidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Windows.Forms;
 
 namespace CapaDatos
 {
@@ -1531,7 +1532,6 @@ namespace CapaDatos
                 }
             }
         }
-
         public List<Alumno> ListarAlumnosDeGrupo(string idGrupo)
         {
             //Variables
@@ -1586,7 +1586,6 @@ namespace CapaDatos
                 }
             }
         }
-
         public bool ConsultarAlumnoEnGrupo(string ciAlumno, string idGrupo) //Devuelve true si un alumno esta ingresado dentro de un grupo
         {
             //Variables
@@ -1630,7 +1629,6 @@ namespace CapaDatos
                 }
             }
         }
-
         public bool ConsultarMateriaEnGrupo(ushort idMateria, string idGrupo) //Devuelve true si una materia esta ingresada dentro de un grupo
         {
             //Variables
@@ -1673,7 +1671,6 @@ namespace CapaDatos
                 }
             }
         }
-
         public bool ConsultarDocenteEnGrupoMateria(string ciDocente, string idGrupo, ushort idMateria) //Devuelve true si un docente esta ingresado en una materia en un grupo
         {
             //Variables
@@ -1719,8 +1716,6 @@ namespace CapaDatos
                 }
             }
         }
-
-
         public RetornoValidacion AgregarAlumnoAGrupo(string ciAlumno, string idGrupo)
         {
             //Variables
@@ -1757,7 +1752,6 @@ namespace CapaDatos
             }
             return respuesta;
         }
-
         public RetornoValidacion AgregarMateriaAGrupo(ushort idMateria, string idGrupo)
         {
             //Variables
@@ -1885,7 +1879,21 @@ namespace CapaDatos
             }
             catch (Exception ex)
             {
-                throw ex; //esto lo manejamos con un try catch en la presentación
+                string mensaje = ex.Message;
+                Exception exceptionPersonalizada;
+
+                if (mensaje.Contains("`.`grupo_materia_horario`, CONSTRAINT `fk_GrupoMateriaHorario_IDGRUPO_IDMATERIA`"))
+                {
+                    exceptionPersonalizada = new Exception("La materia está asignada a un horario. Elimine el horario y luego desasigne la materia.");
+                    throw exceptionPersonalizada;
+                }
+                if (mensaje.Contains("`.`grupo_materia_docente`, CONSTRAINT `fk_GrupoMateriaDocente_IDGRUPO_IDMATERIA`"))
+                {
+                    exceptionPersonalizada = new Exception("La materia está asignada a un docente y un horario. Elimine el docente, luego el horario y después la materia.");
+                    throw exceptionPersonalizada;
+                }
+
+                throw ex;
             }
             finally
             {

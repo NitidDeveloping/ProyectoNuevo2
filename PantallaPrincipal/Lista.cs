@@ -152,56 +152,56 @@ namespace AulaGO
 
                 if (confirm.ShowDialog() == DialogResult.Yes)
                 {
-                    // try
-                    // {
+                    try
+                    {
 
-                    if (tipoIdPadre != null)
-                    {
-                        respuesta = negocio.Eliminar(Sesion.ReferenciaActual, byte.Parse(id), byte.Parse(idPadre));
-                    }
-                    else
-                    {
-                        if (Sesion.ReferenciaActual != TipoReferencia.Lugar)
+                        if (tipoIdPadre != null)
                         {
-                            respuesta = negocio.Eliminar(Sesion.ReferenciaActual, id);
+                            respuesta = negocio.Eliminar(Sesion.ReferenciaActual, byte.Parse(id), byte.Parse(idPadre));
                         }
                         else
                         {
+                            if (Sesion.ReferenciaActual != TipoReferencia.Lugar)
+                            {
+                                respuesta = negocio.Eliminar(Sesion.ReferenciaActual, id);
+                            }
+                            else
+                            {
 
-                            isClase = (bool)DGV.SelectedRows[0].Cells["Clase"].Value;
-                            isUsoComun = (bool)DGV.SelectedRows[0].Cells["Uso común"].Value;
-                            respuesta = negocio.EliminarLugar(id, isClase, isUsoComun);
+                                isClase = (bool)DGV.SelectedRows[0].Cells["Clase"].Value;
+                                isUsoComun = (bool)DGV.SelectedRows[0].Cells["Uso común"].Value;
+                                respuesta = negocio.EliminarLugar(id, isClase, isUsoComun);
+                            }
                         }
-                    }
 
-                    if (respuesta == RetornoValidacion.OK)
-                    {
-                        msg = new MsgBox("exito", "Elemento eliminado correctamente.");
-                        msg.ShowDialog();
-                        backgroundWorker1.RunWorkerAsync();
-                    }
-                    else if (respuesta == RetornoValidacion.NoExiste)
-                    {
-                        msg = new MsgBox("error", "No se ha podido encontrar el elemento en la base de datos.");
-                        msg.ShowDialog();
-                    }
-                    else if (respuesta == RetornoValidacion.ErrorInesperadoBD)
-                    {
-                        msg = new MsgBox("error", "Ha surgido un error inesperado, intente de nuevo, en caso de que el problema persista contacte con un tecnico.");
-                        msg.ShowDialog();
-                    }
-                    else if (respuesta == RetornoValidacion.ErrorInesperadoBDCategorizacion)
-                    {
-                        msg = new MsgBox("error", "Ha surgido un error inesperado al intentar eliminar al " + Sesion.ReferenciaActual + ", intente de nuevo o contacte con un administrador");
-                        msg.ShowDialog();
-                    }
-                    /*    }
-                        catch (Exception ex)
+                        if (respuesta == RetornoValidacion.OK)
                         {
-                            msg = new MsgBox("error", ex.Message);
+                            msg = new MsgBox("exito", "Elemento eliminado correctamente.");
+                            msg.ShowDialog();
+                            backgroundWorker1.RunWorkerAsync();
+                        }
+                        else if (respuesta == RetornoValidacion.NoExiste)
+                        {
+                            msg = new MsgBox("error", "No se ha podido encontrar el elemento en la base de datos.");
                             msg.ShowDialog();
                         }
-                    */
+                        else if (respuesta == RetornoValidacion.ErrorInesperadoBD)
+                        {
+                            msg = new MsgBox("error", "Ha surgido un error inesperado, intente de nuevo, en caso de que el problema persista contacte con un tecnico.");
+                            msg.ShowDialog();
+                        }
+                        else if (respuesta == RetornoValidacion.ErrorInesperadoBDCategorizacion)
+                        {
+                            msg = new MsgBox("error", "Ha surgido un error inesperado al intentar eliminar al " + Sesion.ReferenciaActual + ", intente de nuevo o contacte con un administrador");
+                            msg.ShowDialog();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        msg = new MsgBox("error", ex.Message);
+                        msg.ShowDialog();
+                    }
+
 
                 }
             }
