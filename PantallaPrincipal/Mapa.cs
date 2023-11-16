@@ -304,11 +304,20 @@ namespace AulaGO
         private void Mapa_MouseClick(object sender, MouseEventArgs e)
         {
             MapaClick = true;
+            MsgBox error;
 
             if (e != null)
             {
                 int x = e.X / GridSize;
                 int y = e.Y / GridSize;
+
+                //Verifica que se seleccione una coordenada dentro del mapa
+                if (!(x >= 0 && x <= grid.GetLength(0)) || !(y >= 0 && y <= grid.GetLength(1)))
+                {
+                    error = new MsgBox("error", "Coordenada fuera del limite, intentelo de nuevo");
+                    error.ShowDialog();
+                    return;
+                }
 
                 if (endPoint == Point.Empty)
                 {

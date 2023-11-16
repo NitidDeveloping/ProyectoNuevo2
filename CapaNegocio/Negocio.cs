@@ -562,6 +562,16 @@ namespace CapaNegocio
         {
             Datos datos = new Datos();
 
+            if (int.Parse(idObjetivo) == 11111111 || int.Parse(idObjetivo) == 22222222 || int.Parse(idObjetivo) == 23232323 || int.Parse(idObjetivo) == 45454545)
+            {
+                throw new Exception("No puede eliminar a los usuarios de prueba para la muestra.");
+            }
+
+            if (int.Parse(idObjetivo) == Sesion.LoggedCi)
+            {
+                throw new Exception("No puede eliminarse a si mismo.");
+            }
+
             //Si no se encuentra el objeto devuelve que no existe
             if (datos.Consultar(referencia, idObjetivo) == null)
             {
@@ -852,6 +862,10 @@ namespace CapaNegocio
 
         public RetornoValidacion ActualizarPin(string pin)
         {
+            if (Sesion.LoggedCi == 11111111 || Sesion.LoggedCi == 22222222 || Sesion.LoggedCi == 23232323 || Sesion.LoggedCi == 45454545)
+            {
+                throw new Exception("No puede actualizar pin de los usuarios de prueba para la muestra.");
+            }
             Datos datos = new Datos();
             return datos.ActualizarPin(pin);
         }

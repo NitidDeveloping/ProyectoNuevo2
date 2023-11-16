@@ -500,7 +500,29 @@ namespace CapaDatos
                     throw exceptionPersonalizada;
                 }
 
+                if (mensaje.Contains("horario`, CONSTRAINT `fk_Turno_Horario"))
+                {
+                    exceptionPersonalizada = new Exception("Este turno tiene asignadas una o mas horas. Desasigne las horas de este turno antes de eliminarlo. Vaya a la pestaña de horas para esto.");
+                    throw exceptionPersonalizada;
+                }
 
+                if (mensaje.Contains("grupo_materia`, CONSTRAINT `fk_GrupoMateria_IDGRUPO"))
+                {
+                    exceptionPersonalizada = new Exception("Este grupo tiene asignadas una o mas materias. Desasigne las materias de este turno antes de eliminarlo. Vaya a la consulta de grupo para esto.");
+                    throw exceptionPersonalizada;
+                }
+
+                if (mensaje.Contains("grupo_materia`, CONSTRAINT `fk_GrupoMateria_IDMATERIA"))
+                {
+                    exceptionPersonalizada = new Exception("Esta materia esta asignada a uno o mas grupos. Desasigne esta materia de los grupos a los que este asignada antes de eliminarla. Vaya a la consulta de grupo para esto.");
+                    throw exceptionPersonalizada;
+                }
+
+                if (mensaje.Contains("grupo_alumno`, CONSTRAINT `fk_GrupoAlumno_IDGRUPO"))
+                {
+                    exceptionPersonalizada = new Exception("Este grupo tiene alumnos asignados. Desasigne los alumnos de este grupo antes de eliminarlo. Vaya a la consulta de grupo para esto.");
+                    throw exceptionPersonalizada;
+                }
 
                 throw ex; //esto lo manejamos con un try catch en la presentación
             }
@@ -2439,7 +2461,7 @@ namespace CapaDatos
                 switch (rol)
                 {
                     case TipoRol.Alumno:
-                        cmdstr = "SELECT L.Nombre AS Salón, L.Coordenada_X, L.Coordenada_Y, L.Piso, G.ID_Grupo AS Grupo, M.Nombre AS Materia FROM Grupo_Alumno AS GA " +
+                        /*cmdstr = "SELECT L.Nombre AS Salón, L.Coordenada_X, L.Coordenada_Y, L.Piso, G.ID_Grupo AS Grupo, M.Nombre AS Materia FROM Grupo_Alumno AS GA " +
                                  "JOIN Grupo AS G ON GA.ID_Grupo = G.ID_Grupo " +
                                  "JOIN Grupo_Materia_Horario_Clase AS GMHC ON G.ID_Grupo = GMHC.ID_Grupo " +
                                  "JOIN Lugar AS L ON GMHC.ID_Clase = L.ID " +
@@ -2451,6 +2473,30 @@ namespace CapaDatos
                                  "AND GMHC.Asignado_Temporal IS NULL " +
                                  "AND DAYOFWEEK(CURDATE()) = DS.Dia_Semana " +
                                  "AND CURTIME() BETWEEN H.Hora_Inicio AND H.Hora_Fin";
+                        */
+                        cmdstr = "SELECT" +
+                            "   L.Nombre AS Salón," +
+                            "   L.Coordenada_X, " +
+                            "    L.Coordenada_Y, " +
+                            "    L.Piso, " +
+                            "    G.ID_Grupo AS grupo, " +
+                            "    M.Nombre AS materia " +
+                            "FROM" +
+                            "    Grupo_Alumno AS GA" +
+                            "    JOIN Grupo AS G ON GA.ID_Grupo = G.ID_Grupo  " +
+                            "    JOIN Grupo_Materia_Horario_Clase AS GMHC ON G.ID_Grupo = GMHC.ID_Grupo" +
+                            "    JOIN Lugar AS L ON " +
+                            "       (GMHC.Asignado_Temporal IS NOT NULL AND GMHC.Asignado_Temporal = L.ID)" +
+                            "       OR" +
+                            "       (GMHC.Asignado_Temporal IS NULL AND GMHC.ID_Clase = L.ID)" +
+                            "    JOIN Dia_Semana AS DS ON GMHC.Dia_Semana = DS.Dia_Semana" +
+                            "    JOIN Horario AS H ON GMHC.ID_Horario = H.ID_Horario AND GMHC.Turno = H.Turno " +
+                            "    JOIN Grupo_Materia AS GM ON G.ID_Grupo = GM.ID_Grupo  " +
+                            "    JOIN Materia AS M ON GM.ID_Materia = M.ID_Materia  " +
+                            "WHERE " +
+                            "    GA.CI_Alumno = @CI" +
+                            "    AND DAYOFWEEK(CURDATE()) = DS.Dia_Semana " +
+                            "    AND CURTIME() BETWEEN H.Hora_Inicio AND H.Hora_Fin";
 
                         if (!string.IsNullOrEmpty(grupoSeleccionado))
                         {
@@ -2459,17 +2505,40 @@ namespace CapaDatos
                         }
 
                         cmdstr += ";";
+
                         break;
                     case TipoRol.Docente:
-                        cmdstr = "SELECT L.Nombre AS Salón, L.Coordenada_X, L.Coordenada_Y, L.Piso, G.ID_Grupo AS Grupo, " +
-                            "M.Nombre AS Materia FROM usuario_docente AS UD JOIN Grupo_Materia_Docente AS GMD ON UD.CI_Docente = GMD.CI_Docente JOIN Grupo AS G " +
-                            "ON GMD.ID_Grupo = G.ID_Grupo JOIN Grupo_Materia AS GM ON G.ID_Grupo = GM.ID_Grupo JOIN Materia AS M ON GM.ID_Materia = M.ID_Materia " +
-                            "JOIN Grupo_Materia_Horario AS GMH ON GM.ID_Grupo = GMH.ID_Grupo AND GM.ID_Materia = GMH.ID_Materia JOIN Horario AS H " +
-                            "ON GMH.ID_Horario = H.ID_Horario AND GMH.Turno = H.Turno JOIN Dia_Semana AS DS ON GMH.Dia_Semana = DS.Dia_Semana " +
-                            "LEFT JOIN Grupo_Materia_Horario_Clase AS GMHC ON GMH.ID_Grupo = GMHC.ID_Grupo AND GMH.ID_Materia = GMHC.ID_Materia " +
-                            "AND GMH.ID_Horario = GMHC.ID_Horario AND GMH.Turno = GMHC.Turno AND GMH.Dia_Semana = GMHC.Dia_Semana LEFT JOIN Clase AS C " +
-                            "ON GMHC.ID_Clase = C.ID_Clase LEFT JOIN Lugar AS L ON C.ID_Clase = L.ID WHERE UD.CI_Docente = @CI AND CURTIME() BETWEEN H.Hora_Inicio" +
-                            " AND H.Hora_Fin AND DAYOFWEEK(CURDATE()) = DS.Dia_Semana;";
+                        cmdstr = "SELECT" +
+                            "    L.Nombre AS Salón," +
+                            "    L.Coordenada_X," +
+                            "    L.Coordenada_Y," +
+                            "    L.Piso," +
+                            "    G.ID_Grupo AS Grupo," +
+                            "    M.Nombre AS Materia " +
+                            "FROM " +
+                            "   Usuario_Docente AS UD" +
+                            "   JOIN Grupo_Materia_Docente AS GMD ON UD.CI_Docente = GMD.CI_Docente" +
+                            "   JOIN Grupo_Materia AS GM ON GMD.ID_Grupo = GM.ID_Grupo AND GMD.ID_Materia = GM.ID_Materia" +
+                            "   JOIN Grupo AS G ON GM.ID_Grupo = G.ID_Grupo" +
+                            "   JOIN Materia AS M ON GM.ID_Materia = M.ID_Materia" +
+                            "   JOIN Grupo_Materia_Horario AS GMH ON GM.ID_Grupo = GMH.ID_Grupo AND GM.ID_Materia = GMH.ID_Materia" +
+                            "   JOIN Horario AS H ON GMH.ID_Horario = H.ID_Horario AND GMH.Turno = H.Turno" +
+                            "   JOIN Dia_Semana AS DS ON GMH.Dia_Semana = DS.Dia_Semana" +
+                            "   JOIN " +
+                            "       Grupo_Materia_Horario_Clase AS GMHC ON GMH.ID_Grupo = GMHC.ID_Grupo " +
+                            "       AND GMH.ID_Materia = GMHC.ID_Materia" +
+                            "       AND GMH.ID_Horario = GMHC.ID_Horario " +
+                            "       AND GMH.Turno = GMHC.Turno " +
+                            "       AND GMH.Dia_Semana = GMHC.Dia_Semana" +
+                            "   JOIN" +
+                            "       Lugar AS L ON " +
+                            "           (GMHC.Asignado_Temporal IS NOT NULL AND GMHC.Asignado_Temporal = L.ID)" +
+                            "           OR" +
+                            "           (GMHC.Asignado_Temporal IS NULL AND GMHC.ID_Clase = L.ID)" +
+                            "WHERE " +
+                            "    UD.CI_Docente = @CI" +
+                            "    AND CURTIME() BETWEEN H.Hora_Inicio AND H.Hora_Fin " +
+                            "    AND DAYOFWEEK(CURDATE()) = DS.Dia_Semana;";
                         break;
                 }
                 cmd = new MySqlCommand(cmdstr, conn);

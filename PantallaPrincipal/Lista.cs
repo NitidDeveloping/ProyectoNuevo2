@@ -149,8 +149,10 @@ namespace AulaGO
 
                 if (confirm.ShowDialog() == DialogResult.Yes)
                 {
+
                     try
                     {
+
 
                         if (tipoIdPadre != null)
                         {
@@ -192,6 +194,7 @@ namespace AulaGO
                             msg = new MsgBox("error", "Ha surgido un error inesperado al intentar eliminar al " + Sesion.ReferenciaActual + ", intente de nuevo o contacte con un administrador");
                             msg.ShowDialog();
                         }
+
                     }
                     catch (Exception ex)
                     {

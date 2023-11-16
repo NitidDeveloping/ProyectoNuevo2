@@ -643,7 +643,7 @@
             // 
             this.plMapa.Location = new System.Drawing.Point(64, 138);
             this.plMapa.Name = "plMapa";
-            this.plMapa.Size = new System.Drawing.Size(1376, 743);
+            this.plMapa.Size = new System.Drawing.Size(1376, 732);
             this.plMapa.TabIndex = 1;
             // 
             // Menú

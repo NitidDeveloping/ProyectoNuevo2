@@ -168,8 +168,10 @@ namespace AulaGO
             }
             else
             {
+
                 try
                 {
+
                     RetornoValidacion intentologin = negocio.IntentarLogIn(ci, pin);
 
                     if (intentologin == RetornoValidacion.OK)
@@ -184,7 +186,9 @@ namespace AulaGO
                         txtPIN.Enabled = false;
                         pbOk1.Visible = false;
                         msg.ShowDialog();
+
                     }
+
                 }
                 catch (Exception ex)
                 {
