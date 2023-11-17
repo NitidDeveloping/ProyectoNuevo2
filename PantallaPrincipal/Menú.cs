@@ -138,7 +138,7 @@ namespace AulaGO
         #region
         private void CerrarSesion()  //Creo el método para confirmar el cierre de sesión
         {
-            MsgBox msg = new MsgBox("pregunta", "¿Desefda cerrar sesión?"); //Hago la pregunta"
+            MsgBox msg = new MsgBox("pregunta", "¿Desea cerrar sesión?"); //Hago la pregunta"
             msg.ShowDialog(); //Luego de asignar las funciones de cada botón, muestro el form con las modificaciones realizadas previamente
 
             if (msg.DialogResult == DialogResult.Yes)
